@@ -1213,7 +1213,7 @@ function pwMultiGenerate(){
         list.push(pw);
     }
     const el=document.getElementById('pwMultiList');
-    el.textContent=list.join('
+    el.textContent=list.join('/n
 '); el.style.display='block';
     document.getElementById('pwValue').textContent=list[0];
     pwStrength(list[0]);
