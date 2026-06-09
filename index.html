@@ -157,28 +157,61 @@
         .tool-btn.danger:hover{background:var(--neon-pink);color:#fff;box-shadow:var(--glow-pink);}
 
         /* ═══════════ CHAR COUNT ═══════════ */
-        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:18px;}
-        .stat-box{background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);border-radius:3px;padding:14px 12px;text-align:center;}
-        .stat-value{font-family:'Orbitron',sans-serif;font-size:1.7rem;font-weight:700;color:var(--neon-green);line-height:1;margin-bottom:6px;}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:16px;}
+        .stat-box{background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);border-radius:3px;padding:12px 10px;text-align:center;}
+        .stat-value{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;color:var(--neon-green);line-height:1;margin-bottom:5px;}
         .stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;}
         .tool-textarea.green:focus{border-color:rgba(0,255,136,.5);box-shadow:0 0 0 2px rgba(0,255,136,.08);}
 
-        /* ═══════════ CALCULATOR ═══════════ */
-        .calc-display{background:#000;border:1px solid rgba(255,230,0,.2);border-radius:4px;padding:16px 20px;margin-bottom:14px;text-align:right;}
-        .calc-expr{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,230,0,.45);min-height:18px;letter-spacing:1px;word-break:break-all;}
-        .calc-result{font-family:'Orbitron',sans-serif;font-size:2.4rem;font-weight:700;color:var(--neon-yellow);line-height:1.1;word-break:break-all;}
-        .calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-        .calc-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;color:#fff;font-family:'Share Tech Mono',monospace;font-size:15px;padding:16px 8px;cursor:pointer;transition:all .15s;letter-spacing:1px;}
-        .calc-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);}
-        .calc-btn:active{transform:scale(.95);}
-        .calc-btn.op{color:var(--neon-yellow);border-color:rgba(255,230,0,.2);background:rgba(255,230,0,.06);}
-        .calc-btn.op:hover{background:rgba(255,230,0,.15);border-color:rgba(255,230,0,.4);}
-        .calc-btn.eq{background:rgba(255,230,0,.15);border-color:rgba(255,230,0,.4);color:var(--neon-yellow);font-size:18px;}
-        .calc-btn.eq:hover{background:var(--neon-yellow);color:var(--dark-bg);box-shadow:var(--glow-yellow);}
+        /* ═══════════ CALCULATOR fullscreen ═══════════ */
+        .modal-overlay.calc-overlay{padding:0;}
+        .modal.calc-modal{max-width:100%;width:100%;height:100vh;max-height:100vh;border-radius:0;display:flex;flex-direction:column;padding:0;border:none;background:#07070f;}
+        .modal.calc-modal::before{display:none;}
+        .calc-topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid rgba(255,230,0,.1);flex-shrink:0;}
+        .calc-topbar-title{font-family:'Orbitron',sans-serif;font-size:.95rem;color:var(--neon-yellow);letter-spacing:2px;}
+        .calc-body{display:flex;flex:1;overflow:hidden;min-height:0;}
+        .calc-left{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;}
+        .calc-right{width:210px;border-left:1px solid rgba(255,230,0,.08);display:flex;flex-direction:column;overflow:hidden;}
+        @media(max-width:680px){.calc-right{display:none;}}
+        .calc-display-wrap{padding:14px 20px 8px;flex-shrink:0;}
+        .calc-mode-row{display:flex;gap:6px;margin-bottom:8px;}
+        .calc-mode-btn{background:transparent;border:1px solid rgba(255,230,0,.2);color:rgba(255,230,0,.45);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+        .calc-mode-btn.active{background:rgba(255,230,0,.14);border-color:rgba(255,230,0,.5);color:var(--neon-yellow);}
+        .calc-display{background:#000;border:1px solid rgba(255,230,0,.15);border-radius:4px;padding:12px 16px;text-align:right;}
+        .calc-history-line{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,230,0,.28);min-height:14px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+        .calc-expr{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,230,0,.5);min-height:16px;letter-spacing:1px;word-break:break-all;margin-bottom:3px;}
+        .calc-result{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700;color:var(--neon-yellow);line-height:1.1;word-break:break-all;}
+        .calc-keypad{flex:1;padding:8px 14px 14px;display:grid;gap:6px;align-content:start;overflow:hidden;}
+        .calc-keypad.mode-basic{grid-template-columns:repeat(4,1fr);}
+        .calc-keypad.mode-sci{grid-template-columns:repeat(5,1fr);}
+        .calc-btn{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);border-radius:4px;color:rgba(255,255,255,.82);font-family:'Share Tech Mono',monospace;font-size:13px;height:52px;cursor:pointer;transition:background .12s,border-color .12s,transform .08s;display:flex;align-items:center;justify-content:center;user-select:none;letter-spacing:.3px;}
+        .calc-btn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);}
+        .calc-btn:active{transform:scale(.92);}
+        .calc-btn.op{color:var(--neon-yellow);border-color:rgba(255,230,0,.18);background:rgba(255,230,0,.055);}
+        .calc-btn.op:hover{background:rgba(255,230,0,.14);border-color:rgba(255,230,0,.4);}
+        .calc-btn.eq{background:rgba(255,230,0,.18);border-color:rgba(255,230,0,.45);color:var(--neon-yellow);font-size:20px;font-weight:700;}
+        .calc-btn.eq:hover{background:var(--neon-yellow);color:#000;box-shadow:var(--glow-yellow);}
         .calc-btn.clr{color:var(--neon-pink);border-color:rgba(255,0,110,.2);background:rgba(255,0,110,.06);}
-        .calc-btn.clr:hover{background:rgba(255,0,110,.15);}
-        .calc-btn.wide{grid-column:span 2;}
-        .calc-btn.func{color:rgba(255,255,255,.6);font-size:12px;}
+        .calc-btn.clr:hover{background:rgba(255,0,110,.18);border-color:rgba(255,0,110,.4);}
+        .calc-btn.fn{color:rgba(180,180,255,.9);border-color:rgba(150,150,255,.15);background:rgba(110,80,255,.06);font-size:11px;}
+        .calc-btn.fn:hover{background:rgba(110,80,255,.16);border-color:rgba(150,150,255,.3);}
+        .calc-btn.const{color:var(--neon-cyan);border-color:rgba(0,245,255,.15);background:rgba(0,245,255,.05);font-size:12px;}
+        .calc-btn.const:hover{background:rgba(0,245,255,.12);border-color:rgba(0,245,255,.35);}
+        .calc-btn.wide2{grid-column:span 2;}
+        .calc-hist-title{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,230,0,.3);padding:12px 14px 6px;text-transform:uppercase;flex-shrink:0;}
+        .calc-hist-list{flex:1;overflow-y:auto;padding:0 8px 8px;}
+        .calc-hist-list::-webkit-scrollbar{width:3px;}
+        .calc-hist-list::-webkit-scrollbar-thumb{background:rgba(255,230,0,.2);border-radius:2px;}
+        .calc-hist-item{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s;border-radius:3px;margin-bottom:2px;}
+        .calc-hist-item:hover{background:rgba(255,230,0,.06);}
+        .calc-hist-expr{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,.32);word-break:break-all;}
+        .calc-hist-val{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--neon-yellow);word-break:break-all;}
+        .calc-hist-empty{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,.2);text-align:center;padding:20px 0;letter-spacing:2px;}
+        .calc-hist-footer{display:flex;justify-content:flex-end;flex-shrink:0;}
+        .calc-hist-clear{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,0,110,.4);background:transparent;border:none;cursor:pointer;padding:6px 14px;text-transform:uppercase;transition:color .15s;}
+        .calc-hist-clear:hover{color:var(--neon-pink);}
+        .calc-close-btn{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);width:30px;height:30px;border-radius:2px;cursor:pointer;font-size:13px;transition:all .2s;font-family:'Share Tech Mono',monospace;}
+        .calc-close-btn:hover{border-color:var(--neon-yellow);color:var(--neon-yellow);}
 
         /* ═══════════ TRANSLATOR ═══════════ */
         .tr-lang-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
@@ -196,6 +229,105 @@
         .tr-status{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.3);margin-top:10px;min-height:16px;text-align:center;}
         .tr-status.error{color:var(--neon-pink);}
         .tr-status.ok{color:var(--neon-green);}
+
+        /* ═══════════ TIMER ═══════════ */
+        .timer-display{background:#000;border:1px solid rgba(0,245,255,.15);border-radius:6px;padding:24px;text-align:center;margin-bottom:16px;}
+        .timer-mode-row{display:flex;gap:6px;justify-content:center;margin-bottom:16px;}
+        .timer-mode-btn{background:transparent;border:1px solid rgba(0,245,255,.2);color:rgba(0,245,255,.45);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:5px 16px;border-radius:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+        .timer-mode-btn.active{background:rgba(0,245,255,.12);border-color:rgba(0,245,255,.5);color:var(--neon-cyan);}
+        .timer-time{font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,5.5rem);font-weight:700;color:var(--neon-cyan);letter-spacing:4px;line-height:1;text-shadow:0 0 30px rgba(0,245,255,.4);}
+        .timer-time.warning{color:var(--neon-pink);text-shadow:0 0 30px rgba(255,0,110,.4);}
+        .timer-ms{font-family:'Orbitron',sans-serif;font-size:1.4rem;color:rgba(0,245,255,.5);letter-spacing:2px;margin-top:4px;}
+        .timer-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.25);text-transform:uppercase;margin-top:8px;}
+        .timer-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+        .timer-btn{background:transparent;border:1px solid rgba(0,245,255,.3);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;padding:10px 24px;border-radius:3px;cursor:pointer;transition:all .2s;text-transform:uppercase;min-width:90px;}
+        .timer-btn:hover{background:rgba(0,245,255,.1);}
+        .timer-btn.primary{background:rgba(0,245,255,.15);border-color:rgba(0,245,255,.5);}
+        .timer-btn.primary:hover{background:var(--neon-cyan);color:#000;box-shadow:var(--glow-cyan);}
+        .timer-btn.danger{border-color:rgba(255,0,110,.3);color:var(--neon-pink);}
+        .timer-btn.danger:hover{background:var(--neon-pink);color:#fff;box-shadow:var(--glow-pink);}
+        .timer-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+        .timer-preset{background:rgba(0,245,255,.05);border:1px solid rgba(0,245,255,.12);color:rgba(0,245,255,.6);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:6px 14px;border-radius:2px;cursor:pointer;transition:all .15s;}
+        .timer-preset:hover{background:rgba(0,245,255,.12);color:var(--neon-cyan);}
+        .timer-input-row{display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:14px;}
+        .timer-input{background:#000;border:1px solid rgba(0,245,255,.2);color:var(--neon-cyan);font-family:'Orbitron',monospace;font-size:1.4rem;width:70px;text-align:center;padding:8px 4px;border-radius:3px;outline:none;}
+        .timer-input:focus{border-color:rgba(0,245,255,.5);}
+        .timer-sep{font-family:'Orbitron',sans-serif;font-size:1.6rem;color:rgba(0,245,255,.4);}
+        .lap-list{max-height:140px;overflow-y:auto;margin-top:12px;}
+        .lap-list::-webkit-scrollbar{width:3px;}
+        .lap-list::-webkit-scrollbar-thumb{background:rgba(0,245,255,.2);}
+        .lap-item{display:flex;justify-content:space-between;font-family:'Share Tech Mono',monospace;font-size:11px;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.05);}
+        .lap-item:first-child{color:var(--neon-cyan);}
+        .lap-num{color:rgba(255,255,255,.3);}
+        .lap-time{color:rgba(255,255,255,.7);}
+        .lap-split{color:rgba(0,245,255,.5);}
+
+        /* ═══════════ RANDOM ═══════════ */
+        .rand-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,0,110,.1);margin-bottom:18px;}
+        .rand-tab{background:transparent;border:none;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);cursor:pointer;padding:9px 18px;position:relative;transition:color .2s;}
+        .rand-tab::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--neon-pink);transform:scaleX(0);transition:transform .22s;}
+        .rand-tab.active{color:var(--neon-pink);}
+        .rand-tab.active::after{transform:scaleX(1);}
+        .rand-panel{display:none;}
+        .rand-panel.active{display:block;animation:fadeSlideUp .3s ease forwards;}
+        .rand-big{font-family:'Orbitron',sans-serif;font-size:clamp(3rem,10vw,6rem);font-weight:900;color:var(--neon-pink);text-align:center;padding:20px 0 10px;text-shadow:0 0 40px rgba(255,0,110,.4);line-height:1;transition:all .2s;}
+        .rand-sublabel{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.25);text-align:center;margin-bottom:16px;}
+        .rand-row{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+        .rand-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.4);min-width:50px;}
+        .rand-input{background:#0a0a28;border:1px solid rgba(255,0,110,.2);color:#fff;font-family:'Share Tech Mono',monospace;font-size:13px;padding:7px 12px;border-radius:3px;width:90px;outline:none;}
+        .rand-input:focus{border-color:rgba(255,0,110,.5);}
+        .rand-btn{background:rgba(255,0,110,.12);border:1px solid rgba(255,0,110,.3);color:var(--neon-pink);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;padding:10px 24px;border-radius:3px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+        .rand-btn:hover{background:var(--neon-pink);color:#fff;box-shadow:var(--glow-pink);}
+        .dice-grid{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:12px 0;}
+        .die{width:64px;height:64px;background:#0a0a1a;border:2px solid rgba(255,0,110,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:1.6rem;color:var(--neon-pink);cursor:pointer;transition:all .2s;user-select:none;}
+        .die:hover{border-color:var(--neon-pink);box-shadow:var(--glow-pink);}
+        .die.rolling{animation:diceRoll .4s ease;}
+        @keyframes diceRoll{0%{transform:rotate(0) scale(1)}25%{transform:rotate(-15deg) scale(1.1)}75%{transform:rotate(15deg) scale(1.1)}100%{transform:rotate(0) scale(1)}}
+        .coin-display{text-align:center;font-size:5rem;margin:10px 0;cursor:pointer;transition:transform .3s;display:block;}
+        .coin-display:hover{transform:scale(1.1);}
+        .coin-result{font-family:'Orbitron',sans-serif;font-size:1.4rem;color:var(--neon-pink);text-align:center;margin-bottom:12px;min-height:28px;}
+        .team-textarea{width:100%;height:80px;background:rgba(255,0,110,.04);border:1px solid rgba(255,0,110,.18);border-radius:3px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;padding:10px;resize:none;outline:none;margin-bottom:8px;}
+        .team-result{font-size:13px;line-height:1.9;color:rgba(255,255,255,.8);margin-top:10px;min-height:30px;}
+        .team-group{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--neon-pink);margin-top:8px;}
+
+        /* ═══════════ PASSWORD ═══════════ */
+        .pw-display{background:#000;border:1px solid rgba(0,255,136,.2);border-radius:4px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+        .pw-value{font-family:'Share Tech Mono',monospace;font-size:clamp(12px,2vw,16px);color:var(--neon-green);flex:1;word-break:break-all;letter-spacing:1px;line-height:1.5;}
+        .pw-copy-btn{background:transparent;border:1px solid rgba(0,255,136,.3);color:var(--neon-green);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:6px 14px;border-radius:2px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+        .pw-copy-btn:hover{background:var(--neon-green);color:#000;}
+        .pw-strength{display:flex;gap:4px;margin-bottom:14px;}
+        .pw-strength-bar{flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:2px;transition:background .3s;}
+        .pw-strength-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.3);text-align:right;margin-bottom:14px;}
+        .pw-options{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;}
+        .pw-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .pw-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.45);min-width:80px;}
+        .pw-slider{-webkit-appearance:none;appearance:none;width:160px;height:4px;background:rgba(0,255,136,.2);border-radius:2px;outline:none;cursor:pointer;}
+        .pw-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--neon-green);border-radius:50%;cursor:pointer;box-shadow:0 0 6px rgba(0,255,136,.5);}
+        .pw-len-val{font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--neon-green);min-width:28px;}
+        .pw-checkbox{display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.5);transition:color .15s;}
+        .pw-checkbox:hover{color:rgba(255,255,255,.8);}
+        .pw-checkbox input{accent-color:var(--neon-green);width:14px;height:14px;cursor:pointer;}
+        .pw-multi{display:flex;gap:10px;margin-bottom:14px;}
+        .pw-multi-input{background:#0a0a28;border:1px solid rgba(0,255,136,.2);color:#fff;font-family:'Share Tech Mono',monospace;font-size:12px;padding:7px 10px;border-radius:3px;width:70px;outline:none;}
+        .pw-multi-list{background:rgba(0,255,136,.03);border:1px solid rgba(0,255,136,.1);border-radius:3px;padding:10px 14px;font-family:'Share Tech Mono',monospace;font-size:11px;line-height:2;color:rgba(0,255,136,.8);word-break:break-all;max-height:120px;overflow-y:auto;display:none;}
+
+        /* ═══════════ UNIT CONVERTER ═══════════ */
+        .unit-cat-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+        .unit-cat-btn{background:transparent;border:1px solid rgba(255,230,0,.18);color:rgba(255,230,0,.45);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;padding:5px 12px;border-radius:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+        .unit-cat-btn.active{background:rgba(255,230,0,.14);border-color:rgba(255,230,0,.5);color:var(--neon-yellow);}
+        .unit-convert-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+        .unit-input{background:#000;border:1px solid rgba(255,230,0,.2);color:var(--neon-yellow);font-family:'Orbitron',monospace;font-size:1.2rem;padding:10px 14px;border-radius:3px;flex:1;min-width:100px;outline:none;transition:border-color .2s;}
+        .unit-input:focus{border-color:rgba(255,230,0,.5);}
+        .unit-select{background:#0a0a1a;border:1px solid rgba(255,230,0,.2);color:#fff;font-family:'Share Tech Mono',monospace;font-size:11px;padding:10px 10px;border-radius:3px;cursor:pointer;outline:none;flex:1;min-width:100px;}
+        .unit-arrow{font-size:18px;color:rgba(255,230,0,.4);flex-shrink:0;}
+        .unit-result-big{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:var(--neon-yellow);text-align:center;padding:16px;background:#000;border:1px solid rgba(255,230,0,.15);border-radius:4px;margin-bottom:12px;word-break:break-all;}
+        .unit-result-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.25);text-align:center;margin-bottom:14px;}
+        .unit-all-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:200px;overflow-y:auto;}
+        .unit-all-grid::-webkit-scrollbar{width:3px;}
+        .unit-all-grid::-webkit-scrollbar-thumb{background:rgba(255,230,0,.2);}
+        .unit-all-item{background:rgba(255,230,0,.04);border:1px solid rgba(255,230,0,.1);border-radius:3px;padding:8px 12px;}
+        .unit-all-val{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--neon-yellow);}
+        .unit-all-name{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.3);margin-top:2px;}
 
         /* animations */
         @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
@@ -281,6 +413,42 @@
                 <p class="card-desc" id="toolDesc3">한국어, 영어, 일본어, 중국어, 스페인어 등 다양한 언어 간 번역을 지원합니다.</p>
                 <span class="card-cta"><span id="toolCta3">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('timer')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">시간 / 집중</div>
+                <span class="card-icon">⏱️</span>
+                <div class="card-title">TIMER</div>
+                <div class="card-title-kr">타이머 / 스톱워치</div>
+                <p class="card-desc">카운트다운 타이머와 스톱워치. 공부, 운동, 요리 등 어디서든 사용하세요.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('random')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">랜덤 / 게임</div>
+                <span class="card-icon">🎲</span>
+                <div class="card-title">RANDOM</div>
+                <div class="card-title-kr">랜덤 / 주사위</div>
+                <p class="card-desc">주사위 굴리기, 랜덤 숫자 생성, 동전 던지기, 팀 뽑기까지 한 번에.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="green" onclick="openTool('password')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">보안 / 생성</div>
+                <span class="card-icon">🔐</span>
+                <div class="card-title">PASSWORD</div>
+                <div class="card-title-kr">비밀번호 생성기</div>
+                <p class="card-desc">길이, 대소문자, 숫자, 특수문자를 설정해 안전한 비밀번호를 즉시 생성합니다.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('unit')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">수학 / 변환</div>
+                <span class="card-icon">📐</span>
+                <div class="card-title">UNIT CONVERT</div>
+                <div class="card-title-kr">단위 변환기</div>
+                <p class="card-desc">길이, 무게, 온도, 넓이, 속도 등 다양한 단위를 빠르게 변환합니다.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
         </div>
     </div>
 
@@ -309,46 +477,118 @@
     </div>
 </div>
 
-<!-- ══════════ CALCULATOR MODAL ══════════ -->
-<div class="modal-overlay" id="modalCalculator" onclick="closeModalOutside(event,'calculator')">
-    <div class="modal yellow" style="max-width:380px;">
-        <button class="modal-close" onclick="closeTool('calculator')">✕</button>
-        <div class="modal-title" id="calcTitle">계산기</div>
-        <div class="modal-subtitle" id="calcSubtitle">공학용 계산기</div>
-        <div class="calc-display">
+<!-- ══════════ CALCULATOR MODAL (fullscreen) ══════════ -->
+<div class="modal-overlay calc-overlay" id="modalCalculator">
+  <div class="modal calc-modal">
+    <!-- topbar -->
+    <div class="calc-topbar">
+      <span class="calc-topbar-title" id="calcTitle">🧮 CALCULATOR</span>
+      <button class="calc-close-btn" onclick="closeTool('calculator')">✕</button>
+    </div>
+    <!-- body -->
+    <div class="calc-body">
+      <!-- left: display + keypad -->
+      <div class="calc-left">
+        <div class="calc-display-wrap">
+          <div class="calc-mode-row">
+            <button class="calc-mode-btn active" id="modeBasic" onclick="setMode('basic')">기본</button>
+            <button class="calc-mode-btn" id="modeSci" onclick="setMode('sci')">공학</button>
+          </div>
+          <div class="calc-display">
+            <div class="calc-history-line" id="calcHistLine"></div>
             <div class="calc-expr" id="calcExpr"></div>
             <div class="calc-result" id="calcResult">0</div>
+          </div>
         </div>
-        <div class="calc-grid">
-            <button class="calc-btn clr" onclick="calcClear()">AC</button>
-            <button class="calc-btn func" onclick="calcDel()">⌫</button>
-            <button class="calc-btn op" onclick="calcInput('%')">%</button>
-            <button class="calc-btn op" onclick="calcInput('/')">÷</button>
+        <!-- BASIC keypad -->
+        <div class="calc-keypad mode-basic" id="keypadBasic">
+          <button class="calc-btn clr wide2" onclick="calcClear()">AC</button>
+          <button class="calc-btn fn" onclick="calcDel()">⌫</button>
+          <button class="calc-btn op" onclick="calcInput('%')">%</button>
+          <button class="calc-btn op" onclick="calcInput('÷')">÷</button>
 
-            <button class="calc-btn func" onclick="calcFn('sqrt')">√</button>
-            <button class="calc-btn func" onclick="calcFn('sq')">x²</button>
-            <button class="calc-btn func" onclick="calcInput('()')">(  )</button>
-            <button class="calc-btn op" onclick="calcInput('*')">×</button>
+          <button class="calc-btn" onclick="calcInput('7')">7</button>
+          <button class="calc-btn" onclick="calcInput('8')">8</button>
+          <button class="calc-btn" onclick="calcInput('9')">9</button>
+          <button class="calc-btn op" onclick="calcInput('×')">×</button>
 
-            <button class="calc-btn" onclick="calcInput('7')">7</button>
-            <button class="calc-btn" onclick="calcInput('8')">8</button>
-            <button class="calc-btn" onclick="calcInput('9')">9</button>
-            <button class="calc-btn op" onclick="calcInput('-')">−</button>
+          <button class="calc-btn" onclick="calcInput('4')">4</button>
+          <button class="calc-btn" onclick="calcInput('5')">5</button>
+          <button class="calc-btn" onclick="calcInput('6')">6</button>
+          <button class="calc-btn op" onclick="calcInput('-')">−</button>
 
-            <button class="calc-btn" onclick="calcInput('4')">4</button>
-            <button class="calc-btn" onclick="calcInput('5')">5</button>
-            <button class="calc-btn" onclick="calcInput('6')">6</button>
-            <button class="calc-btn op" onclick="calcInput('+')">+</button>
+          <button class="calc-btn" onclick="calcInput('1')">1</button>
+          <button class="calc-btn" onclick="calcInput('2')">2</button>
+          <button class="calc-btn" onclick="calcInput('3')">3</button>
+          <button class="calc-btn op" onclick="calcInput('+')">+</button>
 
-            <button class="calc-btn" onclick="calcInput('1')">1</button>
-            <button class="calc-btn" onclick="calcInput('2')">2</button>
-            <button class="calc-btn" onclick="calcInput('3')">3</button>
-            <button class="calc-btn eq" style="grid-row:span 2;" onclick="calcEquals()">=</button>
-
-            <button class="calc-btn wide" onclick="calcInput('0')">0</button>
-            <button class="calc-btn" onclick="calcInput('.')">.</button>
+          <button class="calc-btn fn" onclick="calcToggleSign()">+/−</button>
+          <button class="calc-btn" onclick="calcInput('0')">0</button>
+          <button class="calc-btn" onclick="calcInput('.')">.</button>
+          <button class="calc-btn eq" onclick="calcEquals()">=</button>
         </div>
+        <!-- SCI keypad -->
+        <div class="calc-keypad mode-sci" id="keypadSci" style="display:none;">
+          <button class="calc-btn fn" onclick="calcSci('sin')">sin</button>
+          <button class="calc-btn fn" onclick="calcSci('cos')">cos</button>
+          <button class="calc-btn fn" onclick="calcSci('tan')">tan</button>
+          <button class="calc-btn fn" onclick="calcSci('log')">log</button>
+          <button class="calc-btn fn" onclick="calcSci('ln')">ln</button>
+
+          <button class="calc-btn fn" onclick="calcSci('asin')">sin⁻¹</button>
+          <button class="calc-btn fn" onclick="calcSci('acos')">cos⁻¹</button>
+          <button class="calc-btn fn" onclick="calcSci('atan')">tan⁻¹</button>
+          <button class="calc-btn fn" onclick="calcSci('sqrt')">√</button>
+          <button class="calc-btn fn" onclick="calcSci('cbrt')">∛</button>
+
+          <button class="calc-btn fn" onclick="calcSci('sq')">x²</button>
+          <button class="calc-btn fn" onclick="calcSci('cube')">x³</button>
+          <button class="calc-btn fn" onclick="calcSci('pow')">xʸ</button>
+          <button class="calc-btn fn" onclick="calcSci('abs')">|x|</button>
+          <button class="calc-btn fn" onclick="calcSci('fact')">n!</button>
+
+          <button class="calc-btn const" onclick="calcConst('pi')">π</button>
+          <button class="calc-btn const" onclick="calcConst('e')">e</button>
+          <button class="calc-btn fn" onclick="calcInput('(')"> ( </button>
+          <button class="calc-btn fn" onclick="calcInput(')')"> ) </button>
+          <button class="calc-btn fn" onclick="calcSci('exp')">EXP</button>
+
+          <button class="calc-btn clr" onclick="calcClear()">AC</button>
+          <button class="calc-btn fn" onclick="calcDel()">⌫</button>
+          <button class="calc-btn op" onclick="calcInput('%')">%</button>
+          <button class="calc-btn op" onclick="calcInput('÷')">÷</button>
+          <button class="calc-btn op" onclick="calcInput('×')">×</button>
+
+          <button class="calc-btn" onclick="calcInput('7')">7</button>
+          <button class="calc-btn" onclick="calcInput('8')">8</button>
+          <button class="calc-btn" onclick="calcInput('9')">9</button>
+          <button class="calc-btn op" onclick="calcInput('-')">−</button>
+          <button class="calc-btn op" onclick="calcInput('+')">+</button>
+
+          <button class="calc-btn" onclick="calcInput('4')">4</button>
+          <button class="calc-btn" onclick="calcInput('5')">5</button>
+          <button class="calc-btn" onclick="calcInput('6')">6</button>
+          <button class="calc-btn fn" onclick="calcToggleSign()">+/−</button>
+          <button class="calc-btn" onclick="calcInput('.')">.</button>
+
+          <button class="calc-btn" onclick="calcInput('1')">1</button>
+          <button class="calc-btn" onclick="calcInput('2')">2</button>
+          <button class="calc-btn" onclick="calcInput('3')">3</button>
+          <button class="calc-btn wide2 eq" onclick="calcEquals()">=</button>
+
+          <button class="calc-btn wide2" onclick="calcInput('0')">0</button>
+        </div>
+      </div>
+      <!-- right: history -->
+      <div class="calc-right">
+        <div class="calc-hist-title" id="calcHistTitle">히스토리</div>
+        <div class="calc-hist-list" id="calcHistList"><div class="calc-hist-empty" id="calcHistEmpty">계산 기록 없음</div></div>
+        <div class="calc-hist-footer">
+          <button class="calc-hist-clear" onclick="calcClearHist()" id="calcHistClearBtn">기록 지우기</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- ══════════ TRANSLATOR MODAL ══════════ -->
@@ -437,58 +677,651 @@ function updateCount(){
 function copyCC(){const t=document.getElementById('ccInput').value;navigator.clipboard.writeText(t).then(()=>{const btn=document.getElementById('btnCopy');btn.textContent=isKorean?'복사됨 ✓':'Copied ✓';setTimeout(()=>btn.textContent=isKorean?'복사':'Copy',1500);});}
 function clearCC(){document.getElementById('ccInput').value='';updateCount();}
 
-/* ── Calculator ── */
-let calcExprStr='',calcHasResult=false;
-function calcRender(){
-    document.getElementById('calcExpr').textContent=calcExprStr;
-    if(!calcExprStr){document.getElementById('calcResult').textContent='0';return;}
-    try{
-        let expr=calcExprStr.replace(/÷/g,'/').replace(/×/g,'*');
-        let r=Function('"use strict";return ('+expr+')')();
-        if(!isFinite(r)){document.getElementById('calcResult').textContent='오류';return;}
-        document.getElementById('calcResult').textContent=parseFloat(r.toFixed(10)).toString();
-    }catch(e){document.getElementById('calcResult').textContent='';}
+/* ── Spell Check ── */
+let spellIssuesList=[];
+
+function setSpellStatus(msg,type=''){
+    const el=document.getElementById('spellStatus');
+    el.textContent=msg; el.className='spell-status'+(type?' '+type:'');
 }
+
+async function runSpellCheck(){
+    const text=document.getElementById('spellInput').value.trim();
+    if(!text){setSpellStatus(isKorean?'텍스트를 입력해주세요':'Please enter text','err');return;}
+    const btn=document.getElementById('btnSpell');
+    btn.innerHTML='<span class="spinning">↻</span> '+(isKorean?'검사 중...':'Checking...');
+    btn.disabled=true;
+    setSpellStatus(isKorean?'AI가 맞춤법을 검사하고 있습니다...':'AI is checking spelling...');
+    document.getElementById('spellResultBox').style.display='none';
+    document.getElementById('spellIssues').innerHTML='';
+    document.getElementById('btnApplyAll').style.display='none';
+
+    try{
+        const res=await fetch('https://api.anthropic.com/v1/messages',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                model:'claude-sonnet-4-20250514',
+                max_tokens:1000,
+                messages:[{role:'user',content:`다음 한국어 텍스트의 맞춤법과 문법을 검사해주세요. 반드시 아래 JSON 형식만 반환하고 다른 텍스트는 절대 포함하지 마세요.
+
+텍스트: "${text}"
+
+형식:
+{
+  "issues": [
+    {"original":"틀린표현","correction":"올바른표현","reason":"이유설명","start":0,"end":3}
+  ],
+  "summary": "전체 요약 한 줄"
+}
+
+오류가 없으면 issues를 빈 배열로 반환하세요.`}]
+            })
+        });
+        const data=await res.json();
+        const raw=data.content.map(c=>c.text||'').join('');
+        const clean=raw.replace(/\`\`\`json|\`\`\`/g,'').trim();
+        const parsed=JSON.parse(clean);
+        spellIssuesList=parsed.issues||[];
+        renderSpellResult(text, parsed);
+        setSpellStatus(
+            spellIssuesList.length===0
+                ?(isKorean?'✓ 맞춤법 오류 없음':'✓ No spelling errors found')
+                :(isKorean?`${spellIssuesList.length}개의 오류가 발견되었습니다`:`${spellIssuesList.length} issue(s) found`),
+            spellIssuesList.length===0?'ok':'err'
+        );
+        if(spellIssuesList.length>0) document.getElementById('btnApplyAll').style.display='inline-block';
+    }catch(e){
+        setSpellStatus(isKorean?'검사 중 오류가 발생했습니다':'Error during spell check','err');
+    }
+    btn.textContent=isKorean?'맞춤법 검사':'Spell Check';
+    btn.disabled=false;
+}
+
+function renderSpellResult(text, parsed){
+    // highlight errors in the result box
+    const box=document.getElementById('spellResultBox');
+    box.style.display='block';
+    let highlighted=escHtml(text);
+    // sort by position descending to replace from end
+    const sorted=[...(parsed.issues||[])].sort((a,b)=>(b.start||0)-(a.start||0));
+    for(const issue of sorted){
+        const orig=escHtml(issue.original);
+        highlighted=highlighted.replace(orig,`<span class="spell-error" title="${escHtml(issue.reason)}">${orig}</span>`);
+    }
+    box.innerHTML=highlighted;
+
+    // issue list
+    const list=document.getElementById('spellIssues');
+    if(!parsed.issues||parsed.issues.length===0){list.innerHTML='';return;}
+    list.innerHTML=parsed.issues.map((issue,i)=>
+        `<div class="spell-issue" id="spellIssue${i}">
+            <div class="spell-issue-left">
+                <div><span class="spell-issue-orig">${escHtml(issue.original)}</span><span class="spell-issue-arr"> → </span><span class="spell-issue-fix">${escHtml(issue.correction)}</span></div>
+                <div class="spell-issue-reason">${escHtml(issue.reason)}</div>
+            </div>
+            <button class="spell-apply-btn" onclick="applyFix(${i})">${isKorean?'수정':'Fix'}</button>
+        </div>`
+    ).join('');
+}
+
+function applyFix(i){
+    const issue=spellIssuesList[i];
+    if(!issue)return;
+    const ta=document.getElementById('spellInput');
+    ta.value=ta.value.replaceAll(issue.original, issue.correction);
+    spellIssuesList.splice(i,1);
+    runSpellCheck();
+}
+
+function applyAllFixes(){
+    const ta=document.getElementById('spellInput');
+    for(const issue of spellIssuesList){
+        ta.value=ta.value.replaceAll(issue.original, issue.correction);
+    }
+    spellIssuesList=[];
+    runSpellCheck();
+}
+
+function clearSpell(){
+    document.getElementById('spellInput').value='';
+    document.getElementById('spellResultBox').style.display='none';
+    document.getElementById('spellResultBox').innerHTML='';
+    document.getElementById('spellIssues').innerHTML='';
+    document.getElementById('btnApplyAll').style.display='none';
+    spellIssuesList=[];
+    setSpellStatus('');
+}
+
+function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* ── Calculator ── */
+let calcExprStr='', calcHasResult=false, calcHistory=[], calcMode='basic';
+const DEG=Math.PI/180;
+
+function fmt(n){
+    if(!isFinite(n)) return isNaN(n)?'오류':'∞';
+    let s=parseFloat(n.toPrecision(12)).toString();
+    if(Math.abs(n)>=1e15||( Math.abs(n)<1e-7 && n!==0)) s=n.toExponential(6);
+    return s;
+}
+
+function calcEval(expr){
+    let e=expr
+        .replace(/÷/g,'/')
+        .replace(/×/g,'*')
+        .replace(/−/g,'-')
+        .replace(/π/g,'(Math.PI)')
+        .replace(/ℯ/g,'(Math.E)')
+        .replace(/(\d+\.?\d*)\s*\^\s*(\d+\.?\d*)/g,'Math.pow($1,$2)');
+    return Function('"use strict";return ('+e+')')();
+}
+
+function calcRender(){
+    const exprEl=document.getElementById('calcExpr');
+    const resEl=document.getElementById('calcResult');
+    exprEl.textContent=calcExprStr;
+    if(!calcExprStr){resEl.textContent='0';resEl.className='calc-result';return;}
+    try{
+        let r=calcEval(calcExprStr);
+        let s=fmt(r);
+        resEl.textContent=s;
+        resEl.className='calc-result'+(s.length>12?' small':'');
+    }catch(e){resEl.textContent='';}
+}
+
 function calcInput(v){
     if(calcHasResult&&/[0-9.]/.test(v)){calcExprStr='';calcHasResult=false;}
-    if(v==='()'){
-        const opens=(calcExprStr.match(/\(/g)||[]).length;
-        const closes=(calcExprStr.match(/\)/g)||[]).length;
-        calcExprStr+=opens>closes?')':'(';
-    } else {
-        if(calcHasResult&&/[+\-*\/÷×%]/.test(v))calcHasResult=false;
-        calcExprStr+=v;
-    }
+    if(calcHasResult&&/[+\-×÷%^]/.test(v))calcHasResult=false;
+    calcExprStr+=v;
     calcRender();
 }
-function calcClear(){calcExprStr='';calcHasResult=false;document.getElementById('calcResult').textContent='0';document.getElementById('calcExpr').textContent='';}
-function calcDel(){calcExprStr=calcExprStr.slice(0,-1);calcRender();}
-function calcFn(fn){
-    let cur=document.getElementById('calcResult').textContent;
-    let n=parseFloat(cur);
-    if(isNaN(n))return;
-    if(fn==='sqrt'){calcExprStr='√'+n;document.getElementById('calcExpr').textContent=calcExprStr;let r=Math.sqrt(n);document.getElementById('calcResult').textContent=parseFloat(r.toFixed(10));calcHasResult=true;}
-    if(fn==='sq'){calcExprStr=n+'²';document.getElementById('calcExpr').textContent=calcExprStr;document.getElementById('calcResult').textContent=parseFloat((n*n).toFixed(10));calcHasResult=true;}
+
+function calcClear(){
+    calcExprStr='';calcHasResult=false;
+    document.getElementById('calcResult').textContent='0';
+    document.getElementById('calcResult').className='calc-result';
+    document.getElementById('calcExpr').textContent='';
+    document.getElementById('calcHistLine').textContent='';
 }
+
+function calcDel(){
+    // smart delete: remove last token if it's a function name
+    const m=calcExprStr.match(/(sin|cos|tan|log|ln|sqrt|abs|exp)\($/);
+    if(m) calcExprStr=calcExprStr.slice(0,-(m[0].length));
+    else calcExprStr=calcExprStr.slice(0,-1);
+    calcRender();
+}
+
+function calcToggleSign(){
+    if(!calcExprStr) return;
+    if(calcExprStr.startsWith('-(')) {calcExprStr=calcExprStr.slice(2,-1);} 
+    else {calcExprStr='-('+calcExprStr+')';}
+    calcRender();
+}
+
+function calcSci(fn){
+    const cur=calcExprStr||document.getElementById('calcResult').textContent;
+    const n=parseFloat(cur);
+    let expr='',result;
+    switch(fn){
+        case 'sin':  expr=`sin(${calcExprStr||n})`; result=Math.sin(n*DEG); break;
+        case 'cos':  expr=`cos(${calcExprStr||n})`; result=Math.cos(n*DEG); break;
+        case 'tan':  expr=`tan(${calcExprStr||n})`; result=Math.tan(n*DEG); break;
+        case 'asin': expr=`sin⁻¹(${n})`; result=Math.asin(n)/DEG; break;
+        case 'acos': expr=`cos⁻¹(${n})`; result=Math.acos(n)/DEG; break;
+        case 'atan': expr=`tan⁻¹(${n})`; result=Math.atan(n)/DEG; break;
+        case 'log':  expr=`log(${n})`; result=Math.log10(n); break;
+        case 'ln':   expr=`ln(${n})`; result=Math.log(n); break;
+        case 'sqrt': expr=`√(${n})`; result=Math.sqrt(n); break;
+        case 'cbrt': expr=`∛(${n})`; result=Math.cbrt(n); break;
+        case 'sq':   expr=`${n}²`; result=n*n; break;
+        case 'cube': expr=`${n}³`; result=n*n*n; break;
+        case 'pow':  calcExprStr+=(calcExprStr?'^':''); calcRender(); return;
+        case 'abs':  expr=`|${n}|`; result=Math.abs(n); break;
+        case 'fact': expr=`${n}!`; result=factorial(n); break;
+        case 'exp':  calcExprStr+='e+'; calcRender(); return;
+    }
+    document.getElementById('calcHistLine').textContent=expr+' =';
+    document.getElementById('calcExpr').textContent=expr;
+    let s=fmt(result);
+    document.getElementById('calcResult').textContent=s;
+    document.getElementById('calcResult').className='calc-result'+(s.length>12?' small':'');
+    calcAddHist(expr, s);
+    calcExprStr=s; calcHasResult=true;
+}
+
+function factorial(n){
+    n=Math.round(n);
+    if(n<0||n>170) return NaN;
+    if(n===0||n===1) return 1;
+    let r=1; for(let i=2;i<=n;i++) r*=i; return r;
+}
+
+function calcConst(c){
+    if(calcHasResult){calcExprStr='';calcHasResult=false;}
+    calcExprStr+=(c==='pi'?'π':'ℯ');
+    calcRender();
+}
+
 function calcEquals(){
+    if(!calcExprStr) return;
     try{
-        let expr=calcExprStr.replace(/÷/g,'/').replace(/×/g,'*');
-        let r=Function('"use strict";return ('+expr+')')();
+        let r=calcEval(calcExprStr);
+        let s=fmt(r);
+        document.getElementById('calcHistLine').textContent=calcExprStr+' =';
         document.getElementById('calcExpr').textContent=calcExprStr+' =';
-        document.getElementById('calcResult').textContent=parseFloat(r.toFixed(10)).toString();
-        calcExprStr=parseFloat(r.toFixed(10)).toString();
-        calcHasResult=true;
-    }catch(e){document.getElementById('calcResult').textContent='오류';}
+        document.getElementById('calcResult').textContent=s;
+        document.getElementById('calcResult').className='calc-result'+(s.length>12?' small':'');
+        calcAddHist(calcExprStr, s);
+        calcExprStr=s; calcHasResult=true;
+    }catch(e){
+        document.getElementById('calcResult').textContent='오류';
+        document.getElementById('calcResult').className='calc-result';
+    }
 }
+
+function calcAddHist(expr, val){
+    calcHistory.unshift({expr,val});
+    if(calcHistory.length>50) calcHistory.pop();
+    calcRenderHist();
+}
+
+function calcRenderHist(){
+    const list=document.getElementById('calcHistList');
+    const empty=document.getElementById('calcHistEmpty');
+    if(calcHistory.length===0){list.innerHTML='<div class="calc-hist-empty" id="calcHistEmpty">'+(isKorean?'계산 기록 없음':'No history')+'</div>';return;}
+    list.innerHTML=calcHistory.map((h,i)=>
+        `<div class="calc-hist-item" onclick="calcUseHist(${i})">
+            <div class="calc-hist-expr">${h.expr}</div>
+            <div class="calc-hist-val">${h.val}</div>
+        </div>`
+    ).join('');
+}
+
+function calcUseHist(i){
+    calcExprStr=calcHistory[i].val;
+    calcHasResult=true;
+    calcRender();
+}
+
+function calcClearHist(){calcHistory=[];calcRenderHist();}
+
+function setMode(m){
+    calcMode=m;
+    document.getElementById('keypadBasic').style.display=m==='basic'?'grid':'none';
+    document.getElementById('keypadSci').style.display=m==='sci'?'grid':'none';
+    document.getElementById('modeBasic').className='calc-mode-btn'+(m==='basic'?' active':'');
+    document.getElementById('modeSci').className='calc-mode-btn'+(m==='sci'?' active':'');
+}
+
 document.addEventListener('keydown',function(e){
     const calcOpen=document.getElementById('modalCalculator').classList.contains('open');
-    if(!calcOpen)return;
-    if(e.key>='0'&&e.key<='9'||e.key==='.')calcInput(e.key);
-    else if(e.key==='+'||e.key==='-'||e.key==='*'||e.key==='/')calcInput(e.key);
-    else if(e.key==='Enter'||e.key==='=')calcEquals();
-    else if(e.key==='Backspace')calcDel();
-    else if(e.key==='Escape'){/*handled above*/}
+    if(!calcOpen) return;
+    if(e.key>='0'&&e.key<='9'||e.key==='.') calcInput(e.key);
+    else if(e.key==='+') calcInput('+');
+    else if(e.key==='-') calcInput('-');
+    else if(e.key==='*') calcInput('×');
+    else if(e.key==='/'){e.preventDefault();calcInput('÷');}
+    else if(e.key==='%') calcInput('%');
+    else if(e.key==='('||e.key===')') calcInput(e.key);
+    else if(e.key==='Enter'||e.key==='=') calcEquals();
+    else if(e.key==='Backspace') calcDel();
+    else if(e.key==='Escape') closeTool('calculator');
 });
+
+
+/* ── TIMER ── */
+let tmMode='timer', tmRunning=false, tmInterval=null, tmRemaining=0, tmTotal=0;
+let swRunning=false, swInterval=null, swElapsed=0, swLapStart=0, swLaps=[];
+
+function tmSetMode(m){
+    tmMode=m;
+    document.getElementById('tmModeTimer').className='timer-mode-btn'+(m==='timer'?' active':'');
+    document.getElementById('tmModeStop').className='timer-mode-btn'+(m==='stopwatch'?' active':'');
+    document.getElementById('tmPanelTimer').style.display=m==='timer'?'block':'none';
+    document.getElementById('tmPanelStop').style.display=m==='stopwatch'?'block':'none';
+    tmReset(); swReset();
+}
+
+function tmGetTotal(){
+    const h=parseInt(document.getElementById('tmHour').value)||0;
+    const m=parseInt(document.getElementById('tmMin').value)||0;
+    const s=parseInt(document.getElementById('tmSec').value)||0;
+    return h*3600+m*60+s;
+}
+
+function tmFmt(s){
+    const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60;
+    if(h>0) return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function tmToggle(){
+    if(!tmRunning){
+        if(tmRemaining<=0) tmRemaining=tmGetTotal();
+        if(tmRemaining<=0) return;
+        tmTotal=tmRemaining;
+        tmRunning=true;
+        document.getElementById('tmStartBtn').textContent='일시정지';
+        document.getElementById('tmLabel').textContent='진행 중';
+        tmInterval=setInterval(()=>{
+            tmRemaining--;
+            const el=document.getElementById('tmDisplay');
+            el.textContent=tmFmt(tmRemaining);
+            el.className='timer-time'+(tmRemaining<=10?' warning':'');
+            if(tmRemaining<=0){
+                clearInterval(tmInterval); tmRunning=false;
+                document.getElementById('tmStartBtn').textContent='시작';
+                document.getElementById('tmLabel').textContent='완료! 🎉';
+                el.className='timer-time';
+                try{new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAA').play();}catch(e){}
+            }
+        },1000);
+    } else {
+        clearInterval(tmInterval); tmRunning=false;
+        document.getElementById('tmStartBtn').textContent='계속';
+        document.getElementById('tmLabel').textContent='일시정지';
+    }
+}
+
+function tmReset(){
+    clearInterval(tmInterval); tmRunning=false; tmRemaining=0;
+    document.getElementById('tmStartBtn').textContent='시작';
+    document.getElementById('tmLabel').textContent='대기 중';
+    const total=tmGetTotal();
+    const el=document.getElementById('tmDisplay');
+    el.textContent=tmFmt(total); el.className='timer-time';
+}
+
+function tmPreset(h,m,s){
+    document.getElementById('tmHour').value=h;
+    document.getElementById('tmMin').value=m;
+    document.getElementById('tmSec').value=s;
+    tmReset();
+}
+
+function swFmt(ms){
+    const m=Math.floor(ms/60000), s=Math.floor((ms%60000)/1000), cs=Math.floor((ms%1000)/10);
+    return {main:`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`, ms:'.'+String(Math.floor(ms%1000)).padStart(3,'0')};
+}
+
+function swToggle(){
+    if(!swRunning){
+        swRunning=true; const start=Date.now()-swElapsed;
+        document.getElementById('swStartBtn').textContent='일시정지';
+        document.getElementById('swLabel').textContent='진행 중';
+        document.getElementById('swLapBtn').disabled=false;
+        swInterval=setInterval(()=>{
+            swElapsed=Date.now()-start;
+            const f=swFmt(swElapsed);
+            document.getElementById('swDisplay').textContent=f.main;
+            document.getElementById('swMs').textContent=f.ms;
+        },50);
+    } else {
+        clearInterval(swInterval); swRunning=false;
+        document.getElementById('swStartBtn').textContent='계속';
+        document.getElementById('swLabel').textContent='일시정지';
+    }
+}
+
+function swLap(){
+    if(!swRunning) return;
+    const split=swElapsed-swLapStart; swLapStart=swElapsed;
+    swLaps.unshift({total:swElapsed,split});
+    const f=swFmt(swElapsed), fs=swFmt(split);
+    document.getElementById('lapList').innerHTML=
+        swLaps.map((l,i)=>{const ft=swFmt(l.total),fsp=swFmt(l.split);
+            return `<div class="lap-item"><span class="lap-num">LAP ${swLaps.length-i}</span><span class="lap-time">${ft.main}${ft.ms}</span><span class="lap-split">+${fsp.main}${fsp.ms}</span></div>`;
+        }).join('');
+}
+
+function swReset(){
+    clearInterval(swInterval); swRunning=false; swElapsed=0; swLapStart=0; swLaps=[];
+    document.getElementById('swStartBtn').textContent='시작';
+    document.getElementById('swLabel').textContent='대기 중';
+    document.getElementById('swDisplay').textContent='00:00';
+    document.getElementById('swMs').textContent='.000';
+    document.getElementById('swLapBtn').disabled=true;
+    document.getElementById('lapList').innerHTML='';
+}
+
+/* ── RANDOM ── */
+function randTab(tab){
+    document.querySelectorAll('.rand-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.rand-panel').forEach(p=>p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('randPanel'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
+}
+
+function doRandNum(){
+    const mn=parseInt(document.getElementById('randMin').value)||1;
+    const mx=parseInt(document.getElementById('randMax').value)||100;
+    const r=Math.floor(Math.random()*(mx-mn+1))+mn;
+    const el=document.getElementById('randNumResult');
+    el.style.transform='scale(1.3)'; el.textContent=r;
+    setTimeout(()=>el.style.transform='scale(1)',200);
+}
+
+function rollDice(){
+    const count=Math.min(parseInt(document.getElementById('diceCount').value)||1,8);
+    const faces=parseInt(document.getElementById('diceFaces').value)||6;
+    const grid=document.getElementById('diceGrid');
+    grid.innerHTML='';
+    let total=0;
+    for(let i=0;i<count;i++){
+        const val=Math.floor(Math.random()*faces)+1;
+        total+=val;
+        const die=document.createElement('div');
+        die.className='die rolling';
+        die.textContent=val;
+        die.onclick=rollDice;
+        grid.appendChild(die);
+        setTimeout(()=>die.classList.remove('rolling'),400);
+    }
+    document.getElementById('diceTotal').textContent=count>1?`합계: ${total}`:'';
+}
+
+function flipCoin(){
+    const heads=Math.random()<0.5;
+    const el=document.getElementById('coinEmoji');
+    const res=document.getElementById('coinResult');
+    el.style.animation='none'; void el.offsetWidth;
+    el.style.animation='diceRoll .4s ease';
+    el.textContent=heads?'🟡':'⚫';
+    res.textContent=heads?'앞면 (HEAD)':'뒷면 (TAIL)';
+}
+
+function drawTeams(){
+    const names=document.getElementById('teamInput').value.split('
+').map(s=>s.trim()).filter(Boolean);
+    const tc=Math.max(2,parseInt(document.getElementById('teamCount').value)||2);
+    if(names.length<tc){document.getElementById('teamResult').textContent='이름이 팀 수보다 적어요!';return;}
+    const shuffled=[...names].sort(()=>Math.random()-.5);
+    const teams=Array.from({length:tc},()=>[]);
+    shuffled.forEach((n,i)=>teams[i%tc].push(n));
+    document.getElementById('teamResult').innerHTML=teams.map((t,i)=>
+        `<div class="team-group">팀 ${i+1}</div><div>${t.join(', ')}</div>`
+    ).join('');
+}
+
+/* ── PASSWORD ── */
+const UPPER='ABCDEFGHIJKLMNOPQRSTUVWXYZ', LOWER='abcdefghijklmnopqrstuvwxyz';
+const NUMS='0123456789', SYMS='!@#$%^&*()-_=+[]{}|;:,.<>?';
+const AMBIG=/[0Ol1Il]/g;
+
+function pwGetChars(){
+    let c='';
+    if(document.getElementById('pwUpper').checked) c+=UPPER;
+    if(document.getElementById('pwLower').checked) c+=LOWER;
+    if(document.getElementById('pwNum').checked) c+=NUMS;
+    if(document.getElementById('pwSym').checked) c+=SYMS;
+    if(document.getElementById('pwNoAmb').checked) c=c.replace(AMBIG,'');
+    return c||LOWER;
+}
+
+function pwGenerate(){
+    const len=parseInt(document.getElementById('pwLen').value)||16;
+    document.getElementById('pwLenVal').textContent=len;
+    const chars=pwGetChars();
+    let pw='';
+    const arr=new Uint32Array(len);
+    crypto.getRandomValues(arr);
+    for(let i=0;i<len;i++) pw+=chars[arr[i]%chars.length];
+    document.getElementById('pwValue').textContent=pw;
+    pwStrength(pw);
+    document.getElementById('pwMultiList').style.display='none';
+    return pw;
+}
+
+function pwUpdate(){pwGenerate();}
+
+function pwStrength(pw){
+    let score=0;
+    if(pw.length>=8) score++;
+    if(pw.length>=16) score++;
+    if(/[A-Z]/.test(pw)&&/[a-z]/.test(pw)) score++;
+    if(/[0-9]/.test(pw)) score++;
+    if(/[^A-Za-z0-9]/.test(pw)) score++;
+    const colors=['#ff4444','#ff8800','#ffe600','#88ff00','#00ff88'];
+    const labels=['매우 약함','약함','보통','강함','매우 강함'];
+    const bars=document.querySelectorAll('.pw-strength-bar');
+    bars.forEach((b,i)=>b.style.background=i<score?colors[score-1]:'rgba(255,255,255,.08)');
+    document.getElementById('pwStrengthLabel').textContent='강도: '+labels[Math.min(score,4)];
+    document.getElementById('pwStrengthLabel').style.color=colors[Math.min(score-1,4)]||'rgba(255,255,255,.3)';
+}
+
+function pwCopy(){
+    const pw=document.getElementById('pwValue').textContent;
+    if(pw==='—') return;
+    navigator.clipboard.writeText(pw).then(()=>{
+        const btn=document.getElementById('pwCopyBtn');
+        btn.textContent='복사됨 ✓';
+        setTimeout(()=>btn.textContent='복사',1500);
+    });
+}
+
+function pwMultiGenerate(){
+    const n=Math.min(parseInt(document.getElementById('pwMultiCount').value)||1,20);
+    const len=parseInt(document.getElementById('pwLen').value)||16;
+    const chars=pwGetChars();
+    const list=[];
+    for(let j=0;j<n;j++){
+        let pw=''; const arr=new Uint32Array(len);
+        crypto.getRandomValues(arr);
+        for(let i=0;i<len;i++) pw+=chars[arr[i]%chars.length];
+        list.push(pw);
+    }
+    const el=document.getElementById('pwMultiList');
+    el.textContent=list.join('
+'); el.style.display='block';
+    document.getElementById('pwValue').textContent=list[0];
+    pwStrength(list[0]);
+}
+
+/* ── UNIT CONVERTER ── */
+const UNIT_DATA={
+    '길이':{
+        units:['km','m','cm','mm','mi','yd','ft','in','nm'],
+        toBase:{km:1000,m:1,cm:.01,mm:.001,mi:1609.344,yd:.9144,ft:.3048,in:.0254,nm:1e-9},
+        labels:{km:'킬로미터',m:'미터',cm:'센티미터',mm:'밀리미터',mi:'마일',yd:'야드',ft:'피트',in:'인치',nm:'나노미터'}
+    },
+    '무게':{
+        units:['t','kg','g','mg','lb','oz'],
+        toBase:{t:1000,kg:1,g:.001,mg:1e-6,lb:.453592,oz:.0283495},
+        labels:{t:'톤',kg:'킬로그램',g:'그램',mg:'밀리그램',lb:'파운드',oz:'온스'}
+    },
+    '온도':{
+        units:['°C','°F','K'],
+        toBase:{},
+        labels:{'°C':'섭씨','°F':'화씨',K:'켈빈'}
+    },
+    '넓이':{
+        units:['km²','m²','cm²','ha','acre','ft²','in²'],
+        toBase:{'km²':1e6,'m²':1,'cm²':1e-4,'ha':1e4,'acre':4046.86,'ft²':.092903,'in²':6.4516e-4},
+        labels:{'km²':'제곱킬로미터','m²':'제곱미터','cm²':'제곱센티미터','ha':'헥타르','acre':'에이커','ft²':'제곱피트','in²':'제곱인치'}
+    },
+    '속도':{
+        units:['km/h','m/s','mph','knot'],
+        toBase:{'km/h':1/3.6,'m/s':1,'mph':0.44704,'knot':0.514444},
+        labels:{'km/h':'킬로미터/시','m/s':'미터/초','mph':'마일/시','knot':'노트'}
+    },
+    '데이터':{
+        units:['TB','GB','MB','KB','B','bit'],
+        toBase:{TB:1e12,GB:1e9,MB:1e6,KB:1e3,B:1,bit:0.125},
+        labels:{TB:'테라바이트',GB:'기가바이트',MB:'메가바이트',KB:'킬로바이트',B:'바이트',bit:'비트'}
+    }
+};
+
+let unitCat='길이';
+
+function unitInit(){
+    const row=document.getElementById('unitCatRow');
+    row.innerHTML=Object.keys(UNIT_DATA).map(k=>
+        `<button class="unit-cat-btn${k==='길이'?' active':''}" onclick="unitSetCat('${k}')">${k}</button>`
+    ).join('');
+    unitPopulateSelects();
+    unitConvert();
+}
+
+function unitSetCat(cat){
+    unitCat=cat;
+    document.querySelectorAll('.unit-cat-btn').forEach(b=>b.classList.toggle('active',b.textContent===cat));
+    unitPopulateSelects();
+    document.getElementById('unitVal').value=1;
+    unitConvert();
+}
+
+function unitPopulateSelects(){
+    const data=UNIT_DATA[unitCat];
+    ['unitFrom','unitTo'].forEach((id,i)=>{
+        const sel=document.getElementById(id);
+        sel.innerHTML=data.units.map((u,j)=>
+            `<option value="${u}"${(i===0&&j===0)||(i===1&&j===1)?' selected':''}>${u} — ${data.labels[u]}</option>`
+        ).join('');
+    });
+}
+
+function tempConvert(val, from, to){
+    let c;
+    if(from==='°C') c=val;
+    else if(from==='°F') c=(val-32)*5/9;
+    else c=val-273.15;
+    if(to==='°C') return c;
+    if(to==='°F') return c*9/5+32;
+    return c+273.15;
+}
+
+function unitConvert(){
+    const val=parseFloat(document.getElementById('unitVal').value);
+    const from=document.getElementById('unitFrom').value;
+    const to=document.getElementById('unitTo').value;
+    if(isNaN(val)){document.getElementById('unitResult').textContent='—';return;}
+    const data=UNIT_DATA[unitCat];
+    let result;
+    if(unitCat==='온도'){result=tempConvert(val,from,to);}
+    else{result=val*data.toBase[from]/data.toBase[to];}
+    const s=parseFloat(result.toPrecision(10)).toString();
+    document.getElementById('unitResult').textContent=s+' '+to;
+    document.getElementById('unitResultLabel').textContent=`${val} ${from} = ${s} ${to}`;
+    // all units grid
+    const grid=document.getElementById('unitAllGrid');
+    grid.innerHTML=data.units.map(u=>{
+        let r;
+        if(unitCat==='온도') r=tempConvert(val,from,u);
+        else r=val*data.toBase[from]/data.toBase[u];
+        return `<div class="unit-all-item"><div class="unit-all-val">${parseFloat(r.toPrecision(8))} ${u}</div><div class="unit-all-name">${data.labels[u]}</div></div>`;
+    }).join('');
+}
+
+// init unit when modal opens — hook into openTool
+const _origOpenTool=openTool;
+function openTool(n){
+    _origOpenTool(n);
+    if(n==='unit') unitInit();
+    if(n==='password') pwGenerate();
+    if(n==='random') rollDice();
+}
 
 /* ── Translator ── */
 const LANG_NAMES={ko:'한국어',en:'English',ja:'日本語',zh:'中文',es:'Español',fr:'Français',de:'Deutsch',ru:'Русский'};
@@ -614,5 +1447,193 @@ function toggleLang(){
     document.documentElement.lang=lang;
 }
 </script>
+
+<!-- ══════════ TIMER MODAL ══════════ -->
+<div class="modal-overlay" id="modalTimer" onclick="closeModalOutside(event,'timer')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:480px;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan),transparent);"></div>
+    <button class="modal-close" onclick="closeTool('timer')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);">⏱ 타이머 / 스톱워치</div>
+    <div class="modal-subtitle">집중, 운동, 요리 — 언제든지</div>
+    <div class="timer-mode-row">
+      <button class="timer-mode-btn active" id="tmModeTimer" onclick="tmSetMode('timer')">타이머</button>
+      <button class="timer-mode-btn" id="tmModeStop" onclick="tmSetMode('stopwatch')">스톱워치</button>
+    </div>
+    <!-- Timer panel -->
+    <div id="tmPanelTimer">
+      <div class="timer-input-row">
+        <input class="timer-input" id="tmHour" type="number" min="0" max="23" value="0" placeholder="00">
+        <span class="timer-sep">:</span>
+        <input class="timer-input" id="tmMin" type="number" min="0" max="59" value="25" placeholder="00">
+        <span class="timer-sep">:</span>
+        <input class="timer-input" id="tmSec" type="number" min="0" max="59" value="0" placeholder="00">
+      </div>
+      <div class="timer-display">
+        <div class="timer-time" id="tmDisplay">25:00</div>
+        <div class="timer-label" id="tmLabel">대기 중</div>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn primary" id="tmStartBtn" onclick="tmToggle()">시작</button>
+        <button class="timer-btn" onclick="tmReset()">리셋</button>
+      </div>
+      <div class="timer-presets">
+        <button class="timer-preset" onclick="tmPreset(1,0,0)">1시간</button>
+        <button class="timer-preset" onclick="tmPreset(0,25,0)">25분</button>
+        <button class="timer-preset" onclick="tmPreset(0,10,0)">10분</button>
+        <button class="timer-preset" onclick="tmPreset(0,5,0)">5분</button>
+        <button class="timer-preset" onclick="tmPreset(0,1,0)">1분</button>
+        <button class="timer-preset" onclick="tmPreset(0,0,30)">30초</button>
+      </div>
+    </div>
+    <!-- Stopwatch panel -->
+    <div id="tmPanelStop" style="display:none;">
+      <div class="timer-display">
+        <div class="timer-time" id="swDisplay">00:00</div>
+        <div class="timer-ms" id="swMs">.000</div>
+        <div class="timer-label" id="swLabel">대기 중</div>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn primary" id="swStartBtn" onclick="swToggle()">시작</button>
+        <button class="timer-btn" onclick="swLap()" id="swLapBtn" disabled>랩</button>
+        <button class="timer-btn danger" onclick="swReset()">리셋</button>
+      </div>
+      <div class="lap-list" id="lapList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RANDOM MODAL ══════════ -->
+<div class="modal-overlay" id="modalRandom" onclick="closeModalOutside(event,'random')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:520px;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-pink),transparent);"></div>
+    <button class="modal-close" onclick="closeTool('random')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);">🎲 랜덤 / 주사위</div>
+    <div class="modal-subtitle">운에 맡겨봐요</div>
+    <div class="rand-tabs">
+      <button class="rand-tab active" onclick="randTab('number')">숫자</button>
+      <button class="rand-tab" onclick="randTab('dice')">주사위</button>
+      <button class="rand-tab" onclick="randTab('coin')">동전</button>
+      <button class="rand-tab" onclick="randTab('team')">팀 뽑기</button>
+    </div>
+    <!-- Number -->
+    <div class="rand-panel active" id="randPanelNumber">
+      <div class="rand-big" id="randNumResult">?</div>
+      <div class="rand-sublabel">랜덤 숫자</div>
+      <div class="rand-row">
+        <span class="rand-label">최솟값</span>
+        <input class="rand-input" id="randMin" type="number" value="1">
+        <span class="rand-label" style="min-width:auto;">~</span>
+        <span class="rand-label">최댓값</span>
+        <input class="rand-input" id="randMax" type="number" value="100">
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <button class="rand-btn" onclick="doRandNum()">🎲 뽑기</button>
+      </div>
+    </div>
+    <!-- Dice -->
+    <div class="rand-panel" id="randPanelDice">
+      <div class="rand-row" style="justify-content:center;gap:16px;margin-bottom:14px;">
+        <span class="rand-label">주사위 수</span>
+        <input class="rand-input" id="diceCount" type="number" value="1" min="1" max="8" style="width:70px;">
+        <span class="rand-label">면 수</span>
+        <select class="rand-input" id="diceFaces" style="width:80px;">
+          <option value="4">D4</option>
+          <option value="6" selected>D6</option>
+          <option value="8">D8</option>
+          <option value="10">D10</option>
+          <option value="12">D12</option>
+          <option value="20">D20</option>
+          <option value="100">D100</option>
+        </select>
+      </div>
+      <div class="dice-grid" id="diceGrid"></div>
+      <div class="rand-sublabel" id="diceTotal"></div>
+      <div style="text-align:center;">
+        <button class="rand-btn" onclick="rollDice()">🎲 굴리기</button>
+      </div>
+    </div>
+    <!-- Coin -->
+    <div class="rand-panel" id="randPanelCoin">
+      <div class="coin-result" id="coinResult"></div>
+      <div class="coin-display" id="coinEmoji" onclick="flipCoin()">🪙</div>
+      <div style="text-align:center;margin-top:8px;">
+        <button class="rand-btn" onclick="flipCoin()">던지기</button>
+      </div>
+    </div>
+    <!-- Team -->
+    <div class="rand-panel" id="randPanelTeam">
+      <textarea class="team-textarea" id="teamInput" placeholder="이름을 줄바꿈으로 구분해서 입력하세요&#10;예) 홍길동&#10;김철수&#10;이영희"></textarea>
+      <div class="rand-row">
+        <span class="rand-label">팀 수</span>
+        <input class="rand-input" id="teamCount" type="number" value="2" min="2" style="width:70px;">
+      </div>
+      <div style="text-align:center;margin:10px 0;">
+        <button class="rand-btn" onclick="drawTeams()">🎲 팀 나누기</button>
+      </div>
+      <div class="team-result" id="teamResult"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PASSWORD MODAL ══════════ -->
+<div class="modal-overlay" id="modalPassword" onclick="closeModalOutside(event,'password')">
+  <div class="modal green" style="max-width:500px;">
+    <button class="modal-close" onclick="closeTool('password')">✕</button>
+    <div class="modal-title" style="color:var(--neon-green);">🔐 비밀번호 생성기</div>
+    <div class="modal-subtitle">안전하고 기억하기 어려운 비밀번호를 즉시 생성</div>
+    <div class="pw-display">
+      <div class="pw-value" id="pwValue">—</div>
+      <button class="pw-copy-btn" onclick="pwCopy()" id="pwCopyBtn">복사</button>
+    </div>
+    <div class="pw-strength" id="pwStrengthBars">
+      <div class="pw-strength-bar"></div><div class="pw-strength-bar"></div>
+      <div class="pw-strength-bar"></div><div class="pw-strength-bar"></div>
+    </div>
+    <div class="pw-strength-label" id="pwStrengthLabel">강도: —</div>
+    <div class="pw-options">
+      <div class="pw-row">
+        <span class="pw-label">길이</span>
+        <input class="pw-slider" type="range" id="pwLen" min="4" max="64" value="16" oninput="pwUpdate()">
+        <span class="pw-len-val" id="pwLenVal">16</span>
+      </div>
+      <div class="pw-row" style="gap:18px;flex-wrap:wrap;">
+        <label class="pw-checkbox"><input type="checkbox" id="pwUpper" checked onchange="pwGenerate()"> 대문자 (A–Z)</label>
+        <label class="pw-checkbox"><input type="checkbox" id="pwLower" checked onchange="pwGenerate()"> 소문자 (a–z)</label>
+        <label class="pw-checkbox"><input type="checkbox" id="pwNum" checked onchange="pwGenerate()"> 숫자 (0–9)</label>
+        <label class="pw-checkbox"><input type="checkbox" id="pwSym" onchange="pwGenerate()"> 특수문자 (!@#…)</label>
+        <label class="pw-checkbox"><input type="checkbox" id="pwNoAmb" onchange="pwGenerate()"> 헷갈리는 문자 제외 (0,O,l,1)</label>
+      </div>
+    </div>
+    <div class="pw-multi" style="align-items:center;">
+      <span class="pw-label">개수</span>
+      <input class="pw-multi-input" type="number" id="pwMultiCount" value="1" min="1" max="20">
+      <button class="tool-btn green" onclick="pwMultiGenerate()" style="margin-left:4px;">여러 개 생성</button>
+    </div>
+    <div class="pw-multi-list" id="pwMultiList"></div>
+    <div class="tool-actions" style="margin-top:14px;">
+      <button class="tool-btn green" onclick="pwGenerate()">🔄 재생성</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ UNIT MODAL ══════════ -->
+<div class="modal-overlay" id="modalUnit" onclick="closeModalOutside(event,'unit')">
+  <div class="modal yellow" style="max-width:600px;">
+    <button class="modal-close" onclick="closeTool('unit')">✕</button>
+    <div class="modal-title">📐 단위 변환기</div>
+    <div class="modal-subtitle">길이 · 무게 · 온도 · 넓이 · 속도 · 데이터</div>
+    <div class="unit-cat-row" id="unitCatRow"></div>
+    <div class="unit-convert-row">
+      <input class="unit-input" type="number" id="unitVal" value="1" oninput="unitConvert()">
+      <select class="unit-select" id="unitFrom" onchange="unitConvert()"></select>
+      <span class="unit-arrow">→</span>
+      <select class="unit-select" id="unitTo" onchange="unitConvert()"></select>
+    </div>
+    <div class="unit-result-big" id="unitResult">—</div>
+    <div class="unit-result-label" id="unitResultLabel"></div>
+    <div class="unit-all-grid" id="unitAllGrid"></div>
+  </div>
+</div>
+
 </body>
 </html>
