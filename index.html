@@ -1315,9 +1315,9 @@ function unitConvert(){
 }
 
 // init unit when modal opens — hook into openTool
-const _origOpenTool=openTool;
 function openTool(n){
-    _origOpenTool(n);
+    document.getElementById('modal'+cap(n)).classList.add('open');
+    document.body.style.overflow='hidden';
     if(n==='unit') unitInit();
     if(n==='password') pwGenerate();
     if(n==='random') rollDice();
