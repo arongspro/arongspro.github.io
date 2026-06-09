@@ -367,6 +367,15 @@
                 <p class="card-desc" id="cardDesc2">클래식 체스의 세계로 입장하세요. 전략을 세우고 상대를 제압하는 두뇌 싸움을 즐겨보세요!</p>
                 <span class="card-cta"><span id="ctaText2">지금 플레이</span><span class="cta-arrow">→</span></span>
             </a>
+            <a class="card" href="https://arongspro.github.io/Platformer/" target="_blank" data-color="yellow">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" id="tag3">액션 / 플랫포머</div>
+                <span class="card-icon">🏃</span>
+                <div class="card-title">PLATFORMER</div>
+                <div class="card-title-kr" id="cardTitle3">플랫포머 게임</div>
+                <p class="card-desc" id="cardDesc3">스테이지를 뛰어다니며 장애물을 피하고 목표를 달성하세요. 쉽고 빠른 플랫포머 액션을 즐겨보세요!</p>
+                <span class="card-cta"><span id="ctaText3">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </a>
         </div>
     </div>
 
@@ -1503,6 +1512,7 @@ var T = {
         tabGames:'🎮 &nbsp;게임', tabTools:'🔧 &nbsp;툴',
         tag1:'액션 / 3D', cardTitle1:'3D 플랫포머 게임', cardDesc1:'짜릿한 3D 플랫포머 세계로 뛰어드세요. 점프하고, 달리고, 장애물을 피하며 스테이지를 클리어하세요!', ctaText1:'지금 플레이',
         tag2:'전략 / 보드', cardTitle2:'체스', cardDesc2:'클래식 체스의 세계로 입장하세요. 전략을 세우고 상대를 제압하는 두뇌 싸움을 즐겨보세요!', ctaText2:'지금 플레이',
+        tag3:'액션 / 플랫포머', cardTitle3:'플랫포머 게임', cardDesc3:'스테이지를 뛰어다니며 장애물을 피하고 목표를 달성하세요. 쉽고 빠른 플랫포머 액션을 즐겨보세요!', ctaText3:'지금 플레이',
         toolTag1:'텍스트 / 분석', toolTitle1:'글자수 세기', toolDesc1:'글자 수, 단어 수, 문장 수, 공백 포함/제외 등 텍스트를 실시간으로 분석합니다.', toolCta1:'툴 열기',
         toolTag2:'수학 / 계산', toolTitle2:'계산기', toolDesc2:'사칙연산부터 제곱근, 퍼센트, 괄호 계산까지 지원하는 공학용 계산기입니다.', toolCta2:'툴 열기',
         toolTag3:'언어 / 번역', toolTitle3:'번역기', toolDesc3:'한국어, 영어, 일본어, 중국어, 스페인어 등 다양한 언어 간 번역을 지원합니다.', toolCta3:'툴 열기',
@@ -1520,6 +1530,7 @@ var T = {
         tabGames:'🎮 &nbsp;Games', tabTools:'🔧 &nbsp;Tools',
         tag1:'Action / 3D', cardTitle1:'3D Platformer Game', cardDesc1:'Dive into a thrilling 3D platformer world. Jump, run, dodge obstacles and clear every stage!', ctaText1:'Play Now',
         tag2:'Strategy / Board', cardTitle2:'Chess', cardDesc2:'Enter the classic world of chess. Plan your moves, outthink your opponent, and seize victory!', ctaText2:'Play Now',
+        tag3:'Action / Platformer', cardTitle3:'Platformer Game', cardDesc3:'Run through stages, dodge obstacles and reach the goal. Fast and fun platformer action awaits!', ctaText3:'Play Now',
         toolTag1:'Text / Analysis', toolTitle1:'Char Counter', toolDesc1:'Counts characters, words, sentences, lines and bytes in real time.', toolCta1:'Open Tool',
         toolTag2:'Math / Compute', toolTitle2:'Calculator', toolDesc2:'From basic arithmetic to square roots, percentages and parentheses.', toolCta2:'Open Tool',
         toolTag3:'Language / Translate', toolTitle3:'Translator', toolDesc3:'Translate between Korean, English, Japanese, Chinese, Spanish and more.', toolCta3:'Open Tool',
@@ -1537,7 +1548,7 @@ function toggleLang() {
     isKorean = !isKorean;
     var lang = isKorean ? 'ko' : 'en';
     var t = T[lang];
-    var ids = ['label','mainTitle','subText','tag1','cardTitle1','cardDesc1','ctaText1','tag2','cardTitle2','cardDesc2','ctaText2',
+    var ids = ['label','mainTitle','subText','tag1','cardTitle1','cardDesc1','ctaText1','tag2','cardTitle2','cardDesc2','ctaText2','tag3','cardTitle3','cardDesc3','ctaText3',
                'toolTag1','toolTitle1','toolDesc1','toolCta1','toolTag2','toolTitle2','toolDesc2','toolCta2',
                'toolTag3','toolTitle3','toolDesc3','toolCta3',
                'ccTitle','ccSubtitle','labelChars','labelCharsNoSpace','labelWords','labelLines','labelSentences','labelBytes','btnCopy','btnClear',
