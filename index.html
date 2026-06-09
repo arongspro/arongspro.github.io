@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-adsense-account" content="ca-pub-8468811206307354">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8468811206307354" crossorigin="anonymous"></script>
     <title>아룡의 포털</title>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -28,12 +26,10 @@
         body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:1;}
         .container{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:36px 20px 80px;}
 
-        /* topbar */
         .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;}
         .lang-btn{background:transparent;border:1px solid var(--neon-cyan);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:12px;padding:6px 16px;cursor:pointer;letter-spacing:2px;border-radius:2px;transition:all .2s;}
         .lang-btn:hover{background:var(--neon-cyan);color:var(--dark-bg);box-shadow:var(--glow-cyan);}
 
-        /* header */
         .header{text-align:center;margin-bottom:44px;}
         .header-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:6px;color:var(--neon-cyan);margin-bottom:12px;opacity:0;animation:fadeSlideDown .7s .2s forwards;}
         .header h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(2rem,7vw,4rem);line-height:1.1;background:linear-gradient(135deg,var(--neon-cyan) 0%,#fff 45%,var(--neon-pink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:fadeSlideDown .7s .4s forwards;filter:drop-shadow(0 0 30px #00f5ff88);}
@@ -41,7 +37,6 @@
         .header-sub{margin-top:14px;font-size:14px;color:rgba(255,255,255,.45);letter-spacing:1px;opacity:0;animation:fadeSlideDown .7s .6s forwards;}
         .pulse-dot{display:inline-block;width:6px;height:6px;background:var(--neon-cyan);border-radius:50%;margin-right:8px;animation:pulse 2s infinite;box-shadow:var(--glow-cyan);}
 
-        /* tabs */
         .tabs-nav{display:flex;gap:0;margin-bottom:36px;border-bottom:1px solid rgba(0,245,255,.15);opacity:0;animation:fadeIn .7s .8s forwards;}
         .tab-btn{background:transparent;border:none;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);cursor:pointer;padding:12px 28px;position:relative;transition:color .2s;}
         .tab-btn::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--neon-cyan);transform:scaleX(0);transition:transform .25s;box-shadow:var(--glow-cyan);}
@@ -53,7 +48,6 @@
         .tab-panel{display:none;}
         .tab-panel.active{display:block;animation:fadeSlideUp .4s ease forwards;}
 
-        /* cards */
         .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
         .card{position:relative;background:var(--card-bg);border-radius:4px;padding:32px 26px 24px;text-decoration:none;color:inherit;display:block;transition:transform .3s,border-color .3s,box-shadow .3s;overflow:hidden;}
         .card[data-color="cyan"]{border:1px solid rgba(0,245,255,.18);}
@@ -110,13 +104,12 @@
         .cta-arrow{transition:transform .2s;}
         .card:hover .cta-arrow{transform:translateX(4px);}
 
-        /* divider */
         .divider{display:flex;align-items:center;gap:14px;margin:0 auto 40px;max-width:500px;opacity:0;animation:fadeIn .8s .75s forwards;}
         .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--neon-cyan),transparent);}
         .divider-diamond{width:7px;height:7px;background:var(--neon-cyan);transform:rotate(45deg);box-shadow:var(--glow-cyan);}
         .footer{text-align:center;margin-top:60px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.18);text-transform:uppercase;opacity:0;animation:fadeIn 1s 1.4s forwards;}
 
-        /* ═══════════ MODAL BASE ═══════════ */
+        /* MODAL BASE */
         .modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,2,18,.92);backdrop-filter:blur(6px);z-index:100;align-items:center;justify-content:center;padding:20px;}
         .modal-overlay.open{display:flex;animation:fadeIn .2s;}
         .modal{position:relative;background:#080820;border-radius:6px;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;padding:40px 36px 36px;animation:fadeSlideUp .3s ease;}
@@ -124,25 +117,21 @@
         .modal-title{font-family:'Orbitron',sans-serif;font-size:1.25rem;margin-bottom:4px;}
         .modal-subtitle{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:24px;letter-spacing:1px;}
 
-        /* green modal (char count) */
         .modal.green{border:1px solid rgba(0,255,136,.3);box-shadow:0 0 60px rgba(0,255,136,.08);}
         .modal.green::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-green),transparent);}
         .modal.green .modal-title{color:var(--neon-green);}
         .modal.green .modal-close:hover{border-color:var(--neon-green);color:var(--neon-green);}
 
-        /* yellow modal (calculator) */
         .modal.yellow{border:1px solid rgba(255,230,0,.3);box-shadow:0 0 60px rgba(255,230,0,.06);}
         .modal.yellow::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-yellow),transparent);}
         .modal.yellow .modal-title{color:var(--neon-yellow);}
         .modal.yellow .modal-close:hover{border-color:var(--neon-yellow);color:var(--neon-yellow);}
 
-        /* purple modal (translator) */
         .modal.purple{border:1px solid rgba(185,111,255,.3);box-shadow:0 0 60px rgba(185,111,255,.06);}
         .modal.purple::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-purple),transparent);}
         .modal.purple .modal-title{color:var(--neon-purple);}
         .modal.purple .modal-close:hover{border-color:var(--neon-purple);color:var(--neon-purple);}
 
-        /* shared tool elements */
         .tool-textarea{width:100%;min-height:150px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:3px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.7;padding:14px;resize:vertical;outline:none;transition:border-color .2s;}
         .tool-textarea::placeholder{color:rgba(255,255,255,.2);}
         .tool-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
@@ -156,14 +145,14 @@
         .tool-btn.danger{border:1px solid rgba(255,0,110,.3);color:var(--neon-pink);}
         .tool-btn.danger:hover{background:var(--neon-pink);color:#fff;box-shadow:var(--glow-pink);}
 
-        /* ═══════════ CHAR COUNT ═══════════ */
+        /* CHAR COUNT */
         .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:16px;}
         .stat-box{background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);border-radius:3px;padding:12px 10px;text-align:center;}
         .stat-value{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;color:var(--neon-green);line-height:1;margin-bottom:5px;}
         .stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;}
         .tool-textarea.green:focus{border-color:rgba(0,255,136,.5);box-shadow:0 0 0 2px rgba(0,255,136,.08);}
 
-        /* ═══════════ CALCULATOR fullscreen ═══════════ */
+        /* CALCULATOR fullscreen */
         .modal-overlay.calc-overlay{padding:0;}
         .modal.calc-modal{max-width:100%;width:100%;height:100vh;max-height:100vh;border-radius:0;display:flex;flex-direction:column;padding:0;border:none;background:#07070f;}
         .modal.calc-modal::before{display:none;}
@@ -213,7 +202,7 @@
         .calc-close-btn{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);width:30px;height:30px;border-radius:2px;cursor:pointer;font-size:13px;transition:all .2s;font-family:'Share Tech Mono',monospace;}
         .calc-close-btn:hover{border-color:var(--neon-yellow);color:var(--neon-yellow);}
 
-        /* ═══════════ TRANSLATOR ═══════════ */
+        /* TRANSLATOR */
         .tr-lang-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
         .tr-select{background:#0a0a28;border:1px solid rgba(185,111,255,.3);color:#fff;font-family:'Share Tech Mono',monospace;font-size:12px;padding:8px 12px;border-radius:3px;cursor:pointer;outline:none;flex:1;min-width:120px;}
         .tr-select:focus{border-color:var(--neon-purple);}
@@ -230,7 +219,7 @@
         .tr-status.error{color:var(--neon-pink);}
         .tr-status.ok{color:var(--neon-green);}
 
-        /* ═══════════ TIMER ═══════════ */
+        /* TIMER */
         .timer-display{background:#000;border:1px solid rgba(0,245,255,.15);border-radius:6px;padding:24px;text-align:center;margin-bottom:16px;}
         .timer-mode-row{display:flex;gap:6px;justify-content:center;margin-bottom:16px;}
         .timer-mode-btn{background:transparent;border:1px solid rgba(0,245,255,.2);color:rgba(0,245,255,.45);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:5px 16px;border-radius:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
@@ -257,12 +246,11 @@
         .lap-list::-webkit-scrollbar{width:3px;}
         .lap-list::-webkit-scrollbar-thumb{background:rgba(0,245,255,.2);}
         .lap-item{display:flex;justify-content:space-between;font-family:'Share Tech Mono',monospace;font-size:11px;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.05);}
-        .lap-item:first-child{color:var(--neon-cyan);}
         .lap-num{color:rgba(255,255,255,.3);}
         .lap-time{color:rgba(255,255,255,.7);}
         .lap-split{color:rgba(0,245,255,.5);}
 
-        /* ═══════════ RANDOM ═══════════ */
+        /* RANDOM */
         .rand-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,0,110,.1);margin-bottom:18px;}
         .rand-tab{background:transparent;border:none;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);cursor:pointer;padding:9px 18px;position:relative;transition:color .2s;}
         .rand-tab::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--neon-pink);transform:scaleX(0);transition:transform .22s;}
@@ -290,7 +278,7 @@
         .team-result{font-size:13px;line-height:1.9;color:rgba(255,255,255,.8);margin-top:10px;min-height:30px;}
         .team-group{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--neon-pink);margin-top:8px;}
 
-        /* ═══════════ PASSWORD ═══════════ */
+        /* PASSWORD */
         .pw-display{background:#000;border:1px solid rgba(0,255,136,.2);border-radius:4px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
         .pw-value{font-family:'Share Tech Mono',monospace;font-size:clamp(12px,2vw,16px);color:var(--neon-green);flex:1;word-break:break-all;letter-spacing:1px;line-height:1.5;}
         .pw-copy-btn{background:transparent;border:1px solid rgba(0,255,136,.3);color:var(--neon-green);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:6px 14px;border-radius:2px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
@@ -307,11 +295,11 @@
         .pw-checkbox{display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.5);transition:color .15s;}
         .pw-checkbox:hover{color:rgba(255,255,255,.8);}
         .pw-checkbox input{accent-color:var(--neon-green);width:14px;height:14px;cursor:pointer;}
-        .pw-multi{display:flex;gap:10px;margin-bottom:14px;}
+        .pw-multi{display:flex;gap:10px;margin-bottom:14px;align-items:center;}
         .pw-multi-input{background:#0a0a28;border:1px solid rgba(0,255,136,.2);color:#fff;font-family:'Share Tech Mono',monospace;font-size:12px;padding:7px 10px;border-radius:3px;width:70px;outline:none;}
-        .pw-multi-list{background:rgba(0,255,136,.03);border:1px solid rgba(0,255,136,.1);border-radius:3px;padding:10px 14px;font-family:'Share Tech Mono',monospace;font-size:11px;line-height:2;color:rgba(0,255,136,.8);word-break:break-all;max-height:120px;overflow-y:auto;display:none;}
+        .pw-multi-list{background:rgba(0,255,136,.03);border:1px solid rgba(0,255,136,.1);border-radius:3px;padding:10px 14px;font-family:'Share Tech Mono',monospace;font-size:11px;line-height:2;color:rgba(0,255,136,.8);word-break:break-all;max-height:120px;overflow-y:auto;display:none;white-space:pre;}
 
-        /* ═══════════ UNIT CONVERTER ═══════════ */
+        /* UNIT CONVERTER */
         .unit-cat-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
         .unit-cat-btn{background:transparent;border:1px solid rgba(255,230,0,.18);color:rgba(255,230,0,.45);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;padding:5px 12px;border-radius:2px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
         .unit-cat-btn.active{background:rgba(255,230,0,.14);border-color:rgba(255,230,0,.5);color:var(--neon-yellow);}
@@ -329,7 +317,6 @@
         .unit-all-val{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--neon-yellow);}
         .unit-all-name{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.3);margin-top:2px;}
 
-        /* animations */
         @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
         @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -455,7 +442,7 @@
     <div class="footer" id="footer"><span>© arong's hub · Made with ❤️</span></div>
 </div>
 
-<!-- ══════════ CHAR COUNT MODAL ══════════ -->
+<!-- CHAR COUNT MODAL -->
 <div class="modal-overlay" id="modalCharcount" onclick="closeModalOutside(event,'charcount')">
     <div class="modal green">
         <button class="modal-close" onclick="closeTool('charcount')">✕</button>
@@ -477,17 +464,14 @@
     </div>
 </div>
 
-<!-- ══════════ CALCULATOR MODAL (fullscreen) ══════════ -->
+<!-- CALCULATOR MODAL -->
 <div class="modal-overlay calc-overlay" id="modalCalculator">
   <div class="modal calc-modal">
-    <!-- topbar -->
     <div class="calc-topbar">
-      <span class="calc-topbar-title" id="calcTitle">🧮 CALCULATOR</span>
+      <span class="calc-topbar-title">🧮 CALCULATOR</span>
       <button class="calc-close-btn" onclick="closeTool('calculator')">✕</button>
     </div>
-    <!-- body -->
     <div class="calc-body">
-      <!-- left: display + keypad -->
       <div class="calc-left">
         <div class="calc-display-wrap">
           <div class="calc-mode-row">
@@ -500,98 +484,83 @@
             <div class="calc-result" id="calcResult">0</div>
           </div>
         </div>
-        <!-- BASIC keypad -->
         <div class="calc-keypad mode-basic" id="keypadBasic">
           <button class="calc-btn clr wide2" onclick="calcClear()">AC</button>
           <button class="calc-btn fn" onclick="calcDel()">⌫</button>
           <button class="calc-btn op" onclick="calcInput('%')">%</button>
           <button class="calc-btn op" onclick="calcInput('÷')">÷</button>
-
           <button class="calc-btn" onclick="calcInput('7')">7</button>
           <button class="calc-btn" onclick="calcInput('8')">8</button>
           <button class="calc-btn" onclick="calcInput('9')">9</button>
           <button class="calc-btn op" onclick="calcInput('×')">×</button>
-
           <button class="calc-btn" onclick="calcInput('4')">4</button>
           <button class="calc-btn" onclick="calcInput('5')">5</button>
           <button class="calc-btn" onclick="calcInput('6')">6</button>
           <button class="calc-btn op" onclick="calcInput('-')">−</button>
-
           <button class="calc-btn" onclick="calcInput('1')">1</button>
           <button class="calc-btn" onclick="calcInput('2')">2</button>
           <button class="calc-btn" onclick="calcInput('3')">3</button>
           <button class="calc-btn op" onclick="calcInput('+')">+</button>
-
           <button class="calc-btn fn" onclick="calcToggleSign()">+/−</button>
           <button class="calc-btn" onclick="calcInput('0')">0</button>
           <button class="calc-btn" onclick="calcInput('.')">.</button>
           <button class="calc-btn eq" onclick="calcEquals()">=</button>
         </div>
-        <!-- SCI keypad -->
         <div class="calc-keypad mode-sci" id="keypadSci" style="display:none;">
           <button class="calc-btn fn" onclick="calcSci('sin')">sin</button>
           <button class="calc-btn fn" onclick="calcSci('cos')">cos</button>
           <button class="calc-btn fn" onclick="calcSci('tan')">tan</button>
           <button class="calc-btn fn" onclick="calcSci('log')">log</button>
           <button class="calc-btn fn" onclick="calcSci('ln')">ln</button>
-
           <button class="calc-btn fn" onclick="calcSci('asin')">sin⁻¹</button>
           <button class="calc-btn fn" onclick="calcSci('acos')">cos⁻¹</button>
           <button class="calc-btn fn" onclick="calcSci('atan')">tan⁻¹</button>
           <button class="calc-btn fn" onclick="calcSci('sqrt')">√</button>
           <button class="calc-btn fn" onclick="calcSci('cbrt')">∛</button>
-
           <button class="calc-btn fn" onclick="calcSci('sq')">x²</button>
           <button class="calc-btn fn" onclick="calcSci('cube')">x³</button>
           <button class="calc-btn fn" onclick="calcSci('pow')">xʸ</button>
           <button class="calc-btn fn" onclick="calcSci('abs')">|x|</button>
           <button class="calc-btn fn" onclick="calcSci('fact')">n!</button>
-
           <button class="calc-btn const" onclick="calcConst('pi')">π</button>
           <button class="calc-btn const" onclick="calcConst('e')">e</button>
-          <button class="calc-btn fn" onclick="calcInput('(')"> ( </button>
-          <button class="calc-btn fn" onclick="calcInput(')')"> ) </button>
+          <button class="calc-btn fn" onclick="calcInput('(')">(</button>
+          <button class="calc-btn fn" onclick="calcInput(')')">)</button>
           <button class="calc-btn fn" onclick="calcSci('exp')">EXP</button>
-
           <button class="calc-btn clr" onclick="calcClear()">AC</button>
           <button class="calc-btn fn" onclick="calcDel()">⌫</button>
           <button class="calc-btn op" onclick="calcInput('%')">%</button>
           <button class="calc-btn op" onclick="calcInput('÷')">÷</button>
           <button class="calc-btn op" onclick="calcInput('×')">×</button>
-
           <button class="calc-btn" onclick="calcInput('7')">7</button>
           <button class="calc-btn" onclick="calcInput('8')">8</button>
           <button class="calc-btn" onclick="calcInput('9')">9</button>
           <button class="calc-btn op" onclick="calcInput('-')">−</button>
           <button class="calc-btn op" onclick="calcInput('+')">+</button>
-
           <button class="calc-btn" onclick="calcInput('4')">4</button>
           <button class="calc-btn" onclick="calcInput('5')">5</button>
           <button class="calc-btn" onclick="calcInput('6')">6</button>
           <button class="calc-btn fn" onclick="calcToggleSign()">+/−</button>
           <button class="calc-btn" onclick="calcInput('.')">.</button>
-
           <button class="calc-btn" onclick="calcInput('1')">1</button>
           <button class="calc-btn" onclick="calcInput('2')">2</button>
           <button class="calc-btn" onclick="calcInput('3')">3</button>
           <button class="calc-btn wide2 eq" onclick="calcEquals()">=</button>
-
           <button class="calc-btn wide2" onclick="calcInput('0')">0</button>
         </div>
       </div>
-      <!-- right: history -->
       <div class="calc-right">
-        <div class="calc-hist-title" id="calcHistTitle">히스토리</div>
-        <div class="calc-hist-list" id="calcHistList"><div class="calc-hist-empty" id="calcHistEmpty">계산 기록 없음</div></div>
+        <div class="calc-hist-title">히스토리</div>
+        <div class="calc-hist-list" id="calcHistList"><div class="calc-hist-empty">계산 기록 없음</div></div>
         <div class="calc-hist-footer">
-          <button class="calc-hist-clear" onclick="calcClearHist()" id="calcHistClearBtn">기록 지우기</button>
+          <button class="calc-hist-clear" onclick="calcClearHist()">기록 지우기</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ TRANSLATOR MODAL ══════════ -->
+<!-- TRANSLATOR MODAL -->
 <div class="modal-overlay" id="modalTranslator" onclick="closeModalOutside(event,'translator')">
     <div class="modal purple">
         <button class="modal-close" onclick="closeTool('translator')">✕</button>
@@ -608,7 +577,7 @@
                 <option value="de">🇩🇪 Deutsch</option>
                 <option value="ru">🇷🇺 Русский</option>
             </select>
-            <button class="tr-swap" onclick="swapLangs()" title="언어 교체">⇄</button>
+            <button class="tr-swap" onclick="swapLangs()">⇄</button>
             <select class="tr-select" id="trTo">
                 <option value="en">🇺🇸 English</option>
                 <option value="ko">🇰🇷 한국어</option>
@@ -641,814 +610,7 @@
     </div>
 </div>
 
-<script>
-/* ── Stars ── */
-const canvas=document.getElementById('stars-canvas'),ctx=canvas.getContext('2d');let stars=[];
-function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-function initStars(){stars=[];for(let i=0;i<180;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.4+0.2,speed:Math.random()*0.3+0.05,alpha:Math.random()});}
-function drawStars(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let s of stars){s.alpha+=(Math.random()-.5)*.04;s.alpha=Math.max(.05,Math.min(1,s.alpha));s.y+=s.speed;if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(180,220,255,${s.alpha})`;ctx.fill();}requestAnimationFrame(drawStars);}
-resize();initStars();drawStars();window.addEventListener('resize',()=>{resize();initStars();});
-
-/* ── Tabs ── */
-function switchTab(tab){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelector(`[data-tab="${tab}"]`).classList.add('active');document.getElementById(`panel-${tab}`).classList.add('active');}
-
-/* ── Modal helpers ── */
-function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
-function openTool(n){document.getElementById('modal'+cap(n)).classList.add('open');document.body.style.overflow='hidden';}
-function closeTool(n){document.getElementById('modal'+cap(n)).classList.remove('open');document.body.style.overflow='';}
-function closeModalOutside(e,n){if(e.target===e.currentTarget)closeTool(n);}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));document.body.style.overflow='';}});
-
-/* ── Char Counter ── */
-function updateCount(){
-    const t=document.getElementById('ccInput').value;
-    const ns=t.replace(/\s/g,'');
-    const w=t.trim()===''?0:t.trim().split(/\s+/).length;
-    const l=t===''?0:t.split('\n').length;
-    const s=t.trim()===''?0:(t.match(/[^.!?。！？]*[.!?。！？]+/g)||[]).length;
-    const b=new TextEncoder().encode(t).length;
-    document.getElementById('statChars').textContent=t.length;
-    document.getElementById('statCharsNoSpace').textContent=ns.length;
-    document.getElementById('statWords').textContent=w;
-    document.getElementById('statLines').textContent=l;
-    document.getElementById('statSentences').textContent=s;
-    document.getElementById('statBytes').textContent=b;
-}
-function copyCC(){const t=document.getElementById('ccInput').value;navigator.clipboard.writeText(t).then(()=>{const btn=document.getElementById('btnCopy');btn.textContent=isKorean?'복사됨 ✓':'Copied ✓';setTimeout(()=>btn.textContent=isKorean?'복사':'Copy',1500);});}
-function clearCC(){document.getElementById('ccInput').value='';updateCount();}
-
-/* ── Spell Check ── */
-let spellIssuesList=[];
-
-function setSpellStatus(msg,type=''){
-    const el=document.getElementById('spellStatus');
-    el.textContent=msg; el.className='spell-status'+(type?' '+type:'');
-}
-
-async function runSpellCheck(){
-    const text=document.getElementById('spellInput').value.trim();
-    if(!text){setSpellStatus(isKorean?'텍스트를 입력해주세요':'Please enter text','err');return;}
-    const btn=document.getElementById('btnSpell');
-    btn.innerHTML='<span class="spinning">↻</span> '+(isKorean?'검사 중...':'Checking...');
-    btn.disabled=true;
-    setSpellStatus(isKorean?'AI가 맞춤법을 검사하고 있습니다...':'AI is checking spelling...');
-    document.getElementById('spellResultBox').style.display='none';
-    document.getElementById('spellIssues').innerHTML='';
-    document.getElementById('btnApplyAll').style.display='none';
-
-    try{
-        const res=await fetch('https://api.anthropic.com/v1/messages',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({
-                model:'claude-sonnet-4-20250514',
-                max_tokens:1000,
-                messages:[{role:'user',content:`다음 한국어 텍스트의 맞춤법과 문법을 검사해주세요. 반드시 아래 JSON 형식만 반환하고 다른 텍스트는 절대 포함하지 마세요.
-
-텍스트: "${text}"
-
-형식:
-{
-  "issues": [
-    {"original":"틀린표현","correction":"올바른표현","reason":"이유설명","start":0,"end":3}
-  ],
-  "summary": "전체 요약 한 줄"
-}
-
-오류가 없으면 issues를 빈 배열로 반환하세요.`}]
-            })
-        });
-        const data=await res.json();
-        const raw=data.content.map(c=>c.text||'').join('');
-        const clean=raw.replace(/\`\`\`json|\`\`\`/g,'').trim();
-        const parsed=JSON.parse(clean);
-        spellIssuesList=parsed.issues||[];
-        renderSpellResult(text, parsed);
-        setSpellStatus(
-            spellIssuesList.length===0
-                ?(isKorean?'✓ 맞춤법 오류 없음':'✓ No spelling errors found')
-                :(isKorean?`${spellIssuesList.length}개의 오류가 발견되었습니다`:`${spellIssuesList.length} issue(s) found`),
-            spellIssuesList.length===0?'ok':'err'
-        );
-        if(spellIssuesList.length>0) document.getElementById('btnApplyAll').style.display='inline-block';
-    }catch(e){
-        setSpellStatus(isKorean?'검사 중 오류가 발생했습니다':'Error during spell check','err');
-    }
-    btn.textContent=isKorean?'맞춤법 검사':'Spell Check';
-    btn.disabled=false;
-}
-
-function renderSpellResult(text, parsed){
-    // highlight errors in the result box
-    const box=document.getElementById('spellResultBox');
-    box.style.display='block';
-    let highlighted=escHtml(text);
-    // sort by position descending to replace from end
-    const sorted=[...(parsed.issues||[])].sort((a,b)=>(b.start||0)-(a.start||0));
-    for(const issue of sorted){
-        const orig=escHtml(issue.original);
-        highlighted=highlighted.replace(orig,`<span class="spell-error" title="${escHtml(issue.reason)}">${orig}</span>`);
-    }
-    box.innerHTML=highlighted;
-
-    // issue list
-    const list=document.getElementById('spellIssues');
-    if(!parsed.issues||parsed.issues.length===0){list.innerHTML='';return;}
-    list.innerHTML=parsed.issues.map((issue,i)=>
-        `<div class="spell-issue" id="spellIssue${i}">
-            <div class="spell-issue-left">
-                <div><span class="spell-issue-orig">${escHtml(issue.original)}</span><span class="spell-issue-arr"> → </span><span class="spell-issue-fix">${escHtml(issue.correction)}</span></div>
-                <div class="spell-issue-reason">${escHtml(issue.reason)}</div>
-            </div>
-            <button class="spell-apply-btn" onclick="applyFix(${i})">${isKorean?'수정':'Fix'}</button>
-        </div>`
-    ).join('');
-}
-
-function applyFix(i){
-    const issue=spellIssuesList[i];
-    if(!issue)return;
-    const ta=document.getElementById('spellInput');
-    ta.value=ta.value.replaceAll(issue.original, issue.correction);
-    spellIssuesList.splice(i,1);
-    runSpellCheck();
-}
-
-function applyAllFixes(){
-    const ta=document.getElementById('spellInput');
-    for(const issue of spellIssuesList){
-        ta.value=ta.value.replaceAll(issue.original, issue.correction);
-    }
-    spellIssuesList=[];
-    runSpellCheck();
-}
-
-function clearSpell(){
-    document.getElementById('spellInput').value='';
-    document.getElementById('spellResultBox').style.display='none';
-    document.getElementById('spellResultBox').innerHTML='';
-    document.getElementById('spellIssues').innerHTML='';
-    document.getElementById('btnApplyAll').style.display='none';
-    spellIssuesList=[];
-    setSpellStatus('');
-}
-
-function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-/* ── Calculator ── */
-let calcExprStr='', calcHasResult=false, calcHistory=[], calcMode='basic';
-const DEG=Math.PI/180;
-
-function fmt(n){
-    if(!isFinite(n)) return isNaN(n)?'오류':'∞';
-    let s=parseFloat(n.toPrecision(12)).toString();
-    if(Math.abs(n)>=1e15||( Math.abs(n)<1e-7 && n!==0)) s=n.toExponential(6);
-    return s;
-}
-
-function calcEval(expr){
-    let e=expr
-        .replace(/÷/g,'/')
-        .replace(/×/g,'*')
-        .replace(/−/g,'-')
-        .replace(/π/g,'(Math.PI)')
-        .replace(/ℯ/g,'(Math.E)')
-        .replace(/(\d+\.?\d*)\s*\^\s*(\d+\.?\d*)/g,'Math.pow($1,$2)');
-    return Function('"use strict";return ('+e+')')();
-}
-
-function calcRender(){
-    const exprEl=document.getElementById('calcExpr');
-    const resEl=document.getElementById('calcResult');
-    exprEl.textContent=calcExprStr;
-    if(!calcExprStr){resEl.textContent='0';resEl.className='calc-result';return;}
-    try{
-        let r=calcEval(calcExprStr);
-        let s=fmt(r);
-        resEl.textContent=s;
-        resEl.className='calc-result'+(s.length>12?' small':'');
-    }catch(e){resEl.textContent='';}
-}
-
-function calcInput(v){
-    if(calcHasResult&&/[0-9.]/.test(v)){calcExprStr='';calcHasResult=false;}
-    if(calcHasResult&&/[+\-×÷%^]/.test(v))calcHasResult=false;
-    calcExprStr+=v;
-    calcRender();
-}
-
-function calcClear(){
-    calcExprStr='';calcHasResult=false;
-    document.getElementById('calcResult').textContent='0';
-    document.getElementById('calcResult').className='calc-result';
-    document.getElementById('calcExpr').textContent='';
-    document.getElementById('calcHistLine').textContent='';
-}
-
-function calcDel(){
-    // smart delete: remove last token if it's a function name
-    const m=calcExprStr.match(/(sin|cos|tan|log|ln|sqrt|abs|exp)\($/);
-    if(m) calcExprStr=calcExprStr.slice(0,-(m[0].length));
-    else calcExprStr=calcExprStr.slice(0,-1);
-    calcRender();
-}
-
-function calcToggleSign(){
-    if(!calcExprStr) return;
-    if(calcExprStr.startsWith('-(')) {calcExprStr=calcExprStr.slice(2,-1);} 
-    else {calcExprStr='-('+calcExprStr+')';}
-    calcRender();
-}
-
-function calcSci(fn){
-    const cur=calcExprStr||document.getElementById('calcResult').textContent;
-    const n=parseFloat(cur);
-    let expr='',result;
-    switch(fn){
-        case 'sin':  expr=`sin(${calcExprStr||n})`; result=Math.sin(n*DEG); break;
-        case 'cos':  expr=`cos(${calcExprStr||n})`; result=Math.cos(n*DEG); break;
-        case 'tan':  expr=`tan(${calcExprStr||n})`; result=Math.tan(n*DEG); break;
-        case 'asin': expr=`sin⁻¹(${n})`; result=Math.asin(n)/DEG; break;
-        case 'acos': expr=`cos⁻¹(${n})`; result=Math.acos(n)/DEG; break;
-        case 'atan': expr=`tan⁻¹(${n})`; result=Math.atan(n)/DEG; break;
-        case 'log':  expr=`log(${n})`; result=Math.log10(n); break;
-        case 'ln':   expr=`ln(${n})`; result=Math.log(n); break;
-        case 'sqrt': expr=`√(${n})`; result=Math.sqrt(n); break;
-        case 'cbrt': expr=`∛(${n})`; result=Math.cbrt(n); break;
-        case 'sq':   expr=`${n}²`; result=n*n; break;
-        case 'cube': expr=`${n}³`; result=n*n*n; break;
-        case 'pow':  calcExprStr+=(calcExprStr?'^':''); calcRender(); return;
-        case 'abs':  expr=`|${n}|`; result=Math.abs(n); break;
-        case 'fact': expr=`${n}!`; result=factorial(n); break;
-        case 'exp':  calcExprStr+='e+'; calcRender(); return;
-    }
-    document.getElementById('calcHistLine').textContent=expr+' =';
-    document.getElementById('calcExpr').textContent=expr;
-    let s=fmt(result);
-    document.getElementById('calcResult').textContent=s;
-    document.getElementById('calcResult').className='calc-result'+(s.length>12?' small':'');
-    calcAddHist(expr, s);
-    calcExprStr=s; calcHasResult=true;
-}
-
-function factorial(n){
-    n=Math.round(n);
-    if(n<0||n>170) return NaN;
-    if(n===0||n===1) return 1;
-    let r=1; for(let i=2;i<=n;i++) r*=i; return r;
-}
-
-function calcConst(c){
-    if(calcHasResult){calcExprStr='';calcHasResult=false;}
-    calcExprStr+=(c==='pi'?'π':'ℯ');
-    calcRender();
-}
-
-function calcEquals(){
-    if(!calcExprStr) return;
-    try{
-        let r=calcEval(calcExprStr);
-        let s=fmt(r);
-        document.getElementById('calcHistLine').textContent=calcExprStr+' =';
-        document.getElementById('calcExpr').textContent=calcExprStr+' =';
-        document.getElementById('calcResult').textContent=s;
-        document.getElementById('calcResult').className='calc-result'+(s.length>12?' small':'');
-        calcAddHist(calcExprStr, s);
-        calcExprStr=s; calcHasResult=true;
-    }catch(e){
-        document.getElementById('calcResult').textContent='오류';
-        document.getElementById('calcResult').className='calc-result';
-    }
-}
-
-function calcAddHist(expr, val){
-    calcHistory.unshift({expr,val});
-    if(calcHistory.length>50) calcHistory.pop();
-    calcRenderHist();
-}
-
-function calcRenderHist(){
-    const list=document.getElementById('calcHistList');
-    const empty=document.getElementById('calcHistEmpty');
-    if(calcHistory.length===0){list.innerHTML='<div class="calc-hist-empty" id="calcHistEmpty">'+(isKorean?'계산 기록 없음':'No history')+'</div>';return;}
-    list.innerHTML=calcHistory.map((h,i)=>
-        `<div class="calc-hist-item" onclick="calcUseHist(${i})">
-            <div class="calc-hist-expr">${h.expr}</div>
-            <div class="calc-hist-val">${h.val}</div>
-        </div>`
-    ).join('');
-}
-
-function calcUseHist(i){
-    calcExprStr=calcHistory[i].val;
-    calcHasResult=true;
-    calcRender();
-}
-
-function calcClearHist(){calcHistory=[];calcRenderHist();}
-
-function setMode(m){
-    calcMode=m;
-    document.getElementById('keypadBasic').style.display=m==='basic'?'grid':'none';
-    document.getElementById('keypadSci').style.display=m==='sci'?'grid':'none';
-    document.getElementById('modeBasic').className='calc-mode-btn'+(m==='basic'?' active':'');
-    document.getElementById('modeSci').className='calc-mode-btn'+(m==='sci'?' active':'');
-}
-
-document.addEventListener('keydown',function(e){
-    const calcOpen=document.getElementById('modalCalculator').classList.contains('open');
-    if(!calcOpen) return;
-    if(e.key>='0'&&e.key<='9'||e.key==='.') calcInput(e.key);
-    else if(e.key==='+') calcInput('+');
-    else if(e.key==='-') calcInput('-');
-    else if(e.key==='*') calcInput('×');
-    else if(e.key==='/'){e.preventDefault();calcInput('÷');}
-    else if(e.key==='%') calcInput('%');
-    else if(e.key==='('||e.key===')') calcInput(e.key);
-    else if(e.key==='Enter'||e.key==='=') calcEquals();
-    else if(e.key==='Backspace') calcDel();
-    else if(e.key==='Escape') closeTool('calculator');
-});
-
-
-/* ── TIMER ── */
-let tmMode='timer', tmRunning=false, tmInterval=null, tmRemaining=0, tmTotal=0;
-let swRunning=false, swInterval=null, swElapsed=0, swLapStart=0, swLaps=[];
-
-function tmSetMode(m){
-    tmMode=m;
-    document.getElementById('tmModeTimer').className='timer-mode-btn'+(m==='timer'?' active':'');
-    document.getElementById('tmModeStop').className='timer-mode-btn'+(m==='stopwatch'?' active':'');
-    document.getElementById('tmPanelTimer').style.display=m==='timer'?'block':'none';
-    document.getElementById('tmPanelStop').style.display=m==='stopwatch'?'block':'none';
-    tmReset(); swReset();
-}
-
-function tmGetTotal(){
-    const h=parseInt(document.getElementById('tmHour').value)||0;
-    const m=parseInt(document.getElementById('tmMin').value)||0;
-    const s=parseInt(document.getElementById('tmSec').value)||0;
-    return h*3600+m*60+s;
-}
-
-function tmFmt(s){
-    const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60;
-    if(h>0) return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
-    return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
-}
-
-function tmToggle(){
-    if(!tmRunning){
-        if(tmRemaining<=0) tmRemaining=tmGetTotal();
-        if(tmRemaining<=0) return;
-        tmTotal=tmRemaining;
-        tmRunning=true;
-        document.getElementById('tmStartBtn').textContent='일시정지';
-        document.getElementById('tmLabel').textContent='진행 중';
-        tmInterval=setInterval(()=>{
-            tmRemaining--;
-            const el=document.getElementById('tmDisplay');
-            el.textContent=tmFmt(tmRemaining);
-            el.className='timer-time'+(tmRemaining<=10?' warning':'');
-            if(tmRemaining<=0){
-                clearInterval(tmInterval); tmRunning=false;
-                document.getElementById('tmStartBtn').textContent='시작';
-                document.getElementById('tmLabel').textContent='완료! 🎉';
-                el.className='timer-time';
-                try{new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAA').play();}catch(e){}
-            }
-        },1000);
-    } else {
-        clearInterval(tmInterval); tmRunning=false;
-        document.getElementById('tmStartBtn').textContent='계속';
-        document.getElementById('tmLabel').textContent='일시정지';
-    }
-}
-
-function tmReset(){
-    clearInterval(tmInterval); tmRunning=false; tmRemaining=0;
-    document.getElementById('tmStartBtn').textContent='시작';
-    document.getElementById('tmLabel').textContent='대기 중';
-    const total=tmGetTotal();
-    const el=document.getElementById('tmDisplay');
-    el.textContent=tmFmt(total); el.className='timer-time';
-}
-
-function tmPreset(h,m,s){
-    document.getElementById('tmHour').value=h;
-    document.getElementById('tmMin').value=m;
-    document.getElementById('tmSec').value=s;
-    tmReset();
-}
-
-function swFmt(ms){
-    const m=Math.floor(ms/60000), s=Math.floor((ms%60000)/1000), cs=Math.floor((ms%1000)/10);
-    return {main:`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`, ms:'.'+String(Math.floor(ms%1000)).padStart(3,'0')};
-}
-
-function swToggle(){
-    if(!swRunning){
-        swRunning=true; const start=Date.now()-swElapsed;
-        document.getElementById('swStartBtn').textContent='일시정지';
-        document.getElementById('swLabel').textContent='진행 중';
-        document.getElementById('swLapBtn').disabled=false;
-        swInterval=setInterval(()=>{
-            swElapsed=Date.now()-start;
-            const f=swFmt(swElapsed);
-            document.getElementById('swDisplay').textContent=f.main;
-            document.getElementById('swMs').textContent=f.ms;
-        },50);
-    } else {
-        clearInterval(swInterval); swRunning=false;
-        document.getElementById('swStartBtn').textContent='계속';
-        document.getElementById('swLabel').textContent='일시정지';
-    }
-}
-
-function swLap(){
-    if(!swRunning) return;
-    const split=swElapsed-swLapStart; swLapStart=swElapsed;
-    swLaps.unshift({total:swElapsed,split});
-    const f=swFmt(swElapsed), fs=swFmt(split);
-    document.getElementById('lapList').innerHTML=
-        swLaps.map((l,i)=>{const ft=swFmt(l.total),fsp=swFmt(l.split);
-            return `<div class="lap-item"><span class="lap-num">LAP ${swLaps.length-i}</span><span class="lap-time">${ft.main}${ft.ms}</span><span class="lap-split">+${fsp.main}${fsp.ms}</span></div>`;
-        }).join('');
-}
-
-function swReset(){
-    clearInterval(swInterval); swRunning=false; swElapsed=0; swLapStart=0; swLaps=[];
-    document.getElementById('swStartBtn').textContent='시작';
-    document.getElementById('swLabel').textContent='대기 중';
-    document.getElementById('swDisplay').textContent='00:00';
-    document.getElementById('swMs').textContent='.000';
-    document.getElementById('swLapBtn').disabled=true;
-    document.getElementById('lapList').innerHTML='';
-}
-
-/* ── RANDOM ── */
-function randTab(tab){
-    document.querySelectorAll('.rand-tab').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.rand-panel').forEach(p=>p.classList.remove('active'));
-    event.target.classList.add('active');
-    document.getElementById('randPanel'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
-}
-
-function doRandNum(){
-    const mn=parseInt(document.getElementById('randMin').value)||1;
-    const mx=parseInt(document.getElementById('randMax').value)||100;
-    const r=Math.floor(Math.random()*(mx-mn+1))+mn;
-    const el=document.getElementById('randNumResult');
-    el.style.transform='scale(1.3)'; el.textContent=r;
-    setTimeout(()=>el.style.transform='scale(1)',200);
-}
-
-function rollDice(){
-    const count=Math.min(parseInt(document.getElementById('diceCount').value)||1,8);
-    const faces=parseInt(document.getElementById('diceFaces').value)||6;
-    const grid=document.getElementById('diceGrid');
-    grid.innerHTML='';
-    let total=0;
-    for(let i=0;i<count;i++){
-        const val=Math.floor(Math.random()*faces)+1;
-        total+=val;
-        const die=document.createElement('div');
-        die.className='die rolling';
-        die.textContent=val;
-        die.onclick=rollDice;
-        grid.appendChild(die);
-        setTimeout(()=>die.classList.remove('rolling'),400);
-    }
-    document.getElementById('diceTotal').textContent=count>1?`합계: ${total}`:'';
-}
-
-function flipCoin(){
-    const heads=Math.random()<0.5;
-    const el=document.getElementById('coinEmoji');
-    const res=document.getElementById('coinResult');
-    el.style.animation='none'; void el.offsetWidth;
-    el.style.animation='diceRoll .4s ease';
-    el.textContent=heads?'🟡':'⚫';
-    res.textContent=heads?'앞면 (HEAD)':'뒷면 (TAIL)';
-}
-
-function drawTeams(){
-    const names=document.getElementById('teamInput').value.split('
-').map(s=>s.trim()).filter(Boolean);
-    const tc=Math.max(2,parseInt(document.getElementById('teamCount').value)||2);
-    if(names.length<tc){document.getElementById('teamResult').textContent='이름이 팀 수보다 적어요!';return;}
-    const shuffled=[...names].sort(()=>Math.random()-.5);
-    const teams=Array.from({length:tc},()=>[]);
-    shuffled.forEach((n,i)=>teams[i%tc].push(n));
-    document.getElementById('teamResult').innerHTML=teams.map((t,i)=>
-        `<div class="team-group">팀 ${i+1}</div><div>${t.join(', ')}</div>`
-    ).join('');
-}
-
-/* ── PASSWORD ── */
-const UPPER='ABCDEFGHIJKLMNOPQRSTUVWXYZ', LOWER='abcdefghijklmnopqrstuvwxyz';
-const NUMS='0123456789', SYMS='!@#$%^&*()-_=+[]{}|;:,.<>?';
-const AMBIG=/[0Ol1Il]/g;
-
-function pwGetChars(){
-    let c='';
-    if(document.getElementById('pwUpper').checked) c+=UPPER;
-    if(document.getElementById('pwLower').checked) c+=LOWER;
-    if(document.getElementById('pwNum').checked) c+=NUMS;
-    if(document.getElementById('pwSym').checked) c+=SYMS;
-    if(document.getElementById('pwNoAmb').checked) c=c.replace(AMBIG,'');
-    return c||LOWER;
-}
-
-function pwGenerate(){
-    const len=parseInt(document.getElementById('pwLen').value)||16;
-    document.getElementById('pwLenVal').textContent=len;
-    const chars=pwGetChars();
-    let pw='';
-    const arr=new Uint32Array(len);
-    crypto.getRandomValues(arr);
-    for(let i=0;i<len;i++) pw+=chars[arr[i]%chars.length];
-    document.getElementById('pwValue').textContent=pw;
-    pwStrength(pw);
-    document.getElementById('pwMultiList').style.display='none';
-    return pw;
-}
-
-function pwUpdate(){pwGenerate();}
-
-function pwStrength(pw){
-    let score=0;
-    if(pw.length>=8) score++;
-    if(pw.length>=16) score++;
-    if(/[A-Z]/.test(pw)&&/[a-z]/.test(pw)) score++;
-    if(/[0-9]/.test(pw)) score++;
-    if(/[^A-Za-z0-9]/.test(pw)) score++;
-    const colors=['#ff4444','#ff8800','#ffe600','#88ff00','#00ff88'];
-    const labels=['매우 약함','약함','보통','강함','매우 강함'];
-    const bars=document.querySelectorAll('.pw-strength-bar');
-    bars.forEach((b,i)=>b.style.background=i<score?colors[score-1]:'rgba(255,255,255,.08)');
-    document.getElementById('pwStrengthLabel').textContent='강도: '+labels[Math.min(score,4)];
-    document.getElementById('pwStrengthLabel').style.color=colors[Math.min(score-1,4)]||'rgba(255,255,255,.3)';
-}
-
-function pwCopy(){
-    const pw=document.getElementById('pwValue').textContent;
-    if(pw==='—') return;
-    navigator.clipboard.writeText(pw).then(()=>{
-        const btn=document.getElementById('pwCopyBtn');
-        btn.textContent='복사됨 ✓';
-        setTimeout(()=>btn.textContent='복사',1500);
-    });
-}
-
-function pwMultiGenerate(){
-    const n=Math.min(parseInt(document.getElementById('pwMultiCount').value)||1,20);
-    const len=parseInt(document.getElementById('pwLen').value)||16;
-    const chars=pwGetChars();
-    const list=[];
-    for(let j=0;j<n;j++){
-        let pw=''; const arr=new Uint32Array(len);
-        crypto.getRandomValues(arr);
-        for(let i=0;i<len;i++) pw+=chars[arr[i]%chars.length];
-        list.push(pw);
-    }
-    const el=document.getElementById('pwMultiList');
-    el.textContent=list.join('\n
-'); el.style.display='block';
-    document.getElementById('pwValue').textContent=list[0];
-    pwStrength(list[0]);
-}
-
-/* ── UNIT CONVERTER ── */
-const UNIT_DATA={
-    '길이':{
-        units:['km','m','cm','mm','mi','yd','ft','in','nm'],
-        toBase:{km:1000,m:1,cm:.01,mm:.001,mi:1609.344,yd:.9144,ft:.3048,in:.0254,nm:1e-9},
-        labels:{km:'킬로미터',m:'미터',cm:'센티미터',mm:'밀리미터',mi:'마일',yd:'야드',ft:'피트',in:'인치',nm:'나노미터'}
-    },
-    '무게':{
-        units:['t','kg','g','mg','lb','oz'],
-        toBase:{t:1000,kg:1,g:.001,mg:1e-6,lb:.453592,oz:.0283495},
-        labels:{t:'톤',kg:'킬로그램',g:'그램',mg:'밀리그램',lb:'파운드',oz:'온스'}
-    },
-    '온도':{
-        units:['°C','°F','K'],
-        toBase:{},
-        labels:{'°C':'섭씨','°F':'화씨',K:'켈빈'}
-    },
-    '넓이':{
-        units:['km²','m²','cm²','ha','acre','ft²','in²'],
-        toBase:{'km²':1e6,'m²':1,'cm²':1e-4,'ha':1e4,'acre':4046.86,'ft²':.092903,'in²':6.4516e-4},
-        labels:{'km²':'제곱킬로미터','m²':'제곱미터','cm²':'제곱센티미터','ha':'헥타르','acre':'에이커','ft²':'제곱피트','in²':'제곱인치'}
-    },
-    '속도':{
-        units:['km/h','m/s','mph','knot'],
-        toBase:{'km/h':1/3.6,'m/s':1,'mph':0.44704,'knot':0.514444},
-        labels:{'km/h':'킬로미터/시','m/s':'미터/초','mph':'마일/시','knot':'노트'}
-    },
-    '데이터':{
-        units:['TB','GB','MB','KB','B','bit'],
-        toBase:{TB:1e12,GB:1e9,MB:1e6,KB:1e3,B:1,bit:0.125},
-        labels:{TB:'테라바이트',GB:'기가바이트',MB:'메가바이트',KB:'킬로바이트',B:'바이트',bit:'비트'}
-    }
-};
-
-let unitCat='길이';
-
-function unitInit(){
-    const row=document.getElementById('unitCatRow');
-    row.innerHTML=Object.keys(UNIT_DATA).map(k=>
-        `<button class="unit-cat-btn${k==='길이'?' active':''}" onclick="unitSetCat('${k}')">${k}</button>`
-    ).join('');
-    unitPopulateSelects();
-    unitConvert();
-}
-
-function unitSetCat(cat){
-    unitCat=cat;
-    document.querySelectorAll('.unit-cat-btn').forEach(b=>b.classList.toggle('active',b.textContent===cat));
-    unitPopulateSelects();
-    document.getElementById('unitVal').value=1;
-    unitConvert();
-}
-
-function unitPopulateSelects(){
-    const data=UNIT_DATA[unitCat];
-    ['unitFrom','unitTo'].forEach((id,i)=>{
-        const sel=document.getElementById(id);
-        sel.innerHTML=data.units.map((u,j)=>
-            `<option value="${u}"${(i===0&&j===0)||(i===1&&j===1)?' selected':''}>${u} — ${data.labels[u]}</option>`
-        ).join('');
-    });
-}
-
-function tempConvert(val, from, to){
-    let c;
-    if(from==='°C') c=val;
-    else if(from==='°F') c=(val-32)*5/9;
-    else c=val-273.15;
-    if(to==='°C') return c;
-    if(to==='°F') return c*9/5+32;
-    return c+273.15;
-}
-
-function unitConvert(){
-    const val=parseFloat(document.getElementById('unitVal').value);
-    const from=document.getElementById('unitFrom').value;
-    const to=document.getElementById('unitTo').value;
-    if(isNaN(val)){document.getElementById('unitResult').textContent='—';return;}
-    const data=UNIT_DATA[unitCat];
-    let result;
-    if(unitCat==='온도'){result=tempConvert(val,from,to);}
-    else{result=val*data.toBase[from]/data.toBase[to];}
-    const s=parseFloat(result.toPrecision(10)).toString();
-    document.getElementById('unitResult').textContent=s+' '+to;
-    document.getElementById('unitResultLabel').textContent=`${val} ${from} = ${s} ${to}`;
-    // all units grid
-    const grid=document.getElementById('unitAllGrid');
-    grid.innerHTML=data.units.map(u=>{
-        let r;
-        if(unitCat==='온도') r=tempConvert(val,from,u);
-        else r=val*data.toBase[from]/data.toBase[u];
-        return `<div class="unit-all-item"><div class="unit-all-val">${parseFloat(r.toPrecision(8))} ${u}</div><div class="unit-all-name">${data.labels[u]}</div></div>`;
-    }).join('');
-}
-
-// init unit when modal opens — hook into openTool
-function openTool(n){
-    document.getElementById('modal'+cap(n)).classList.add('open');
-    document.body.style.overflow='hidden';
-    if(n==='unit') unitInit();
-    if(n==='password') pwGenerate();
-    if(n==='random') rollDice();
-}
-
-/* ── Translator ── */
-const LANG_NAMES={ko:'한국어',en:'English',ja:'日本語',zh:'中文',es:'Español',fr:'Français',de:'Deutsch',ru:'Русский'};
-let trLoading=false;
-
-function swapLangs(){
-    const from=document.getElementById('trFrom');
-    const to=document.getElementById('trTo');
-    const tmp=from.value;from.value=to.value;to.value=tmp;
-    const inp=document.getElementById('trInput').value;
-    const out=document.getElementById('trOutput').value;
-    document.getElementById('trInput').value=out;
-    document.getElementById('trOutput').value=inp;
-    trSetStatus('');
-}
-
-async function doTranslate(){
-    if(trLoading)return;
-    const text=document.getElementById('trInput').value.trim();
-    if(!text){trSetStatus(isKorean?'텍스트를 입력해주세요':'Please enter text','error');return;}
-    const from=document.getElementById('trFrom').value;
-    const to=document.getElementById('trTo').value;
-    if(from===to){document.getElementById('trOutput').value=text;return;}
-    trLoading=true;
-    const btn=document.getElementById('btnTranslate');
-    btn.innerHTML='<span class="spinning">↻</span>';
-    trSetStatus(isKorean?'번역 중...':'Translating...');
-
-    // MyMemory free API (no key needed, 1000 req/day)
-    try{
-        const langPair=`${from}|${to}`;
-        const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${langPair}`;
-        const res=await fetch(url);
-        const data=await res.json();
-        if(data.responseStatus===200){
-            document.getElementById('trOutput').value=data.responseData.translatedText;
-            trSetStatus(isKorean?`✓ ${LANG_NAMES[from]} → ${LANG_NAMES[to]} 번역 완료`:`✓ Translated ${LANG_NAMES[from]} → ${LANG_NAMES[to]}`,'ok');
-        } else {
-            trSetStatus(isKorean?'번역 실패. 다시 시도해주세요.':'Translation failed. Please try again.','error');
-        }
-    }catch(e){
-        trSetStatus(isKorean?'네트워크 오류. 인터넷 연결을 확인해주세요.':'Network error. Check your connection.','error');
-    }
-    trLoading=false;
-    btn.textContent=isKorean?'번역하기':'Translate';
-}
-function trSetStatus(msg,type=''){
-    const el=document.getElementById('trStatus');
-    el.textContent=msg;el.className='tr-status'+(type?' '+type:'');
-}
-function copyTR(){
-    const t=document.getElementById('trOutput').value;
-    if(!t)return;
-    navigator.clipboard.writeText(t).then(()=>{
-        const btn=document.getElementById('btnCopyTR');
-        btn.textContent=isKorean?'복사됨 ✓':'Copied ✓';
-        setTimeout(()=>btn.textContent=isKorean?'결과 복사':'Copy Result',1500);
-    });
-}
-function clearTR(){document.getElementById('trInput').value='';document.getElementById('trOutput').value='';trSetStatus('');}
-
-/* ── Language ── */
-let isKorean=true;
-const T={
-    ko:{
-        btn:'🌐 English',label:"// arong's space v2.0",mainTitle:'아룡의 포털',
-        subText:'게임, 툴, 그리고 그 이상 — 아룡의 세계에 오신 것을 환영합니다',
-        tabGames:'🎮 &nbsp;게임',tabTools:'🔧 &nbsp;툴',
-        tag1:'액션 / 3D',cardTitle1:'3D 플랫포머 게임',cardDesc1:'짜릿한 3D 플랫포머 세계로 뛰어드세요. 점프하고, 달리고, 장애물을 피하며 스테이지를 클리어하세요!',ctaText1:'지금 플레이',
-        tag2:'전략 / 보드',cardTitle2:'체스',cardDesc2:'클래식 체스의 세계로 입장하세요. 전략을 세우고 상대를 제압하는 두뇌 싸움을 즐겨보세요!',ctaText2:'지금 플레이',
-        toolTag1:'텍스트 / 분석',toolTitle1:'글자수 세기',toolDesc1:'글자 수, 단어 수, 문장 수, 공백 포함/제외 등 텍스트를 실시간으로 분석합니다.',toolCta1:'툴 열기',
-        toolTag2:'수학 / 계산',toolTitle2:'계산기',toolDesc2:'사칙연산부터 제곱근, 퍼센트, 괄호 계산까지 지원하는 공학용 계산기입니다.',toolCta2:'툴 열기',
-        toolTag3:'언어 / 번역',toolTitle3:'번역기',toolDesc3:'한국어, 영어, 일본어, 중국어, 스페인어 등 다양한 언어 간 번역을 지원합니다.',toolCta3:'툴 열기',
-        ccTitle:'글자수 세기',ccSubtitle:'텍스트를 입력하면 실시간으로 분석합니다',ccPlaceholder:'여기에 텍스트를 입력하세요...',
-        labelChars:'글자수 (공백 포함)',labelCharsNoSpace:'글자수 (공백 제외)',labelWords:'단어수',labelLines:'줄수',labelSentences:'문장수',labelBytes:'바이트 (UTF-8)',
-        btnCopy:'복사',btnClear:'초기화',
-        calcTitle:'계산기',calcSubtitle:'공학용 계산기',
-        trTitle:'번역기',trSubtitle:'텍스트를 입력하고 번역 버튼을 누르세요',
-        trLabelInput:'입력',trLabelOutput:'번역 결과',
-        trPlaceholderInput:'번역할 텍스트를 입력하세요...',trPlaceholderOutput:'번역 결과가 여기에 표시됩니다...',
-        btnTranslate:'번역하기',btnCopyTR:'결과 복사',btnClearTR:'초기화',
-        footer:"© arong's hub · Made with ❤️",pageTitle:'아룡의 포털'
-    },
-    en:{
-        btn:'🌐 한국어',label:"// arong's space v2.0",mainTitle:"arong's portal",
-        subText:"Games, tools, and more — welcome to arong's world",
-        tabGames:'🎮 &nbsp;Games',tabTools:'🔧 &nbsp;Tools',
-        tag1:'Action / 3D',cardTitle1:'3D Platformer Game',cardDesc1:'Dive into a thrilling 3D platformer world. Jump, run, dodge obstacles and clear every stage!',ctaText1:'Play Now',
-        tag2:'Strategy / Board',cardTitle2:'Chess',cardDesc2:'Enter the classic world of chess. Plan your moves, outthink your opponent, and seize victory!',ctaText2:'Play Now',
-        toolTag1:'Text / Analysis',toolTitle1:'Char Counter',toolDesc1:'Counts characters, words, sentences, lines and bytes — with or without spaces, in real time.',toolCta1:'Open Tool',
-        toolTag2:'Math / Compute',toolTitle2:'Calculator',toolDesc2:'From basic arithmetic to square roots, percentages and parentheses — a full-featured calculator.',toolCta2:'Open Tool',
-        toolTag3:'Language / Translate',toolTitle3:'Translator',toolDesc3:'Translate between Korean, English, Japanese, Chinese, Spanish and more.',toolCta3:'Open Tool',
-        ccTitle:'Character Counter',ccSubtitle:'Type or paste text to analyze it in real time',ccPlaceholder:'Type or paste your text here...',
-        labelChars:'Chars (with spaces)',labelCharsNoSpace:'Chars (no spaces)',labelWords:'Words',labelLines:'Lines',labelSentences:'Sentences',labelBytes:'Bytes (UTF-8)',
-        btnCopy:'Copy',btnClear:'Clear',
-        calcTitle:'Calculator',calcSubtitle:'Scientific Calculator',
-        trTitle:'Translator',trSubtitle:'Enter text and press Translate',
-        trLabelInput:'Input',trLabelOutput:'Translation',
-        trPlaceholderInput:'Enter text to translate...',trPlaceholderOutput:'Translation will appear here...',
-        btnTranslate:'Translate',btnCopyTR:'Copy Result',btnClearTR:'Clear',
-        footer:"© arong's hub · Made with ❤️",pageTitle:"arong's portal"
-    }
-};
-
-function toggleLang(){
-    isKorean=!isKorean;
-    const lang=isKorean?'ko':'en';
-    const t=T[lang];
-    const ids=['label','mainTitle','subText','tag1','cardTitle1','cardDesc1','ctaText1','tag2','cardTitle2','cardDesc2','ctaText2',
-               'toolTag1','toolTitle1','toolDesc1','toolCta1','toolTag2','toolTitle2','toolDesc2','toolCta2',
-               'toolTag3','toolTitle3','toolDesc3','toolCta3',
-               'ccTitle','ccSubtitle','labelChars','labelCharsNoSpace','labelWords','labelLines','labelSentences','labelBytes','btnCopy','btnClear',
-               'calcTitle','calcSubtitle','trTitle','trSubtitle','trLabelInput','trLabelOutput','btnTranslate','btnCopyTR','btnClearTR'];
-    ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t[id];});
-    document.getElementById('langBtn').textContent=t.btn;
-    document.getElementById('tabGames').innerHTML=t.tabGames;
-    document.getElementById('tabTools').innerHTML=t.tabTools;
-    document.getElementById('ccInput').placeholder=t.ccPlaceholder;
-    document.getElementById('trInput').placeholder=t.trPlaceholderInput;
-    document.getElementById('trOutput').placeholder=t.trPlaceholderOutput;
-    document.getElementById('footer').innerHTML=`<span>${t.footer}</span>`;
-    document.title=t.pageTitle;
-    document.documentElement.lang=lang;
-}
-</script>
-
-<!-- ══════════ TIMER MODAL ══════════ -->
+<!-- TIMER MODAL -->
 <div class="modal-overlay" id="modalTimer" onclick="closeModalOutside(event,'timer')">
   <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:480px;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan),transparent);"></div>
@@ -1459,7 +621,6 @@ function toggleLang(){
       <button class="timer-mode-btn active" id="tmModeTimer" onclick="tmSetMode('timer')">타이머</button>
       <button class="timer-mode-btn" id="tmModeStop" onclick="tmSetMode('stopwatch')">스톱워치</button>
     </div>
-    <!-- Timer panel -->
     <div id="tmPanelTimer">
       <div class="timer-input-row">
         <input class="timer-input" id="tmHour" type="number" min="0" max="23" value="0" placeholder="00">
@@ -1485,7 +646,6 @@ function toggleLang(){
         <button class="timer-preset" onclick="tmPreset(0,0,30)">30초</button>
       </div>
     </div>
-    <!-- Stopwatch panel -->
     <div id="tmPanelStop" style="display:none;">
       <div class="timer-display">
         <div class="timer-time" id="swDisplay">00:00</div>
@@ -1502,7 +662,7 @@ function toggleLang(){
   </div>
 </div>
 
-<!-- ══════════ RANDOM MODAL ══════════ -->
+<!-- RANDOM MODAL -->
 <div class="modal-overlay" id="modalRandom" onclick="closeModalOutside(event,'random')">
   <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:520px;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-pink),transparent);"></div>
@@ -1510,12 +670,11 @@ function toggleLang(){
     <div class="modal-title" style="color:var(--neon-pink);">🎲 랜덤 / 주사위</div>
     <div class="modal-subtitle">운에 맡겨봐요</div>
     <div class="rand-tabs">
-      <button class="rand-tab active" onclick="randTab('number')">숫자</button>
-      <button class="rand-tab" onclick="randTab('dice')">주사위</button>
-      <button class="rand-tab" onclick="randTab('coin')">동전</button>
-      <button class="rand-tab" onclick="randTab('team')">팀 뽑기</button>
+      <button class="rand-tab active" onclick="randTab(this,'number')">숫자</button>
+      <button class="rand-tab" onclick="randTab(this,'dice')">주사위</button>
+      <button class="rand-tab" onclick="randTab(this,'coin')">동전</button>
+      <button class="rand-tab" onclick="randTab(this,'team')">팀 뽑기</button>
     </div>
-    <!-- Number -->
     <div class="rand-panel active" id="randPanelNumber">
       <div class="rand-big" id="randNumResult">?</div>
       <div class="rand-sublabel">랜덤 숫자</div>
@@ -1530,7 +689,6 @@ function toggleLang(){
         <button class="rand-btn" onclick="doRandNum()">🎲 뽑기</button>
       </div>
     </div>
-    <!-- Dice -->
     <div class="rand-panel" id="randPanelDice">
       <div class="rand-row" style="justify-content:center;gap:16px;margin-bottom:14px;">
         <span class="rand-label">주사위 수</span>
@@ -1552,7 +710,6 @@ function toggleLang(){
         <button class="rand-btn" onclick="rollDice()">🎲 굴리기</button>
       </div>
     </div>
-    <!-- Coin -->
     <div class="rand-panel" id="randPanelCoin">
       <div class="coin-result" id="coinResult"></div>
       <div class="coin-display" id="coinEmoji" onclick="flipCoin()">🪙</div>
@@ -1560,7 +717,6 @@ function toggleLang(){
         <button class="rand-btn" onclick="flipCoin()">던지기</button>
       </div>
     </div>
-    <!-- Team -->
     <div class="rand-panel" id="randPanelTeam">
       <textarea class="team-textarea" id="teamInput" placeholder="이름을 줄바꿈으로 구분해서 입력하세요&#10;예) 홍길동&#10;김철수&#10;이영희"></textarea>
       <div class="rand-row">
@@ -1575,7 +731,7 @@ function toggleLang(){
   </div>
 </div>
 
-<!-- ══════════ PASSWORD MODAL ══════════ -->
+<!-- PASSWORD MODAL -->
 <div class="modal-overlay" id="modalPassword" onclick="closeModalOutside(event,'password')">
   <div class="modal green" style="max-width:500px;">
     <button class="modal-close" onclick="closeTool('password')">✕</button>
@@ -1585,7 +741,7 @@ function toggleLang(){
       <div class="pw-value" id="pwValue">—</div>
       <button class="pw-copy-btn" onclick="pwCopy()" id="pwCopyBtn">복사</button>
     </div>
-    <div class="pw-strength" id="pwStrengthBars">
+    <div class="pw-strength">
       <div class="pw-strength-bar"></div><div class="pw-strength-bar"></div>
       <div class="pw-strength-bar"></div><div class="pw-strength-bar"></div>
     </div>
@@ -1604,7 +760,7 @@ function toggleLang(){
         <label class="pw-checkbox"><input type="checkbox" id="pwNoAmb" onchange="pwGenerate()"> 헷갈리는 문자 제외 (0,O,l,1)</label>
       </div>
     </div>
-    <div class="pw-multi" style="align-items:center;">
+    <div class="pw-multi">
       <span class="pw-label">개수</span>
       <input class="pw-multi-input" type="number" id="pwMultiCount" value="1" min="1" max="20">
       <button class="tool-btn green" onclick="pwMultiGenerate()" style="margin-left:4px;">여러 개 생성</button>
@@ -1616,7 +772,7 @@ function toggleLang(){
   </div>
 </div>
 
-<!-- ══════════ UNIT MODAL ══════════ -->
+<!-- UNIT MODAL -->
 <div class="modal-overlay" id="modalUnit" onclick="closeModalOutside(event,'unit')">
   <div class="modal yellow" style="max-width:600px;">
     <button class="modal-close" onclick="closeTool('unit')">✕</button>
@@ -1635,5 +791,766 @@ function toggleLang(){
   </div>
 </div>
 
+<script>
+/* ── Stars ── */
+(function() {
+    var canvas = document.getElementById('stars-canvas');
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+        stars = [];
+        for (var i = 0; i < 180; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2,
+                speed: Math.random() * 0.3 + 0.05,
+                alpha: Math.random()
+            });
+        }
+    }
+
+    function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < stars.length; i++) {
+            var s = stars[i];
+            s.alpha += (Math.random() - 0.5) * 0.04;
+            s.alpha = Math.max(0.05, Math.min(1, s.alpha));
+            s.y += s.speed;
+            if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(180,220,255,' + s.alpha + ')';
+            ctx.fill();
+        }
+        requestAnimationFrame(drawStars);
+    }
+
+    resize(); initStars(); drawStars();
+    window.addEventListener('resize', function() { resize(); initStars(); });
+})();
+
+/* ── Tabs ── */
+function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+}
+
+/* ── Modal helpers ── */
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function openTool(n) {
+    document.getElementById('modal' + cap(n)).classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (n === 'unit') unitInit();
+    if (n === 'password') pwGenerate();
+    if (n === 'random') rollDice();
+}
+
+function closeTool(n) {
+    document.getElementById('modal' + cap(n)).classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function closeModalOutside(e, n) {
+    if (e.target === e.currentTarget) closeTool(n);
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+        document.body.style.overflow = '';
+    }
+});
+
+/* ── Char Counter ── */
+function updateCount() {
+    var t = document.getElementById('ccInput').value;
+    var ns = t.replace(/\s/g, '');
+    var w = t.trim() === '' ? 0 : t.trim().split(/\s+/).length;
+    var l = t === '' ? 0 : t.split('\n').length;
+    var s = t.trim() === '' ? 0 : (t.match(/[^.!?。！？]*[.!?。！？]+/g) || []).length;
+    var b = new TextEncoder().encode(t).length;
+    document.getElementById('statChars').textContent = t.length;
+    document.getElementById('statCharsNoSpace').textContent = ns.length;
+    document.getElementById('statWords').textContent = w;
+    document.getElementById('statLines').textContent = l;
+    document.getElementById('statSentences').textContent = s;
+    document.getElementById('statBytes').textContent = b;
+}
+
+function copyCC() {
+    var t = document.getElementById('ccInput').value;
+    navigator.clipboard.writeText(t).then(function() {
+        var btn = document.getElementById('btnCopy');
+        btn.textContent = isKorean ? '복사됨 ✓' : 'Copied ✓';
+        setTimeout(function() { btn.textContent = isKorean ? '복사' : 'Copy'; }, 1500);
+    });
+}
+
+function clearCC() {
+    document.getElementById('ccInput').value = '';
+    updateCount();
+}
+
+/* ── Calculator ── */
+var calcExprStr = '', calcHasResult = false, calcHistory = [], calcMode = 'basic';
+var DEG = Math.PI / 180;
+
+function fmt(n) {
+    if (!isFinite(n)) return isNaN(n) ? '오류' : '∞';
+    var s = parseFloat(n.toPrecision(12)).toString();
+    if (Math.abs(n) >= 1e15 || (Math.abs(n) < 1e-7 && n !== 0)) s = n.toExponential(6);
+    return s;
+}
+
+function calcEval(expr) {
+    var e = expr
+        .replace(/÷/g, '/')
+        .replace(/×/g, '*')
+        .replace(/−/g, '-')
+        .replace(/π/g, '(Math.PI)')
+        .replace(/ℯ/g, '(Math.E)');
+    return Function('"use strict";return (' + e + ')')();
+}
+
+function calcRender() {
+    var exprEl = document.getElementById('calcExpr');
+    var resEl = document.getElementById('calcResult');
+    exprEl.textContent = calcExprStr;
+    if (!calcExprStr) { resEl.textContent = '0'; resEl.className = 'calc-result'; return; }
+    try {
+        var r = calcEval(calcExprStr);
+        var s = fmt(r);
+        resEl.textContent = s;
+        resEl.className = 'calc-result' + (s.length > 12 ? ' small' : '');
+    } catch(e) { resEl.textContent = ''; }
+}
+
+function calcInput(v) {
+    if (calcHasResult && /[0-9.]/.test(v)) { calcExprStr = ''; calcHasResult = false; }
+    if (calcHasResult && /[+\-×÷%^]/.test(v)) calcHasResult = false;
+    calcExprStr += v;
+    calcRender();
+}
+
+function calcClear() {
+    calcExprStr = ''; calcHasResult = false;
+    document.getElementById('calcResult').textContent = '0';
+    document.getElementById('calcResult').className = 'calc-result';
+    document.getElementById('calcExpr').textContent = '';
+    document.getElementById('calcHistLine').textContent = '';
+}
+
+function calcDel() {
+    var m = calcExprStr.match(/(sin|cos|tan|log|ln|sqrt|abs|exp)\($/);
+    if (m) calcExprStr = calcExprStr.slice(0, -(m[0].length));
+    else calcExprStr = calcExprStr.slice(0, -1);
+    calcRender();
+}
+
+function calcToggleSign() {
+    if (!calcExprStr) return;
+    if (calcExprStr.startsWith('-(')) { calcExprStr = calcExprStr.slice(2, -1); }
+    else { calcExprStr = '-(' + calcExprStr + ')'; }
+    calcRender();
+}
+
+function calcSci(fn) {
+    var cur = calcExprStr || document.getElementById('calcResult').textContent;
+    var n = parseFloat(cur);
+    var expr = '', result;
+    switch (fn) {
+        case 'sin':  expr = 'sin(' + n + ')'; result = Math.sin(n * DEG); break;
+        case 'cos':  expr = 'cos(' + n + ')'; result = Math.cos(n * DEG); break;
+        case 'tan':  expr = 'tan(' + n + ')'; result = Math.tan(n * DEG); break;
+        case 'asin': expr = 'sin\u207B\u00B9(' + n + ')'; result = Math.asin(n) / DEG; break;
+        case 'acos': expr = 'cos\u207B\u00B9(' + n + ')'; result = Math.acos(n) / DEG; break;
+        case 'atan': expr = 'tan\u207B\u00B9(' + n + ')'; result = Math.atan(n) / DEG; break;
+        case 'log':  expr = 'log(' + n + ')'; result = Math.log10(n); break;
+        case 'ln':   expr = 'ln(' + n + ')'; result = Math.log(n); break;
+        case 'sqrt': expr = '\u221A(' + n + ')'; result = Math.sqrt(n); break;
+        case 'cbrt': expr = '\u221B(' + n + ')'; result = Math.cbrt(n); break;
+        case 'sq':   expr = n + '\u00B2'; result = n * n; break;
+        case 'cube': expr = n + '\u00B3'; result = n * n * n; break;
+        case 'pow':  calcExprStr += (calcExprStr ? '^' : ''); calcRender(); return;
+        case 'abs':  expr = '|' + n + '|'; result = Math.abs(n); break;
+        case 'fact': expr = n + '!'; result = factorial(n); break;
+        case 'exp':  calcExprStr += 'e+'; calcRender(); return;
+    }
+    document.getElementById('calcHistLine').textContent = expr + ' =';
+    document.getElementById('calcExpr').textContent = expr;
+    var s = fmt(result);
+    document.getElementById('calcResult').textContent = s;
+    document.getElementById('calcResult').className = 'calc-result' + (s.length > 12 ? ' small' : '');
+    calcAddHist(expr, s);
+    calcExprStr = s; calcHasResult = true;
+}
+
+function factorial(n) {
+    n = Math.round(n);
+    if (n < 0 || n > 170) return NaN;
+    if (n === 0 || n === 1) return 1;
+    var r = 1;
+    for (var i = 2; i <= n; i++) r *= i;
+    return r;
+}
+
+function calcConst(c) {
+    if (calcHasResult) { calcExprStr = ''; calcHasResult = false; }
+    calcExprStr += (c === 'pi' ? 'π' : 'ℯ');
+    calcRender();
+}
+
+function calcEquals() {
+    if (!calcExprStr) return;
+    try {
+        var r = calcEval(calcExprStr);
+        var s = fmt(r);
+        document.getElementById('calcHistLine').textContent = calcExprStr + ' =';
+        document.getElementById('calcExpr').textContent = calcExprStr + ' =';
+        document.getElementById('calcResult').textContent = s;
+        document.getElementById('calcResult').className = 'calc-result' + (s.length > 12 ? ' small' : '');
+        calcAddHist(calcExprStr, s);
+        calcExprStr = s; calcHasResult = true;
+    } catch(e) {
+        document.getElementById('calcResult').textContent = '오류';
+        document.getElementById('calcResult').className = 'calc-result';
+    }
+}
+
+function calcAddHist(expr, val) {
+    calcHistory.unshift({expr: expr, val: val});
+    if (calcHistory.length > 50) calcHistory.pop();
+    calcRenderHist();
+}
+
+function calcRenderHist() {
+    var list = document.getElementById('calcHistList');
+    if (calcHistory.length === 0) {
+        list.innerHTML = '<div class="calc-hist-empty">계산 기록 없음</div>';
+        return;
+    }
+    list.innerHTML = calcHistory.map(function(h, i) {
+        return '<div class="calc-hist-item" onclick="calcUseHist(' + i + ')">' +
+               '<div class="calc-hist-expr">' + h.expr + '</div>' +
+               '<div class="calc-hist-val">' + h.val + '</div></div>';
+    }).join('');
+}
+
+function calcUseHist(i) {
+    calcExprStr = calcHistory[i].val;
+    calcHasResult = true;
+    calcRender();
+}
+
+function calcClearHist() { calcHistory = []; calcRenderHist(); }
+
+function setMode(m) {
+    calcMode = m;
+    document.getElementById('keypadBasic').style.display = m === 'basic' ? 'grid' : 'none';
+    document.getElementById('keypadSci').style.display = m === 'sci' ? 'grid' : 'none';
+    document.getElementById('modeBasic').className = 'calc-mode-btn' + (m === 'basic' ? ' active' : '');
+    document.getElementById('modeSci').className = 'calc-mode-btn' + (m === 'sci' ? ' active' : '');
+}
+
+document.addEventListener('keydown', function(e) {
+    var calcOpen = document.getElementById('modalCalculator').classList.contains('open');
+    if (!calcOpen) return;
+    if (e.key >= '0' && e.key <= '9' || e.key === '.') calcInput(e.key);
+    else if (e.key === '+') calcInput('+');
+    else if (e.key === '-') calcInput('-');
+    else if (e.key === '*') calcInput('×');
+    else if (e.key === '/') { e.preventDefault(); calcInput('÷'); }
+    else if (e.key === '%') calcInput('%');
+    else if (e.key === '(' || e.key === ')') calcInput(e.key);
+    else if (e.key === 'Enter' || e.key === '=') calcEquals();
+    else if (e.key === 'Backspace') calcDel();
+});
+
+/* ── Timer ── */
+var tmMode = 'timer', tmRunning = false, tmInterval = null, tmRemaining = 0, tmTotal = 0;
+var swRunning = false, swInterval = null, swElapsed = 0, swLapStart = 0, swLaps = [];
+
+function tmSetMode(m) {
+    tmMode = m;
+    document.getElementById('tmModeTimer').className = 'timer-mode-btn' + (m === 'timer' ? ' active' : '');
+    document.getElementById('tmModeStop').className = 'timer-mode-btn' + (m === 'stopwatch' ? ' active' : '');
+    document.getElementById('tmPanelTimer').style.display = m === 'timer' ? 'block' : 'none';
+    document.getElementById('tmPanelStop').style.display = m === 'stopwatch' ? 'block' : 'none';
+    tmReset(); swReset();
+}
+
+function tmGetTotal() {
+    var h = parseInt(document.getElementById('tmHour').value) || 0;
+    var m = parseInt(document.getElementById('tmMin').value) || 0;
+    var s = parseInt(document.getElementById('tmSec').value) || 0;
+    return h * 3600 + m * 60 + s;
+}
+
+function tmFmt(s) {
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    if (h > 0) return pad(h) + ':' + pad(m) + ':' + pad(sec);
+    return pad(m) + ':' + pad(sec);
+}
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function tmToggle() {
+    if (!tmRunning) {
+        if (tmRemaining <= 0) tmRemaining = tmGetTotal();
+        if (tmRemaining <= 0) return;
+        tmTotal = tmRemaining;
+        tmRunning = true;
+        document.getElementById('tmStartBtn').textContent = '일시정지';
+        document.getElementById('tmLabel').textContent = '진행 중';
+        tmInterval = setInterval(function() {
+            tmRemaining--;
+            var el = document.getElementById('tmDisplay');
+            el.textContent = tmFmt(tmRemaining);
+            el.className = 'timer-time' + (tmRemaining <= 10 ? ' warning' : '');
+            if (tmRemaining <= 0) {
+                clearInterval(tmInterval); tmRunning = false;
+                document.getElementById('tmStartBtn').textContent = '시작';
+                document.getElementById('tmLabel').textContent = '완료! 🎉';
+                el.className = 'timer-time';
+            }
+        }, 1000);
+    } else {
+        clearInterval(tmInterval); tmRunning = false;
+        document.getElementById('tmStartBtn').textContent = '계속';
+        document.getElementById('tmLabel').textContent = '일시정지';
+    }
+}
+
+function tmReset() {
+    clearInterval(tmInterval); tmRunning = false; tmRemaining = 0;
+    document.getElementById('tmStartBtn').textContent = '시작';
+    document.getElementById('tmLabel').textContent = '대기 중';
+    var total = tmGetTotal();
+    var el = document.getElementById('tmDisplay');
+    el.textContent = tmFmt(total); el.className = 'timer-time';
+}
+
+function tmPreset(h, m, s) {
+    document.getElementById('tmHour').value = h;
+    document.getElementById('tmMin').value = m;
+    document.getElementById('tmSec').value = s;
+    tmReset();
+}
+
+function swFmtFull(ms) {
+    var m = Math.floor(ms / 60000), s = Math.floor((ms % 60000) / 1000), cs = Math.floor(ms % 1000);
+    return { main: pad(m) + ':' + pad(s), ms: '.' + String(cs).padStart(3, '0') };
+}
+
+function swToggle() {
+    if (!swRunning) {
+        swRunning = true;
+        var start = Date.now() - swElapsed;
+        document.getElementById('swStartBtn').textContent = '일시정지';
+        document.getElementById('swLabel').textContent = '진행 중';
+        document.getElementById('swLapBtn').disabled = false;
+        swInterval = setInterval(function() {
+            swElapsed = Date.now() - start;
+            var f = swFmtFull(swElapsed);
+            document.getElementById('swDisplay').textContent = f.main;
+            document.getElementById('swMs').textContent = f.ms;
+        }, 50);
+    } else {
+        clearInterval(swInterval); swRunning = false;
+        document.getElementById('swStartBtn').textContent = '계속';
+        document.getElementById('swLabel').textContent = '일시정지';
+    }
+}
+
+function swLap() {
+    if (!swRunning) return;
+    var split = swElapsed - swLapStart; swLapStart = swElapsed;
+    swLaps.unshift({total: swElapsed, split: split});
+    document.getElementById('lapList').innerHTML = swLaps.map(function(l, i) {
+        var ft = swFmtFull(l.total), fsp = swFmtFull(l.split);
+        return '<div class="lap-item"><span class="lap-num">LAP ' + (swLaps.length - i) + '</span>' +
+               '<span class="lap-time">' + ft.main + ft.ms + '</span>' +
+               '<span class="lap-split">+' + fsp.main + fsp.ms + '</span></div>';
+    }).join('');
+}
+
+function swReset() {
+    clearInterval(swInterval); swRunning = false; swElapsed = 0; swLapStart = 0; swLaps = [];
+    document.getElementById('swStartBtn').textContent = '시작';
+    document.getElementById('swLabel').textContent = '대기 중';
+    document.getElementById('swDisplay').textContent = '00:00';
+    document.getElementById('swMs').textContent = '.000';
+    document.getElementById('swLapBtn').disabled = true;
+    document.getElementById('lapList').innerHTML = '';
+}
+
+/* ── Random ── */
+function randTab(btn, tab) {
+    document.querySelectorAll('.rand-tab').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.rand-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('randPanel' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+}
+
+function doRandNum() {
+    var mn = parseInt(document.getElementById('randMin').value) || 1;
+    var mx = parseInt(document.getElementById('randMax').value) || 100;
+    var r = Math.floor(Math.random() * (mx - mn + 1)) + mn;
+    var el = document.getElementById('randNumResult');
+    el.style.transform = 'scale(1.3)';
+    el.textContent = r;
+    setTimeout(function() { el.style.transform = 'scale(1)'; }, 200);
+}
+
+function rollDice() {
+    var count = Math.min(parseInt(document.getElementById('diceCount').value) || 1, 8);
+    var faces = parseInt(document.getElementById('diceFaces').value) || 6;
+    var grid = document.getElementById('diceGrid');
+    grid.innerHTML = '';
+    var total = 0;
+    for (var i = 0; i < count; i++) {
+        var val = Math.floor(Math.random() * faces) + 1;
+        total += val;
+        var die = document.createElement('div');
+        die.className = 'die rolling';
+        die.textContent = val;
+        die.onclick = rollDice;
+        grid.appendChild(die);
+        (function(d) { setTimeout(function() { d.classList.remove('rolling'); }, 400); })(die);
+    }
+    document.getElementById('diceTotal').textContent = count > 1 ? '합계: ' + total : '';
+}
+
+function flipCoin() {
+    var heads = Math.random() < 0.5;
+    var el = document.getElementById('coinEmoji');
+    var res = document.getElementById('coinResult');
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = 'diceRoll .4s ease';
+    el.textContent = heads ? '🟡' : '⚫';
+    res.textContent = heads ? '앞면 (HEAD)' : '뒷면 (TAIL)';
+}
+
+function drawTeams() {
+    var raw = document.getElementById('teamInput').value;
+    var names = raw.split('\n').map(function(s) { return s.trim(); }).filter(Boolean);
+    var tc = Math.max(2, parseInt(document.getElementById('teamCount').value) || 2);
+    if (names.length < tc) { document.getElementById('teamResult').textContent = '이름이 팀 수보다 적어요!'; return; }
+    var shuffled = names.slice().sort(function() { return Math.random() - 0.5; });
+    var teams = [];
+    for (var i = 0; i < tc; i++) teams.push([]);
+    shuffled.forEach(function(n, i) { teams[i % tc].push(n); });
+    document.getElementById('teamResult').innerHTML = teams.map(function(t, i) {
+        return '<div class="team-group">팀 ' + (i + 1) + '</div><div>' + t.join(', ') + '</div>';
+    }).join('');
+}
+
+/* ── Password ── */
+var UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var LOWER = 'abcdefghijklmnopqrstuvwxyz';
+var NUMS = '0123456789';
+var SYMS = '!@#$%^&*()-_=+[]{}|;:,.<>?';
+var AMBIG = /[0Ol1Il]/g;
+
+function pwGetChars() {
+    var c = '';
+    if (document.getElementById('pwUpper').checked) c += UPPER;
+    if (document.getElementById('pwLower').checked) c += LOWER;
+    if (document.getElementById('pwNum').checked) c += NUMS;
+    if (document.getElementById('pwSym').checked) c += SYMS;
+    if (document.getElementById('pwNoAmb').checked) c = c.replace(AMBIG, '');
+    return c || LOWER;
+}
+
+function pwGenerate() {
+    var len = parseInt(document.getElementById('pwLen').value) || 16;
+    document.getElementById('pwLenVal').textContent = len;
+    var chars = pwGetChars();
+    var pw = '';
+    var arr = new Uint32Array(len);
+    crypto.getRandomValues(arr);
+    for (var i = 0; i < len; i++) pw += chars[arr[i] % chars.length];
+    document.getElementById('pwValue').textContent = pw;
+    pwStrength(pw);
+    document.getElementById('pwMultiList').style.display = 'none';
+    return pw;
+}
+
+function pwUpdate() { pwGenerate(); }
+
+function pwStrength(pw) {
+    var score = 0;
+    if (pw.length >= 8) score++;
+    if (pw.length >= 16) score++;
+    if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    var colors = ['#ff4444', '#ff8800', '#ffe600', '#88ff00', '#00ff88'];
+    var labels = ['매우 약함', '약함', '보통', '강함', '매우 강함'];
+    var bars = document.querySelectorAll('.pw-strength-bar');
+    bars.forEach(function(b, i) { b.style.background = i < score ? colors[score - 1] : 'rgba(255,255,255,.08)'; });
+    document.getElementById('pwStrengthLabel').textContent = '강도: ' + labels[Math.min(score, 4)];
+    document.getElementById('pwStrengthLabel').style.color = colors[Math.min(score - 1, 4)] || 'rgba(255,255,255,.3)';
+}
+
+function pwCopy() {
+    var pw = document.getElementById('pwValue').textContent;
+    if (pw === '—') return;
+    navigator.clipboard.writeText(pw).then(function() {
+        var btn = document.getElementById('pwCopyBtn');
+        btn.textContent = '복사됨 ✓';
+        setTimeout(function() { btn.textContent = '복사'; }, 1500);
+    });
+}
+
+function pwMultiGenerate() {
+    var n = Math.min(parseInt(document.getElementById('pwMultiCount').value) || 1, 20);
+    var len = parseInt(document.getElementById('pwLen').value) || 16;
+    var chars = pwGetChars();
+    var list = [];
+    for (var j = 0; j < n; j++) {
+        var pw = '';
+        var arr = new Uint32Array(len);
+        crypto.getRandomValues(arr);
+        for (var i = 0; i < len; i++) pw += chars[arr[i] % chars.length];
+        list.push(pw);
+    }
+    var el = document.getElementById('pwMultiList');
+    el.textContent = list.join('\n');
+    el.style.display = 'block';
+    document.getElementById('pwValue').textContent = list[0];
+    pwStrength(list[0]);
+}
+
+/* ── Unit Converter ── */
+var UNIT_DATA = {
+    '길이': {
+        units: ['km','m','cm','mm','mi','yd','ft','in','nm'],
+        toBase: {km:1000,m:1,cm:.01,mm:.001,mi:1609.344,yd:.9144,ft:.3048,in:.0254,nm:1e-9},
+        labels: {km:'킬로미터',m:'미터',cm:'센티미터',mm:'밀리미터',mi:'마일',yd:'야드',ft:'피트',in:'인치',nm:'나노미터'}
+    },
+    '무게': {
+        units: ['t','kg','g','mg','lb','oz'],
+        toBase: {t:1000,kg:1,g:.001,mg:1e-6,lb:.453592,oz:.0283495},
+        labels: {t:'톤',kg:'킬로그램',g:'그램',mg:'밀리그램',lb:'파운드',oz:'온스'}
+    },
+    '온도': {
+        units: ['°C','°F','K'],
+        toBase: {},
+        labels: {'°C':'섭씨','°F':'화씨','K':'켈빈'}
+    },
+    '넓이': {
+        units: ['km²','m²','cm²','ha','acre','ft²','in²'],
+        toBase: {'km²':1e6,'m²':1,'cm²':1e-4,'ha':1e4,'acre':4046.86,'ft²':.092903,'in²':6.4516e-4},
+        labels: {'km²':'제곱킬로미터','m²':'제곱미터','cm²':'제곱센티미터','ha':'헥타르','acre':'에이커','ft²':'제곱피트','in²':'제곱인치'}
+    },
+    '속도': {
+        units: ['km/h','m/s','mph','knot'],
+        toBase: {'km/h':1/3.6,'m/s':1,'mph':0.44704,'knot':0.514444},
+        labels: {'km/h':'킬로미터/시','m/s':'미터/초','mph':'마일/시','knot':'노트'}
+    },
+    '데이터': {
+        units: ['TB','GB','MB','KB','B','bit'],
+        toBase: {TB:1e12,GB:1e9,MB:1e6,KB:1e3,B:1,bit:0.125},
+        labels: {TB:'테라바이트',GB:'기가바이트',MB:'메가바이트',KB:'킬로바이트',B:'바이트',bit:'비트'}
+    }
+};
+
+var unitCat = '길이';
+
+function unitInit() {
+    var row = document.getElementById('unitCatRow');
+    row.innerHTML = Object.keys(UNIT_DATA).map(function(k) {
+        return '<button class="unit-cat-btn' + (k === '길이' ? ' active' : '') + '" onclick="unitSetCat(\'' + k + '\')">' + k + '</button>';
+    }).join('');
+    unitPopulateSelects();
+    unitConvert();
+}
+
+function unitSetCat(cat) {
+    unitCat = cat;
+    document.querySelectorAll('.unit-cat-btn').forEach(function(b) {
+        b.classList.toggle('active', b.textContent === cat);
+    });
+    unitPopulateSelects();
+    document.getElementById('unitVal').value = 1;
+    unitConvert();
+}
+
+function unitPopulateSelects() {
+    var data = UNIT_DATA[unitCat];
+    ['unitFrom', 'unitTo'].forEach(function(id, i) {
+        var sel = document.getElementById(id);
+        sel.innerHTML = data.units.map(function(u, j) {
+            return '<option value="' + u + '"' + ((i === 0 && j === 0) || (i === 1 && j === 1) ? ' selected' : '') + '>' + u + ' — ' + data.labels[u] + '</option>';
+        }).join('');
+    });
+}
+
+function tempConvert(val, from, to) {
+    var c;
+    if (from === '°C') c = val;
+    else if (from === '°F') c = (val - 32) * 5 / 9;
+    else c = val - 273.15;
+    if (to === '°C') return c;
+    if (to === '°F') return c * 9 / 5 + 32;
+    return c + 273.15;
+}
+
+function unitConvert() {
+    var val = parseFloat(document.getElementById('unitVal').value);
+    var from = document.getElementById('unitFrom').value;
+    var to = document.getElementById('unitTo').value;
+    if (isNaN(val)) { document.getElementById('unitResult').textContent = '—'; return; }
+    var data = UNIT_DATA[unitCat];
+    var result;
+    if (unitCat === '온도') { result = tempConvert(val, from, to); }
+    else { result = val * data.toBase[from] / data.toBase[to]; }
+    var s = parseFloat(result.toPrecision(10)).toString();
+    document.getElementById('unitResult').textContent = s + ' ' + to;
+    document.getElementById('unitResultLabel').textContent = val + ' ' + from + ' = ' + s + ' ' + to;
+    var grid = document.getElementById('unitAllGrid');
+    grid.innerHTML = data.units.map(function(u) {
+        var r;
+        if (unitCat === '온도') r = tempConvert(val, from, u);
+        else r = val * data.toBase[from] / data.toBase[u];
+        return '<div class="unit-all-item"><div class="unit-all-val">' + parseFloat(r.toPrecision(8)) + ' ' + u + '</div><div class="unit-all-name">' + data.labels[u] + '</div></div>';
+    }).join('');
+}
+
+/* ── Translator ── */
+var LANG_NAMES = {ko:'한국어',en:'English',ja:'日本語',zh:'中文',es:'Español',fr:'Français',de:'Deutsch',ru:'Русский'};
+var trLoading = false;
+
+function swapLangs() {
+    var from = document.getElementById('trFrom');
+    var to = document.getElementById('trTo');
+    var tmp = from.value; from.value = to.value; to.value = tmp;
+    var inp = document.getElementById('trInput').value;
+    var out = document.getElementById('trOutput').value;
+    document.getElementById('trInput').value = out;
+    document.getElementById('trOutput').value = inp;
+    trSetStatus('');
+}
+
+async function doTranslate() {
+    if (trLoading) return;
+    var text = document.getElementById('trInput').value.trim();
+    if (!text) { trSetStatus(isKorean ? '텍스트를 입력해주세요' : 'Please enter text', 'error'); return; }
+    var from = document.getElementById('trFrom').value;
+    var to = document.getElementById('trTo').value;
+    if (from === to) { document.getElementById('trOutput').value = text; return; }
+    trLoading = true;
+    var btn = document.getElementById('btnTranslate');
+    btn.innerHTML = '<span class="spinning">↻</span>';
+    trSetStatus(isKorean ? '번역 중...' : 'Translating...');
+    try {
+        var url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + from + '|' + to;
+        var res = await fetch(url);
+        var data = await res.json();
+        if (data.responseStatus === 200) {
+            document.getElementById('trOutput').value = data.responseData.translatedText;
+            trSetStatus(isKorean ? '✓ ' + LANG_NAMES[from] + ' → ' + LANG_NAMES[to] + ' 번역 완료' : '✓ Translated ' + LANG_NAMES[from] + ' → ' + LANG_NAMES[to], 'ok');
+        } else {
+            trSetStatus(isKorean ? '번역 실패. 다시 시도해주세요.' : 'Translation failed. Please try again.', 'error');
+        }
+    } catch(e) {
+        trSetStatus(isKorean ? '네트워크 오류. 인터넷 연결을 확인해주세요.' : 'Network error. Check your connection.', 'error');
+    }
+    trLoading = false;
+    btn.textContent = isKorean ? '번역하기' : 'Translate';
+}
+
+function trSetStatus(msg, type) {
+    var el = document.getElementById('trStatus');
+    el.textContent = msg;
+    el.className = 'tr-status' + (type ? ' ' + type : '');
+}
+
+function copyTR() {
+    var t = document.getElementById('trOutput').value;
+    if (!t) return;
+    navigator.clipboard.writeText(t).then(function() {
+        var btn = document.getElementById('btnCopyTR');
+        btn.textContent = isKorean ? '복사됨 ✓' : 'Copied ✓';
+        setTimeout(function() { btn.textContent = isKorean ? '결과 복사' : 'Copy Result'; }, 1500);
+    });
+}
+
+function clearTR() {
+    document.getElementById('trInput').value = '';
+    document.getElementById('trOutput').value = '';
+    trSetStatus('');
+}
+
+/* ── Language ── */
+var isKorean = true;
+var T = {
+    ko: {
+        btn:'🌐 English', label:"// arong's space v2.0", mainTitle:'아룡의 포털',
+        subText:'게임, 툴, 그리고 그 이상 — 아룡의 세계에 오신 것을 환영합니다',
+        tabGames:'🎮 &nbsp;게임', tabTools:'🔧 &nbsp;툴',
+        tag1:'액션 / 3D', cardTitle1:'3D 플랫포머 게임', cardDesc1:'짜릿한 3D 플랫포머 세계로 뛰어드세요. 점프하고, 달리고, 장애물을 피하며 스테이지를 클리어하세요!', ctaText1:'지금 플레이',
+        tag2:'전략 / 보드', cardTitle2:'체스', cardDesc2:'클래식 체스의 세계로 입장하세요. 전략을 세우고 상대를 제압하는 두뇌 싸움을 즐겨보세요!', ctaText2:'지금 플레이',
+        toolTag1:'텍스트 / 분석', toolTitle1:'글자수 세기', toolDesc1:'글자 수, 단어 수, 문장 수, 공백 포함/제외 등 텍스트를 실시간으로 분석합니다.', toolCta1:'툴 열기',
+        toolTag2:'수학 / 계산', toolTitle2:'계산기', toolDesc2:'사칙연산부터 제곱근, 퍼센트, 괄호 계산까지 지원하는 공학용 계산기입니다.', toolCta2:'툴 열기',
+        toolTag3:'언어 / 번역', toolTitle3:'번역기', toolDesc3:'한국어, 영어, 일본어, 중국어, 스페인어 등 다양한 언어 간 번역을 지원합니다.', toolCta3:'툴 열기',
+        ccTitle:'글자수 세기', ccSubtitle:'텍스트를 입력하면 실시간으로 분석합니다', ccPlaceholder:'여기에 텍스트를 입력하세요...',
+        labelChars:'글자수 (공백 포함)', labelCharsNoSpace:'글자수 (공백 제외)', labelWords:'단어수', labelLines:'줄수', labelSentences:'문장수', labelBytes:'바이트 (UTF-8)',
+        btnCopy:'복사', btnClear:'초기화',
+        trTitle:'번역기', trSubtitle:'텍스트를 입력하고 번역 버튼을 누르세요',
+        trLabelInput:'입력', trLabelOutput:'번역 결과',
+        btnTranslate:'번역하기', btnCopyTR:'결과 복사', btnClearTR:'초기화',
+        footer:"© arong's hub · Made with ❤️", pageTitle:'아룡의 포털'
+    },
+    en: {
+        btn:'🌐 한국어', label:"// arong's space v2.0", mainTitle:"arong's portal",
+        subText:"Games, tools, and more — welcome to arong's world",
+        tabGames:'🎮 &nbsp;Games', tabTools:'🔧 &nbsp;Tools',
+        tag1:'Action / 3D', cardTitle1:'3D Platformer Game', cardDesc1:'Dive into a thrilling 3D platformer world. Jump, run, dodge obstacles and clear every stage!', ctaText1:'Play Now',
+        tag2:'Strategy / Board', cardTitle2:'Chess', cardDesc2:'Enter the classic world of chess. Plan your moves, outthink your opponent, and seize victory!', ctaText2:'Play Now',
+        toolTag1:'Text / Analysis', toolTitle1:'Char Counter', toolDesc1:'Counts characters, words, sentences, lines and bytes in real time.', toolCta1:'Open Tool',
+        toolTag2:'Math / Compute', toolTitle2:'Calculator', toolDesc2:'From basic arithmetic to square roots, percentages and parentheses.', toolCta2:'Open Tool',
+        toolTag3:'Language / Translate', toolTitle3:'Translator', toolDesc3:'Translate between Korean, English, Japanese, Chinese, Spanish and more.', toolCta3:'Open Tool',
+        ccTitle:'Character Counter', ccSubtitle:'Type or paste text to analyze it in real time', ccPlaceholder:'Type or paste your text here...',
+        labelChars:'Chars (with spaces)', labelCharsNoSpace:'Chars (no spaces)', labelWords:'Words', labelLines:'Lines', labelSentences:'Sentences', labelBytes:'Bytes (UTF-8)',
+        btnCopy:'Copy', btnClear:'Clear',
+        trTitle:'Translator', trSubtitle:'Enter text and press Translate',
+        trLabelInput:'Input', trLabelOutput:'Translation',
+        btnTranslate:'Translate', btnCopyTR:'Copy Result', btnClearTR:'Clear',
+        footer:"© arong's hub · Made with ❤️", pageTitle:"arong's portal"
+    }
+};
+
+function toggleLang() {
+    isKorean = !isKorean;
+    var lang = isKorean ? 'ko' : 'en';
+    var t = T[lang];
+    var ids = ['label','mainTitle','subText','tag1','cardTitle1','cardDesc1','ctaText1','tag2','cardTitle2','cardDesc2','ctaText2',
+               'toolTag1','toolTitle1','toolDesc1','toolCta1','toolTag2','toolTitle2','toolDesc2','toolCta2',
+               'toolTag3','toolTitle3','toolDesc3','toolCta3',
+               'ccTitle','ccSubtitle','labelChars','labelCharsNoSpace','labelWords','labelLines','labelSentences','labelBytes','btnCopy','btnClear',
+               'trTitle','trSubtitle','trLabelInput','trLabelOutput','btnTranslate','btnCopyTR','btnClearTR'];
+    ids.forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = t[id]; });
+    document.getElementById('langBtn').textContent = t.btn;
+    document.getElementById('tabGames').innerHTML = t.tabGames;
+    document.getElementById('tabTools').innerHTML = t.tabTools;
+    document.getElementById('ccInput').placeholder = t.ccPlaceholder;
+    document.getElementById('footer').innerHTML = '<span>' + t.footer + '</span>';
+    document.title = t.pageTitle;
+    document.documentElement.lang = lang;
+}
+</script>
 </body>
 </html>
