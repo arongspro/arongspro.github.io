@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아룡의 포털</title>
+    <title>아룡의 포털 — 무료 온라인 툴 &amp; 게임 모음</title>
+    <meta name="description" content="아룡의 포털에서 글자수 세기, 공학용 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기 등 다양한 무료 온라인 도구를 사용해보세요. 회원가입 없이 바로 이용 가능합니다.">
+    <meta name="keywords" content="글자수 세기, 온라인 계산기, 번역기, 단위변환, 비밀번호 생성기, 타이머, 스톱워치, 랜덤 생성, 무료 온라인 툴">
+    <meta name="author" content="arong">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="아룡의 포털 — 무료 온라인 툴 &amp; 게임 모음">
+    <meta property="og:description" content="글자수 세기, 공학용 계산기, 번역기, 타이머, 단위 변환기 등 무료 온라인 도구 모음. 설치 없이 즉시 사용하세요.">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -108,6 +115,32 @@
         .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--neon-cyan),transparent);}
         .divider-diamond{width:7px;height:7px;background:var(--neon-cyan);transform:rotate(45deg);box-shadow:var(--glow-cyan);}
         .footer{text-align:center;margin-top:60px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.18);text-transform:uppercase;opacity:0;animation:fadeIn 1s 1.4s forwards;}
+        .footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:10px;flex-wrap:wrap;}
+        .footer-links a{color:rgba(255,255,255,.25);text-decoration:none;font-size:10px;letter-spacing:2px;transition:color .2s;}
+        .footer-links a:hover{color:rgba(0,245,255,.6);}
+
+        /* ABOUT SECTION */
+        .about-section{background:rgba(10,10,40,.6);border:1px solid rgba(0,245,255,.1);border-radius:4px;padding:32px 28px;margin-top:40px;position:relative;overflow:hidden;}
+        .about-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,255,.3),transparent);}
+        .about-title{font-family:'Orbitron',sans-serif;font-size:.95rem;color:rgba(0,245,255,.7);letter-spacing:3px;margin-bottom:14px;text-transform:uppercase;}
+        .about-desc{font-size:13.5px;line-height:1.9;color:rgba(255,255,255,.45);max-width:680px;}
+        .about-desc + .about-desc{margin-top:10px;}
+        .tool-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px;}
+        .tool-feature{background:rgba(0,245,255,.03);border:1px solid rgba(0,245,255,.08);border-radius:3px;padding:14px 16px;}
+        .tool-feature-name{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(0,245,255,.6);margin-bottom:6px;text-transform:uppercase;}
+        .tool-feature-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.6;}
+
+        /* POLICY MODAL */
+        .policy-modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,2,18,.95);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px;}
+        .policy-modal-overlay.open{display:flex;}
+        .policy-modal{position:relative;background:#080820;border:1px solid rgba(0,245,255,.2);border-radius:6px;width:100%;max-width:700px;max-height:88vh;overflow-y:auto;padding:40px 36px 36px;}
+        .policy-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,245,255,.5),transparent);}
+        .policy-modal h2{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--neon-cyan);margin-bottom:6px;}
+        .policy-modal .policy-date{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:24px;}
+        .policy-modal h3{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(0,245,255,.6);text-transform:uppercase;margin:20px 0 8px;}
+        .policy-modal p, .policy-modal li{font-size:13px;line-height:1.9;color:rgba(255,255,255,.45);}
+        .policy-modal ul{padding-left:20px;margin:6px 0;}
+        .policy-close{position:absolute;top:16px;right:20px;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:16px;width:32px;height:32px;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 
         /* MODAL BASE */
         .modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,2,18,.92);backdrop-filter:blur(6px);z-index:100;align-items:center;justify-content:center;padding:20px;}
@@ -388,7 +421,7 @@
                 <span class="card-icon">🔤</span>
                 <div class="card-title">CHAR COUNT</div>
                 <div class="card-title-kr" id="toolTitle1">글자수 세기</div>
-                <p class="card-desc" id="toolDesc1">글자 수, 단어 수, 문장 수, 공백 포함/제외 등 텍스트를 실시간으로 분석합니다.</p>
+                <p class="card-desc" id="toolDesc1">글자 수, 단어 수, 문장 수, 줄 수, 공백 포함/제외, UTF-8 바이트까지 텍스트를 실시간으로 분석합니다. 블로그 글자 제한, SNS 입력 검증, 원고지 계산에 유용합니다.</p>
                 <span class="card-cta"><span id="toolCta1">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('calculator')">
@@ -397,7 +430,7 @@
                 <span class="card-icon">🧮</span>
                 <div class="card-title">CALCULATOR</div>
                 <div class="card-title-kr" id="toolTitle2">계산기</div>
-                <p class="card-desc" id="toolDesc2">사칙연산부터 제곱근, 퍼센트, 괄호 계산까지 지원하는 공학용 계산기입니다.</p>
+                <p class="card-desc" id="toolDesc2">사칙연산부터 제곱근, 퍼센트, 괄호 계산, 삼각함수까지 지원하는 공학용 계산기입니다. 계산 히스토리를 저장하고 기본/공학 모드를 전환할 수 있습니다.</p>
                 <span class="card-cta"><span id="toolCta2">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('translator')">
@@ -406,7 +439,7 @@
                 <span class="card-icon">🌐</span>
                 <div class="card-title">TRANSLATOR</div>
                 <div class="card-title-kr" id="toolTitle3">번역기</div>
-                <p class="card-desc" id="toolDesc3">한국어, 영어, 일본어, 중국어, 스페인어 등 다양한 언어 간 번역을 지원합니다.</p>
+                <p class="card-desc" id="toolDesc3">한국어, 영어, 일본어, 중국어, 스페인어, 프랑스어 등 다양한 언어 간 번역을 지원합니다. 번역 결과를 바로 복사하거나 언어 방향을 자유롭게 전환할 수 있습니다.</p>
                 <span class="card-cta"><span id="toolCta3">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('timer')">
@@ -415,7 +448,7 @@
                 <span class="card-icon">⏱️</span>
                 <div class="card-title">TIMER</div>
                 <div class="card-title-kr">타이머 / 스톱워치</div>
-                <p class="card-desc">카운트다운 타이머와 스톱워치. 공부, 운동, 요리 등 어디서든 사용하세요.</p>
+                <p class="card-desc">카운트다운 타이머와 스톱워치를 모두 제공합니다. 원하는 시간을 설정해 알림을 받고, 스톱워치로 랩 타임을 기록하세요. 공부, 운동, 요리 등 일상에서 바로 활용할 수 있습니다.</p>
                 <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('random')">
@@ -424,7 +457,7 @@
                 <span class="card-icon">🎲</span>
                 <div class="card-title">RANDOM</div>
                 <div class="card-title-kr">랜덤 / 주사위</div>
-                <p class="card-desc">주사위 굴리기, 랜덤 숫자 생성, 동전 던지기, 팀 뽑기까지 한 번에.</p>
+                <p class="card-desc">주사위 굴리기, 랜덤 숫자 생성, 동전 던지기, 팀 뽑기까지 한 번에. 보드게임, 당번 정하기, 이벤트 추첨 등 결정을 내려야 할 때 공정하고 빠른 랜덤 결과를 제공합니다.</p>
                 <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('password')">
@@ -433,7 +466,7 @@
                 <span class="card-icon">🔐</span>
                 <div class="card-title">PASSWORD</div>
                 <div class="card-title-kr">비밀번호 생성기</div>
-                <p class="card-desc">길이, 대소문자, 숫자, 특수문자를 설정해 안전한 비밀번호를 즉시 생성합니다.</p>
+                <p class="card-desc">길이, 대소문자, 숫자, 특수문자 조합을 직접 설정해 안전한 비밀번호를 즉시 생성합니다. 여러 개를 한 번에 생성하고, 강도 지표로 보안 수준도 확인할 수 있습니다.</p>
                 <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('unit')">
@@ -442,13 +475,103 @@
                 <span class="card-icon">📐</span>
                 <div class="card-title">UNIT CONVERT</div>
                 <div class="card-title-kr">단위 변환기</div>
-                <p class="card-desc">길이, 무게, 온도, 넓이, 속도 등 다양한 단위를 빠르게 변환합니다.</p>
+                <p class="card-desc">길이, 무게, 온도, 넓이, 속도, 부피 등 다양한 단위를 빠르게 변환합니다. 여행, 요리, 학업, 업무에서 자주 필요한 단위 변환을 한 화면에서 한 번에 확인하세요.</p>
                 <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
             </div>
         </div>
     </div>
 
-    <div class="footer" id="footer"><span>© arong's hub · Made with ❤️</span></div>
+    <!-- ABOUT SECTION -->
+    <section class="about-section" aria-label="사이트 소개">
+        <div class="about-title">// About This Hub</div>
+        <p class="about-desc">아룡의 포털은 일상에서 자주 필요한 도구들을 모아놓은 무료 온라인 유틸리티 사이트입니다. 설치나 회원가입 없이 브라우저에서 바로 사용할 수 있으며, 모바일과 PC 모두 지원합니다.</p>
+        <p class="about-desc">광고 없이 깔끔하게 사용하는 것을 목표로 지속적으로 새로운 툴을 추가하고 있습니다. 불편한 점이나 원하는 기능이 있다면 언제든지 피드백 주세요.</p>
+        <div class="tool-features">
+            <div class="tool-feature">
+                <div class="tool-feature-name">🔤 글자수 세기</div>
+                <div class="tool-feature-desc">공백 포함/제외, 단어·문장·줄·바이트 수를 실시간 분석</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">🧮 공학용 계산기</div>
+                <div class="tool-feature-desc">기본 사칙연산부터 삼각함수·제곱근까지, 히스토리 저장 지원</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">🌐 다국어 번역기</div>
+                <div class="tool-feature-desc">한·영·일·중·스페인어 등 10개 이상 언어 간 번역 지원</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">⏱️ 타이머 / 스톱워치</div>
+                <div class="tool-feature-desc">카운트다운과 스톱워치, 랩 타임 기록까지 한 번에</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">🎲 랜덤 생성기</div>
+                <div class="tool-feature-desc">주사위·동전·숫자·팀 뽑기 등 공정한 랜덤 결과 제공</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">🔐 비밀번호 생성기</div>
+                <div class="tool-feature-desc">길이·문자 조합 설정으로 안전한 비밀번호 즉시 생성</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">📐 단위 변환기</div>
+                <div class="tool-feature-desc">길이·무게·온도·속도·넓이·부피 등 다양한 단위 변환</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer" id="footer">
+        <div class="footer-links">
+            <a href="#" onclick="openPolicy('privacy');return false;">개인정보처리방침</a>
+            <a href="#" onclick="openPolicy('terms');return false;">이용약관</a>
+            <a href="mailto:arongspro@gmail.com">문의하기</a>
+        </div>
+        <span>© arong's hub · Made with ❤️</span>
+    </div>
+</div>
+
+<!-- PRIVACY POLICY MODAL -->
+<div class="policy-modal-overlay" id="modalPrivacy" onclick="if(event.target===this)closePolicy('privacy')">
+    <div class="policy-modal">
+        <button class="policy-close" onclick="closePolicy('privacy')">✕</button>
+        <h2>개인정보처리방침</h2>
+        <div class="policy-date">최종 업데이트: 2025년 1월</div>
+        <h3>1. 수집하는 개인정보</h3>
+        <p>아룡의 포털(이하 '사이트')은 서비스 이용을 위한 별도의 회원가입이나 로그인을 요구하지 않으며, 사용자의 개인정보를 직접 수집·저장하지 않습니다.</p>
+        <h3>2. 자동 수집 정보</h3>
+        <p>사이트는 서비스 품질 개선을 위해 구글 애널리틱스 등 제3자 분석 도구를 사용할 수 있으며, 이를 통해 방문 페이지, 체류 시간, 접속 기기 등의 익명 통계 데이터가 수집될 수 있습니다. 해당 데이터는 개인을 식별하지 않습니다.</p>
+        <h3>3. 광고</h3>
+        <p>사이트는 구글 애드센스를 통한 광고를 표시할 수 있습니다. 구글은 쿠키를 사용하여 사용자의 관심사에 맞는 광고를 표시할 수 있습니다. 구글의 개인정보처리방침은 <a href="https://policies.google.com/privacy" target="_blank" style="color:rgba(0,245,255,.6)">policies.google.com/privacy</a>에서 확인할 수 있습니다.</p>
+        <h3>4. 쿠키</h3>
+        <p>사이트는 사용자 경험(언어 설정 등)을 개선하기 위해 브라우저의 로컬 저장소를 사용할 수 있습니다. 브라우저 설정에서 쿠키 사용을 거부할 수 있으나, 일부 기능이 제한될 수 있습니다.</p>
+        <h3>5. 외부 링크</h3>
+        <p>사이트는 외부 게임 서비스 등 제3자 사이트로의 링크를 포함할 수 있습니다. 해당 사이트의 개인정보 처리는 각 사이트의 방침을 따르며, 본 사이트는 이에 대한 책임을 지지 않습니다.</p>
+        <h3>6. 문의</h3>
+        <p>개인정보 관련 문의는 arongspro@gmail.com 으로 연락해주세요.</p>
+    </div>
+</div>
+
+<!-- TERMS OF SERVICE MODAL -->
+<div class="policy-modal-overlay" id="modalTerms" onclick="if(event.target===this)closePolicy('terms')">
+    <div class="policy-modal">
+        <button class="policy-close" onclick="closePolicy('terms')">✕</button>
+        <h2>이용약관</h2>
+        <div class="policy-date">최종 업데이트: 2025년 1월</div>
+        <h3>1. 서비스 개요</h3>
+        <p>아룡의 포털은 무료 온라인 유틸리티 도구 및 게임을 제공하는 서비스입니다. 누구나 별도의 가입 없이 무료로 이용할 수 있습니다.</p>
+        <h3>2. 이용 규칙</h3>
+        <ul>
+            <li>본 서비스는 합법적인 목적으로만 사용해야 합니다.</li>
+            <li>서비스를 통해 불법적인 콘텐츠를 생성하거나 배포하는 행위를 금지합니다.</li>
+            <li>서비스에 대한 무단 자동화 접근(스크래핑, 크롤링 등)을 금지합니다.</li>
+        </ul>
+        <h3>3. 면책 조항</h3>
+        <p>본 서비스는 "있는 그대로" 제공됩니다. 서비스 중단, 오류, 데이터 손실 등에 대해 운영자는 책임을 지지 않습니다. 번역기 등 도구의 결과물은 참고용으로만 사용하시고, 중요한 내용은 반드시 전문가를 통해 검토하시기 바랍니다.</p>
+        <h3>4. 지식재산권</h3>
+        <p>사이트의 디자인, 코드, 콘텐츠에 대한 저작권은 운영자에게 있습니다. 무단 복제 및 배포를 금지합니다.</p>
+        <h3>5. 약관 변경</h3>
+        <p>운영자는 필요에 따라 이용약관을 변경할 수 있으며, 변경 시 사이트 내에 공지합니다.</p>
+        <h3>6. 문의</h3>
+        <p>서비스 관련 문의는 arongspro@gmail.com 으로 연락해주세요.</p>
+    </div>
 </div>
 
 <!-- CHAR COUNT MODAL -->
@@ -1503,6 +1626,15 @@ function clearTR() {
     trSetStatus('');
 }
 
+function openPolicy(type) {
+    document.getElementById(type === 'privacy' ? 'modalPrivacy' : 'modalTerms').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closePolicy(type) {
+    document.getElementById(type === 'privacy' ? 'modalPrivacy' : 'modalTerms').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
 /* ── Language ── */
 var isKorean = true;
 var T = {
@@ -1513,16 +1645,16 @@ var T = {
         tag1:'액션 / 3D', cardTitle1:'3D 플랫포머 게임', cardDesc1:'짜릿한 3D 플랫포머 세계로 뛰어드세요. 점프하고, 달리고, 장애물을 피하며 스테이지를 클리어하세요!', ctaText1:'지금 플레이',
         tag2:'전략 / 보드', cardTitle2:'체스', cardDesc2:'클래식 체스의 세계로 입장하세요. 전략을 세우고 상대를 제압하는 두뇌 싸움을 즐겨보세요!', ctaText2:'지금 플레이',
         tag3:'액션 / 플랫포머', cardTitle3:'플랫포머 게임', cardDesc3:'스테이지를 뛰어다니며 장애물을 피하고 목표를 달성하세요. 쉽고 빠른 플랫포머 액션을 즐겨보세요!', ctaText3:'지금 플레이',
-        toolTag1:'텍스트 / 분석', toolTitle1:'글자수 세기', toolDesc1:'글자 수, 단어 수, 문장 수, 공백 포함/제외 등 텍스트를 실시간으로 분석합니다.', toolCta1:'툴 열기',
-        toolTag2:'수학 / 계산', toolTitle2:'계산기', toolDesc2:'사칙연산부터 제곱근, 퍼센트, 괄호 계산까지 지원하는 공학용 계산기입니다.', toolCta2:'툴 열기',
-        toolTag3:'언어 / 번역', toolTitle3:'번역기', toolDesc3:'한국어, 영어, 일본어, 중국어, 스페인어 등 다양한 언어 간 번역을 지원합니다.', toolCta3:'툴 열기',
+        toolTag1:'텍스트 / 분석', toolTitle1:'글자수 세기', toolDesc1:'글자 수, 단어 수, 문장 수, 줄 수, 공백 포함/제외, UTF-8 바이트까지 텍스트를 실시간으로 분석합니다. 블로그 글자 제한, SNS 입력 검증에 유용합니다.', toolCta1:'툴 열기',
+        toolTag2:'수학 / 계산', toolTitle2:'계산기', toolDesc2:'사칙연산부터 제곱근, 퍼센트, 괄호 계산, 삼각함수까지 지원하는 공학용 계산기입니다. 계산 히스토리를 저장하고 기본/공학 모드를 전환할 수 있습니다.', toolCta2:'툴 열기',
+        toolTag3:'언어 / 번역', toolTitle3:'번역기', toolDesc3:'한국어, 영어, 일본어, 중국어, 스페인어, 프랑스어 등 다양한 언어 간 번역을 지원합니다. 번역 결과를 바로 복사하거나 언어 방향을 자유롭게 전환할 수 있습니다.', toolCta3:'툴 열기',
         ccTitle:'글자수 세기', ccSubtitle:'텍스트를 입력하면 실시간으로 분석합니다', ccPlaceholder:'여기에 텍스트를 입력하세요...',
         labelChars:'글자수 (공백 포함)', labelCharsNoSpace:'글자수 (공백 제외)', labelWords:'단어수', labelLines:'줄수', labelSentences:'문장수', labelBytes:'바이트 (UTF-8)',
         btnCopy:'복사', btnClear:'초기화',
         trTitle:'번역기', trSubtitle:'텍스트를 입력하고 번역 버튼을 누르세요',
         trLabelInput:'입력', trLabelOutput:'번역 결과',
         btnTranslate:'번역하기', btnCopyTR:'결과 복사', btnClearTR:'초기화',
-        footer:"© arong's hub · Made with ❤️", pageTitle:'아룡의 포털'
+        footer:"© arong's hub · Made with ❤️", pageTitle:'아룡의 포털 — 무료 온라인 툴 & 게임 모음'
     },
     en: {
         btn:'🌐 한국어', label:"// arong's space v2.0", mainTitle:"arong's portal",
@@ -1531,16 +1663,16 @@ var T = {
         tag1:'Action / 3D', cardTitle1:'3D Platformer Game', cardDesc1:'Dive into a thrilling 3D platformer world. Jump, run, dodge obstacles and clear every stage!', ctaText1:'Play Now',
         tag2:'Strategy / Board', cardTitle2:'Chess', cardDesc2:'Enter the classic world of chess. Plan your moves, outthink your opponent, and seize victory!', ctaText2:'Play Now',
         tag3:'Action / Platformer', cardTitle3:'Platformer Game', cardDesc3:'Run through stages, dodge obstacles and reach the goal. Fast and fun platformer action awaits!', ctaText3:'Play Now',
-        toolTag1:'Text / Analysis', toolTitle1:'Char Counter', toolDesc1:'Counts characters, words, sentences, lines and bytes in real time.', toolCta1:'Open Tool',
-        toolTag2:'Math / Compute', toolTitle2:'Calculator', toolDesc2:'From basic arithmetic to square roots, percentages and parentheses.', toolCta2:'Open Tool',
-        toolTag3:'Language / Translate', toolTitle3:'Translator', toolDesc3:'Translate between Korean, English, Japanese, Chinese, Spanish and more.', toolCta3:'Open Tool',
+        toolTag1:'Text / Analysis', toolTitle1:'Char Counter', toolDesc1:'Real-time analysis of characters (with/without spaces), words, sentences, lines, and UTF-8 bytes. Useful for blog limits, SNS character checks, and manuscript counts.', toolCta1:'Open Tool',
+        toolTag2:'Math / Compute', toolTitle2:'Calculator', toolDesc2:'From basic arithmetic to square roots, percentages, brackets, and trigonometric functions. Switch between basic and scientific modes with calculation history.', toolCta2:'Open Tool',
+        toolTag3:'Language / Translate', toolTitle3:'Translator', toolDesc3:'Translate between Korean, English, Japanese, Chinese, Spanish, French and more. Copy results instantly or freely switch the translation direction.', toolCta3:'Open Tool',
         ccTitle:'Character Counter', ccSubtitle:'Type or paste text to analyze it in real time', ccPlaceholder:'Type or paste your text here...',
         labelChars:'Chars (with spaces)', labelCharsNoSpace:'Chars (no spaces)', labelWords:'Words', labelLines:'Lines', labelSentences:'Sentences', labelBytes:'Bytes (UTF-8)',
         btnCopy:'Copy', btnClear:'Clear',
         trTitle:'Translator', trSubtitle:'Enter text and press Translate',
         trLabelInput:'Input', trLabelOutput:'Translation',
         btnTranslate:'Translate', btnCopyTR:'Copy Result', btnClearTR:'Clear',
-        footer:"© arong's hub · Made with ❤️", pageTitle:"arong's portal"
+        footer:"© arong's hub · Made with ❤️", pageTitle:"arong's portal — Free Online Tools & Games"
     }
 };
 
