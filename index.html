@@ -13,6 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://arongspro.github.io/">
     <link rel="canonical" href="https://arongspro.github.io/">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -132,18 +133,6 @@
         .tool-feature-name{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(0,245,255,.6);margin-bottom:6px;text-transform:uppercase;}
         .tool-feature-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.6;}
 
-        /* POLICY MODAL */
-        .policy-modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,2,18,.95);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px;}
-        .policy-modal-overlay.open{display:flex;}
-        .policy-modal{position:relative;background:#080820;border:1px solid rgba(0,245,255,.2);border-radius:6px;width:100%;max-width:700px;max-height:88vh;overflow-y:auto;padding:40px 36px 36px;}
-        .policy-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,245,255,.5),transparent);}
-        .policy-modal h2{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--neon-cyan);margin-bottom:6px;}
-        .policy-modal .policy-date{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:24px;}
-        .policy-modal h3{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(0,245,255,.6);text-transform:uppercase;margin:20px 0 8px;}
-        .policy-modal p, .policy-modal li{font-size:13px;line-height:1.9;color:rgba(255,255,255,.45);}
-        .policy-modal ul{padding-left:20px;margin:6px 0;}
-        .policy-close{position:absolute;top:16px;right:20px;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:16px;width:32px;height:32px;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-
         /* MODAL BASE */
         .modal-overlay{display:none;position:fixed;inset:0;background:rgba(2,2,18,.92);backdrop-filter:blur(6px);z-index:100;align-items:center;justify-content:center;padding:20px;}
         .modal-overlay.open{display:flex;animation:fadeIn .2s;}
@@ -151,6 +140,8 @@
         .modal-close{position:absolute;top:16px;right:20px;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:16px;width:32px;height:32px;border-radius:2px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;}
         .modal-title{font-family:'Orbitron',sans-serif;font-size:1.25rem;margin-bottom:4px;}
         .modal-subtitle{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:24px;letter-spacing:1px;}
+        .tool-tip{font-size:12px;line-height:1.8;color:rgba(255,255,255,.35);margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
+        .tool-tip b{color:rgba(255,255,255,.55);font-weight:700;}
 
         .modal.green{border:1px solid rgba(0,255,136,.3);box-shadow:0 0 60px rgba(0,255,136,.08);}
         .modal.green::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-green),transparent);}
@@ -554,57 +545,11 @@
 
     <div class="footer" id="footer">
         <div class="footer-links">
-            <a href="#" onclick="openPolicy('privacy');return false;">개인정보처리방침</a>
-            <a href="#" onclick="openPolicy('terms');return false;">이용약관</a>
+            <a href="privacy.html">개인정보처리방침</a>
+            <a href="terms.html">이용약관</a>
             <a href="mailto:arongspro@gmail.com">문의하기</a>
         </div>
         <span>© arong's hub · Made with ❤️</span>
-    </div>
-</div>
-
-<!-- PRIVACY POLICY MODAL -->
-<div class="policy-modal-overlay" id="modalPrivacy" onclick="if(event.target===this)closePolicy('privacy')">
-    <div class="policy-modal">
-        <button class="policy-close" onclick="closePolicy('privacy')">✕</button>
-        <h2>개인정보처리방침</h2>
-        <div class="policy-date">최종 업데이트: 2025년 1월</div>
-        <h3>1. 수집하는 개인정보</h3>
-        <p>아룡의 포털(이하 '사이트')은 서비스 이용을 위한 별도의 회원가입이나 로그인을 요구하지 않으며, 사용자의 개인정보를 직접 수집·저장하지 않습니다.</p>
-        <h3>2. 자동 수집 정보</h3>
-        <p>사이트는 서비스 품질 개선을 위해 구글 애널리틱스 등 제3자 분석 도구를 사용할 수 있으며, 이를 통해 방문 페이지, 체류 시간, 접속 기기 등의 익명 통계 데이터가 수집될 수 있습니다. 해당 데이터는 개인을 식별하지 않습니다.</p>
-        <h3>3. 광고</h3>
-        <p>사이트는 구글 애드센스를 통한 광고를 표시할 수 있습니다. 구글은 쿠키를 사용하여 사용자의 관심사에 맞는 광고를 표시할 수 있습니다. 구글의 개인정보처리방침은 <a href="https://policies.google.com/privacy" target="_blank" style="color:rgba(0,245,255,.6)">policies.google.com/privacy</a>에서 확인할 수 있습니다.</p>
-        <h3>4. 쿠키</h3>
-        <p>사이트는 사용자 경험(언어 설정 등)을 개선하기 위해 브라우저의 로컬 저장소를 사용할 수 있습니다. 브라우저 설정에서 쿠키 사용을 거부할 수 있으나, 일부 기능이 제한될 수 있습니다.</p>
-        <h3>5. 외부 링크</h3>
-        <p>사이트는 외부 게임 서비스 등 제3자 사이트로의 링크를 포함할 수 있습니다. 해당 사이트의 개인정보 처리는 각 사이트의 방침을 따르며, 본 사이트는 이에 대한 책임을 지지 않습니다.</p>
-        <h3>6. 문의</h3>
-        <p>개인정보 관련 문의는 arongspro@gmail.com 으로 연락해주세요.</p>
-    </div>
-</div>
-
-<!-- TERMS OF SERVICE MODAL -->
-<div class="policy-modal-overlay" id="modalTerms" onclick="if(event.target===this)closePolicy('terms')">
-    <div class="policy-modal">
-        <button class="policy-close" onclick="closePolicy('terms')">✕</button>
-        <h2>이용약관</h2>
-        <div class="policy-date">최종 업데이트: 2025년 1월</div>
-        <h3>1. 서비스 개요</h3>
-        <p>아룡의 포털은 무료 온라인 유틸리티 도구 및 게임을 제공하는 서비스입니다. 누구나 별도의 가입 없이 무료로 이용할 수 있습니다.</p>
-        <h3>2. 이용 규칙</h3>
-        <ul>
-            <li>본 서비스는 합법적인 목적으로만 사용해야 합니다.</li>
-            <li>서비스를 통해 불법적인 콘텐츠를 생성하거나 배포하는 행위를 금지합니다.</li>
-            <li>서비스에 대한 무단 자동화 접근(스크래핑, 크롤링 등)을 금지합니다.</li>
-        </ul>
-        <h3>3. 면책 조항</h3>
-        <p>본 서비스는 "있는 그대로" 제공됩니다. 서비스 중단, 오류, 데이터 손실 등에 대해 운영자는 책임을 지지 않습니다. 번역기 등 도구의 결과물은 참고용으로만 사용하시고, 중요한 내용은 반드시 전문가를 통해 검토하시기 바랍니다.</p>
-        <h3>4. 지식재산권</h3>
-        <p>사이트의 디자인, 코드, 콘텐츠에 대한 저작권은 운영자에게 있습니다. 무단 복제 및 배포를 금지합니다.</p>
-        <h3>5. 약관 변경</h3>
-        <p>운영자는 필요에 따라 이용약관을 변경할 수 있으며, 변경 시 사이트 내에 공지합니다.</p>
-        <h3>6. 문의</h3>
-        <p>서비스 관련 문의는 arongspro@gmail.com 으로 연락해주세요.</p>
     </div>
 </div>
 
@@ -627,6 +572,7 @@
             <button class="tool-btn green" onclick="copyCC()" id="btnCopy">복사</button>
             <button class="tool-btn danger" onclick="clearCC()" id="btnClear">초기화</button>
         </div>
+        <p class="tool-tip"><b>활용 팁</b> — 블로그·자기소개서 글자 수 제한을 맞출 때는 '공백 제외' 수치를, SNS 게시글 길이 제한에는 '공백 포함' 수치를 확인하세요. UTF-8 바이트 수는 일부 게시판·API의 입력 용량 제한을 확인할 때 유용합니다.</p>
     </div>
 </div>
 
@@ -773,6 +719,7 @@
             </div>
             <button class="tool-btn danger" onclick="clearTR()" id="btnClearTR">초기화</button>
         </div>
+        <p class="tool-tip"><b>활용 팁</b> — 짧은 문장이나 일상 회화 번역에 적합합니다. 계약서·논문처럼 정확도가 중요한 문서는 반드시 전문 번역가나 공식 번역 서비스를 통해 다시 검토하세요.</p>
     </div>
 </div>
 
@@ -825,6 +772,7 @@
       </div>
       <div class="lap-list" id="lapList"></div>
     </div>
+    <p class="tool-tip"><b>활용 팁</b> — 뽀모도로 집중법에는 25분 타이머 + 5분 휴식을 추천합니다. 운동 인터벌에는 짧은 프리셋을, 요리에는 정확한 시:분:초 입력을 활용하세요.</p>
   </div>
 </div>
 
@@ -894,6 +842,7 @@
       </div>
       <div class="team-result" id="teamResult"></div>
     </div>
+    <p class="tool-tip"><b>활용 팁</b> — 팀 뽑기는 조 편성이나 당번 정하기에, 동전 던지기와 주사위는 보드게임 진행 순서를 정할 때 공정한 결과를 제공합니다.</p>
   </div>
 </div>
 
@@ -935,6 +884,7 @@
     <div class="tool-actions" style="margin-top:14px;">
       <button class="tool-btn green" onclick="pwGenerate()">🔄 재생성</button>
     </div>
+    <p class="tool-tip"><b>활용 팁</b> — 12자 이상, 대소문자·숫자·특수문자를 모두 포함하면 강도가 크게 높아집니다. 생성된 비밀번호는 저장되지 않으니 발급 즉시 비밀번호 관리자 등 안전한 곳에 보관하세요.</p>
   </div>
 </div>
 
@@ -954,6 +904,7 @@
     <div class="unit-result-big" id="unitResult">—</div>
     <div class="unit-result-label" id="unitResultLabel"></div>
     <div class="unit-all-grid" id="unitAllGrid"></div>
+    <p class="tool-tip"><b>활용 팁</b> — 하단 표에서 같은 카테고리의 모든 단위를 한 번에 비교할 수 있습니다. 해외 직구, 여행, 요리 레시피 환산 등 실생활에서 자주 쓰는 단위 변환에 활용하세요.</p>
   </div>
 </div>
 
@@ -1658,15 +1609,6 @@ function clearTR() {
     document.getElementById('trInput').value = '';
     document.getElementById('trOutput').value = '';
     trSetStatus('');
-}
-
-function openPolicy(type) {
-    document.getElementById(type === 'privacy' ? 'modalPrivacy' : 'modalTerms').classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-function closePolicy(type) {
-    document.getElementById(type === 'privacy' ? 'modalPrivacy' : 'modalTerms').classList.remove('open');
-    document.body.style.overflow = '';
 }
 
 /* ── Language ── */
