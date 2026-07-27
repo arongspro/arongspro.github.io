@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아룡의 포털 — 무료 온라인 툴 &amp; 게임 모음</title>
-    <meta name="description" content="아룡의 포털에서 글자수 세기, 공학용 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기 등 다양한 무료 온라인 도구를 사용해보세요. 회원가입 없이 바로 이용 가능합니다.">
-    <meta name="keywords" content="글자수 세기, 온라인 계산기, 번역기, 단위변환, 비밀번호 생성기, 타이머, 스톱워치, 랜덤 생성, 무료 온라인 툴">
+    <meta name="description" content="아룡의 포털에서 글자수 세기, 공학용 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI·날짜 계산기, 메모장 등 11종의 무료 온라인 도구와 2048·뱀 게임을 사용해보세요. 회원가입 없이 바로 이용 가능합니다.">
+    <meta name="keywords" content="글자수 세기, 온라인 계산기, 번역기, 단위변환, 비밀번호 생성기, 타이머, 스톱워치, 랜덤 생성, 할 일 목록, BMI 계산기, 날짜 계산기, 2048 게임, 뱀 게임, 무료 온라인 툴">
     <meta name="author" content="arong">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="아룡의 포털 — 무료 온라인 툴 &amp; 게임 모음">
-    <meta property="og:description" content="글자수 세기, 공학용 계산기, 번역기, 타이머, 단위 변환기 등 무료 온라인 도구 모음. 설치 없이 즉시 사용하세요.">
+    <meta property="og:description" content="글자수 세기, 공학용 계산기, 번역기, 할 일 목록, BMI·날짜 계산기 등 11종의 무료 온라인 도구와 2048·뱀 게임 모음. 설치 없이 즉시 사용하세요.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://arongspro.github.io/">
     <link rel="canonical" href="https://arongspro.github.io/">
@@ -343,6 +343,78 @@
         .unit-all-val{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--neon-yellow);}
         .unit-all-name{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.3);margin-top:2px;}
 
+        /* 2048 */
+        .g2048-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+        .g2048-scores{display:flex;gap:8px;}
+        .g2048-score-box{background:#000;border:1px solid rgba(0,245,255,.2);border-radius:4px;padding:6px 16px;text-align:center;min-width:64px;}
+        .g2048-score-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);}
+        .g2048-score-val{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--neon-cyan);}
+        .g2048-board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:#0a0a1a;border:1px solid rgba(0,245,255,.15);border-radius:6px;padding:8px;touch-action:none;user-select:none;}
+        .g2048-cell{aspect-ratio:1;background:rgba(255,255,255,.04);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(.9rem,4vw,1.4rem);color:#fff;transition:background .1s;}
+        .g2048-cell.v2{background:rgba(0,245,255,.12);color:rgba(255,255,255,.8);}
+        .g2048-cell.v4{background:rgba(0,245,255,.22);}
+        .g2048-cell.v8{background:rgba(0,255,136,.3);}
+        .g2048-cell.v16{background:rgba(0,255,136,.5);}
+        .g2048-cell.v32{background:rgba(255,230,0,.4);}
+        .g2048-cell.v64{background:rgba(255,230,0,.6);}
+        .g2048-cell.v128{background:rgba(255,110,0,.55);font-size:.9em;}
+        .g2048-cell.v256{background:rgba(255,110,0,.75);font-size:.9em;}
+        .g2048-cell.v512{background:rgba(255,0,110,.55);font-size:.85em;}
+        .g2048-cell.v1024{background:rgba(255,0,110,.75);font-size:.8em;}
+        .g2048-cell.v2048{background:rgba(185,111,255,.85);box-shadow:0 0 16px rgba(185,111,255,.6);font-size:.8em;}
+        .g2048-status{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--neon-pink);min-height:18px;margin-top:12px;}
+        .g2048-hint{text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:6px;}
+
+        /* SNAKE */
+        .snake-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+        #snakeCanvas{display:block;margin:0 auto;background:#000;border:1px solid rgba(0,255,136,.2);border-radius:4px;max-width:100%;height:auto;}
+        .snake-status{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--neon-green);min-height:18px;margin:10px 0;}
+        .snake-dpad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:4px;justify-content:center;margin:10px auto 0;}
+        .snake-dbtn{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--neon-green);border-radius:4px;font-size:16px;cursor:pointer;}
+        .snake-dbtn:hover{background:rgba(0,255,136,.2);}
+
+        /* TODO */
+        .todo-add-row{display:flex;gap:8px;margin-bottom:14px;}
+        .todo-input{flex:1;background:#0a0a28;border:1px solid rgba(0,245,255,.2);color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;padding:10px 12px;border-radius:3px;outline:none;}
+        .todo-input:focus{border-color:rgba(0,245,255,.5);}
+        .todo-list{max-height:260px;overflow-y:auto;}
+        .todo-item{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.06);}
+        .todo-item input[type="checkbox"]{width:16px;height:16px;accent-color:var(--neon-cyan);cursor:pointer;flex-shrink:0;}
+        .todo-text{flex:1;font-size:13px;color:rgba(255,255,255,.8);word-break:break-all;}
+        .todo-text.done{color:rgba(255,255,255,.3);text-decoration:line-through;}
+        .todo-del{background:transparent;border:none;color:rgba(255,0,110,.5);font-size:14px;cursor:pointer;flex-shrink:0;padding:2px 6px;}
+        .todo-del:hover{color:var(--neon-pink);}
+        .todo-empty{text-align:center;font-size:12px;color:rgba(255,255,255,.25);padding:24px 0;font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+        .todo-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,.3);}
+
+        /* BMI */
+        .bmi-row{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+        .bmi-field{flex:1;min-width:120px;}
+        .bmi-field label{display:block;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px;text-transform:uppercase;}
+        .bmi-field input{width:100%;background:#0a0a28;border:1px solid rgba(185,111,255,.25);color:#fff;font-family:'Orbitron',sans-serif;font-size:1.1rem;padding:10px 12px;border-radius:3px;outline:none;}
+        .bmi-field input:focus{border-color:rgba(185,111,255,.6);}
+        .bmi-result{background:#000;border:1px solid rgba(185,111,255,.2);border-radius:4px;padding:18px;text-align:center;margin-top:6px;}
+        .bmi-value{font-family:'Orbitron',sans-serif;font-size:2.2rem;font-weight:700;color:var(--neon-purple);}
+        .bmi-category{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;margin-top:6px;}
+        .bmi-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:14px;}
+        .bmi-bar span{flex:1;}
+        .bmi-marker{position:relative;height:10px;margin-top:4px;}
+        .bmi-marker-dot{position:absolute;top:-3px;width:2px;height:16px;background:#fff;transform:translateX(-1px);}
+
+        /* DATE CALC */
+        .date-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,0,110,.1);margin-bottom:16px;}
+        .date-field-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+        .date-field{flex:1;min-width:140px;}
+        .date-field label{display:block;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px;text-transform:uppercase;}
+        .date-field input{width:100%;background:#0a0a28;border:1px solid rgba(255,0,110,.25);color:#fff;font-family:'Share Tech Mono',monospace;font-size:13px;padding:10px 12px;border-radius:3px;outline:none;}
+        .date-field input:focus{border-color:rgba(255,0,110,.6);}
+        .date-result{background:#000;border:1px solid rgba(255,0,110,.2);border-radius:4px;padding:20px;text-align:center;}
+        .date-result-value{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:700;color:var(--neon-pink);}
+        .date-result-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:6px;}
+
+        /* MEMO */
+        .memo-saved{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,.25);margin-top:10px;text-align:right;}
+
         @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
         @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -402,6 +474,24 @@
                 <p class="card-desc" id="cardDesc3">스테이지를 뛰어다니며 장애물을 피하고 목표를 달성하세요. 쉽고 빠른 플랫포머 액션을 즐겨보세요!</p>
                 <span class="card-cta"><span id="ctaText3">지금 플레이</span><span class="cta-arrow">→</span></span>
             </a>
+            <div class="card tool-card" data-color="purple" onclick="openTool('g2048')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">퍼즐 / 숫자</div>
+                <span class="card-icon">🔢</span>
+                <div class="card-title">2048</div>
+                <div class="card-title-kr">2048 퍼즐</div>
+                <p class="card-desc">방향키로 타일을 밀어 같은 숫자를 합치며 2048을 만드는 클래식 숫자 퍼즐 게임입니다. 최고 점수는 브라우저에 자동 저장됩니다.</p>
+                <span class="card-cta">지금 플레이<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="green" onclick="openTool('snake')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">아케이드 / 액션</div>
+                <span class="card-icon">🐍</span>
+                <div class="card-title">SNAKE</div>
+                <div class="card-title-kr">뱀 게임</div>
+                <p class="card-desc">방향키로 뱀을 조작해 먹이를 먹고 몸을 길게 만드는 클래식 아케이드 게임입니다. 벽이나 자기 몸에 부딪히지 않도록 주의하세요!</p>
+                <span class="card-cta">지금 플레이<span class="cta-arrow">→</span></span>
+            </div>
         </div>
     </div>
 
@@ -471,6 +561,42 @@
                 <p class="card-desc">길이, 무게, 온도, 넓이, 속도, 부피 등 다양한 단위를 빠르게 변환합니다. 여행, 요리, 학업, 업무에서 자주 필요한 단위 변환을 한 화면에서 한 번에 확인하세요.</p>
                 <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
             </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('todo')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">생산성 / 관리</div>
+                <span class="card-icon">✅</span>
+                <div class="card-title">TODO LIST</div>
+                <div class="card-title-kr">할 일 목록</div>
+                <p class="card-desc">해야 할 일을 추가하고 완료 체크, 삭제까지 관리하는 간단한 할 일 목록입니다. 입력한 내용은 브라우저에 자동 저장되어 다시 방문해도 유지됩니다.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="purple" onclick="openTool('bmi')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">건강 / 계산</div>
+                <span class="card-icon">⚖️</span>
+                <div class="card-title">BMI CALC</div>
+                <div class="card-title-kr">BMI 계산기</div>
+                <p class="card-desc">키와 몸무게를 입력하면 체질량지수(BMI)와 저체중·정상·과체중·비만 등급을 즉시 계산합니다. 건강 관리의 기본 지표를 빠르게 확인하세요.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('date')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">날짜 / 계산</div>
+                <span class="card-icon">📅</span>
+                <div class="card-title">DATE CALC</div>
+                <div class="card-title-kr">날짜 계산기 / D-Day</div>
+                <p class="card-desc">두 날짜 사이의 일수를 계산하거나, 목표일까지 남은 D-Day를 확인할 수 있습니다. 기념일, 시험일, 프로젝트 마감일 계산에 유용합니다.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('memo')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag">텍스트 / 저장</div>
+                <span class="card-icon">📝</span>
+                <div class="card-title">MEMO</div>
+                <div class="card-title-kr">메모장</div>
+                <p class="card-desc">간단한 텍스트 메모를 브라우저에 자동 저장합니다. 회원가입 없이 이 브라우저에서만 안전하게 보관되며, 창을 닫아도 내용이 유지됩니다.</p>
+                <span class="card-cta">툴 열기<span class="cta-arrow">→</span></span>
+            </div>
         </div>
     </div>
 
@@ -478,7 +604,7 @@
     <section class="about-section" aria-label="사이트 소개">
         <div class="about-title">// About This Hub</div>
         <p class="about-desc">아룡의 포털은 일상에서 자주 필요한 도구들을 모아놓은 무료 온라인 유틸리티 사이트입니다. 설치나 회원가입 없이 브라우저에서 바로 사용할 수 있으며, 모바일과 PC 모두 지원합니다.</p>
-        <p class="about-desc">글자수 세기, 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기 등 총 7종의 도구를 제공하며, 모든 계산과 처리는 사용자의 브라우저 안에서 즉시 이루어집니다. 입력한 텍스트나 데이터를 서버로 전송하거나 저장하지 않으므로 안심하고 사용할 수 있습니다.</p>
+        <p class="about-desc">글자수 세기, 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI 계산기, 날짜 계산기, 메모장까지 총 11종의 도구와 2048·뱀 게임을 자체 제작하여 제공하며, 모든 계산과 처리는 사용자의 브라우저 안에서 즉시 이루어집니다. 입력한 텍스트나 데이터를 서버로 전송하거나 저장하지 않으므로 안심하고 사용할 수 있습니다.</p>
         <p class="about-desc">사이트는 개인 개발자가 취미로 운영하며, 실제 사용 과정에서 겪은 불편함을 해결하기 위해 하나씩 도구를 만들어 추가해왔습니다. 예를 들어 블로그 글자 수 제한을 맞추기 위한 글자수 세기, 학습·업무용 공학 계산기, 여행이나 요리에 필요한 단위 변환기 등 실생활에서 바로 쓸 수 있는 기능을 우선으로 개발하고 있습니다. 개선 아이디어나 새로 필요한 기능이 있다면 아래 이메일로 언제든지 의견을 보내주세요.</p>
         <div class="tool-features">
             <div class="tool-feature">
@@ -508,6 +634,26 @@
             <div class="tool-feature">
                 <div class="tool-feature-name">📐 단위 변환기</div>
                 <div class="tool-feature-desc">길이·무게·온도·속도·넓이·부피 등 다양한 단위 변환</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">✅ 할 일 목록</div>
+                <div class="tool-feature-desc">추가·완료 체크·삭제가 가능한 할 일 목록, 브라우저에 자동 저장</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">⚖️ BMI 계산기</div>
+                <div class="tool-feature-desc">키·몸무게 입력으로 체질량지수와 비만 등급을 즉시 확인</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">📅 날짜 계산기 / D-Day</div>
+                <div class="tool-feature-desc">두 날짜 사이 일수 계산, 목표일까지 남은 D-Day 확인</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">📝 메모장</div>
+                <div class="tool-feature-desc">간단한 텍스트 메모를 브라우저에 자동 저장</div>
+            </div>
+            <div class="tool-feature">
+                <div class="tool-feature-name">🔢 2048 / 🐍 뱀 게임</div>
+                <div class="tool-feature-desc">외부 링크 없이 사이트 안에서 바로 즐기는 자체 제작 미니게임</div>
             </div>
         </div>
     </section>
@@ -908,6 +1054,133 @@
   </div>
 </div>
 
+<!-- 2048 MODAL -->
+<div class="modal-overlay" id="modalG2048" onclick="closeModalOutside(event,'g2048')">
+  <div class="modal purple" style="max-width:420px;">
+    <button class="modal-close" onclick="closeTool('g2048')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);">🔢 2048</div>
+    <div class="modal-subtitle">방향키로 타일을 밀어 2048을 만들어보세요</div>
+    <div class="g2048-bar">
+      <button class="tool-btn purple" onclick="t2048Init()">🔄 새 게임</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label">점수</div><div class="g2048-score-val" id="t2048Score">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label">최고</div><div class="g2048-score-val" id="t2048Best">0</div></div>
+      </div>
+    </div>
+    <div class="g2048-board" id="t2048Grid" tabindex="0"></div>
+    <div class="g2048-status" id="t2048Status"></div>
+    <div class="g2048-hint">PC: 방향키 · 모바일: 보드를 스와이프</div>
+  </div>
+</div>
+
+<!-- SNAKE MODAL -->
+<div class="modal-overlay" id="modalSnake" onclick="closeModalOutside(event,'snake')">
+  <div class="modal green" style="max-width:460px;">
+    <button class="modal-close" onclick="closeTool('snake')">✕</button>
+    <div class="modal-title" style="color:var(--neon-green);">🐍 뱀 게임</div>
+    <div class="modal-subtitle">방향키로 뱀을 조작해 먹이를 먹으세요</div>
+    <div class="snake-bar">
+      <button class="tool-btn green" onclick="snakeInit()">🔄 새 게임</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label">점수</div><div class="g2048-score-val" id="snakeScore" style="color:var(--neon-green);">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label">최고</div><div class="g2048-score-val" id="snakeBestEl" style="color:var(--neon-green);">0</div></div>
+      </div>
+    </div>
+    <canvas id="snakeCanvas" width="360" height="360"></canvas>
+    <div class="snake-status" id="snakeStatus"></div>
+    <div class="snake-dpad">
+      <span></span><button class="snake-dbtn" onclick="snakeSetDir(0,-1)">▲</button><span></span>
+      <button class="snake-dbtn" onclick="snakeSetDir(-1,0)">◀</button><span></span><button class="snake-dbtn" onclick="snakeSetDir(1,0)">▶</button>
+      <span></span><button class="snake-dbtn" onclick="snakeSetDir(0,1)">▼</button><span></span>
+    </div>
+  </div>
+</div>
+
+<!-- TODO MODAL -->
+<div class="modal-overlay" id="modalTodo" onclick="closeModalOutside(event,'todo')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:480px;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan),transparent);"></div>
+    <button class="modal-close" onclick="closeTool('todo')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);">✅ 할 일 목록</div>
+    <div class="modal-subtitle">추가한 항목은 이 브라우저에 자동 저장됩니다</div>
+    <div class="todo-add-row">
+      <input class="todo-input" id="todoInput" placeholder="할 일을 입력하고 Enter" onkeydown="if(event.key==='Enter')todoAdd()">
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="todoAdd()">추가</button>
+    </div>
+    <div class="todo-list" id="todoList"></div>
+    <div class="todo-footer">
+      <span id="todoCount">0개 항목</span>
+      <button class="todo-del" style="font-size:11px;" onclick="todoClearDone()">완료 항목 지우기</button>
+    </div>
+  </div>
+</div>
+
+<!-- BMI MODAL -->
+<div class="modal-overlay" id="modalBmi" onclick="closeModalOutside(event,'bmi')">
+  <div class="modal purple" style="max-width:460px;">
+    <button class="modal-close" onclick="closeTool('bmi')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);">⚖️ BMI 계산기</div>
+    <div class="modal-subtitle">키와 몸무게로 체질량지수를 계산합니다</div>
+    <div class="bmi-row">
+      <div class="bmi-field"><label>키 (cm)</label><input type="number" id="bmiHeight" value="170" oninput="bmiCalc()"></div>
+      <div class="bmi-field"><label>몸무게 (kg)</label><input type="number" id="bmiWeight" value="65" oninput="bmiCalc()"></div>
+    </div>
+    <div class="bmi-result">
+      <div class="bmi-value" id="bmiValue">—</div>
+      <div class="bmi-category" id="bmiCategory">키와 몸무게를 입력하세요</div>
+    </div>
+    <p class="tool-tip"><b>기준</b> — 아시아·태평양 기준: 18.5 미만 저체중 · 18.5~22.9 정상 · 23~24.9 과체중 · 25 이상 비만. 참고용 지표이며 정확한 건강 평가는 전문의와 상담하세요.</p>
+  </div>
+</div>
+
+<!-- DATE MODAL -->
+<div class="modal-overlay" id="modalDate" onclick="closeModalOutside(event,'date')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:460px;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-pink),transparent);"></div>
+    <button class="modal-close" onclick="closeTool('date')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);">📅 날짜 계산기</div>
+    <div class="modal-subtitle">기간 계산 또는 D-Day를 확인하세요</div>
+    <div class="date-tabs">
+      <button class="rand-tab active" onclick="dateTab(this,'diff')">기간 계산</button>
+      <button class="rand-tab" onclick="dateTab(this,'dday')">D-Day</button>
+    </div>
+    <div id="datePanelDiff">
+      <div class="date-field-row">
+        <div class="date-field"><label>시작일</label><input type="date" id="dateStart" oninput="dateDiffCalc()"></div>
+        <div class="date-field"><label>종료일</label><input type="date" id="dateEnd" oninput="dateDiffCalc()"></div>
+      </div>
+      <div class="date-result">
+        <div class="date-result-value" id="dateDiffResult">—</div>
+        <div class="date-result-label">두 날짜 사이의 일수</div>
+      </div>
+    </div>
+    <div id="datePanelDday" style="display:none;">
+      <div class="date-field-row">
+        <div class="date-field" style="flex:none;width:100%;"><label>목표일</label><input type="date" id="dateTarget" oninput="dateDdayCalc()"></div>
+      </div>
+      <div class="date-result">
+        <div class="date-result-value" id="dateDdayResult">—</div>
+        <div class="date-result-label" id="dateDdayLabel">목표일까지 남은 일수</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO MODAL -->
+<div class="modal-overlay" id="modalMemo" onclick="closeModalOutside(event,'memo')">
+  <div class="modal yellow" style="max-width:520px;">
+    <button class="modal-close" onclick="closeTool('memo')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);">📝 메모장</div>
+    <div class="modal-subtitle">입력 내용은 이 브라우저에 자동 저장됩니다</div>
+    <textarea class="tool-textarea" id="memoInput" placeholder="여기에 메모를 입력하세요..." oninput="memoSave()"></textarea>
+    <div class="tool-actions">
+      <button class="tool-btn yellow" onclick="memoCopy()">복사</button>
+      <button class="tool-btn danger" onclick="memoClear()">초기화</button>
+    </div>
+    <div class="memo-saved" id="memoSaved"></div>
+  </div>
+</div>
+
 <script>
 /* ── Stars ── */
 (function() {
@@ -970,11 +1243,18 @@ function openTool(n) {
     if (n === 'unit') unitInit();
     if (n === 'password') pwGenerate();
     if (n === 'random') rollDice();
+    if (n === 'g2048') t2048Init();
+    if (n === 'snake') snakeInit();
+    if (n === 'todo') todoRender();
+    if (n === 'bmi') bmiCalc();
+    if (n === 'date') dateInit();
+    if (n === 'memo') memoLoad();
 }
 
 function closeTool(n) {
     document.getElementById('modal' + cap(n)).classList.remove('open');
     document.body.style.overflow = '';
+    if (n === 'snake') clearInterval(snake.timer);
 }
 
 function closeModalOutside(e, n) {
@@ -985,6 +1265,15 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
         document.body.style.overflow = '';
+        clearInterval(snake.timer);
+    }
+    if (document.getElementById('modalG2048').classList.contains('open')) {
+        var dirMap = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down'};
+        if (dirMap[e.key]) { e.preventDefault(); t2048Move(dirMap[e.key]); }
+    }
+    if (document.getElementById('modalSnake').classList.contains('open')) {
+        var vecMap = {ArrowLeft:[-1,0], ArrowRight:[1,0], ArrowUp:[0,-1], ArrowDown:[0,1]};
+        if (vecMap[e.key]) { e.preventDefault(); snakeSetDir(vecMap[e.key][0], vecMap[e.key][1]); }
     }
 });
 
@@ -1609,6 +1898,309 @@ function clearTR() {
     document.getElementById('trInput').value = '';
     document.getElementById('trOutput').value = '';
     trSetStatus('');
+}
+
+/* ── 2048 ── */
+var t2048 = { board: [], score: 0, best: 0, over: false };
+function t2048Init() {
+    t2048.board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    t2048.score = 0;
+    t2048.over = false;
+    t2048.best = parseInt(localStorage.getItem('t2048Best') || '0', 10);
+    t2048AddTile();
+    t2048AddTile();
+    t2048Render();
+}
+function t2048AddTile() {
+    var empties = [];
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) if (t2048.board[r][c] === 0) empties.push([r, c]);
+    if (!empties.length) return;
+    var cell = empties[Math.floor(Math.random() * empties.length)];
+    t2048.board[cell[0]][cell[1]] = Math.random() < 0.9 ? 2 : 4;
+}
+function t2048SlideRow(row) {
+    var arr = row.filter(function(v) { return v !== 0; });
+    for (var i = 0; i < arr.length - 1; i++) {
+        if (arr[i] === arr[i + 1]) {
+            arr[i] *= 2;
+            t2048.score += arr[i];
+            arr.splice(i + 1, 1);
+        }
+    }
+    while (arr.length < 4) arr.push(0);
+    return arr;
+}
+function t2048Move(dir) {
+    if (t2048.over) return;
+    var b = t2048.board;
+    var newBoard = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    var r, c, col, res;
+    if (dir === 'left') {
+        for (r = 0; r < 4; r++) newBoard[r] = t2048SlideRow(b[r]);
+    } else if (dir === 'right') {
+        for (r = 0; r < 4; r++) { res = t2048SlideRow(b[r].slice().reverse()); newBoard[r] = res.reverse(); }
+    } else if (dir === 'up') {
+        for (c = 0; c < 4; c++) { col = [b[0][c], b[1][c], b[2][c], b[3][c]]; res = t2048SlideRow(col); for (r = 0; r < 4; r++) newBoard[r][c] = res[r]; }
+    } else if (dir === 'down') {
+        for (c = 0; c < 4; c++) { col = [b[3][c], b[2][c], b[1][c], b[0][c]]; res = t2048SlideRow(col); for (r = 0; r < 4; r++) newBoard[3 - r][c] = res[r]; }
+    }
+    var moved = false;
+    for (r = 0; r < 4; r++) for (c = 0; c < 4; c++) if (newBoard[r][c] !== b[r][c]) moved = true;
+    if (moved) {
+        t2048.board = newBoard;
+        t2048AddTile();
+        if (t2048.score > t2048.best) { t2048.best = t2048.score; localStorage.setItem('t2048Best', t2048.best); }
+        t2048CheckOver();
+    }
+    t2048Render();
+}
+function t2048CheckOver() {
+    var b = t2048.board;
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) {
+        if (b[r][c] === 0) return;
+        if (c < 3 && b[r][c] === b[r][c + 1]) return;
+        if (r < 3 && b[r][c] === b[r + 1][c]) return;
+    }
+    t2048.over = true;
+}
+function t2048Render() {
+    var grid = document.getElementById('t2048Grid');
+    grid.innerHTML = '';
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) {
+        var v = t2048.board[r][c];
+        var cell = document.createElement('div');
+        cell.className = 'g2048-cell' + (v ? ' v' + v : '');
+        cell.textContent = v || '';
+        grid.appendChild(cell);
+    }
+    document.getElementById('t2048Score').textContent = t2048.score;
+    document.getElementById('t2048Best').textContent = t2048.best;
+    document.getElementById('t2048Status').textContent = t2048.over ? '게임 오버! 새 게임 버튼을 눌러 다시 시작하세요.' : '';
+}
+(function() {
+    var startX = 0, startY = 0;
+    var board = document.getElementById('t2048Grid');
+    if (!board) return;
+    board.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    }, { passive: true });
+    board.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - startX;
+        var dy = e.changedTouches[0].clientY - startY;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+        if (Math.abs(dx) > Math.abs(dy)) t2048Move(dx > 0 ? 'right' : 'left');
+        else t2048Move(dy > 0 ? 'down' : 'up');
+    }, { passive: true });
+})();
+
+/* ── Snake ── */
+var snake = { timer: null };
+function snakeInit() {
+    clearInterval(snake.timer);
+    snake.cell = 18; snake.cols = 20; snake.rows = 20;
+    snake.body = [{x:10,y:10},{x:9,y:10},{x:8,y:10}];
+    snake.dir = {x:1,y:0}; snake.nextDir = {x:1,y:0};
+    snake.score = 0;
+    snake.best = parseInt(localStorage.getItem('snakeBest') || '0', 10);
+    snake.over = false; snake.running = false;
+    snake.food = snakeRandFood();
+    document.getElementById('snakeStatus').textContent = '방향키나 아래 버튼을 눌러 시작하세요';
+    snakeDraw();
+}
+function snakeRandFood() {
+    var pos;
+    do {
+        pos = { x: Math.floor(Math.random() * snake.cols), y: Math.floor(Math.random() * snake.rows) };
+    } while (snake.body.some(function(s) { return s.x === pos.x && s.y === pos.y; }));
+    return pos;
+}
+function snakeSetDir(x, y) {
+    if (snake.over) return;
+    if (snake.dir.x === -x && snake.dir.y === -y) return;
+    snake.nextDir = { x: x, y: y };
+    if (!snake.running) {
+        snake.running = true;
+        document.getElementById('snakeStatus').textContent = '';
+        snake.timer = setInterval(snakeTick, 110);
+    }
+}
+function snakeTick() {
+    snake.dir = snake.nextDir;
+    var head = { x: snake.body[0].x + snake.dir.x, y: snake.body[0].y + snake.dir.y };
+    if (head.x < 0 || head.y < 0 || head.x >= snake.cols || head.y >= snake.rows ||
+        snake.body.some(function(s) { return s.x === head.x && s.y === head.y; })) {
+        snakeGameOver();
+        return;
+    }
+    snake.body.unshift(head);
+    if (head.x === snake.food.x && head.y === snake.food.y) {
+        snake.score++;
+        snake.food = snakeRandFood();
+    } else {
+        snake.body.pop();
+    }
+    snakeDraw();
+}
+function snakeGameOver() {
+    snake.running = false;
+    snake.over = true;
+    clearInterval(snake.timer);
+    if (snake.score > snake.best) { snake.best = snake.score; localStorage.setItem('snakeBest', snake.best); }
+    document.getElementById('snakeStatus').textContent = '게임 오버! 점수 ' + snake.score + ' — 새 게임을 눌러 다시 시작하세요';
+    snakeDraw();
+}
+function snakeDraw() {
+    var canvas = document.getElementById('snakeCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#ff006e';
+    ctx.fillRect(snake.food.x * snake.cell + 1, snake.food.y * snake.cell + 1, snake.cell - 2, snake.cell - 2);
+    snake.body.forEach(function(s, i) {
+        ctx.fillStyle = i === 0 ? '#00ff88' : 'rgba(0,255,136,0.55)';
+        ctx.fillRect(s.x * snake.cell + 1, s.y * snake.cell + 1, snake.cell - 2, snake.cell - 2);
+    });
+    document.getElementById('snakeScore').textContent = snake.score;
+    document.getElementById('snakeBestEl').textContent = snake.best;
+}
+
+/* ── Todo List ── */
+function todoLoad() {
+    try { return JSON.parse(localStorage.getItem('todoItems') || '[]'); } catch (e) { return []; }
+}
+function todoSave(items) {
+    localStorage.setItem('todoItems', JSON.stringify(items));
+}
+function todoRender() {
+    var items = todoLoad();
+    var list = document.getElementById('todoList');
+    if (!items.length) {
+        list.innerHTML = '<div class="todo-empty">할 일이 없습니다. 위에서 추가해보세요.</div>';
+    } else {
+        list.innerHTML = items.map(function(it, i) {
+            return '<div class="todo-item">' +
+                '<input type="checkbox" ' + (it.done ? 'checked' : '') + ' onchange="todoToggle(' + i + ')">' +
+                '<span class="todo-text' + (it.done ? ' done' : '') + '">' + todoEscape(it.text) + '</span>' +
+                '<button class="todo-del" onclick="todoDelete(' + i + ')">✕</button>' +
+                '</div>';
+        }).join('');
+    }
+    document.getElementById('todoCount').textContent = items.length + '개 항목';
+}
+function todoEscape(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+}
+function todoAdd() {
+    var input = document.getElementById('todoInput');
+    var text = input.value.trim();
+    if (!text) return;
+    var items = todoLoad();
+    items.push({ text: text, done: false });
+    todoSave(items);
+    input.value = '';
+    todoRender();
+}
+function todoToggle(i) {
+    var items = todoLoad();
+    if (items[i]) { items[i].done = !items[i].done; todoSave(items); todoRender(); }
+}
+function todoDelete(i) {
+    var items = todoLoad();
+    items.splice(i, 1);
+    todoSave(items);
+    todoRender();
+}
+function todoClearDone() {
+    var items = todoLoad().filter(function(it) { return !it.done; });
+    todoSave(items);
+    todoRender();
+}
+
+/* ── BMI Calculator ── */
+function bmiCalc() {
+    var h = parseFloat(document.getElementById('bmiHeight').value);
+    var w = parseFloat(document.getElementById('bmiWeight').value);
+    var valueEl = document.getElementById('bmiValue');
+    var catEl = document.getElementById('bmiCategory');
+    if (!h || !w || h <= 0 || w <= 0) {
+        valueEl.textContent = '—';
+        catEl.textContent = '키와 몸무게를 입력하세요';
+        catEl.style.color = 'rgba(255,255,255,.4)';
+        return;
+    }
+    var bmi = w / Math.pow(h / 100, 2);
+    valueEl.textContent = bmi.toFixed(1);
+    var cat, color;
+    if (bmi < 18.5) { cat = '저체중'; color = 'var(--neon-cyan)'; }
+    else if (bmi < 23) { cat = '정상'; color = 'var(--neon-green)'; }
+    else if (bmi < 25) { cat = '과체중'; color = 'var(--neon-yellow)'; }
+    else { cat = '비만'; color = 'var(--neon-pink)'; }
+    catEl.textContent = cat;
+    catEl.style.color = color;
+}
+
+/* ── Date Calculator ── */
+function dateInit() {
+    var today = new Date().toISOString().slice(0, 10);
+    if (!document.getElementById('dateStart').value) document.getElementById('dateStart').value = today;
+    if (!document.getElementById('dateEnd').value) document.getElementById('dateEnd').value = today;
+    if (!document.getElementById('dateTarget').value) document.getElementById('dateTarget').value = today;
+    dateDiffCalc();
+    dateDdayCalc();
+}
+function dateTab(btn, which) {
+    document.querySelectorAll('.date-tabs .rand-tab').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('datePanelDiff').style.display = which === 'diff' ? 'block' : 'none';
+    document.getElementById('datePanelDday').style.display = which === 'dday' ? 'block' : 'none';
+}
+function dateDiffCalc() {
+    var s = document.getElementById('dateStart').value;
+    var e = document.getElementById('dateEnd').value;
+    var el = document.getElementById('dateDiffResult');
+    if (!s || !e) { el.textContent = '—'; return; }
+    var days = Math.round((new Date(e) - new Date(s)) / 86400000);
+    el.textContent = (days >= 0 ? days : Math.abs(days)) + '일';
+}
+function dateDdayCalc() {
+    var t = document.getElementById('dateTarget').value;
+    var el = document.getElementById('dateDdayResult');
+    var label = document.getElementById('dateDdayLabel');
+    if (!t) { el.textContent = '—'; return; }
+    var today = new Date(); today.setHours(0,0,0,0);
+    var target = new Date(t);
+    var days = Math.round((target - today) / 86400000);
+    if (days === 0) { el.textContent = 'D-DAY'; label.textContent = '바로 오늘입니다'; }
+    else if (days > 0) { el.textContent = 'D-' + days; label.textContent = '목표일까지 남은 일수'; }
+    else { el.textContent = 'D+' + Math.abs(days); label.textContent = '목표일이 지난 일수'; }
+}
+
+/* ── Memo ── */
+function memoLoad() {
+    document.getElementById('memoInput').value = localStorage.getItem('memoText') || '';
+    memoUpdateSaved();
+}
+function memoSave() {
+    localStorage.setItem('memoText', document.getElementById('memoInput').value);
+    localStorage.setItem('memoSavedAt', new Date().toISOString());
+    memoUpdateSaved();
+}
+function memoUpdateSaved() {
+    var t = localStorage.getItem('memoSavedAt');
+    var el = document.getElementById('memoSaved');
+    el.textContent = t ? '자동 저장됨: ' + new Date(t).toLocaleString('ko-KR') : '';
+}
+function memoCopy() {
+    var t = document.getElementById('memoInput').value;
+    if (!t) return;
+    navigator.clipboard.writeText(t);
+}
+function memoClear() {
+    document.getElementById('memoInput').value = '';
+    memoSave();
 }
 
 /* ── Language ── */
