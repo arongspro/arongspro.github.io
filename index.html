@@ -373,6 +373,44 @@
         .snake-dbtn{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--neon-green);border-radius:4px;font-size:16px;cursor:pointer;}
         .snake-dbtn:hover{background:rgba(0,255,136,.2);}
 
+        /* MINESWEEPER */
+        .mine-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap;}
+        .mine-counter{background:#000;border:1px solid rgba(255,0,110,.25);border-radius:4px;padding:6px 14px;font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--neon-pink);min-width:48px;text-align:center;}
+        .mine-face{background:rgba(255,0,110,.08);border:1px solid rgba(255,0,110,.3);border-radius:4px;font-size:20px;width:40px;height:36px;cursor:pointer;}
+        .mine-face:hover{background:rgba(255,0,110,.18);}
+        .mine-flagmode{background:transparent;border:1px solid rgba(255,0,110,.25);color:rgba(255,0,110,.6);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:8px 12px;border-radius:4px;cursor:pointer;text-transform:uppercase;}
+        .mine-flagmode.active{background:rgba(255,0,110,.2);color:var(--neon-pink);border-color:rgba(255,0,110,.5);}
+        .mine-board{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;background:#0a0a1a;border:1px solid rgba(255,0,110,.15);border-radius:6px;padding:6px;max-width:340px;margin:0 auto;user-select:none;touch-action:none;}
+        .mine-cell{aspect-ratio:1;background:rgba(255,255,255,.06);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-weight:700;font-size:13px;cursor:pointer;transition:background .1s;}
+        .mine-cell:hover{background:rgba(255,255,255,.12);}
+        .mine-cell.revealed{background:rgba(255,255,255,.02);cursor:default;}
+        .mine-cell.mine{background:rgba(255,0,110,.35);}
+        .mine-cell.wrong-flag{background:rgba(255,230,0,.2);}
+        .mine-cell.n1{color:#00f5ff;} .mine-cell.n2{color:#00ff88;} .mine-cell.n3{color:#ff006e;}
+        .mine-cell.n4{color:#b96fff;} .mine-cell.n5{color:#ffe600;} .mine-cell.n6{color:#00e0e0;}
+        .mine-cell.n7{color:#fff;} .mine-cell.n8{color:rgba(255,255,255,.5);}
+        .mine-status{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--neon-pink);min-height:18px;margin-top:12px;}
+
+        /* BREAKOUT */
+        .brk-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+        #brkCanvas{display:block;margin:0 auto;background:#000;border:1px solid rgba(0,245,255,.2);border-radius:4px;max-width:100%;height:auto;touch-action:none;}
+        .brk-status{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--neon-cyan);min-height:18px;margin:10px 0;}
+        .brk-hint{text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;}
+
+        /* REACTION TEST */
+        .rx-box{height:220px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;transition:background .15s;text-align:center;padding:20px;}
+        .rx-box.wait{background:rgba(255,0,110,.12);border:1px solid rgba(255,0,110,.3);}
+        .rx-box.ready{background:rgba(0,255,136,.18);border:1px solid rgba(0,255,136,.5);}
+        .rx-box.idle{background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.25);}
+        .rx-main{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:700;color:#fff;}
+        .rx-sub{font-size:12px;color:rgba(255,255,255,.5);}
+        .rx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+        .rx-stat-box{background:#000;border:1px solid rgba(255,230,0,.15);border-radius:4px;padding:10px;text-align:center;}
+        .rx-stat-val{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--neon-yellow);}
+        .rx-stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.35);margin-top:2px;text-transform:uppercase;}
+        .rx-history{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+        .rx-history span{font-family:'Share Tech Mono',monospace;font-size:10px;background:rgba(255,230,0,.06);border:1px solid rgba(255,230,0,.15);border-radius:3px;padding:4px 8px;color:rgba(255,230,0,.7);}
+
         /* TODO */
         .todo-add-row{display:flex;gap:8px;margin-bottom:14px;}
         .todo-input{flex:1;background:#0a0a28;border:1px solid rgba(0,245,255,.2);color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;padding:10px 12px;border-radius:3px;outline:none;}
@@ -492,6 +530,33 @@
                 <p class="card-desc" data-ko="방향키로 뱀을 조작해 먹이를 먹고 몸을 길게 만드는 클래식 아케이드 게임입니다. 벽이나 자기 몸에 부딪히지 않도록 주의하세요!" data-en="A classic arcade game — steer the snake with the arrow keys to eat food and grow longer. Watch out for walls and your own tail!">방향키로 뱀을 조작해 먹이를 먹고 몸을 길게 만드는 클래식 아케이드 게임입니다. 벽이나 자기 몸에 부딪히지 않도록 주의하세요!</p>
                 <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('mine')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic">퍼즐 / 로직</div>
+                <span class="card-icon">💣</span>
+                <div class="card-title">MINESWEEPER</div>
+                <div class="card-title-kr" data-ko="지뢰찾기" data-en="Minesweeper">지뢰찾기</div>
+                <p class="card-desc" data-ko="숫자를 단서로 지뢰를 피해 모든 칸을 여는 클래식 퍼즐 게임입니다. 지뢰가 의심되는 칸은 깃발로 표시해두세요." data-en="A classic logic puzzle — use the numbers as clues to avoid mines and clear every safe cell. Flag cells you suspect hide a mine.">숫자를 단서로 지뢰를 피해 모든 칸을 여는 클래식 퍼즐 게임입니다. 지뢰가 의심되는 칸은 깃발로 표시해두세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('breakout')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action">아케이드 / 액션</div>
+                <span class="card-icon">🧱</span>
+                <div class="card-title">BREAKOUT</div>
+                <div class="card-title-kr" data-ko="벽돌깨기" data-en="Breakout">벽돌깨기</div>
+                <p class="card-desc" data-ko="패들로 공을 튕겨 모든 벽돌을 깨는 클래식 아케이드 게임입니다. 방향키나 마우스·터치로 패들을 조작하세요." data-en="A classic arcade game — bounce the ball with your paddle to break every brick. Control the paddle with arrow keys, mouse, or touch.">패들로 공을 튕겨 모든 벽돌을 깨는 클래식 아케이드 게임입니다. 방향키나 마우스·터치로 패들을 조작하세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('reaction')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="테스트 / 반응속도" data-en="Test / Reflexes">테스트 / 반응속도</div>
+                <span class="card-icon">⚡</span>
+                <div class="card-title">REACTION TEST</div>
+                <div class="card-title-kr" data-ko="순발력 테스트" data-en="Reaction Time Test">순발력 테스트</div>
+                <p class="card-desc" data-ko="화면이 초록색으로 바뀌는 순간 최대한 빠르게 클릭해 반응 속도를 측정하세요. 평균 기록과 최고 기록이 저장됩니다." data-en="Click as fast as you can the instant the screen turns green to measure your reaction time. Your average and best scores are saved.">화면이 초록색으로 바뀌는 순간 최대한 빠르게 클릭해 반응 속도를 측정하세요. 평균 기록과 최고 기록이 저장됩니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
         </div>
     </div>
 
@@ -604,7 +669,7 @@
     <section class="about-section" aria-label="사이트 소개">
         <div class="about-title">// About This Hub</div>
         <p class="about-desc" data-ko="아룡의 포털은 일상에서 자주 필요한 도구들을 모아놓은 무료 온라인 유틸리티 사이트입니다. 설치나 회원가입 없이 브라우저에서 바로 사용할 수 있으며, 모바일과 PC 모두 지원합니다." data-en="Arong's Portal is a free online utility site that gathers tools you need often in everyday life. No installation or sign-up required — use it right in your browser, on both mobile and desktop.">아룡의 포털은 일상에서 자주 필요한 도구들을 모아놓은 무료 온라인 유틸리티 사이트입니다. 설치나 회원가입 없이 브라우저에서 바로 사용할 수 있으며, 모바일과 PC 모두 지원합니다.</p>
-        <p class="about-desc" data-ko="글자수 세기, 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI 계산기, 날짜 계산기, 메모장까지 총 11종의 도구와 2048·뱀 게임을 자체 제작하여 제공하며, 모든 계산과 처리는 사용자의 브라우저 안에서 즉시 이루어집니다. 입력한 텍스트나 데이터를 서버로 전송하거나 저장하지 않으므로 안심하고 사용할 수 있습니다." data-en="It offers 11 self-built tools — character counter, calculator, translator, timer, random generator, password generator, unit converter, to-do list, BMI calculator, date calculator, and memo pad — plus two original games, 2048 and Snake. All calculations run instantly in your browser; nothing you type is ever sent to or stored on a server.">글자수 세기, 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI 계산기, 날짜 계산기, 메모장까지 총 11종의 도구와 2048·뱀 게임을 자체 제작하여 제공하며, 모든 계산과 처리는 사용자의 브라우저 안에서 즉시 이루어집니다. 입력한 텍스트나 데이터를 서버로 전송하거나 저장하지 않으므로 안심하고 사용할 수 있습니다.</p>
+        <p class="about-desc" data-ko="글자수 세기, 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI 계산기, 날짜 계산기, 메모장까지 총 11종의 도구와 2048·뱀·지뢰찾기·벽돌깨기·순발력 테스트까지 5종의 게임을 자체 제작하여 제공하며, 모든 계산과 처리는 사용자의 브라우저 안에서 즉시 이루어집니다. 입력한 텍스트나 데이터를 서버로 전송하거나 저장하지 않으므로 안심하고 사용할 수 있습니다." data-en="It offers 11 self-built tools — character counter, calculator, translator, timer, random generator, password generator, unit converter, to-do list, BMI calculator, date calculator, and memo pad — plus 5 original games: 2048, Snake, Minesweeper, Breakout, and a Reaction Time Test. All calculations run instantly in your browser; nothing you type is ever sent to or stored on a server.">글자수 세기, 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI 계산기, 날짜 계산기, 메모장까지 총 11종의 도구와 2048·뱀·지뢰찾기·벽돌깨기·순발력 테스트까지 5종의 게임을 자체 제작하여 제공하며, 모든 계산과 처리는 사용자의 브라우저 안에서 즉시 이루어집니다. 입력한 텍스트나 데이터를 서버로 전송하거나 저장하지 않으므로 안심하고 사용할 수 있습니다.</p>
         <p class="about-desc" data-ko="사이트는 개인 개발자가 취미로 운영하며, 실제 사용 과정에서 겪은 불편함을 해결하기 위해 하나씩 도구를 만들어 추가해왔습니다. 예를 들어 블로그 글자 수 제한을 맞추기 위한 글자수 세기, 학습·업무용 공학 계산기, 여행이나 요리에 필요한 단위 변환기 등 실생활에서 바로 쓸 수 있는 기능을 우선으로 개발하고 있습니다. 개선 아이디어나 새로 필요한 기능이 있다면 아래 이메일로 언제든지 의견을 보내주세요." data-en="The site is run by an individual developer as a hobby project, adding tools one at a time to solve real problems encountered in daily use — like a character counter for blog length limits, a scientific calculator for study and work, or a unit converter for travel and cooking. If you have an idea for improvement or a feature you need, feel free to email us anytime.">사이트는 개인 개발자가 취미로 운영하며, 실제 사용 과정에서 겪은 불편함을 해결하기 위해 하나씩 도구를 만들어 추가해왔습니다. 예를 들어 블로그 글자 수 제한을 맞추기 위한 글자수 세기, 학습·업무용 공학 계산기, 여행이나 요리에 필요한 단위 변환기 등 실생활에서 바로 쓸 수 있는 기능을 우선으로 개발하고 있습니다. 개선 아이디어나 새로 필요한 기능이 있다면 아래 이메일로 언제든지 의견을 보내주세요.</p>
         <div class="tool-features">
             <div class="tool-feature">
@@ -652,8 +717,8 @@
                 <div class="tool-feature-desc" data-ko="간단한 텍스트 메모를 브라우저에 자동 저장" data-en="Save simple text notes automatically in your browser">간단한 텍스트 메모를 브라우저에 자동 저장</div>
             </div>
             <div class="tool-feature">
-                <div class="tool-feature-name" data-ko="🔢 2048 / 🐍 뱀 게임" data-en="🔢 2048 / 🐍 Snake">🔢 2048 / 🐍 뱀 게임</div>
-                <div class="tool-feature-desc" data-ko="외부 링크 없이 사이트 안에서 바로 즐기는 자체 제작 미니게임" data-en="Self-built mini-games playable right on the site — no external links">외부 링크 없이 사이트 안에서 바로 즐기는 자체 제작 미니게임</div>
+                <div class="tool-feature-name" data-ko="🔢 2048 · 🐍 뱀 · 💣 지뢰찾기 · 🧱 벽돌깨기 · ⚡ 순발력 테스트" data-en="🔢 2048 · 🐍 Snake · 💣 Minesweeper · 🧱 Breakout · ⚡ Reaction Test">🔢 2048 · 🐍 뱀 · 💣 지뢰찾기 · 🧱 벽돌깨기 · ⚡ 순발력 테스트</div>
+                <div class="tool-feature-desc" data-ko="외부 링크 없이 사이트 안에서 바로 즐기는 자체 제작 미니게임 5종" data-en="5 self-built mini-games playable right on the site — no external links">외부 링크 없이 사이트 안에서 바로 즐기는 자체 제작 미니게임 5종</div>
             </div>
         </div>
     </section>
@@ -1096,6 +1161,64 @@
   </div>
 </div>
 
+<!-- MINESWEEPER MODAL -->
+<div class="modal-overlay" id="modalMine" onclick="closeModalOutside(event,'mine')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:420px;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-pink),transparent);"></div>
+    <button class="modal-close" onclick="closeTool('mine')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);" data-ko="💣 지뢰찾기" data-en="💣 Minesweeper">💣 지뢰찾기</div>
+    <div class="modal-subtitle" data-ko="숫자를 단서로 모든 안전한 칸을 여세요" data-en="Use the numbers as clues to clear every safe cell">숫자를 단서로 모든 안전한 칸을 여세요</div>
+    <div class="mine-bar">
+      <div class="mine-counter" id="mineCounter">10</div>
+      <button class="mine-face" id="mineFace" onclick="mineInit()">🙂</button>
+      <div class="mine-counter" id="mineTimer">0</div>
+      <button class="mine-flagmode" id="mineFlagModeBtn" onclick="mineToggleFlagMode()" data-ko="🚩 깃발 모드" data-en="🚩 Flag Mode">🚩 깃발 모드</button>
+    </div>
+    <div class="mine-board" id="mineBoard"></div>
+    <div class="mine-status" id="mineStatus"></div>
+    <div class="g2048-hint" data-ko="PC: 좌클릭 열기 · 우클릭 깃발 · 모바일: 깃발 모드 버튼으로 전환" data-en="PC: Left-click to open · Right-click to flag · Mobile: use the Flag Mode button">PC: 좌클릭 열기 · 우클릭 깃발 · 모바일: 깃발 모드 버튼으로 전환</div>
+  </div>
+</div>
+
+<!-- BREAKOUT MODAL -->
+<div class="modal-overlay" id="modalBreakout" onclick="closeModalOutside(event,'breakout')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:400px;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan),transparent);"></div>
+    <button class="modal-close" onclick="closeTool('breakout')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="🧱 벽돌깨기" data-en="🧱 Breakout">🧱 벽돌깨기</div>
+    <div class="modal-subtitle" data-ko="패들로 공을 튕겨 벽돌을 모두 깨세요" data-en="Bounce the ball with your paddle to break every brick">패들로 공을 튕겨 벽돌을 모두 깨세요</div>
+    <div class="brk-bar">
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="brkInit()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="점수" data-en="Score">점수</div><div class="g2048-score-val" id="brkScore" style="color:var(--neon-cyan);">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="생명" data-en="Lives">생명</div><div class="g2048-score-val" id="brkLives" style="color:var(--neon-cyan);">3</div></div>
+      </div>
+    </div>
+    <canvas id="brkCanvas" width="320" height="380"></canvas>
+    <div class="brk-status" id="brkStatus"></div>
+    <div class="brk-hint" data-ko="방향키 또는 마우스·터치로 패들 조작 · 클릭/스페이스로 발사" data-en="Move the paddle with arrow keys or mouse/touch · Click or Space to launch">방향키 또는 마우스·터치로 패들 조작 · 클릭/스페이스로 발사</div>
+  </div>
+</div>
+
+<!-- REACTION TEST MODAL -->
+<div class="modal-overlay" id="modalReaction" onclick="closeModalOutside(event,'reaction')">
+  <div class="modal yellow" style="max-width:420px;">
+    <button class="modal-close" onclick="closeTool('reaction')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);" data-ko="⚡ 순발력 테스트" data-en="⚡ Reaction Time Test">⚡ 순발력 테스트</div>
+    <div class="modal-subtitle" data-ko="초록색으로 바뀌는 순간 최대한 빠르게 클릭하세요" data-en="Click as fast as you can the instant it turns green">초록색으로 바뀌는 순간 최대한 빠르게 클릭하세요</div>
+    <div class="rx-box idle" id="rxBox" onclick="rxClick()">
+      <div class="rx-main" id="rxMain" data-ko="클릭해서 시작" data-en="Click to Start">클릭해서 시작</div>
+      <div class="rx-sub" id="rxSub" data-ko="초록색이 되면 최대한 빠르게 클릭하세요" data-en="Click as fast as you can when it turns green">초록색이 되면 최대한 빠르게 클릭하세요</div>
+    </div>
+    <div class="rx-stats">
+      <div class="rx-stat-box"><div class="rx-stat-val" id="rxLast">—</div><div class="rx-stat-label" data-ko="최근" data-en="Last">최근</div></div>
+      <div class="rx-stat-box"><div class="rx-stat-val" id="rxAvg">—</div><div class="rx-stat-label" data-ko="평균" data-en="Average">평균</div></div>
+      <div class="rx-stat-box"><div class="rx-stat-val" id="rxBest">—</div><div class="rx-stat-label" data-ko="최고" data-en="Best">최고</div></div>
+    </div>
+    <div class="rx-history" id="rxHistory"></div>
+  </div>
+</div>
+
 <!-- TODO MODAL -->
 <div class="modal-overlay" id="modalTodo" onclick="closeModalOutside(event,'todo')">
   <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:480px;">
@@ -1249,12 +1372,18 @@ function openTool(n) {
     if (n === 'bmi') bmiCalc();
     if (n === 'date') dateInit();
     if (n === 'memo') memoLoad();
+    if (n === 'mine') mineInit();
+    if (n === 'breakout') brkInit();
+    if (n === 'reaction') rxInit();
 }
 
 function closeTool(n) {
     document.getElementById('modal' + cap(n)).classList.remove('open');
     document.body.style.overflow = '';
     if (n === 'snake') clearInterval(snake.timer);
+    if (n === 'breakout') { brk.running = false; cancelAnimationFrame(brk.raf); }
+    if (n === 'mine') clearInterval(mine.timerHandle);
+    if (n === 'reaction') clearTimeout(rx.timeoutHandle);
 }
 
 function closeModalOutside(e, n) {
@@ -1266,6 +1395,9 @@ document.addEventListener('keydown', function(e) {
         document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
         document.body.style.overflow = '';
         clearInterval(snake.timer);
+        brk.running = false; cancelAnimationFrame(brk.raf);
+        clearInterval(mine.timerHandle);
+        clearTimeout(rx.timeoutHandle);
     }
     if (document.getElementById('modalG2048').classList.contains('open')) {
         var dirMap = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down'};
@@ -1274,6 +1406,17 @@ document.addEventListener('keydown', function(e) {
     if (document.getElementById('modalSnake').classList.contains('open')) {
         var vecMap = {ArrowLeft:[-1,0], ArrowRight:[1,0], ArrowUp:[0,-1], ArrowDown:[0,1]};
         if (vecMap[e.key]) { e.preventDefault(); snakeSetDir(vecMap[e.key][0], vecMap[e.key][1]); }
+    }
+    if (document.getElementById('modalBreakout').classList.contains('open')) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); brk.moveDir = -1; }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); brk.moveDir = 1; }
+        else if (e.key === ' ') { e.preventDefault(); brkLaunch(); }
+    }
+});
+document.addEventListener('keyup', function(e) {
+    if (document.getElementById('modalBreakout').classList.contains('open')) {
+        if (e.key === 'ArrowLeft' && brk.moveDir === -1) brk.moveDir = 0;
+        if (e.key === 'ArrowRight' && brk.moveDir === 1) brk.moveDir = 0;
     }
 });
 
@@ -2065,6 +2208,317 @@ function snakeDraw() {
     document.getElementById('snakeBestEl').textContent = snake.best;
 }
 
+/* ── Minesweeper ── */
+var mine = { rows: 9, cols: 9, mines: 10, grid: [], revealed: 0, flags: 0, over: false, started: false, seconds: 0, timerHandle: null, flagMode: false };
+function mineInit() {
+    clearInterval(mine.timerHandle);
+    mine.grid = [];
+    for (var r = 0; r < mine.rows; r++) {
+        var row = [];
+        for (var c = 0; c < mine.cols; c++) row.push({ mine: false, revealed: false, flagged: false, adj: 0 });
+        mine.grid.push(row);
+    }
+    mine.revealed = 0; mine.flags = 0; mine.over = false; mine.started = false; mine.seconds = 0;
+    document.getElementById('mineFace').textContent = '🙂';
+    document.getElementById('mineCounter').textContent = mine.mines;
+    document.getElementById('mineTimer').textContent = 0;
+    document.getElementById('mineStatus').textContent = '';
+    mineRender();
+}
+function minePlaceMines(excludeR, excludeC) {
+    var placed = 0;
+    while (placed < mine.mines) {
+        var r = Math.floor(Math.random() * mine.rows), c = Math.floor(Math.random() * mine.cols);
+        if (Math.abs(r - excludeR) <= 1 && Math.abs(c - excludeC) <= 1) continue;
+        if (mine.grid[r][c].mine) continue;
+        mine.grid[r][c].mine = true; placed++;
+    }
+    for (var r2 = 0; r2 < mine.rows; r2++) for (var c2 = 0; c2 < mine.cols; c2++) {
+        if (mine.grid[r2][c2].mine) continue;
+        var count = 0;
+        for (var dr = -1; dr <= 1; dr++) for (var dc = -1; dc <= 1; dc++) {
+            var nr = r2 + dr, nc = c2 + dc;
+            if (nr >= 0 && nr < mine.rows && nc >= 0 && nc < mine.cols && mine.grid[nr][nc].mine) count++;
+        }
+        mine.grid[r2][c2].adj = count;
+    }
+}
+function mineToggleFlagMode() {
+    mine.flagMode = !mine.flagMode;
+    document.getElementById('mineFlagModeBtn').classList.toggle('active', mine.flagMode);
+}
+function mineCellClick(r, c) {
+    if (mine.over) return;
+    if (mine.flagMode) { mineFlag(r, c); return; }
+    var cell = mine.grid[r][c];
+    if (cell.revealed || cell.flagged) return;
+    if (!mine.started) { minePlaceMines(r, c); mine.started = true; mine.timerHandle = setInterval(mineTick, 1000); }
+    if (cell.mine) { mineLose(); return; }
+    mineReveal(r, c);
+    mineCheckWin();
+    mineRender();
+}
+function mineCellRightClick(e, r, c) {
+    e.preventDefault();
+    mineFlag(r, c);
+}
+function mineFlag(r, c) {
+    if (mine.over) return;
+    var cell = mine.grid[r][c];
+    if (cell.revealed) return;
+    cell.flagged = !cell.flagged;
+    mine.flags += cell.flagged ? 1 : -1;
+    document.getElementById('mineCounter').textContent = mine.mines - mine.flags;
+    mineRender();
+}
+function mineReveal(r, c) {
+    if (r < 0 || r >= mine.rows || c < 0 || c >= mine.cols) return;
+    var cell = mine.grid[r][c];
+    if (cell.revealed || cell.flagged) return;
+    cell.revealed = true;
+    mine.revealed++;
+    if (cell.adj === 0) {
+        for (var dr = -1; dr <= 1; dr++) for (var dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+            mineReveal(r + dr, c + dc);
+        }
+    }
+}
+function mineTick() {
+    mine.seconds++;
+    document.getElementById('mineTimer').textContent = mine.seconds;
+}
+function mineLose() {
+    mine.over = true;
+    clearInterval(mine.timerHandle);
+    for (var r = 0; r < mine.rows; r++) for (var c = 0; c < mine.cols; c++) if (mine.grid[r][c].mine) mine.grid[r][c].revealed = true;
+    document.getElementById('mineFace').textContent = '😵';
+    document.getElementById('mineStatus').textContent = L('게임 오버! 지뢰를 밟았습니다.', 'Boom! You hit a mine.');
+    mineRender();
+}
+function mineCheckWin() {
+    var totalSafe = mine.rows * mine.cols - mine.mines;
+    if (mine.revealed >= totalSafe) {
+        mine.over = true;
+        clearInterval(mine.timerHandle);
+        document.getElementById('mineFace').textContent = '😎';
+        document.getElementById('mineStatus').textContent = L('축하합니다! 모든 칸을 클리어했습니다.', 'You win! All safe cells cleared.');
+    }
+}
+function mineRender() {
+    var board = document.getElementById('mineBoard');
+    board.innerHTML = '';
+    for (var r = 0; r < mine.rows; r++) for (var c = 0; c < mine.cols; c++) {
+        var cell = mine.grid[r][c];
+        var div = document.createElement('div');
+        div.className = 'mine-cell' + (cell.revealed ? ' revealed' : '');
+        if (cell.revealed && cell.mine) div.classList.add('mine');
+        if (mine.over && !cell.mine && cell.flagged) div.classList.add('wrong-flag');
+        if (cell.revealed && !cell.mine && cell.adj > 0) { div.classList.add('n' + cell.adj); div.textContent = cell.adj; }
+        else if (cell.revealed && cell.mine) { div.textContent = '💣'; }
+        else if (cell.flagged) { div.textContent = '🚩'; }
+        div.onclick = (function(rr, cc) { return function() { mineCellClick(rr, cc); }; })(r, c);
+        div.oncontextmenu = (function(rr, cc) { return function(e) { mineCellRightClick(e, rr, cc); }; })(r, c);
+        board.appendChild(div);
+    }
+}
+
+/* ── Breakout ── */
+var brk = { canvas: null, ctx: null, w: 320, h: 380, paddleW: 60, paddleH: 10, paddleX: 130, ballX: 160, ballY: 340, ballVX: 0, ballVY: 0, ballR: 6, bricks: [], rows: 5, cols: 6, score: 0, lives: 3, running: false, launched: false, raf: null, moveDir: 0 };
+function brkInit() {
+    cancelAnimationFrame(brk.raf);
+    brk.score = 0; brk.lives = 3; brk.moveDir = 0;
+    brk.paddleX = (brk.w - brk.paddleW) / 2;
+    brkResetBall();
+    brkBuildBricks();
+    document.getElementById('brkScore').textContent = 0;
+    document.getElementById('brkLives').textContent = 3;
+    document.getElementById('brkStatus').textContent = L('클릭하거나 스페이스바로 공을 발사하세요', 'Click or press Space to launch the ball');
+    if (!brk.canvas) {
+        brk.canvas = document.getElementById('brkCanvas');
+        brk.ctx = brk.canvas.getContext('2d');
+        brk.canvas.addEventListener('mousemove', brkPointerMove);
+        brk.canvas.addEventListener('touchmove', brkPointerMove, { passive: false });
+        brk.canvas.addEventListener('click', brkLaunch);
+    }
+    brk.running = true;
+    brkLoop();
+}
+function brkBuildBricks() {
+    brk.bricks = [];
+    var margin = 10, gap = 4;
+    var brickW = (brk.w - margin * 2 - gap * (brk.cols - 1)) / brk.cols;
+    var brickH = 16;
+    var colors = ['#ff006e', '#ffe600', '#00ff88', '#00f5ff', '#b96fff'];
+    for (var r = 0; r < brk.rows; r++) {
+        for (var c = 0; c < brk.cols; c++) {
+            brk.bricks.push({ x: margin + c * (brickW + gap), y: 30 + r * (brickH + gap), w: brickW, h: brickH, alive: true, color: colors[r % colors.length] });
+        }
+    }
+}
+function brkResetBall() {
+    brk.launched = false;
+    brk.ballX = brk.paddleX + brk.paddleW / 2;
+    brk.ballY = brk.h - 30;
+    brk.ballVX = 0; brk.ballVY = 0;
+}
+function brkLaunch() {
+    if (brk.launched || !brk.running) return;
+    brk.launched = true;
+    brk.ballVX = (Math.random() < 0.5 ? -1 : 1) * 3;
+    brk.ballVY = -4;
+    document.getElementById('brkStatus').textContent = '';
+}
+function brkPointerMove(e) {
+    if (!brk.running) return;
+    var rect = brk.canvas.getBoundingClientRect();
+    var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    var scaleX = brk.w / rect.width;
+    var x = (clientX - rect.left) * scaleX;
+    brk.paddleX = Math.max(0, Math.min(brk.w - brk.paddleW, x - brk.paddleW / 2));
+    if (!brk.launched) brk.ballX = brk.paddleX + brk.paddleW / 2;
+    if (e.touches) e.preventDefault();
+}
+function brkLoop() {
+    if (!brk.running) return;
+    brk.raf = requestAnimationFrame(brkLoop);
+    if (brk.moveDir !== 0) {
+        brk.paddleX = Math.max(0, Math.min(brk.w - brk.paddleW, brk.paddleX + brk.moveDir * 6));
+        if (!brk.launched) brk.ballX = brk.paddleX + brk.paddleW / 2;
+    }
+    if (brk.launched) {
+        brk.ballX += brk.ballVX;
+        brk.ballY += brk.ballVY;
+        if (brk.ballX <= brk.ballR || brk.ballX >= brk.w - brk.ballR) brk.ballVX *= -1;
+        if (brk.ballY <= brk.ballR) brk.ballVY *= -1;
+        if (brk.ballY + brk.ballR >= brk.h - 20 && brk.ballY + brk.ballR <= brk.h - 20 + brk.paddleH + 6 &&
+            brk.ballX >= brk.paddleX && brk.ballX <= brk.paddleX + brk.paddleW && brk.ballVY > 0) {
+            brk.ballVY *= -1;
+            var hitPos = (brk.ballX - (brk.paddleX + brk.paddleW / 2)) / (brk.paddleW / 2);
+            brk.ballVX = hitPos * 4;
+        }
+        for (var i = 0; i < brk.bricks.length; i++) {
+            var b = brk.bricks[i];
+            if (!b.alive) continue;
+            if (brk.ballX + brk.ballR > b.x && brk.ballX - brk.ballR < b.x + b.w &&
+                brk.ballY + brk.ballR > b.y && brk.ballY - brk.ballR < b.y + b.h) {
+                b.alive = false;
+                brk.ballVY *= -1;
+                brk.score += 10;
+                document.getElementById('brkScore').textContent = brk.score;
+                break;
+            }
+        }
+        if (brk.ballY - brk.ballR > brk.h) {
+            brk.lives--;
+            document.getElementById('brkLives').textContent = brk.lives;
+            if (brk.lives <= 0) {
+                brk.running = false;
+                document.getElementById('brkStatus').textContent = L('게임 오버! 새 게임을 눌러 다시 시작하세요.', 'Game over! Press New Game to try again.');
+            } else {
+                brkResetBall();
+                document.getElementById('brkStatus').textContent = L('클릭하거나 스페이스바로 공을 발사하세요', 'Click or press Space to launch the ball');
+            }
+        }
+        if (brk.bricks.every(function(bb) { return !bb.alive; })) {
+            brk.running = false;
+            document.getElementById('brkStatus').textContent = L('클리어! 모든 벽돌을 깼습니다 🎉', 'Cleared! You broke every brick 🎉');
+        }
+    }
+    brkDraw();
+}
+function brkDraw() {
+    var ctx = brk.ctx;
+    if (!ctx) return;
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, brk.w, brk.h);
+    brk.bricks.forEach(function(b) {
+        if (!b.alive) return;
+        ctx.fillStyle = b.color;
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+    });
+    ctx.fillStyle = '#00f5ff';
+    ctx.fillRect(brk.paddleX, brk.h - 20, brk.paddleW, brk.paddleH);
+    ctx.beginPath();
+    ctx.arc(brk.ballX, brk.ballY, brk.ballR, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+}
+
+/* ── Reaction Test ── */
+var rx = { state: 'idle', startTime: 0, timeoutHandle: null, history: [], lastResult: null };
+function rxInit() {
+    clearTimeout(rx.timeoutHandle);
+    rx.state = 'idle';
+    try { rx.history = JSON.parse(localStorage.getItem('rxHistory') || '[]'); } catch (e) { rx.history = []; }
+    rxRenderBox();
+    rxRenderStats();
+}
+function rxClick() {
+    if (rx.state === 'idle') {
+        rx.state = 'wait';
+        rxRenderBox();
+        var delay = 1000 + Math.random() * 2000;
+        rx.timeoutHandle = setTimeout(function() {
+            rx.state = 'ready';
+            rx.startTime = Date.now();
+            rxRenderBox();
+        }, delay);
+    } else if (rx.state === 'wait') {
+        clearTimeout(rx.timeoutHandle);
+        rx.state = 'toosoon';
+        rxRenderBox();
+    } else if (rx.state === 'ready') {
+        var elapsed = Date.now() - rx.startTime;
+        rx.history.unshift(elapsed);
+        rx.history = rx.history.slice(0, 10);
+        localStorage.setItem('rxHistory', JSON.stringify(rx.history));
+        rx.lastResult = elapsed;
+        rx.state = 'result';
+        rxRenderBox();
+        rxRenderStats();
+    } else {
+        rx.state = 'idle';
+        rxRenderBox();
+    }
+}
+function rxRenderBox() {
+    var box = document.getElementById('rxBox');
+    var main = document.getElementById('rxMain');
+    var sub = document.getElementById('rxSub');
+    box.className = 'rx-box';
+    if (rx.state === 'idle') {
+        box.classList.add('idle');
+        main.textContent = L('클릭해서 시작', 'Click to Start');
+        sub.textContent = L('초록색이 되면 최대한 빠르게 클릭하세요', 'Click as fast as you can when it turns green');
+    } else if (rx.state === 'wait') {
+        box.classList.add('wait');
+        main.textContent = L('기다리세요...', 'Wait...');
+        sub.textContent = L('초록색으로 바뀔 때까지 기다리세요', 'Wait for it to turn green');
+    } else if (rx.state === 'ready') {
+        box.classList.add('ready');
+        main.textContent = L('지금 클릭!', 'CLICK NOW!');
+        sub.textContent = '';
+    } else if (rx.state === 'toosoon') {
+        box.classList.add('wait');
+        main.textContent = L('너무 빨랐어요!', 'Too soon!');
+        sub.textContent = L('클릭해서 다시 시도하세요', 'Click to try again');
+    } else if (rx.state === 'result') {
+        box.classList.add('idle');
+        main.textContent = rx.lastResult + ' ms';
+        sub.textContent = L('클릭해서 다시 시도하세요', 'Click to try again');
+    }
+}
+function rxRenderStats() {
+    var last = rx.history[0];
+    var best = rx.history.length ? Math.min.apply(null, rx.history) : null;
+    var avg = rx.history.length ? Math.round(rx.history.reduce(function(a, b) { return a + b; }, 0) / rx.history.length) : null;
+    document.getElementById('rxLast').textContent = last != null ? last + 'ms' : '—';
+    document.getElementById('rxAvg').textContent = avg != null ? avg + 'ms' : '—';
+    document.getElementById('rxBest').textContent = best != null ? best + 'ms' : '—';
+    document.getElementById('rxHistory').innerHTML = rx.history.map(function(h) { return '<span>' + h + 'ms</span>'; }).join('');
+}
+
 /* ── Todo List ── */
 function todoLoad() {
     try { return JSON.parse(localStorage.getItem('todoItems') || '[]'); } catch (e) { return []; }
@@ -2281,6 +2735,16 @@ function toggleLang() {
     if (document.getElementById('modalMemo').classList.contains('open')) memoUpdateSaved();
     if (document.getElementById('modalG2048').classList.contains('open')) t2048Render();
     if (document.getElementById('modalSnake').classList.contains('open') && !snake.running) snakeDraw();
+    if (document.getElementById('modalMine').classList.contains('open')) {
+        document.getElementById('mineFlagModeBtn').classList.toggle('active', mine.flagMode);
+        if (mine.over) mineRender();
+    }
+    if (document.getElementById('modalBreakout').classList.contains('open') && !brk.running) {
+        document.getElementById('brkStatus').textContent = brk.lives <= 0
+            ? L('게임 오버! 새 게임을 눌러 다시 시작하세요.', 'Game over! Press New Game to try again.')
+            : L('클릭하거나 스페이스바로 공을 발사하세요', 'Click or press Space to launch the ball');
+    }
+    if (document.getElementById('modalReaction').classList.contains('open')) { rxRenderBox(); rxRenderStats(); }
 }
 </script>
 </body>
