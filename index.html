@@ -4,17 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아룡의 포털 — 무료 온라인 툴 &amp; 게임 모음</title>
-    <meta name="description" content="아룡의 포털에서 글자수 세기, 공학용 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI·날짜 계산기, 메모장 등 11종의 무료 온라인 도구와 2048·뱀 게임을 사용해보세요. 회원가입 없이 바로 이용 가능합니다.">
-    <meta name="keywords" content="글자수 세기, 온라인 계산기, 번역기, 단위변환, 비밀번호 생성기, 타이머, 스톱워치, 랜덤 생성, 할 일 목록, BMI 계산기, 날짜 계산기, 2048 게임, 뱀 게임, 무료 온라인 툴">
+    <meta name="description" content="아룡의 포털에서 글자수 세기, 공학용 계산기, 번역기, 타이머, 랜덤 생성기, 비밀번호 생성기, 단위 변환기, 할 일 목록, BMI·날짜 계산기, 메모장, 색상 피커 등 12종의 무료 온라인 도구와 2048·뱀·지뢰찾기·벽돌깨기 등 6종의 자체 제작 게임을 사용해보세요. 회원가입 없이 바로 이용 가능합니다.">
+    <meta name="keywords" content="글자수 세기, 온라인 계산기, 번역기, 단위변환, 비밀번호 생성기, 타이머, 스톱워치, 랜덤 생성, 할 일 목록, BMI 계산기, 날짜 계산기, 색상 피커, 2048 게임, 뱀 게임, 지뢰찾기, 벽돌깨기, 무료 온라인 툴">
     <meta name="author" content="arong">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="아룡의 포털 — 무료 온라인 툴 &amp; 게임 모음">
-    <meta property="og:description" content="글자수 세기, 공학용 계산기, 번역기, 할 일 목록, BMI·날짜 계산기 등 11종의 무료 온라인 도구와 2048·뱀 게임 모음. 설치 없이 즉시 사용하세요.">
+    <meta property="og:description" content="글자수 세기, 공학용 계산기, 번역기, 할 일 목록, BMI·날짜 계산기 등 12종의 무료 온라인 도구와 2048·뱀·지뢰찾기 등 6종의 자체 제작 게임 모음. 설치 없이 즉시 사용하세요.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://arongspro.github.io/">
     <link rel="canonical" href="https://arongspro.github.io/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "아룡의 포털",
+      "alternateName": "Arong's Portal",
+      "url": "https://arongspro.github.io/",
+      "description": "글자수 세기, 계산기, 번역기, 타이머, 색상 피커 등 12종의 무료 온라인 도구와 2048, 뱀, 지뢰찾기 등 6종의 자체 제작 게임을 제공하는 무료 온라인 유틸리티 사이트",
+      "inLanguage": ["ko", "en"]
+    }
+    </script>
     <style>
         :root {
             --neon-cyan:   #00f5ff;
@@ -39,6 +52,33 @@
         .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;}
         .lang-btn{background:transparent;border:1px solid var(--neon-cyan);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:12px;padding:6px 16px;cursor:pointer;letter-spacing:2px;border-radius:2px;transition:all .2s;}
         .lang-btn:hover{background:var(--neon-cyan);color:var(--dark-bg);box-shadow:var(--glow-cyan);}
+
+        /* ACCESSIBILITY */
+        .skip-link{position:absolute;top:-40px;left:8px;background:var(--neon-cyan);color:#000;padding:8px 14px;border-radius:2px;font-family:'Share Tech Mono',monospace;font-size:12px;z-index:1000;transition:top .2s;}
+        .skip-link:focus{top:8px;}
+        button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--neon-cyan);outline-offset:2px;}
+
+        /* SEARCH */
+        .site-search-wrap{margin-bottom:20px;opacity:0;animation:fadeIn .7s .5s forwards;}
+        .site-search{width:100%;background:rgba(10,10,40,.6);border:1px solid rgba(0,245,255,.18);color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:14px;padding:12px 16px;border-radius:4px;outline:none;transition:border-color .2s;}
+        .site-search:focus{border-color:rgba(0,245,255,.5);}
+        .site-search::placeholder{color:rgba(255,255,255,.3);}
+        .search-empty{text-align:center;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1px;color:rgba(255,255,255,.3);padding:30px 0;display:none;}
+
+        /* QUICK ACCESS */
+        .quick-access{display:none;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+        .qa-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.5px;padding:7px 14px;border-radius:20px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+        .qa-chip:hover{background:rgba(0,245,255,.1);border-color:rgba(0,245,255,.3);color:var(--neon-cyan);}
+
+        /* FAVORITE STAR */
+        .card-fav{position:absolute;top:10px;right:10px;background:transparent;border:none;color:rgba(255,255,255,.25);font-size:18px;cursor:pointer;z-index:5;line-height:1;padding:4px;transition:transform .15s,color .15s;}
+        .card-fav:hover{transform:scale(1.2);color:rgba(255,230,0,.7);}
+        .card-fav.active{color:var(--neon-yellow);text-shadow:0 0 8px rgba(255,230,0,.6);}
+
+        /* SCROLL TO TOP */
+        .scroll-top-btn{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(10,10,40,.9);border:1px solid rgba(0,245,255,.3);color:var(--neon-cyan);font-size:18px;cursor:pointer;z-index:150;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:all .2s;display:none;align-items:center;justify-content:center;}
+        .scroll-top-btn:hover{background:var(--neon-cyan);color:#000;box-shadow:var(--glow-cyan);}
+        .scroll-top-btn.show{display:flex;}
 
         .header{text-align:center;margin-bottom:44px;}
         .header-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:6px;color:var(--neon-cyan);margin-bottom:12px;opacity:0;animation:fadeSlideDown .7s .2s forwards;}
@@ -488,6 +528,7 @@
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content" data-ko="본문으로 건너뛰기" data-en="Skip to content">본문으로 건너뛰기</a>
 <canvas id="stars-canvas"></canvas>
 <div class="container">
     <div class="topbar">
@@ -503,10 +544,19 @@
 
     <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
 
+    <main id="main-content">
+    <div class="quick-access" id="quickAccess"></div>
+
+    <div class="site-search-wrap">
+        <input class="site-search" id="siteSearchInput" oninput="siteSearch(this.value)" data-ko-placeholder="🔍 툴이나 게임 검색..." data-en-placeholder="🔍 Search tools or games..." placeholder="🔍 툴이나 게임 검색...">
+    </div>
+
     <nav class="tabs-nav">
         <button class="tab-btn active" data-tab="games" onclick="switchTab('games')" id="tabGames">🎮 &nbsp;게임</button>
         <button class="tab-btn" data-tab="tools" onclick="switchTab('tools')" id="tabTools">🔧 &nbsp;툴</button>
     </nav>
+
+    <div class="search-empty" id="searchEmpty" data-ko="검색 결과가 없습니다" data-en="No results found">검색 결과가 없습니다</div>
 
     <!-- GAMES -->
     <div class="tab-panel active" id="panel-games">
@@ -802,6 +852,8 @@
         </div>
     </section>
 
+    </main>
+
     <div class="footer" id="footer">
         <div class="footer-links">
             <a href="privacy.html" data-ko="개인정보처리방침" data-en="Privacy Policy">개인정보처리방침</a>
@@ -811,6 +863,8 @@
         <span id="footerCopy">© arong's hub · Made with ❤️</span>
     </div>
 </div>
+
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
 
 <!-- CHAR COUNT MODAL -->
 <div class="modal-overlay" id="modalCharcount" onclick="closeModalOutside(event,'charcount')">
@@ -1416,6 +1470,7 @@
     var canvas = document.getElementById('stars-canvas');
     var ctx = canvas.getContext('2d');
     var stars = [];
+    var starsRaf = null;
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -1448,11 +1503,15 @@
             ctx.fillStyle = 'rgba(180,220,255,' + s.alpha + ')';
             ctx.fill();
         }
-        requestAnimationFrame(drawStars);
+        starsRaf = requestAnimationFrame(drawStars);
     }
 
     resize(); initStars(); drawStars();
     window.addEventListener('resize', function() { resize(); initStars(); });
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) { cancelAnimationFrame(starsRaf); }
+        else { drawStars(); }
+    });
 })();
 
 /* ── Tabs ── */
@@ -1483,6 +1542,8 @@ function openTool(n) {
     if (n === 'reaction') rxInit();
     if (n === 'memmatch') memInit();
     if (n === 'color') colorInit();
+    trackRecent(n);
+    if (history.replaceState) history.replaceState(null, '', '#' + n);
 }
 
 function closeTool(n) {
@@ -1493,6 +1554,7 @@ function closeTool(n) {
     if (n === 'mine') clearInterval(mine.timerHandle);
     if (n === 'reaction') clearTimeout(rx.timeoutHandle);
     if (n === 'memmatch') clearInterval(memGame.timerHandle);
+    if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
 }
 
 function closeModalOutside(e, n) {
@@ -2997,6 +3059,7 @@ var T = {
 function toggleLang() {
     isKorean = !isKorean;
     var lang = isKorean ? 'ko' : 'en';
+    localStorage.setItem('siteLang', lang);
     var t = T[lang];
     var ids = ['label','mainTitle','subText','tag1','cardTitle1','cardDesc1','ctaText1','tag2','cardTitle2','cardDesc2','ctaText2','tag3','cardTitle3','cardDesc3','ctaText3',
                'toolTag1','toolTitle1','toolDesc1','toolCta1','toolTag2','toolTitle2','toolDesc2','toolCta2',
@@ -3043,7 +3106,150 @@ function toggleLang() {
     if (document.getElementById('modalMemmatch').classList.contains('open') && memGame.matched === memGame.cards.length && memGame.cards.length) {
         document.getElementById('memStatus').textContent = L('축하합니다! 모두 맞췄습니다 🎉', 'You win! All pairs matched 🎉');
     }
+
+    renderQuickAccess();
+    initA11y();
 }
+
+/* ── Site Search ── */
+function siteSearch(query) {
+    query = query.trim().toLowerCase();
+    var anyVisible = {};
+    document.querySelectorAll('.cards-grid').forEach(function(grid) { anyVisible[grid.id || grid.parentElement.id] = false; });
+    document.querySelectorAll('.cards-grid .card').forEach(function(card) {
+        var text = card.textContent.toLowerCase();
+        var match = !query || text.indexOf(query) > -1;
+        card.style.display = match ? '' : 'none';
+        if (match) {
+            var panel = card.closest('.tab-panel');
+            if (panel) anyVisible[panel.id] = true;
+        }
+    });
+    var noneAtAll = Object.keys(anyVisible).length && Object.keys(anyVisible).every(function(k) { return !anyVisible[k]; });
+    var emptyEl = document.getElementById('searchEmpty');
+    if (emptyEl) emptyEl.style.display = noneAtAll ? 'block' : 'none';
+}
+
+/* ── Quick Access (Favorites + Recent) ── */
+var TOOL_META = {
+    charcount: { icon: '🔤', ko: '글자수 세기', en: 'Char Count' },
+    calculator: { icon: '🧮', ko: '계산기', en: 'Calculator' },
+    translator: { icon: '🌐', ko: '번역기', en: 'Translator' },
+    timer: { icon: '⏱️', ko: '타이머', en: 'Timer' },
+    random: { icon: '🎲', ko: '랜덤', en: 'Random' },
+    password: { icon: '🔐', ko: '비밀번호', en: 'Password' },
+    unit: { icon: '📐', ko: '단위변환', en: 'Unit Convert' },
+    todo: { icon: '✅', ko: '할 일 목록', en: 'Todo List' },
+    bmi: { icon: '⚖️', ko: 'BMI', en: 'BMI' },
+    date: { icon: '📅', ko: '날짜계산', en: 'Date Calc' },
+    memo: { icon: '📝', ko: '메모장', en: 'Memo' },
+    color: { icon: '🎨', ko: '색상피커', en: 'Color Picker' },
+    g2048: { icon: '🔢', ko: '2048', en: '2048' },
+    snake: { icon: '🐍', ko: '뱀게임', en: 'Snake' },
+    mine: { icon: '💣', ko: '지뢰찾기', en: 'Minesweeper' },
+    breakout: { icon: '🧱', ko: '벽돌깨기', en: 'Breakout' },
+    reaction: { icon: '⚡', ko: '순발력', en: 'Reaction' },
+    memmatch: { icon: '🃏', ko: '카드짝맞추기', en: 'Memory Match' }
+};
+function getFavs() { try { return JSON.parse(localStorage.getItem('favTools') || '[]'); } catch (e) { return []; } }
+function getRecents() { try { return JSON.parse(localStorage.getItem('recentTools') || '[]'); } catch (e) { return []; } }
+function toggleFavorite(key) {
+    var favs = getFavs();
+    var idx = favs.indexOf(key);
+    if (idx > -1) favs.splice(idx, 1); else favs.push(key);
+    localStorage.setItem('favTools', JSON.stringify(favs));
+    renderFavStars();
+    renderQuickAccess();
+}
+function trackRecent(n) {
+    if (!TOOL_META[n]) return;
+    var recents = getRecents().filter(function(k) { return k !== n; });
+    recents.unshift(n);
+    recents = recents.slice(0, 6);
+    localStorage.setItem('recentTools', JSON.stringify(recents));
+    renderQuickAccess();
+}
+function renderFavStars() {
+    var favs = getFavs();
+    document.querySelectorAll('.card[data-tool-key]').forEach(function(card) {
+        var key = card.dataset.toolKey;
+        var btn = card.querySelector('.card-fav');
+        if (!btn) return;
+        var isFav = favs.indexOf(key) > -1;
+        btn.textContent = isFav ? '★' : '☆';
+        btn.classList.toggle('active', isFav);
+        btn.setAttribute('aria-label', isFav ? L('즐겨찾기 해제', 'Remove favorite') : L('즐겨찾기 추가', 'Add favorite'));
+    });
+}
+function initFavStars() {
+    document.querySelectorAll('.card[onclick^="openTool("]').forEach(function(card) {
+        var m = card.getAttribute('onclick').match(/openTool\('([^']+)'\)/);
+        if (!m) return;
+        card.dataset.toolKey = m[1];
+        if (card.querySelector('.card-fav')) return;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'card-fav';
+        btn.textContent = '☆';
+        btn.onclick = function(e) { e.stopPropagation(); toggleFavorite(m[1]); };
+        card.appendChild(btn);
+    });
+    renderFavStars();
+}
+function renderQuickAccess() {
+    var wrap = document.getElementById('quickAccess');
+    if (!wrap) return;
+    var favs = getFavs();
+    var recents = getRecents().filter(function(k) { return favs.indexOf(k) === -1; });
+    var items = favs.concat(recents).slice(0, 8);
+    if (!items.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+    wrap.style.display = 'flex';
+    wrap.innerHTML = items.map(function(k) {
+        var meta = TOOL_META[k];
+        if (!meta) return '';
+        var label = isKorean ? meta.ko : meta.en;
+        var star = favs.indexOf(k) > -1 ? ' ⭐' : '';
+        return '<button class="qa-chip" onclick="openTool(\'' + k + '\')">' + meta.icon + ' ' + label + star + '</button>';
+    }).join('');
+}
+
+/* ── Accessibility ── */
+function initA11y() {
+    document.querySelectorAll('.modal-close, .calc-close-btn').forEach(function(b) {
+        b.setAttribute('aria-label', L('닫기', 'Close'));
+    });
+    document.querySelectorAll('.modal-overlay .modal, .modal-overlay > div').forEach(function(box) {
+        if (box.classList.contains('modal') || box.classList.contains('calc-modal')) {
+            box.setAttribute('role', 'dialog');
+            box.setAttribute('aria-modal', 'true');
+        }
+    });
+}
+
+/* ── Scroll to top ── */
+window.addEventListener('scroll', function() {
+    var btn = document.getElementById('scrollTopBtn');
+    if (!btn) return;
+    btn.classList.toggle('show', window.scrollY > 400);
+});
+
+/* ── Init on load ── */
+(function() {
+    var savedLang = localStorage.getItem('siteLang');
+    if (savedLang === 'en') toggleLang();
+    initFavStars();
+    renderQuickAccess();
+    initA11y();
+    var hash = location.hash.replace('#', '');
+    if (hash && document.getElementById('modal' + cap(hash))) {
+        openTool(hash);
+        var card = document.querySelector('.card[data-tool-key="' + hash + '"]');
+        if (card) {
+            var panel = card.closest('.tab-panel');
+            if (panel && panel.id === 'panel-tools') switchTab('tools');
+        }
+    }
+})();
 </script>
 </body>
 </html>
