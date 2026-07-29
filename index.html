@@ -1549,7 +1549,7 @@ function openTool(n) {
 function closeTool(n) {
     document.getElementById('modal' + cap(n)).classList.remove('open');
     document.body.style.overflow = '';
-    if (n === 'snake') clearInterval(snake.timer);
+    if (n === 'snake') { clearInterval(snake.timer); cancelAnimationFrame(snake.renderRaf); }
     if (n === 'breakout') { brk.running = false; cancelAnimationFrame(brk.raf); }
     if (n === 'mine') clearInterval(mine.timerHandle);
     if (n === 'reaction') clearTimeout(rx.timeoutHandle);
@@ -1565,7 +1565,7 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
         document.body.style.overflow = '';
-        clearInterval(snake.timer);
+        clearInterval(snake.timer); cancelAnimationFrame(snake.renderRaf);
         brk.running = false; cancelAnimationFrame(brk.raf);
         clearInterval(mine.timerHandle);
         clearTimeout(rx.timeoutHandle);
@@ -2309,18 +2309,21 @@ function t2048Render() {
 })();
 
 /* ── Snake ── */
-var snake = { timer: null };
+var snake = { timer: null, renderRaf: null, tickInterval: 110 };
 function snakeInit() {
     clearInterval(snake.timer);
+    cancelAnimationFrame(snake.renderRaf);
     snake.cell = 18; snake.cols = 20; snake.rows = 20;
     snake.body = [{x:10,y:10},{x:9,y:10},{x:8,y:10}];
+    snake.prevBody = snake.body.map(function(s) { return { x: s.x, y: s.y }; });
     snake.dir = {x:1,y:0}; snake.nextDir = {x:1,y:0};
     snake.score = 0;
     snake.best = parseInt(localStorage.getItem('snakeBest') || '0', 10);
     snake.over = false; snake.running = false;
     snake.food = snakeRandFood();
+    snake.lastTickTime = performance.now();
     document.getElementById('snakeStatus').textContent = L('방향키나 아래 버튼을 눌러 시작하세요','Press an arrow key or the buttons below to start');
-    snakeDraw();
+    snakeRenderLoop();
 }
 function snakeRandFood() {
     var pos;
@@ -2336,10 +2339,12 @@ function snakeSetDir(x, y) {
     if (!snake.running) {
         snake.running = true;
         document.getElementById('snakeStatus').textContent = '';
-        snake.timer = setInterval(snakeTick, 110);
+        snake.timer = setInterval(snakeTick, snake.tickInterval);
     }
 }
 function snakeTick() {
+    snake.prevBody = snake.body.map(function(s) { return { x: s.x, y: s.y }; });
+    snake.lastTickTime = performance.now();
     snake.dir = snake.nextDir;
     var head = { x: snake.body[0].x + snake.dir.x, y: snake.body[0].y + snake.dir.y };
     if (head.x < 0 || head.y < 0 || head.x >= snake.cols || head.y >= snake.rows ||
@@ -2354,7 +2359,6 @@ function snakeTick() {
     } else {
         snake.body.pop();
     }
-    snakeDraw();
 }
 function snakeGameOver() {
     snake.running = false;
@@ -2362,20 +2366,71 @@ function snakeGameOver() {
     clearInterval(snake.timer);
     if (snake.score > snake.best) { snake.best = snake.score; localStorage.setItem('snakeBest', snake.best); }
     document.getElementById('snakeStatus').textContent = L('게임 오버! 점수 ' + snake.score + ' — 새 게임을 눌러 다시 시작하세요', 'Game over! Score ' + snake.score + ' — press New Game to try again');
-    snakeDraw();
 }
-function snakeDraw() {
+function snakeRenderLoop() {
+    var elapsed = performance.now() - snake.lastTickTime;
+    var t = snake.running ? Math.min(1, elapsed / snake.tickInterval) : 1;
+    snakeDraw(t);
+    snake.renderRaf = requestAnimationFrame(snakeRenderLoop);
+}
+function snakeDraw(t) {
+    if (t === undefined) t = 1;
     var canvas = document.getElementById('snakeCanvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#000';
+    var cell = snake.cell;
+    ctx.fillStyle = '#060608';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#ff006e';
-    ctx.fillRect(snake.food.x * snake.cell + 1, snake.food.y * snake.cell + 1, snake.cell - 2, snake.cell - 2);
-    snake.body.forEach(function(s, i) {
-        ctx.fillStyle = i === 0 ? '#00ff88' : 'rgba(0,255,136,0.55)';
-        ctx.fillRect(s.x * snake.cell + 1, s.y * snake.cell + 1, snake.cell - 2, snake.cell - 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.02)';
+    for (var gy = 0; gy < snake.rows; gy++) {
+        for (var gx = (gy % 2); gx < snake.cols; gx += 2) ctx.fillRect(gx * cell, gy * cell, cell, cell);
+    }
+
+    var fx = snake.food.x * cell + cell / 2, fy = snake.food.y * cell + cell / 2;
+    var fr = cell * 0.36;
+    var grad = ctx.createRadialGradient(fx - fr * 0.3, fy - fr * 0.35, fr * 0.15, fx, fy, fr);
+    grad.addColorStop(0, '#ff8fa8');
+    grad.addColorStop(1, '#ff006e');
+    ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(fx + fr * 0.4, fy - fr * 1.0, fr * 0.4, fr * 0.2, -0.6, 0, Math.PI * 2);
+    ctx.fillStyle = '#00e676'; ctx.fill();
+    ctx.strokeStyle = 'rgba(140,90,40,.8)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(fx, fy - fr * 0.9); ctx.lineTo(fx + fr * 0.15, fy - fr * 1.3); ctx.stroke();
+
+    var n = snake.body.length;
+    var positions = snake.body.map(function(seg, i) {
+        var prev = snake.prevBody[i] || seg;
+        var lx = prev.x + (seg.x - prev.x) * t;
+        var ly = prev.y + (seg.y - prev.y) * t;
+        return { x: lx * cell + cell / 2, y: ly * cell + cell / 2 };
     });
+    for (var i = n - 1; i >= 1; i--) {
+        var p = positions[i];
+        var radius = cell * 0.46 * (1 - (i / n) * 0.32);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,255,136,' + (0.92 - (i / n) * 0.4).toFixed(2) + ')';
+        ctx.fill();
+    }
+    var headPos = positions[0];
+    var headR = cell * 0.52;
+    ctx.beginPath();
+    ctx.arc(headPos.x, headPos.y, headR, 0, Math.PI * 2);
+    ctx.fillStyle = '#00ff9d';
+    ctx.shadowColor = 'rgba(0,255,136,.6)'; ctx.shadowBlur = 6;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    var dir = snake.dir;
+    var eyeFwd = cell * 0.18, eyeSpread = cell * 0.17;
+    var perpX = -dir.y, perpY = dir.x;
+    [-1, 1].forEach(function(side) {
+        var ex = headPos.x + dir.x * eyeFwd + perpX * eyeSpread * side;
+        var ey = headPos.y + dir.y * eyeFwd + perpY * eyeSpread * side;
+        ctx.beginPath(); ctx.arc(ex, ey, cell * 0.1, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
+        ctx.beginPath(); ctx.arc(ex + dir.x * cell * 0.04, ey + dir.y * cell * 0.04, cell * 0.05, 0, Math.PI * 2); ctx.fillStyle = '#04160f'; ctx.fill();
+    });
+
     document.getElementById('snakeScore').textContent = snake.score;
     document.getElementById('snakeBestEl').textContent = snake.best;
 }
