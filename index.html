@@ -52,6 +52,8 @@
         .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;}
         .lang-btn{background:transparent;border:1px solid var(--neon-cyan);color:var(--neon-cyan);font-family:'Share Tech Mono',monospace;font-size:12px;padding:6px 16px;cursor:pointer;letter-spacing:2px;border-radius:2px;transition:all .2s;}
         .lang-btn:hover{background:var(--neon-cyan);color:var(--dark-bg);box-shadow:var(--glow-cyan);}
+        .lang-select{appearance:none;-webkit-appearance:none;-moz-appearance:none;}
+        .lang-select option{background:var(--dark-bg);color:var(--neon-cyan);}
 
         /* ACCESSIBILITY */
         .skip-link{position:absolute;top:-40px;left:8px;background:var(--neon-cyan);color:#000;padding:8px 14px;border-radius:2px;font-family:'Share Tech Mono',monospace;font-size:12px;z-index:1000;transition:top .2s;}
@@ -704,7 +706,14 @@
         <div style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.2);">ARONG.PRO</div>
         <div style="display:flex;gap:8px;">
             <button class="lang-btn" id="sfxBtn" onclick="toggleSfx()" title="효과음 켜기/끄기">🔊</button>
-            <button class="lang-btn" id="langBtn" onclick="toggleLang()">🌐 English</button>
+            <select class="lang-btn lang-select" id="langSelect" onchange="setLang(this.value)" aria-label="Language">
+                <option value="ko">🌐 한국어</option>
+                <option value="en">🌐 English</option>
+                <option value="ja">🌐 日本語</option>
+                <option value="zh">🌐 中文</option>
+                <option value="es">🌐 Español</option>
+                <option value="fr">🌐 Français</option>
+            </select>
         </div>
     </div>
 
@@ -736,12 +745,12 @@
             <div class="card tool-card" data-color="pink" onclick="openTool('shooter')" style="position:relative;">
                 <span class="card-new-badge" data-ko="신규" data-en="NEW">신규</span>
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="아케이드 / 슈팅" data-en="Arcade / Shooter">아케이드 / 슈팅</div>
+                <div class="card-tag" data-ko="아케이드 / 슈팅" data-en="Arcade / Shooter" data-ja="アーケード / シューティング" data-zh="街机 / 射击" data-es="Arcade / Disparos" data-fr="Arcade / Tir">아케이드 / 슈팅</div>
                 <span class="card-icon">🚀</span>
                 <div class="card-title">NEON STRIKE</div>
-                <div class="card-title-kr" data-ko="네온 스트라이크" data-en="Neon Strike">네온 스트라이크</div>
+                <div class="card-title-kr" data-ko="네온 스트라이크" data-en="Neon Strike" data-ja="ネオンストライク" data-zh="霓虹突击" data-es="Neon Strike" data-fr="Neon Strike">네온 스트라이크</div>
                 <p class="card-desc" data-ko="쏟아지는 적을 격추하며 웨이브를 돌파하는 탑다운 슈팅 게임입니다. 콤보 점수, 파워업, 미니보스까지 즐겨보세요!" data-en="A wave-based top-down shooter — blast through enemies, chain combos, grab power-ups, and take down mini-bosses!">쏟아지는 적을 격추하며 웨이브를 돌파하는 탑다운 슈팅 게임입니다. 콤보 점수, 파워업, 미니보스까지 즐겨보세요!</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <a class="card" href="https://arongspro.github.io/Game-Platformer/" target="_blank" data-color="cyan">
                 <div class="corner tl"></div><div class="corner br"></div>
@@ -772,165 +781,165 @@
             </a>
             <div class="card tool-card" data-color="purple" onclick="openTool('g2048')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 숫자" data-en="Puzzle / Numbers">퍼즐 / 숫자</div>
+                <div class="card-tag" data-ko="퍼즐 / 숫자" data-en="Puzzle / Numbers" data-ja="パズル / 数字" data-zh="拼图 / 数字" data-es="Puzzle / Números" data-fr="Puzzle / Chiffres">퍼즐 / 숫자</div>
                 <span class="card-icon">🔢</span>
                 <div class="card-title">2048</div>
-                <div class="card-title-kr" data-ko="2048 퍼즐" data-en="2048 Puzzle">2048 퍼즐</div>
+                <div class="card-title-kr" data-ko="2048 퍼즐" data-en="2048 Puzzle" data-ja="2048 パズル" data-zh="2048 拼图" data-es="Puzzle 2048" data-fr="Puzzle 2048">2048 퍼즐</div>
                 <p class="card-desc" data-ko="방향키로 타일을 밀어 같은 숫자를 합치며 2048을 만드는 클래식 숫자 퍼즐 게임입니다. 최고 점수는 브라우저에 자동 저장됩니다." data-en="A classic number puzzle — slide tiles with the arrow keys to merge matching numbers and reach 2048. Your best score is saved automatically in your browser.">방향키로 타일을 밀어 같은 숫자를 합치며 2048을 만드는 클래식 숫자 퍼즐 게임입니다. 최고 점수는 브라우저에 자동 저장됩니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('snake')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action">아케이드 / 액션</div>
+                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action" data-ja="アーケード / アクション" data-zh="街机 / 动作" data-es="Arcade / Acción" data-fr="Arcade / Action">아케이드 / 액션</div>
                 <span class="card-icon">🐍</span>
                 <div class="card-title">SNAKE</div>
-                <div class="card-title-kr" data-ko="뱀 게임" data-en="Snake Game">뱀 게임</div>
+                <div class="card-title-kr" data-ko="뱀 게임" data-en="Snake Game" data-ja="スネークゲーム" data-zh="贪吃蛇游戏" data-es="Juego de la Serpiente" data-fr="Jeu du Serpent">뱀 게임</div>
                 <p class="card-desc" data-ko="방향키로 뱀을 조작해 먹이를 먹고 몸을 길게 만드는 클래식 아케이드 게임입니다. 벽이나 자기 몸에 부딪히지 않도록 주의하세요!" data-en="A classic arcade game — steer the snake with the arrow keys to eat food and grow longer. Watch out for walls and your own tail!">방향키로 뱀을 조작해 먹이를 먹고 몸을 길게 만드는 클래식 아케이드 게임입니다. 벽이나 자기 몸에 부딪히지 않도록 주의하세요!</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('mine')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic">퍼즐 / 로직</div>
+                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic" data-ja="パズル / ロジック" data-zh="拼图 / 逻辑" data-es="Puzzle / Lógica" data-fr="Puzzle / Logique">퍼즐 / 로직</div>
                 <span class="card-icon">💣</span>
                 <div class="card-title">MINESWEEPER</div>
-                <div class="card-title-kr" data-ko="지뢰찾기" data-en="Minesweeper">지뢰찾기</div>
+                <div class="card-title-kr" data-ko="지뢰찾기" data-en="Minesweeper" data-ja="マインスイーパー" data-zh="扫雷" data-es="Buscaminas" data-fr="Démineur">지뢰찾기</div>
                 <p class="card-desc" data-ko="숫자를 단서로 지뢰를 피해 모든 칸을 여는 클래식 퍼즐 게임입니다. 지뢰가 의심되는 칸은 깃발로 표시해두세요." data-en="A classic logic puzzle — use the numbers as clues to avoid mines and clear every safe cell. Flag cells you suspect hide a mine.">숫자를 단서로 지뢰를 피해 모든 칸을 여는 클래식 퍼즐 게임입니다. 지뢰가 의심되는 칸은 깃발로 표시해두세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('breakout')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action">아케이드 / 액션</div>
+                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action" data-ja="アーケード / アクション" data-zh="街机 / 动作" data-es="Arcade / Acción" data-fr="Arcade / Action">아케이드 / 액션</div>
                 <span class="card-icon">🧱</span>
                 <div class="card-title">BREAKOUT</div>
-                <div class="card-title-kr" data-ko="벽돌깨기" data-en="Breakout">벽돌깨기</div>
+                <div class="card-title-kr" data-ko="벽돌깨기" data-en="Breakout" data-ja="ブロック崩し" data-zh="打砖块" data-es="Rompeladrillos" data-fr="Casse-briques">벽돌깨기</div>
                 <p class="card-desc" data-ko="패들로 공을 튕겨 모든 벽돌을 깨는 클래식 아케이드 게임입니다. 방향키나 마우스·터치로 패들을 조작하세요." data-en="A classic arcade game — bounce the ball with your paddle to break every brick. Control the paddle with arrow keys, mouse, or touch.">패들로 공을 튕겨 모든 벽돌을 깨는 클래식 아케이드 게임입니다. 방향키나 마우스·터치로 패들을 조작하세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('reaction')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="테스트 / 반응속도" data-en="Test / Reflexes">테스트 / 반응속도</div>
+                <div class="card-tag" data-ko="테스트 / 반응속도" data-en="Test / Reflexes" data-ja="テスト / 反射神経" data-zh="测试 / 反应" data-es="Prueba / Reflejos" data-fr="Test / Réflexes">테스트 / 반응속도</div>
                 <span class="card-icon">⚡</span>
                 <div class="card-title">REACTION TEST</div>
-                <div class="card-title-kr" data-ko="순발력 테스트" data-en="Reaction Time Test">순발력 테스트</div>
+                <div class="card-title-kr" data-ko="순발력 테스트" data-en="Reaction Time Test" data-ja="反応速度テスト" data-zh="反应速度测试" data-es="Prueba de Reflejos" data-fr="Test de Réflexes">순발력 테스트</div>
                 <p class="card-desc" data-ko="화면이 초록색으로 바뀌는 순간 최대한 빠르게 클릭해 반응 속도를 측정하세요. 평균 기록과 최고 기록이 저장됩니다." data-en="Click as fast as you can the instant the screen turns green to measure your reaction time. Your average and best scores are saved.">화면이 초록색으로 바뀌는 순간 최대한 빠르게 클릭해 반응 속도를 측정하세요. 평균 기록과 최고 기록이 저장됩니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('memmatch')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 기억력" data-en="Puzzle / Memory">퍼즐 / 기억력</div>
+                <div class="card-tag" data-ko="퍼즐 / 기억력" data-en="Puzzle / Memory" data-ja="パズル / 記憶力" data-zh="拼图 / 记忆力" data-es="Puzzle / Memoria" data-fr="Puzzle / Mémoire">퍼즐 / 기억력</div>
                 <span class="card-icon">🃏</span>
                 <div class="card-title">MEMORY MATCH</div>
-                <div class="card-title-kr" data-ko="카드 짝맞추기" data-en="Memory Match">카드 짝맞추기</div>
+                <div class="card-title-kr" data-ko="카드 짝맞추기" data-en="Memory Match" data-ja="神経衰弱" data-zh="记忆配对" data-es="Juego de Memoria" data-fr="Jeu de Mémoire">카드 짝맞추기</div>
                 <p class="card-desc" data-ko="카드를 뒤집어 같은 그림 두 장을 짝지어 찾는 클래식 기억력 게임입니다. 최소 이동 횟수와 시간으로 실력을 겨뤄보세요." data-en="A classic memory game — flip cards to find matching pairs. Race against the clock and try to beat your best move count.">카드를 뒤집어 같은 그림 두 장을 짝지어 찾는 클래식 기억력 게임입니다. 최소 이동 횟수와 시간으로 실력을 겨뤄보세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('tictactoe')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="전략 / 보드" data-en="Strategy / Board">전략 / 보드</div>
+                <div class="card-tag" data-ko="전략 / 보드" data-en="Strategy / Board" data-ja="戦略 / ボード" data-zh="策略 / 棋盘" data-es="Estrategia / Tablero" data-fr="Stratégie / Plateau">전략 / 보드</div>
                 <span class="card-icon">⭕</span>
                 <div class="card-title">TIC-TAC-TOE</div>
-                <div class="card-title-kr" data-ko="틱택토" data-en="Tic-Tac-Toe">틱택토</div>
+                <div class="card-title-kr" data-ko="틱택토" data-en="Tic-Tac-Toe" data-ja="三目並べ" data-zh="井字棋" data-es="Tres en Raya" data-fr="Morpion">틱택토</div>
                 <p class="card-desc" data-ko="컴퓨터 또는 친구와 함께 즐기는 클래식 3x3 틱택토입니다. 먼저 한 줄을 완성하면 승리합니다." data-en="Classic 3x3 tic-tac-toe against the computer or a friend. Complete a line first to win.">컴퓨터 또는 친구와 함께 즐기는 클래식 3x3 틱택토입니다. 먼저 한 줄을 완성하면 승리합니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('rps')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="아케이드 / 대전" data-en="Arcade / Versus">아케이드 / 대전</div>
+                <div class="card-tag" data-ko="아케이드 / 대전" data-en="Arcade / Versus" data-ja="アーケード / 対戦" data-zh="街机 / 对战" data-es="Arcade / Versus" data-fr="Arcade / Duel">아케이드 / 대전</div>
                 <span class="card-icon">✂️</span>
                 <div class="card-title">ROCK PAPER SCISSORS</div>
-                <div class="card-title-kr" data-ko="가위바위보" data-en="Rock Paper Scissors">가위바위보</div>
+                <div class="card-title-kr" data-ko="가위바위보" data-en="Rock Paper Scissors" data-ja="じゃんけん" data-zh="石头剪刀布" data-es="Piedra, Papel o Tijera" data-fr="Pierre-Papier-Ciseaux">가위바위보</div>
                 <p class="card-desc" data-ko="컴퓨터를 상대로 가위바위보 대결을 펼쳐보세요. 연승 기록과 전적이 저장됩니다." data-en="Battle the computer in rock-paper-scissors. Your win streak and record are saved.">컴퓨터를 상대로 가위바위보 대결을 펼쳐보세요. 연승 기록과 전적이 저장됩니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('whack')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="아케이드 / 반응속도" data-en="Arcade / Reflexes">아케이드 / 반응속도</div>
+                <div class="card-tag" data-ko="아케이드 / 반응속도" data-en="Arcade / Reflexes" data-ja="アーケード / 反射神経" data-zh="街机 / 反应" data-es="Arcade / Reflejos" data-fr="Arcade / Réflexes">아케이드 / 반응속도</div>
                 <span class="card-icon">🔨</span>
                 <div class="card-title">WHACK-A-MOLE</div>
-                <div class="card-title-kr" data-ko="두더지 잡기" data-en="Whack-a-Mole">두더지 잡기</div>
+                <div class="card-title-kr" data-ko="두더지 잡기" data-en="Whack-a-Mole" data-ja="モグラたたき" data-zh="打地鼠" data-es="Atrapa al Topo" data-fr="Attrape-Taupe">두더지 잡기</div>
                 <p class="card-desc" data-ko="30초 안에 튀어나오는 두더지를 최대한 많이 클릭하세요. 최고 점수가 저장됩니다." data-en="Click as many moles as you can before the 30-second timer runs out. Your best score is saved.">30초 안에 튀어나오는 두더지를 최대한 많이 클릭하세요. 최고 점수가 저장됩니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('simon')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 기억력" data-en="Puzzle / Memory">퍼즐 / 기억력</div>
+                <div class="card-tag" data-ko="퍼즐 / 기억력" data-en="Puzzle / Memory" data-ja="パズル / 記憶力" data-zh="拼图 / 记忆力" data-es="Puzzle / Memoria" data-fr="Puzzle / Mémoire">퍼즐 / 기억력</div>
                 <span class="card-icon">🎹</span>
                 <div class="card-title">SIMON SAYS</div>
-                <div class="card-title-kr" data-ko="사이먼 게임" data-en="Simon Says">사이먼 게임</div>
+                <div class="card-title-kr" data-ko="사이먼 게임" data-en="Simon Says" data-ja="サイモンゲーム" data-zh="西蒙游戏" data-es="Juego Simon" data-fr="Jeu Simon">사이먼 게임</div>
                 <p class="card-desc" data-ko="점점 길어지는 색상 순서를 기억하고 똑같이 따라 눌러보세요. 최고 라운드가 저장됩니다." data-en="Memorize the growing color sequence and repeat it back. Your best round is saved.">점점 길어지는 색상 순서를 기억하고 똑같이 따라 눌러보세요. 최고 라운드가 저장됩니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('typing')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="테스트 / 타자속도" data-en="Test / Typing Speed">테스트 / 타자속도</div>
+                <div class="card-tag" data-ko="테스트 / 타자속도" data-en="Test / Typing Speed" data-ja="テスト / タイピング速度" data-zh="测试 / 打字速度" data-es="Prueba / Velocidad de escritura" data-fr="Test / Vitesse de frappe">테스트 / 타자속도</div>
                 <span class="card-icon">⌨️</span>
                 <div class="card-title">TYPING TEST</div>
-                <div class="card-title-kr" data-ko="타자 속도 테스트" data-en="Typing Speed Test">타자 속도 테스트</div>
+                <div class="card-title-kr" data-ko="타자 속도 테스트" data-en="Typing Speed Test" data-ja="タイピング速度テスト" data-zh="打字速度测试" data-es="Prueba de Velocidad de Escritura" data-fr="Test de Vitesse de Frappe">타자 속도 테스트</div>
                 <p class="card-desc" data-ko="주어진 문장을 최대한 빠르고 정확하게 입력해 분당 타수(WPM)와 정확도를 측정하세요." data-en="Type the given sentence as fast and accurately as you can to measure your WPM and accuracy.">주어진 문장을 최대한 빠르고 정확하게 입력해 분당 타수(WPM)와 정확도를 측정하세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('guess')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic">퍼즐 / 로직</div>
+                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic" data-ja="パズル / ロジック" data-zh="拼图 / 逻辑" data-es="Puzzle / Lógica" data-fr="Puzzle / Logique">퍼즐 / 로직</div>
                 <span class="card-icon">🔢</span>
                 <div class="card-title">NUMBER GUESS</div>
-                <div class="card-title-kr" data-ko="숫자 맞추기" data-en="Number Guessing Game">숫자 맞추기</div>
+                <div class="card-title-kr" data-ko="숫자 맞추기" data-en="Number Guessing Game" data-ja="数字当てゲーム" data-zh="猜数字游戏" data-es="Adivina el Número" data-fr="Devine le Nombre">숫자 맞추기</div>
                 <p class="card-desc" data-ko="1부터 100 사이의 숨겨진 숫자를 최소한의 시도로 맞춰보세요. 더 크다/작다 힌트를 활용하세요." data-en="Guess the hidden number between 1 and 100 in as few tries as possible, using higher/lower hints.">1부터 100 사이의 숨겨진 숫자를 최소한의 시도로 맞춰보세요. 더 크다/작다 힌트를 활용하세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('connect4')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="전략 / 보드" data-en="Strategy / Board">전략 / 보드</div>
+                <div class="card-tag" data-ko="전략 / 보드" data-en="Strategy / Board" data-ja="戦略 / ボード" data-zh="策略 / 棋盘" data-es="Estrategia / Tablero" data-fr="Stratégie / Plateau">전략 / 보드</div>
                 <span class="card-icon">🔴</span>
                 <div class="card-title">CONNECT FOUR</div>
-                <div class="card-title-kr" data-ko="사목 게임" data-en="Connect Four">사목 게임</div>
+                <div class="card-title-kr" data-ko="사목 게임" data-en="Connect Four" data-ja="コネクトフォー" data-zh="四子棋" data-es="Conecta Cuatro" data-fr="Puissance 4">사목 게임</div>
                 <p class="card-desc" data-ko="두 명이 번갈아 원판을 떨어뜨려 가로·세로·대각선으로 4개를 먼저 연결하면 승리하는 보드 게임입니다." data-en="Take turns dropping discs — the first to connect four in a row, column, or diagonal wins.">두 명이 번갈아 원판을 떨어뜨려 가로·세로·대각선으로 4개를 먼저 연결하면 승리하는 보드 게임입니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('puzzle15')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic">퍼즐 / 로직</div>
+                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic" data-ja="パズル / ロジック" data-zh="拼图 / 逻辑" data-es="Puzzle / Lógica" data-fr="Puzzle / Logique">퍼즐 / 로직</div>
                 <span class="card-icon">🧩</span>
                 <div class="card-title">15 PUZZLE</div>
-                <div class="card-title-kr" data-ko="슬라이딩 퍼즐" data-en="15 Puzzle">슬라이딩 퍼즐</div>
+                <div class="card-title-kr" data-ko="슬라이딩 퍼즐" data-en="15 Puzzle" data-ja="スライドパズル" data-zh="滑块拼图" data-es="Puzzle Deslizante" data-fr="Taquin">슬라이딩 퍼즐</div>
                 <p class="card-desc" data-ko="빈 칸을 이용해 타일을 밀어 1부터 15까지 순서대로 정렬하는 클래식 슬라이딩 퍼즐입니다." data-en="Slide the numbered tiles using the empty space to arrange them from 1 to 15 in order.">빈 칸을 이용해 타일을 밀어 1부터 15까지 순서대로 정렬하는 클래식 슬라이딩 퍼즐입니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('scramble')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퍼즐 / 단어" data-en="Puzzle / Word">퍼즐 / 단어</div>
+                <div class="card-tag" data-ko="퍼즐 / 단어" data-en="Puzzle / Word" data-ja="パズル / 単語" data-zh="拼图 / 单词" data-es="Puzzle / Palabras" data-fr="Puzzle / Mots">퍼즐 / 단어</div>
                 <span class="card-icon">🔤</span>
                 <div class="card-title">WORD SCRAMBLE</div>
-                <div class="card-title-kr" data-ko="단어 맞추기" data-en="Word Scramble">단어 맞추기</div>
+                <div class="card-title-kr" data-ko="단어 맞추기" data-en="Word Scramble" data-ja="単語スクランブル" data-zh="单词拼图" data-es="Palabras Revueltas" data-fr="Mot Mélangé">단어 맞추기</div>
                 <p class="card-desc" data-ko="글자 순서가 뒤섞인 단어를 힌트를 보며 원래 단어로 맞춰보세요. 라운드마다 새 단어가 등장합니다." data-en="Unscramble the shuffled letters to guess the original word, with a hint for each round.">글자 순서가 뒤섞인 단어를 힌트를 보며 원래 단어로 맞춰보세요. 라운드마다 새 단어가 등장합니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('pong')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action">아케이드 / 액션</div>
+                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action" data-ja="アーケード / アクション" data-zh="街机 / 动作" data-es="Arcade / Acción" data-fr="Arcade / Action">아케이드 / 액션</div>
                 <span class="card-icon">🏓</span>
                 <div class="card-title">PONG</div>
-                <div class="card-title-kr" data-ko="퐁 게임" data-en="Pong">퐁 게임</div>
+                <div class="card-title-kr" data-ko="퐁 게임" data-en="Pong" data-ja="ポンゲーム" data-zh="乒乓游戏" data-es="Juego Pong" data-fr="Jeu Pong">퐁 게임</div>
                 <p class="card-desc" data-ko="컴퓨터를 상대로 즐기는 클래식 탁구 게임입니다. 방향키나 마우스로 패들을 움직여 5점을 먼저 내세요." data-en="A classic table-tennis game against the computer. Move your paddle with arrow keys or the mouse and score 5 points first.">컴퓨터를 상대로 즐기는 클래식 탁구 게임입니다. 방향키나 마우스로 패들을 움직여 5점을 먼저 내세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('colormatch')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="반응속도 / 관찰력" data-en="Reflexes / Perception">반응속도 / 관찰력</div>
+                <div class="card-tag" data-ko="반응속도 / 관찰력" data-en="Reflexes / Perception" data-ja="反射神経 / 観察力" data-zh="反应 / 观察力" data-es="Reflejos / Percepción" data-fr="Réflexes / Perception">반응속도 / 관찰력</div>
                 <span class="card-icon">🌈</span>
                 <div class="card-title">ODD COLOR OUT</div>
-                <div class="card-title-kr" data-ko="다른 색 찾기" data-en="Odd Color Out">다른 색 찾기</div>
+                <div class="card-title-kr" data-ko="다른 색 찾기" data-en="Odd Color Out" data-ja="違う色探し" data-zh="找不同颜色" data-es="Encuentra el Color Diferente" data-fr="Trouve la Couleur Différente">다른 색 찾기</div>
                 <p class="card-desc" data-ko="격자 안에서 미묘하게 다른 색의 타일을 제한시간 안에 찾아내세요. 레벨이 오를수록 격자가 커지고 색 차이는 점점 미묘해집니다." data-en="Spot the tile with a subtly different color before time runs out. Grids grow and color differences shrink as you level up.">격자 안에서 미묘하게 다른 색의 타일을 제한시간 안에 찾아내세요. 레벨이 오를수록 격자가 커지고 색 차이는 점점 미묘해집니다.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('flagquiz')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="퀴즈 / 지리" data-en="Quiz / Geography">퀴즈 / 지리</div>
+                <div class="card-tag" data-ko="퀴즈 / 지리" data-en="Quiz / Geography" data-ja="クイズ / 地理" data-zh="问答 / 地理" data-es="Cuestionario / Geografía" data-fr="Quiz / Géographie">퀴즈 / 지리</div>
                 <span class="card-icon">🌍</span>
                 <div class="card-title">FLAG QUIZ</div>
-                <div class="card-title-kr" data-ko="국기 퀴즈 (전 197개국)" data-en="Flag Quiz (All 197 Countries)">국기 퀴즈 (전 197개국)</div>
+                <div class="card-title-kr" data-ko="국기 퀴즈 (전 197개국)" data-en="Flag Quiz (All 197 Countries)" data-ja="国旗クイズ（全197カ国）" data-zh="国旗问答（全197国）" data-es="Quiz de Banderas (los 197 países)" data-fr="Quiz des Drapeaux (197 pays)">국기 퀴즈 (전 197개국)</div>
                 <p class="card-desc" data-ko="유엔 회원국 193개국에 바티칸·팔레스타인·대만·코소보를 더한 전 세계 197개국의 국기를 4지선다로 맞춰보세요." data-en="Guess the flags of all 197 countries — the 193 UN members plus Vatican City, Palestine, Taiwan, and Kosovo — in a 4-choice quiz.">유엔 회원국 193개국에 바티칸·팔레스타인·대만·코소보를 더한 전 세계 197개국의 국기를 4지선다로 맞춰보세요.</p>
-                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
         </div>
     </div>
@@ -967,183 +976,183 @@
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('timer')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="시간 / 집중" data-en="Time / Focus">시간 / 집중</div>
+                <div class="card-tag" data-ko="시간 / 집중" data-en="Time / Focus" data-ja="時間 / 集中" data-zh="时间 / 专注" data-es="Tiempo / Concentración" data-fr="Temps / Concentration">시간 / 집중</div>
                 <span class="card-icon">⏱️</span>
                 <div class="card-title">TIMER</div>
-                <div class="card-title-kr" data-ko="타이머 / 스톱워치" data-en="Timer / Stopwatch">타이머 / 스톱워치</div>
+                <div class="card-title-kr" data-ko="타이머 / 스톱워치" data-en="Timer / Stopwatch" data-ja="タイマー / ストップウォッチ" data-zh="计时器 / 秒表" data-es="Temporizador / Cronómetro" data-fr="Minuteur / Chronomètre">타이머 / 스톱워치</div>
                 <p class="card-desc" data-ko="카운트다운 타이머와 스톱워치를 모두 제공합니다. 원하는 시간을 설정해 알림을 받고, 스톱워치로 랩 타임을 기록하세요. 공부, 운동, 요리 등 일상에서 바로 활용할 수 있습니다." data-en="Both a countdown timer and a stopwatch. Set a time to get notified, or track lap times with the stopwatch. Handy for studying, workouts, cooking, and daily life.">카운트다운 타이머와 스톱워치를 모두 제공합니다. 원하는 시간을 설정해 알림을 받고, 스톱워치로 랩 타임을 기록하세요. 공부, 운동, 요리 등 일상에서 바로 활용할 수 있습니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('random')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="랜덤 / 게임" data-en="Random / Games">랜덤 / 게임</div>
+                <div class="card-tag" data-ko="랜덤 / 게임" data-en="Random / Games" data-ja="ランダム / ゲーム" data-zh="随机 / 游戏" data-es="Aleatorio / Juegos" data-fr="Aléatoire / Jeux">랜덤 / 게임</div>
                 <span class="card-icon">🎲</span>
                 <div class="card-title">RANDOM</div>
-                <div class="card-title-kr" data-ko="랜덤 / 주사위" data-en="Random / Dice">랜덤 / 주사위</div>
+                <div class="card-title-kr" data-ko="랜덤 / 주사위" data-en="Random / Dice" data-ja="ランダム / サイコロ" data-zh="随机 / 骰子" data-es="Aleatorio / Dados" data-fr="Aléatoire / Dés">랜덤 / 주사위</div>
                 <p class="card-desc" data-ko="주사위 굴리기, 랜덤 숫자 생성, 동전 던지기, 팀 뽑기까지 한 번에. 보드게임, 당번 정하기, 이벤트 추첨 등 결정을 내려야 할 때 공정하고 빠른 랜덤 결과를 제공합니다." data-en="Roll dice, generate random numbers, flip a coin, and draw teams — all in one place. Fair, instant random results for board games, picking who's up next, or event drawings.">주사위 굴리기, 랜덤 숫자 생성, 동전 던지기, 팀 뽑기까지 한 번에. 보드게임, 당번 정하기, 이벤트 추첨 등 결정을 내려야 할 때 공정하고 빠른 랜덤 결과를 제공합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('password')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="보안 / 생성" data-en="Security / Generate">보안 / 생성</div>
+                <div class="card-tag" data-ko="보안 / 생성" data-en="Security / Generate" data-ja="セキュリティ / 生成" data-zh="安全 / 生成" data-es="Seguridad / Generar" data-fr="Sécurité / Génération">보안 / 생성</div>
                 <span class="card-icon">🔐</span>
                 <div class="card-title">PASSWORD</div>
-                <div class="card-title-kr" data-ko="비밀번호 생성기" data-en="Password Generator">비밀번호 생성기</div>
+                <div class="card-title-kr" data-ko="비밀번호 생성기" data-en="Password Generator" data-ja="パスワード生成機" data-zh="密码生成器" data-es="Generador de Contraseñas" data-fr="Générateur de Mots de Passe">비밀번호 생성기</div>
                 <p class="card-desc" data-ko="길이, 대소문자, 숫자, 특수문자 조합을 직접 설정해 안전한 비밀번호를 즉시 생성합니다. 여러 개를 한 번에 생성하고, 강도 지표로 보안 수준도 확인할 수 있습니다." data-en="Set your own length and mix of upper/lowercase letters, numbers, and symbols to generate a secure password instantly. Generate several at once and check security level with the strength meter.">길이, 대소문자, 숫자, 특수문자 조합을 직접 설정해 안전한 비밀번호를 즉시 생성합니다. 여러 개를 한 번에 생성하고, 강도 지표로 보안 수준도 확인할 수 있습니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('unit')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="수학 / 변환" data-en="Math / Convert">수학 / 변환</div>
+                <div class="card-tag" data-ko="수학 / 변환" data-en="Math / Convert" data-ja="数学 / 変換" data-zh="数学 / 转换" data-es="Matemáticas / Conversión" data-fr="Mathématiques / Conversion">수학 / 변환</div>
                 <span class="card-icon">📐</span>
                 <div class="card-title">UNIT CONVERT</div>
-                <div class="card-title-kr" data-ko="단위 변환기" data-en="Unit Converter">단위 변환기</div>
+                <div class="card-title-kr" data-ko="단위 변환기" data-en="Unit Converter" data-ja="単位変換機" data-zh="单位转换器" data-es="Convertidor de Unidades" data-fr="Convertisseur d'Unités">단위 변환기</div>
                 <p class="card-desc" data-ko="길이, 무게, 온도, 넓이, 속도, 부피 등 다양한 단위를 빠르게 변환합니다. 여행, 요리, 학업, 업무에서 자주 필요한 단위 변환을 한 화면에서 한 번에 확인하세요." data-en="Quickly convert length, weight, temperature, area, speed, volume, and more. Check the unit conversions you need most for travel, cooking, study, or work — all on one screen.">길이, 무게, 온도, 넓이, 속도, 부피 등 다양한 단위를 빠르게 변환합니다. 여행, 요리, 학업, 업무에서 자주 필요한 단위 변환을 한 화면에서 한 번에 확인하세요.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('todo')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="생산성 / 관리" data-en="Productivity">생산성 / 관리</div>
+                <div class="card-tag" data-ko="생산성 / 관리" data-en="Productivity" data-ja="生産性" data-zh="生产力" data-es="Productividad" data-fr="Productivité">생산성 / 관리</div>
                 <span class="card-icon">✅</span>
                 <div class="card-title">TODO LIST</div>
-                <div class="card-title-kr" data-ko="할 일 목록" data-en="Todo List">할 일 목록</div>
+                <div class="card-title-kr" data-ko="할 일 목록" data-en="Todo List" data-ja="やることリスト" data-zh="待办事项" data-es="Lista de Tareas" data-fr="Liste de Tâches">할 일 목록</div>
                 <p class="card-desc" data-ko="해야 할 일을 추가하고 완료 체크, 삭제까지 관리하는 간단한 할 일 목록입니다. 입력한 내용은 브라우저에 자동 저장되어 다시 방문해도 유지됩니다." data-en="A simple todo list — add tasks, check them off, and delete them. Everything is saved automatically in your browser, so it's still there next time you visit.">해야 할 일을 추가하고 완료 체크, 삭제까지 관리하는 간단한 할 일 목록입니다. 입력한 내용은 브라우저에 자동 저장되어 다시 방문해도 유지됩니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('bmi')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="건강 / 계산" data-en="Health / Calculate">건강 / 계산</div>
+                <div class="card-tag" data-ko="건강 / 계산" data-en="Health / Calculate" data-ja="健康 / 計算" data-zh="健康 / 计算" data-es="Salud / Cálculo" data-fr="Santé / Calcul">건강 / 계산</div>
                 <span class="card-icon">⚖️</span>
                 <div class="card-title">BMI CALC</div>
-                <div class="card-title-kr" data-ko="BMI 계산기" data-en="BMI Calculator">BMI 계산기</div>
+                <div class="card-title-kr" data-ko="BMI 계산기" data-en="BMI Calculator" data-ja="BMI計算機" data-zh="BMI计算器" data-es="Calculadora de IMC" data-fr="Calculateur d'IMC">BMI 계산기</div>
                 <p class="card-desc" data-ko="키와 몸무게를 입력하면 체질량지수(BMI)와 저체중·정상·과체중·비만 등급을 즉시 계산합니다. 건강 관리의 기본 지표를 빠르게 확인하세요." data-en="Enter your height and weight to instantly calculate your BMI and weight category — underweight, normal, overweight, or obese. Check this basic health metric in seconds.">키와 몸무게를 입력하면 체질량지수(BMI)와 저체중·정상·과체중·비만 등급을 즉시 계산합니다. 건강 관리의 기본 지표를 빠르게 확인하세요.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('date')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="날짜 / 계산" data-en="Date / Calculate">날짜 / 계산</div>
+                <div class="card-tag" data-ko="날짜 / 계산" data-en="Date / Calculate" data-ja="日付 / 計算" data-zh="日期 / 计算" data-es="Fecha / Cálculo" data-fr="Date / Calcul">날짜 / 계산</div>
                 <span class="card-icon">📅</span>
                 <div class="card-title">DATE CALC</div>
-                <div class="card-title-kr" data-ko="날짜 계산기 / D-Day" data-en="Date Calculator / D-Day">날짜 계산기 / D-Day</div>
+                <div class="card-title-kr" data-ko="날짜 계산기 / D-Day" data-en="Date Calculator / D-Day" data-ja="日付計算機 / D-Day" data-zh="日期计算器 / D-Day" data-es="Calculadora de Fechas / D-Day" data-fr="Calculateur de Dates / J-Day">날짜 계산기 / D-Day</div>
                 <p class="card-desc" data-ko="두 날짜 사이의 일수를 계산하거나, 목표일까지 남은 D-Day를 확인할 수 있습니다. 기념일, 시험일, 프로젝트 마감일 계산에 유용합니다." data-en="Calculate the number of days between two dates, or count down to a target date. Useful for anniversaries, exam dates, and project deadlines.">두 날짜 사이의 일수를 계산하거나, 목표일까지 남은 D-Day를 확인할 수 있습니다. 기념일, 시험일, 프로젝트 마감일 계산에 유용합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('memo')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="텍스트 / 저장" data-en="Text / Save">텍스트 / 저장</div>
+                <div class="card-tag" data-ko="텍스트 / 저장" data-en="Text / Save" data-ja="テキスト / 保存" data-zh="文本 / 保存" data-es="Texto / Guardar" data-fr="Texte / Enregistrer">텍스트 / 저장</div>
                 <span class="card-icon">📝</span>
                 <div class="card-title">MEMO</div>
-                <div class="card-title-kr" data-ko="메모장" data-en="Memo Pad">메모장</div>
+                <div class="card-title-kr" data-ko="메모장" data-en="Memo Pad" data-ja="メモ帳" data-zh="备忘录" data-es="Bloc de Notas" data-fr="Bloc-Notes">메모장</div>
                 <p class="card-desc" data-ko="간단한 텍스트 메모를 브라우저에 자동 저장합니다. 회원가입 없이 이 브라우저에서만 안전하게 보관되며, 창을 닫아도 내용이 유지됩니다." data-en="Automatically saves simple text notes in your browser. No sign-up needed — it's kept safely in this browser only, and stays there even after you close the window.">간단한 텍스트 메모를 브라우저에 자동 저장합니다. 회원가입 없이 이 브라우저에서만 안전하게 보관되며, 창을 닫아도 내용이 유지됩니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('color')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="디자인 / 변환" data-en="Design / Convert">디자인 / 변환</div>
+                <div class="card-tag" data-ko="디자인 / 변환" data-en="Design / Convert" data-ja="デザイン / 変換" data-zh="设计 / 转换" data-es="Diseño / Conversión" data-fr="Design / Conversion">디자인 / 변환</div>
                 <span class="card-icon">🎨</span>
                 <div class="card-title">COLOR PICKER</div>
-                <div class="card-title-kr" data-ko="색상 피커 / 변환기" data-en="Color Picker / Converter">색상 피커 / 변환기</div>
+                <div class="card-title-kr" data-ko="색상 피커 / 변환기" data-en="Color Picker / Converter" data-ja="カラーピッカー / 変換機" data-zh="颜色选择器 / 转换器" data-es="Selector de Colores / Convertidor" data-fr="Sélecteur de Couleurs / Convertisseur">색상 피커 / 변환기</div>
                 <p class="card-desc" data-ko="HEX, RGB, HSL 색상 코드를 서로 변환하고 실시간으로 미리 봅니다. 어울리는 색상 팔레트도 함께 확인하세요." data-en="Convert between HEX, RGB, and HSL color codes with a live preview. Also shows a matching color palette to go with your pick.">HEX, RGB, HSL 색상 코드를 서로 변환하고 실시간으로 미리 봅니다. 어울리는 색상 팔레트도 함께 확인하세요.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('percent')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="수학 / 계산" data-en="Math / Compute">수학 / 계산</div>
+                <div class="card-tag" data-ko="수학 / 계산" data-en="Math / Compute" data-ja="数学 / 計算" data-zh="数学 / 计算" data-es="Matemáticas / Cálculo" data-fr="Mathématiques / Calcul">수학 / 계산</div>
                 <span class="card-icon">💯</span>
                 <div class="card-title">PERCENTAGE</div>
-                <div class="card-title-kr" data-ko="퍼센트 계산기" data-en="Percentage Calculator">퍼센트 계산기</div>
+                <div class="card-title-kr" data-ko="퍼센트 계산기" data-en="Percentage Calculator" data-ja="パーセント計算機" data-zh="百分比计算器" data-es="Calculadora de Porcentajes" data-fr="Calculateur de Pourcentages">퍼센트 계산기</div>
                 <p class="card-desc" data-ko="X는 Y의 몇 %인지, Y의 X%는 얼마인지, 증가·감소율까지 세 가지 방식으로 퍼센트를 계산합니다." data-en="Calculate what % X is of Y, what X% of Y is, and percentage increase/decrease — three modes in one tool.">X는 Y의 몇 %인지, Y의 X%는 얼마인지, 증가·감소율까지 세 가지 방식으로 퍼센트를 계산합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('textcase')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="텍스트 / 변환" data-en="Text / Convert">텍스트 / 변환</div>
+                <div class="card-tag" data-ko="텍스트 / 변환" data-en="Text / Convert" data-ja="テキスト / 変換" data-zh="文本 / 转换" data-es="Texto / Conversión" data-fr="Texte / Conversion">텍스트 / 변환</div>
                 <span class="card-icon">🔠</span>
                 <div class="card-title">TEXT CASE</div>
-                <div class="card-title-kr" data-ko="대소문자 변환기" data-en="Text Case Converter">대소문자 변환기</div>
+                <div class="card-title-kr" data-ko="대소문자 변환기" data-en="Text Case Converter" data-ja="大文字小文字変換機" data-zh="大小写转换器" data-es="Convertidor de Mayúsculas/Minúsculas" data-fr="Convertisseur de Casse">대소문자 변환기</div>
                 <p class="card-desc" data-ko="입력한 텍스트를 대문자, 소문자, Title Case, 문장 형식, camelCase, snake_case, kebab-case로 즉시 변환합니다." data-en="Instantly convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case.">입력한 텍스트를 대문자, 소문자, Title Case, 문장 형식, camelCase, snake_case, kebab-case로 즉시 변환합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('json')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="개발 / 데이터" data-en="Dev / Data">개발 / 데이터</div>
+                <div class="card-tag" data-ko="개발 / 데이터" data-en="Dev / Data" data-ja="開発 / データ" data-zh="开发 / 数据" data-es="Desarrollo / Datos" data-fr="Développement / Données">개발 / 데이터</div>
                 <span class="card-icon">🧾</span>
                 <div class="card-title">JSON FORMATTER</div>
-                <div class="card-title-kr" data-ko="JSON 포맷터" data-en="JSON Formatter">JSON 포맷터</div>
+                <div class="card-title-kr" data-ko="JSON 포맷터" data-en="JSON Formatter" data-ja="JSONフォーマッター" data-zh="JSON格式化工具" data-es="Formateador de JSON" data-fr="Formateur JSON">JSON 포맷터</div>
                 <p class="card-desc" data-ko="JSON 텍스트를 보기 좋게 정렬하거나 한 줄로 압축하고, 문법 오류가 있으면 바로 알려드립니다." data-en="Pretty-print or minify JSON text, with instant validation and error messages when the syntax is invalid.">JSON 텍스트를 보기 좋게 정렬하거나 한 줄로 압축하고, 문법 오류가 있으면 바로 알려드립니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('base64')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="개발 / 인코딩" data-en="Dev / Encoding">개발 / 인코딩</div>
+                <div class="card-tag" data-ko="개발 / 인코딩" data-en="Dev / Encoding" data-ja="開発 / エンコード" data-zh="开发 / 编码" data-es="Desarrollo / Codificación" data-fr="Développement / Encodage">개발 / 인코딩</div>
                 <span class="card-icon">🔐</span>
                 <div class="card-title">BASE64</div>
-                <div class="card-title-kr" data-ko="Base64 인코더/디코더" data-en="Base64 Encoder/Decoder">Base64 인코더/디코더</div>
+                <div class="card-title-kr" data-ko="Base64 인코더/디코더" data-en="Base64 Encoder/Decoder" data-ja="Base64エンコーダー/デコーダー" data-zh="Base64编码/解码器" data-es="Codificador/Decodificador Base64" data-fr="Encodeur/Décodeur Base64">Base64 인코더/디코더</div>
                 <p class="card-desc" data-ko="텍스트를 Base64로 인코딩하거나 Base64 문자열을 원래 텍스트로 디코딩합니다. 한글 등 유니코드도 지원합니다." data-en="Encode text to Base64 or decode a Base64 string back to text — supports Unicode, including Korean.">텍스트를 Base64로 인코딩하거나 Base64 문자열을 원래 텍스트로 디코딩합니다. 한글 등 유니코드도 지원합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('basenum')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="수학 / 진법" data-en="Math / Number Base">수학 / 진법</div>
+                <div class="card-tag" data-ko="수학 / 진법" data-en="Math / Number Base" data-ja="数学 / 進数" data-zh="数学 / 进制" data-es="Matemáticas / Base numérica" data-fr="Mathématiques / Base numérique">수학 / 진법</div>
                 <span class="card-icon">🔟</span>
                 <div class="card-title">BASE CONVERTER</div>
-                <div class="card-title-kr" data-ko="진법 변환기" data-en="Number Base Converter">진법 변환기</div>
+                <div class="card-title-kr" data-ko="진법 변환기" data-en="Number Base Converter" data-ja="進数変換機" data-zh="进制转换器" data-es="Convertidor de Bases Numéricas" data-fr="Convertisseur de Base Numérique">진법 변환기</div>
                 <p class="card-desc" data-ko="2진수, 8진수, 10진수, 16진수 사이를 자유롭게 변환합니다. 프로그래밍이나 학습에 유용합니다." data-en="Convert freely between binary, octal, decimal, and hexadecimal — handy for programming and learning.">2진수, 8진수, 10진수, 16진수 사이를 자유롭게 변환합니다. 프로그래밍이나 학습에 유용합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="green" onclick="openTool('tip')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="생활 / 계산" data-en="Life / Compute">생활 / 계산</div>
+                <div class="card-tag" data-ko="생활 / 계산" data-en="Life / Compute" data-ja="生活 / 計算" data-zh="生活 / 计算" data-es="Vida / Cálculo" data-fr="Vie / Calcul">생활 / 계산</div>
                 <span class="card-icon">🧾</span>
                 <div class="card-title">TIP CALCULATOR</div>
-                <div class="card-title-kr" data-ko="팁 · 정산 계산기" data-en="Tip Calculator">팁 · 정산 계산기</div>
+                <div class="card-title-kr" data-ko="팁 · 정산 계산기" data-en="Tip Calculator" data-ja="チップ計算機" data-zh="小费计算器" data-es="Calculadora de Propinas" data-fr="Calculateur de Pourboire">팁 · 정산 계산기</div>
                 <p class="card-desc" data-ko="식사 금액과 팁 비율을 입력하면 총액과 인당 부담액을 자동으로 계산합니다. 더치페이에 유용합니다." data-en="Enter the bill and tip percentage to get the total and per-person amount instantly. Great for splitting the check.">식사 금액과 팁 비율을 입력하면 총액과 인당 부담액을 자동으로 계산합니다. 더치페이에 유용합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="pink" onclick="openTool('loan')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="금융 / 계산" data-en="Finance / Compute">금융 / 계산</div>
+                <div class="card-tag" data-ko="금융 / 계산" data-en="Finance / Compute" data-ja="金融 / 計算" data-zh="金融 / 计算" data-es="Finanzas / Cálculo" data-fr="Finance / Calcul">금융 / 계산</div>
                 <span class="card-icon">🏦</span>
                 <div class="card-title">LOAN CALCULATOR</div>
-                <div class="card-title-kr" data-ko="대출 상환 계산기" data-en="Loan Calculator">대출 상환 계산기</div>
+                <div class="card-title-kr" data-ko="대출 상환 계산기" data-en="Loan Calculator" data-ja="ローン返済計算機" data-zh="贷款还款计算器" data-es="Calculadora de Préstamos" data-fr="Calculateur de Prêt">대출 상환 계산기</div>
                 <p class="card-desc" data-ko="대출 원금, 연이율, 상환 기간을 입력하면 월 상환액과 총 이자를 계산합니다. 참고용 지표입니다." data-en="Enter the loan amount, annual rate, and term to estimate the monthly payment and total interest. For reference only.">대출 원금, 연이율, 상환 기간을 입력하면 월 상환액과 총 이자를 계산합니다. 참고용 지표입니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('lorem')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="텍스트 / 생성" data-en="Text / Generate">텍스트 / 생성</div>
+                <div class="card-tag" data-ko="텍스트 / 생성" data-en="Text / Generate" data-ja="テキスト / 生成" data-zh="文本 / 生成" data-es="Texto / Generar" data-fr="Texte / Générer">텍스트 / 생성</div>
                 <span class="card-icon">📄</span>
                 <div class="card-title">LOREM IPSUM</div>
-                <div class="card-title-kr" data-ko="더미 텍스트 생성기" data-en="Lorem Ipsum Generator">더미 텍스트 생성기</div>
+                <div class="card-title-kr" data-ko="더미 텍스트 생성기" data-en="Lorem Ipsum Generator" data-ja="ダミーテキスト生成機" data-zh="占位文本生成器" data-es="Generador de Texto Lorem Ipsum" data-fr="Générateur de Texte Lorem Ipsum">더미 텍스트 생성기</div>
                 <p class="card-desc" data-ko="원하는 문단·문장·단어 수만큼 더미 텍스트를 생성합니다. 디자인 시안이나 레이아웃 테스트에 유용합니다." data-en="Generate placeholder text by paragraph, sentence, or word count — useful for mockups and layout testing.">원하는 문단·문장·단어 수만큼 더미 텍스트를 생성합니다. 디자인 시안이나 레이아웃 테스트에 유용합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="yellow" onclick="openTool('difftool')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="텍스트 / 비교" data-en="Text / Compare">텍스트 / 비교</div>
+                <div class="card-tag" data-ko="텍스트 / 비교" data-en="Text / Compare" data-ja="テキスト / 比較" data-zh="文本 / 比较" data-es="Texto / Comparar" data-fr="Texte / Comparer">텍스트 / 비교</div>
                 <span class="card-icon">🔍</span>
                 <div class="card-title">TEXT DIFF</div>
-                <div class="card-title-kr" data-ko="텍스트 비교기" data-en="Text Diff Checker">텍스트 비교기</div>
+                <div class="card-title-kr" data-ko="텍스트 비교기" data-en="Text Diff Checker" data-ja="テキスト比較機" data-zh="文本比较工具" data-es="Comparador de Textos" data-fr="Comparateur de Textes">텍스트 비교기</div>
                 <p class="card-desc" data-ko="두 텍스트를 줄 단위로 비교해 추가되거나 삭제되거나 달라진 줄을 색으로 표시합니다." data-en="Compare two blocks of text line by line and highlight added, removed, and changed lines in color.">두 텍스트를 줄 단위로 비교해 추가되거나 삭제되거나 달라진 줄을 색으로 표시합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="purple" onclick="openTool('roman')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="수학 / 변환" data-en="Math / Convert">수학 / 변환</div>
+                <div class="card-tag" data-ko="수학 / 변환" data-en="Math / Convert" data-ja="数学 / 変換" data-zh="数学 / 转换" data-es="Matemáticas / Conversión" data-fr="Mathématiques / Conversion">수학 / 변환</div>
                 <span class="card-icon">🏛️</span>
                 <div class="card-title">ROMAN NUMERALS</div>
-                <div class="card-title-kr" data-ko="로마 숫자 변환기" data-en="Roman Numeral Converter">로마 숫자 변환기</div>
+                <div class="card-title-kr" data-ko="로마 숫자 변환기" data-en="Roman Numeral Converter" data-ja="ローマ数字変換機" data-zh="罗马数字转换器" data-es="Convertidor de Números Romanos" data-fr="Convertisseur de Chiffres Romains">로마 숫자 변환기</div>
                 <p class="card-desc" data-ko="아라비아 숫자를 로마 숫자로, 로마 숫자를 아라비아 숫자로 양방향 변환합니다." data-en="Convert Arabic numerals to Roman numerals and back, in both directions.">아라비아 숫자를 로마 숫자로, 로마 숫자를 아라비아 숫자로 양방향 변환합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
             <div class="card tool-card" data-color="cyan" onclick="openTool('aitools')">
                 <div class="corner tl"></div><div class="corner br"></div>
-                <div class="card-tag" data-ko="모음 / 링크" data-en="Directory / Links">모음 / 링크</div>
+                <div class="card-tag" data-ko="모음 / 링크" data-en="Directory / Links" data-ja="ディレクトリ / リンク" data-zh="目录 / 链接" data-es="Directorio / Enlaces" data-fr="Répertoire / Liens">모음 / 링크</div>
                 <span class="card-icon">🤖</span>
                 <div class="card-title">AI TOOLS</div>
-                <div class="card-title-kr" data-ko="AI 툴 사이트 모음" data-en="AI Tools Directory">AI 툴 사이트 모음</div>
+                <div class="card-title-kr" data-ko="AI 툴 사이트 모음" data-en="AI Tools Directory" data-ja="AIツールサイト集" data-zh="AI工具网站合集" data-es="Directorio de Herramientas de IA" data-fr="Répertoire d'Outils IA">AI 툴 사이트 모음</div>
                 <p class="card-desc" data-ko="대화형 AI, 이미지·영상 생성, 코딩, 음성, 생산성 등 카테고리별로 정리한 인기 AI 툴 모음입니다. 클릭하면 바로 이동합니다." data-en="A curated directory of popular AI tools by category — chat, image/video generation, coding, audio, and productivity. Click to open directly.">대화형 AI, 이미지·영상 생성, 코딩, 음성, 생산성 등 카테고리별로 정리한 인기 AI 툴 모음입니다. 클릭하면 바로 이동합니다.</p>
-                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool" data-ja="ツールを開く" data-zh="打开工具" data-es="Abrir Herramienta" data-fr="Ouvrir l'Outil">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
         </div>
     </div>
@@ -4202,11 +4211,13 @@ function memoClear() {
 }
 
 /* ── Language ── */
+var currentLang = 'ko';
 var isKorean = true;
 function L(ko, en) { return isKorean ? ko : en; }
+var LANG_NAMES_NATIVE = { ko: '한국어', en: 'English', ja: '日本語', zh: '中文', es: 'Español', fr: 'Français' };
 var T = {
     ko: {
-        btn:'🌐 English', label:"// arong's space v2.0", mainTitle:'아룡의 포털',
+        label:"// arong's space v2.0", mainTitle:'아룡의 포털',
         subText:'게임, 툴, 그리고 그 이상 — 아룡의 세계에 오신 것을 환영합니다',
         tabGames:'🎮 &nbsp;게임', tabTools:'🔧 &nbsp;툴',
         tag1:'액션 / 3D', cardTitle1:'3D 플랫포머 게임', cardDesc1:'짜릿한 3D 플랫포머 세계로 뛰어드세요. 점프하고, 달리고, 장애물을 피하며 스테이지를 클리어하세요!', ctaText1:'지금 플레이',
@@ -4221,10 +4232,11 @@ var T = {
         trTitle:'번역기', trSubtitle:'텍스트를 입력하고 번역 버튼을 누르세요',
         trLabelInput:'입력', trLabelOutput:'번역 결과',
         btnTranslate:'번역하기', btnCopyTR:'결과 복사', btnClearTR:'초기화',
+        searchPlaceholder:'🔍 툴이나 게임 검색...', searchEmpty:'검색 결과가 없습니다',
         footer:"© arong's hub · Made with ❤️", pageTitle:'아룡의 포털 — 무료 온라인 툴 & 게임 모음'
     },
     en: {
-        btn:'🌐 한국어', label:"// arong's space v2.0", mainTitle:"arong's portal",
+        label:"// arong's space v2.0", mainTitle:"arong's portal",
         subText:"Games, tools, and more — welcome to arong's world",
         tabGames:'🎮 &nbsp;Games', tabTools:'🔧 &nbsp;Tools',
         tag1:'Action / 3D', cardTitle1:'3D Platformer Game', cardDesc1:'Dive into a thrilling 3D platformer world. Jump, run, dodge obstacles and clear every stage!', ctaText1:'Play Now',
@@ -4239,13 +4251,91 @@ var T = {
         trTitle:'Translator', trSubtitle:'Enter text and press Translate',
         trLabelInput:'Input', trLabelOutput:'Translation',
         btnTranslate:'Translate', btnCopyTR:'Copy Result', btnClearTR:'Clear',
+        searchPlaceholder:'🔍 Search tools or games...', searchEmpty:'No results found',
         footer:"© arong's hub · Made with ❤️", pageTitle:"arong's portal — Free Online Tools & Games"
+    },
+    ja: {
+        label:"// arong's space v2.0", mainTitle:'アロンのポータル',
+        subText:'ゲーム、ツール、そしてそれ以上 — アロンの世界へようこそ',
+        tabGames:'🎮 &nbsp;ゲーム', tabTools:'🔧 &nbsp;ツール',
+        tag1:'アクション / 3D', cardTitle1:'3Dプラットフォーマーゲーム', cardDesc1:'スリリングな3Dプラットフォーマーの世界に飛び込もう。ジャンプして、走って、障害物を避けてステージをクリアしよう！', ctaText1:'今すぐプレイ',
+        tag2:'戦略 / ボード', cardTitle2:'チェス', cardDesc2:'クラシックなチェスの世界へようこそ。戦略を練り、相手を出し抜いて勝利をつかもう！', ctaText2:'今すぐプレイ',
+        tag3:'アクション / プラットフォーマー', cardTitle3:'プラットフォーマーゲーム', cardDesc3:'ステージを駆け抜け、障害物を避けてゴールを目指そう。手軽でスピーディーなプラットフォーマーアクション！', ctaText3:'今すぐプレイ',
+        toolTag1:'テキスト / 分析', toolTitle1:'文字数カウント', toolDesc1:'文字数、単語数、文章数、行数、スペースの有無、UTF-8バイト数までリアルタイムで分析します。ブログの文字数制限やSNS投稿のチェックに便利です。', toolCta1:'ツールを開く',
+        toolTag2:'数学 / 計算', toolTitle2:'電卓', toolDesc2:'四則演算から平方根、パーセント、括弧計算、三角関数まで対応する関数電卓です。計算履歴を保存し、基本/関数モードを切り替えられます。', toolCta2:'ツールを開く',
+        toolTag3:'言語 / 翻訳', toolTitle3:'翻訳機', toolDesc3:'韓国語、英語、日本語、中国語、スペイン語、フランス語など様々な言語間の翻訳に対応しています。翻訳結果をすぐにコピーしたり、翻訳方向を自由に切り替えたりできます。', toolCta3:'ツールを開く',
+        ccTitle:'文字数カウント', ccSubtitle:'テキストを入力するとリアルタイムで分析します', ccPlaceholder:'ここにテキストを入力してください...',
+        labelChars:'文字数（スペース込み）', labelCharsNoSpace:'文字数（スペース抜き）', labelWords:'単語数', labelLines:'行数', labelSentences:'文章数', labelBytes:'バイト数（UTF-8）',
+        btnCopy:'コピー', btnClear:'クリア',
+        trTitle:'翻訳機', trSubtitle:'テキストを入力して翻訳ボタンを押してください',
+        trLabelInput:'入力', trLabelOutput:'翻訳結果',
+        btnTranslate:'翻訳する', btnCopyTR:'結果をコピー', btnClearTR:'クリア',
+        searchPlaceholder:'🔍 ツールやゲームを検索...', searchEmpty:'検索結果がありません',
+        footer:"© arong's hub · Made with ❤️", pageTitle:'アロンのポータル — 無料オンラインツール＆ゲーム集'
+    },
+    zh: {
+        label:"// arong's space v2.0", mainTitle:'阿龙的门户',
+        subText:'游戏、工具，还有更多 — 欢迎来到阿龙的世界',
+        tabGames:'🎮 &nbsp;游戏', tabTools:'🔧 &nbsp;工具',
+        tag1:'动作 / 3D', cardTitle1:'3D平台游戏', cardDesc1:'跳入刺激的3D平台世界。跳跃、奔跑、躲避障碍物，通关每一关！', ctaText1:'立即游玩',
+        tag2:'策略 / 棋盘', cardTitle2:'国际象棋', cardDesc2:'进入经典国际象棋的世界。制定策略，智取对手，夺取胜利！', ctaText2:'立即游玩',
+        tag3:'动作 / 平台跳跃', cardTitle3:'平台跳跃游戏', cardDesc3:'在关卡中奔跑，躲避障碍物，到达目标。畅快的平台跳跃动作等你来玩！', ctaText3:'立即游玩',
+        toolTag1:'文本 / 分析', toolTitle1:'字数统计', toolDesc1:'实时分析字符数、单词数、句子数、行数（含/不含空格）以及UTF-8字节数。适用于博客字数限制和社交媒体输入检查。', toolCta1:'打开工具',
+        toolTag2:'数学 / 计算', toolTitle2:'计算器', toolDesc2:'支持四则运算、平方根、百分比、括号运算和三角函数的科学计算器。可保存计算历史，并可在基础/科学模式间切换。', toolCta2:'打开工具',
+        toolTag3:'语言 / 翻译', toolTitle3:'翻译器', toolDesc3:'支持韩语、英语、日语、中文、西班牙语、法语等多种语言之间的翻译。可立即复制翻译结果，或自由切换翻译方向。', toolCta3:'打开工具',
+        ccTitle:'字数统计', ccSubtitle:'输入文本即可实时分析', ccPlaceholder:'在此输入或粘贴文本...',
+        labelChars:'字符数（含空格）', labelCharsNoSpace:'字符数（不含空格）', labelWords:'单词数', labelLines:'行数', labelSentences:'句子数', labelBytes:'字节数（UTF-8）',
+        btnCopy:'复制', btnClear:'清除',
+        trTitle:'翻译器', trSubtitle:'输入文本并点击翻译按钮',
+        trLabelInput:'输入', trLabelOutput:'翻译结果',
+        btnTranslate:'翻译', btnCopyTR:'复制结果', btnClearTR:'清除',
+        searchPlaceholder:'🔍 搜索工具或游戏...', searchEmpty:'未找到结果',
+        footer:"© arong's hub · Made with ❤️", pageTitle:'阿龙的门户 — 免费在线工具和游戏合集'
+    },
+    es: {
+        label:"// arong's space v2.0", mainTitle:'el portal de arong',
+        subText:"Juegos, herramientas y más — bienvenido al mundo de arong",
+        tabGames:'🎮 &nbsp;Juegos', tabTools:'🔧 &nbsp;Herramientas',
+        tag1:'Acción / 3D', cardTitle1:'Juego de Plataformas 3D', cardDesc1:'Sumérgete en un emocionante mundo de plataformas 3D. ¡Salta, corre, esquiva obstáculos y completa cada nivel!', ctaText1:'Jugar Ahora',
+        tag2:'Estrategia / Tablero', cardTitle2:'Ajedrez', cardDesc2:'Entra en el mundo clásico del ajedrez. ¡Planifica tus movimientos, supera a tu oponente y consigue la victoria!', ctaText2:'Jugar Ahora',
+        tag3:'Acción / Plataformas', cardTitle3:'Juego de Plataformas', cardDesc3:'Corre por los niveles, esquiva obstáculos y llega a la meta. ¡Te espera una acción de plataformas rápida y divertida!', ctaText3:'Jugar Ahora',
+        toolTag1:'Texto / Análisis', toolTitle1:'Contador de Caracteres', toolDesc1:'Análisis en tiempo real de caracteres (con/sin espacios), palabras, oraciones, líneas y bytes UTF-8. Útil para límites de blogs y verificación de redes sociales.', toolCta1:'Abrir Herramienta',
+        toolTag2:'Matemáticas / Cálculo', toolTitle2:'Calculadora', toolDesc2:'Calculadora científica que admite operaciones básicas, raíces cuadradas, porcentajes, paréntesis y funciones trigonométricas. Guarda el historial y cambia entre modo básico/científico.', toolCta2:'Abrir Herramienta',
+        toolTag3:'Idioma / Traducción', toolTitle3:'Traductor', toolDesc3:'Admite traducción entre coreano, inglés, japonés, chino, español, francés y más. Copia los resultados al instante o cambia libremente la dirección de traducción.', toolCta3:'Abrir Herramienta',
+        ccTitle:'Contador de Caracteres', ccSubtitle:'Escribe o pega texto para analizarlo en tiempo real', ccPlaceholder:'Escribe o pega tu texto aquí...',
+        labelChars:'Caracteres (con espacios)', labelCharsNoSpace:'Caracteres (sin espacios)', labelWords:'Palabras', labelLines:'Líneas', labelSentences:'Oraciones', labelBytes:'Bytes (UTF-8)',
+        btnCopy:'Copiar', btnClear:'Limpiar',
+        trTitle:'Traductor', trSubtitle:'Ingresa el texto y presiona Traducir',
+        trLabelInput:'Entrada', trLabelOutput:'Traducción',
+        btnTranslate:'Traducir', btnCopyTR:'Copiar Resultado', btnClearTR:'Limpiar',
+        searchPlaceholder:'🔍 Buscar herramientas o juegos...', searchEmpty:'No se encontraron resultados',
+        footer:"© arong's hub · Made with ❤️", pageTitle:'el portal de arong — Herramientas y Juegos Gratis en Línea'
+    },
+    fr: {
+        label:"// arong's space v2.0", mainTitle:"le portail d'arong",
+        subText:"Jeux, outils et plus encore — bienvenue dans le monde d'arong",
+        tabGames:'🎮 &nbsp;Jeux', tabTools:'🔧 &nbsp;Outils',
+        tag1:'Action / 3D', cardTitle1:'Jeu de Plateforme 3D', cardDesc1:'Plongez dans un monde de plateforme 3D palpitant. Sautez, courez, évitez les obstacles et terminez chaque niveau !', ctaText1:'Jouer Maintenant',
+        tag2:'Stratégie / Plateau', cardTitle2:'Échecs', cardDesc2:'Entrez dans le monde classique des échecs. Planifiez vos coups, surpassez votre adversaire et remportez la victoire !', ctaText2:'Jouer Maintenant',
+        tag3:'Action / Plateforme', cardTitle3:'Jeu de Plateforme', cardDesc3:'Courez à travers les niveaux, évitez les obstacles et atteignez l\'objectif. Une action de plateforme rapide et amusante vous attend !', ctaText3:'Jouer Maintenant',
+        toolTag1:'Texte / Analyse', toolTitle1:'Compteur de Caractères', toolDesc1:'Analyse en temps réel des caractères (avec/sans espaces), mots, phrases, lignes et octets UTF-8. Utile pour les limites de blog et la vérification des réseaux sociaux.', toolCta1:"Ouvrir l'Outil",
+        toolTag2:'Mathématiques / Calcul', toolTitle2:'Calculatrice', toolDesc2:'Calculatrice scientifique prenant en charge les opérations de base, racines carrées, pourcentages, parenthèses et fonctions trigonométriques. Enregistre l\'historique et bascule entre les modes basique/scientifique.', toolCta2:"Ouvrir l'Outil",
+        toolTag3:'Langue / Traduction', toolTitle3:'Traducteur', toolDesc3:"Prend en charge la traduction entre le coréen, l'anglais, le japonais, le chinois, l'espagnol, le français et plus encore. Copiez les résultats instantanément ou changez librement le sens de traduction.", toolCta3:"Ouvrir l'Outil",
+        ccTitle:'Compteur de Caractères', ccSubtitle:'Tapez ou collez du texte pour l\'analyser en temps réel', ccPlaceholder:'Tapez ou collez votre texte ici...',
+        labelChars:'Caractères (avec espaces)', labelCharsNoSpace:'Caractères (sans espaces)', labelWords:'Mots', labelLines:'Lignes', labelSentences:'Phrases', labelBytes:'Octets (UTF-8)',
+        btnCopy:'Copier', btnClear:'Effacer',
+        trTitle:'Traducteur', trSubtitle:'Entrez le texte et appuyez sur Traduire',
+        trLabelInput:'Entrée', trLabelOutput:'Traduction',
+        btnTranslate:'Traduire', btnCopyTR:'Copier le Résultat', btnClearTR:'Effacer',
+        searchPlaceholder:'🔍 Rechercher des outils ou jeux...', searchEmpty:'Aucun résultat trouvé',
+        footer:"© arong's hub · Made with ❤️", pageTitle:"le portail d'arong — Outils et Jeux Gratuits en Ligne"
     }
 };
 
-function toggleLang() {
-    isKorean = !isKorean;
-    var lang = isKorean ? 'ko' : 'en';
+function setLang(lang) {
+    if (!T[lang]) lang = 'en';
+    currentLang = lang;
+    isKorean = (lang === 'ko');
     localStorage.setItem('siteLang', lang);
     var t = T[lang];
     var ids = ['label','mainTitle','subText','tag1','cardTitle1','cardDesc1','ctaText1','tag2','cardTitle2','cardDesc2','ctaText2','tag3','cardTitle3','cardDesc3','ctaText3',
@@ -4254,7 +4344,8 @@ function toggleLang() {
                'ccTitle','ccSubtitle','labelChars','labelCharsNoSpace','labelWords','labelLines','labelSentences','labelBytes','btnCopy','btnClear',
                'trTitle','trSubtitle','trLabelInput','trLabelOutput','btnTranslate','btnCopyTR','btnClearTR'];
     ids.forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = t[id]; });
-    document.getElementById('langBtn').textContent = t.btn;
+    var langSelect = document.getElementById('langSelect');
+    if (langSelect) langSelect.value = lang;
     document.getElementById('tabGames').innerHTML = t.tabGames;
     document.getElementById('tabTools').innerHTML = t.tabTools;
     document.getElementById('ccInput').placeholder = t.ccPlaceholder;
@@ -4263,14 +4354,19 @@ function toggleLang() {
     document.documentElement.lang = lang;
 
     document.querySelectorAll('[data-ko]').forEach(function(el) {
-        el.textContent = isKorean ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+        var val = el.getAttribute('data-' + lang);
+        el.textContent = val != null ? val : (lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en'));
     });
     document.querySelectorAll('[data-ko-html]').forEach(function(el) {
-        el.innerHTML = isKorean ? el.getAttribute('data-ko-html') : el.getAttribute('data-en-html');
+        var val = el.getAttribute('data-' + lang + '-html');
+        el.innerHTML = val != null ? val : (lang === 'ko' ? el.getAttribute('data-ko-html') : el.getAttribute('data-en-html'));
     });
     document.querySelectorAll('[data-ko-placeholder]').forEach(function(el) {
-        el.placeholder = isKorean ? el.getAttribute('data-ko-placeholder') : el.getAttribute('data-en-placeholder');
+        var val = el.getAttribute('data-' + lang + '-placeholder');
+        el.placeholder = val != null ? val : (lang === 'ko' ? el.getAttribute('data-ko-placeholder') : el.getAttribute('data-en-placeholder'));
     });
+    document.getElementById('siteSearchInput').placeholder = t.searchPlaceholder;
+    document.getElementById('searchEmpty').textContent = t.searchEmpty;
 
     if (document.getElementById('modalTimer').classList.contains('open')) { tmReset(); swReset(); }
     if (document.getElementById('modalPassword').classList.contains('open')) pwGenerate();
@@ -6019,7 +6115,8 @@ window.addEventListener('scroll', function() {
 /* ── Init on load ── */
 (function() {
     var savedLang = localStorage.getItem('siteLang');
-    if (savedLang === 'en') toggleLang();
+    if (savedLang && T[savedLang] && savedLang !== 'ko') setLang(savedLang);
+    else document.getElementById('langSelect').value = 'ko';
     initFavStars();
     renderQuickAccess();
     initA11y();
