@@ -604,17 +604,20 @@
 
         /* CONNECT FOUR */
         .c4-board{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#0a0a1a;border:1px solid rgba(255,230,0,.15);border-radius:6px;padding:6px;max-width:380px;margin:12px auto 0;}
-        .c4-cell{aspect-ratio:1;background:rgba(255,255,255,.06);border-radius:50%;cursor:pointer;transition:background .15s;}
+        .c4-cell{aspect-ratio:1;position:relative;background:rgba(255,255,255,.06);border-radius:50%;cursor:pointer;transition:background .15s;overflow:visible;}
         .c4-cell:hover{background:rgba(255,255,255,.14);}
-        .c4-cell.p1{background:var(--neon-yellow);}
-        .c4-cell.p2{background:var(--neon-pink);}
+        .c4-cell.p1, .c4-cell.p2{background:transparent;}
+        .c4-cell.p1::after, .c4-cell.p2::after{content:'';position:absolute;inset:0;border-radius:50%;}
+        .c4-cell.p1::after{background:var(--neon-yellow);box-shadow:0 0 10px rgba(255,230,0,.6);}
+        .c4-cell.p2::after{background:var(--neon-pink);box-shadow:0 0 10px rgba(255,0,110,.6);}
+        .c4-cell.new.p1::after, .c4-cell.new.p2::after{animation:c4Drop .45s cubic-bezier(.5,0,.4,1.4);}
+        @keyframes c4Drop{0%{transform:translateY(-260%);opacity:.6}70%{transform:translateY(6%)}100%{transform:translateY(0)}}
 
         /* 15 PUZZLE */
-        .p15-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:320px;margin:0 auto;}
-        .p15-tile{aspect-ratio:1;background:rgba(255,0,110,.15);border:1px solid rgba(255,0,110,.35);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;cursor:pointer;transition:background .1s,transform .1s;}
-        .p15-tile:hover{background:rgba(255,0,110,.28);}
-        .p15-tile:active{transform:scale(.94);}
-        .p15-tile.empty{background:transparent;border-color:transparent;cursor:default;}
+        .p15-grid{position:relative;width:100%;max-width:320px;aspect-ratio:1;margin:0 auto;background:#0a0a1a;border:1px solid rgba(255,0,110,.15);border-radius:6px;}
+        .p15-tile{position:absolute;width:23%;height:23%;background:linear-gradient(160deg,rgba(255,0,110,.28),rgba(255,0,110,.12));border:1px solid rgba(255,0,110,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);transition:left .16s cubic-bezier(.2,.8,.2,1),top .16s cubic-bezier(.2,.8,.2,1),background .1s,transform .1s;}
+        .p15-tile:hover{background:rgba(255,0,110,.4);}
+        .p15-tile:active{transform:scale(.92);}
 
         /* WORD SCRAMBLE */
         .scramble-word{text-align:center;font-family:'Orbitron',sans-serif;font-size:2rem;letter-spacing:6px;color:var(--neon-purple);margin-bottom:8px;}
@@ -663,7 +666,10 @@
 <div class="container">
     <div class="topbar">
         <div style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.2);">ARONG.PRO</div>
-        <button class="lang-btn" id="langBtn" onclick="toggleLang()">🌐 English</button>
+        <div style="display:flex;gap:8px;">
+            <button class="lang-btn" id="sfxBtn" onclick="toggleSfx()" title="효과음 켜기/끄기">🔊</button>
+            <button class="lang-btn" id="langBtn" onclick="toggleLang()">🌐 English</button>
+        </div>
     </div>
 
     <header class="header">
@@ -2265,6 +2271,79 @@
     });
 })();
 
+/* ── Sound Effects (synthesized, no audio files) ── */
+var SFX = (function() {
+    var ctx = null;
+    var enabled = localStorage.getItem('sfxEnabled') !== 'off';
+    function getCtx() {
+        if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') ctx.resume();
+        return ctx;
+    }
+    function tone(freq, dur, type, vol, glideTo, delay) {
+        if (!enabled) return;
+        try {
+            var c = getCtx();
+            var t0 = c.currentTime + (delay || 0);
+            var osc = c.createOscillator();
+            var gain = c.createGain();
+            osc.type = type || 'square';
+            osc.frequency.setValueAtTime(freq, t0);
+            if (glideTo) osc.frequency.exponentialRampToValueAtTime(glideTo, t0 + dur);
+            gain.gain.setValueAtTime(vol || 0.14, t0);
+            gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+            osc.connect(gain); gain.connect(c.destination);
+            osc.start(t0); osc.stop(t0 + dur + 0.02);
+        } catch (e) {}
+    }
+    function noiseBurst(dur, vol) {
+        if (!enabled) return;
+        try {
+            var c = getCtx();
+            var size = Math.max(1, Math.floor(c.sampleRate * dur));
+            var buffer = c.createBuffer(1, size, c.sampleRate);
+            var data = buffer.getChannelData(0);
+            for (var i = 0; i < size; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / size, 1.5);
+            var src = c.createBufferSource();
+            src.buffer = buffer;
+            var gain = c.createGain();
+            gain.gain.setValueAtTime(vol || 0.2, c.currentTime);
+            src.connect(gain); gain.connect(c.destination);
+            src.start();
+        } catch (e) {}
+    }
+    return {
+        click: function() { tone(560, 0.05, 'square', 0.08); },
+        tone: function(freq, dur) { tone(freq, dur || 0.22, 'sine', 0.16); },
+        blip: function(f) { tone(f || 440, 0.07, 'square', 0.1, (f || 440) * 1.4); },
+        move: function() { tone(300, 0.04, 'square', 0.06, 340); },
+        hit: function() { tone(180, 0.08, 'square', 0.12, 70); },
+        pop: function() { tone(700, 0.09, 'sine', 0.13, 1100); },
+        coin: function() { tone(988, 0.09, 'square', 0.1); tone(1319, 0.12, 'square', 0.1, null, 0.07); },
+        powerup: function() { tone(440, 0.18, 'sine', 0.15, 1046); },
+        explode: function() { noiseBurst(0.28, 0.22); tone(90, 0.3, 'sawtooth', 0.14, 40); },
+        boom: function() { noiseBurst(0.4, 0.28); tone(70, 0.4, 'sawtooth', 0.18, 30); },
+        win: function() { [523, 659, 784, 1047].forEach(function(f, i) { tone(f, 0.16, 'square', 0.12, null, i * 0.09); }); },
+        lose: function() { tone(220, 0.3, 'sawtooth', 0.14, 90); },
+        error: function() { tone(150, 0.12, 'square', 0.11); },
+        toggle: function() {
+            enabled = !enabled;
+            localStorage.setItem('sfxEnabled', enabled ? 'on' : 'off');
+            if (enabled) tone(660, 0.08, 'sine', 0.12);
+            return enabled;
+        },
+        isEnabled: function() { return enabled; }
+    };
+})();
+function toggleSfx() {
+    var on = SFX.toggle();
+    document.getElementById('sfxBtn').textContent = on ? '🔊' : '🔇';
+}
+(function() {
+    var btn = document.getElementById('sfxBtn');
+    if (btn) btn.textContent = SFX.isEnabled() ? '🔊' : '🔇';
+})();
+
 /* ── Tabs ── */
 function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -3068,8 +3147,11 @@ function t2048Move(dir) {
         t2048.board = newBoard;
         for (r = 0; r < 4; r++) for (c = 0; c < 4; c++) if (mergedGrid[r][c]) t2048.mergedCells.push(r + ',' + c);
         t2048.newCell = t2048AddTile();
+        if (t2048.mergedCells.length) SFX.pop(); else SFX.move();
         if (t2048.score > t2048.best) { t2048.best = t2048.score; localStorage.setItem('t2048Best', t2048.best); }
         t2048CheckOver();
+    } else {
+        SFX.error();
     }
     t2048Render();
 }
@@ -3081,6 +3163,7 @@ function t2048CheckOver() {
         if (r < 3 && b[r][c] === b[r + 1][c]) return;
     }
     t2048.over = true;
+    SFX.lose();
 }
 function t2048Render() {
     var grid = document.getElementById('t2048Grid');
@@ -3164,6 +3247,7 @@ function snakeTick() {
     if (head.x === snake.food.x && head.y === snake.food.y) {
         snake.score++;
         snake.food = snakeRandFood();
+        SFX.coin();
     } else {
         snake.body.pop();
     }
@@ -3172,6 +3256,7 @@ function snakeGameOver() {
     snake.running = false;
     snake.over = true;
     clearInterval(snake.timer);
+    SFX.lose();
     if (snake.score > snake.best) { snake.best = snake.score; localStorage.setItem('snakeBest', snake.best); }
     document.getElementById('snakeStatus').textContent = L('게임 오버! 점수 ' + snake.score + ' — 새 게임을 눌러 다시 시작하세요', 'Game over! Score ' + snake.score + ' — press New Game to try again');
 }
@@ -3291,6 +3376,7 @@ function mineCellClick(r, c) {
     if (!mine.started) { minePlaceMines(r, c); mine.started = true; mine.timerHandle = setInterval(mineTick, 1000); }
     if (cell.mine) { mineLose(r, c); return; }
     mineReveal(r, c);
+    if (!mine.over) SFX.click();
     mineCheckWin();
     mineRender();
 }
@@ -3304,6 +3390,7 @@ function mineFlag(r, c) {
     if (cell.revealed) return;
     cell.flagged = !cell.flagged;
     mine.flags += cell.flagged ? 1 : -1;
+    SFX.blip(cell.flagged ? 520 : 380);
     document.getElementById('mineCounter').textContent = mine.mines - mine.flags;
     mineRender();
 }
@@ -3328,6 +3415,7 @@ function mineLose(r, c) {
     mine.over = true;
     mine.hitR = r; mine.hitC = c;
     clearInterval(mine.timerHandle);
+    SFX.boom();
     for (var r = 0; r < mine.rows; r++) for (var c = 0; c < mine.cols; c++) if (mine.grid[r][c].mine) mine.grid[r][c].revealed = true;
     document.getElementById('mineFace').textContent = '😵';
     document.getElementById('mineStatus').textContent = L('게임 오버! 지뢰를 밟았습니다.', 'Boom! You hit a mine.');
@@ -3338,6 +3426,7 @@ function mineCheckWin() {
     if (mine.revealed >= totalSafe) {
         mine.over = true;
         clearInterval(mine.timerHandle);
+        SFX.win();
         document.getElementById('mineFace').textContent = '😎';
         document.getElementById('mineStatus').textContent = L('축하합니다! 모든 칸을 클리어했습니다.', 'You win! All safe cells cleared.');
     }
@@ -3457,13 +3546,14 @@ function brkLoop() {
         if (brk.trail.length > 6) brk.trail.pop();
         brk.ballX += brk.ballVX;
         brk.ballY += brk.ballVY;
-        if (brk.ballX <= brk.ballR || brk.ballX >= brk.w - brk.ballR) brk.ballVX *= -1;
-        if (brk.ballY <= brk.ballR) brk.ballVY *= -1;
+        if (brk.ballX <= brk.ballR || brk.ballX >= brk.w - brk.ballR) { brk.ballVX *= -1; SFX.blip(300); }
+        if (brk.ballY <= brk.ballR) { brk.ballVY *= -1; SFX.blip(300); }
         if (brk.ballY + brk.ballR >= brk.h - 20 && brk.ballY + brk.ballR <= brk.h - 20 + brk.paddleH + 6 &&
             brk.ballX >= brk.paddleX && brk.ballX <= brk.paddleX + brk.paddleW && brk.ballVY > 0) {
             brk.ballVY *= -1;
             var hitPos = (brk.ballX - (brk.paddleX + brk.paddleW / 2)) / (brk.paddleW / 2);
             brk.ballVX = hitPos * 4;
+            SFX.blip(440);
         }
         for (var i = 0; i < brk.bricks.length; i++) {
             var b = brk.bricks[i];
@@ -3474,6 +3564,7 @@ function brkLoop() {
                 brk.ballVY *= -1;
                 brk.score += 10;
                 brkSpawnParticles(b.x + b.w / 2, b.y + b.h / 2, b.color);
+                SFX.pop();
                 document.getElementById('brkScore').textContent = brk.score;
                 break;
             }
@@ -3482,9 +3573,11 @@ function brkLoop() {
             brk.lives--;
             brk.flash = 1;
             brk.shake = 8;
+            SFX.hit();
             document.getElementById('brkLives').textContent = brk.lives;
             if (brk.lives <= 0) {
                 brk.running = false;
+                SFX.lose();
                 document.getElementById('brkStatus').textContent = L('게임 오버! 새 게임을 눌러 다시 시작하세요.', 'Game over! Press New Game to try again.');
             } else {
                 brkResetBall();
@@ -3494,6 +3587,7 @@ function brkLoop() {
         }
         if (brk.bricks.every(function(bb) { return !bb.alive; })) {
             brk.running = false;
+            SFX.win();
             document.getElementById('brkStatus').textContent = L('클리어! 모든 벽돌을 깼습니다 🎉', 'Cleared! You broke every brick 🎉');
         }
     }
@@ -3600,6 +3694,7 @@ function rxClick() {
     } else if (rx.state === 'wait') {
         clearTimeout(rx.timeoutHandle);
         rx.state = 'toosoon';
+        SFX.error();
         rxRenderBox();
     } else if (rx.state === 'ready') {
         var elapsed = Date.now() - rx.startTime;
@@ -3608,6 +3703,7 @@ function rxClick() {
         localStorage.setItem('rxHistory', JSON.stringify(rx.history));
         rx.lastResult = elapsed;
         rx.state = 'result';
+        SFX.pop();
         rxRenderBox();
         rxRenderStats();
     } else {
@@ -3685,6 +3781,7 @@ function memFlip(i) {
     if (!memGame.started) { memGame.started = true; memGame.timerHandle = setInterval(memTick, 1000); }
     card.flipped = true;
     memGame.flipped.push(i);
+    SFX.click();
     memRender();
     if (memGame.flipped.length === 2) {
         memGame.moves++;
@@ -3694,9 +3791,11 @@ function memFlip(i) {
             memGame.cards[a].matched = true; memGame.cards[b].matched = true;
             memGame.matched += 2;
             memGame.flipped = [];
+            SFX.pop();
             memCheckWin();
         } else {
             memGame.locked = true;
+            SFX.error();
             setTimeout(function() {
                 memGame.cards[a].flipped = false;
                 memGame.cards[b].flipped = false;
@@ -3710,6 +3809,7 @@ function memFlip(i) {
 function memCheckWin() {
     if (memGame.matched === memGame.cards.length) {
         clearInterval(memGame.timerHandle);
+        SFX.win();
         if (!memGame.best || memGame.seconds < memGame.best) {
             memGame.best = memGame.seconds;
             localStorage.setItem('memMatchBest', memGame.best);
@@ -4248,6 +4348,7 @@ function ttClick(i) {
     if (tt.over || tt.board[i]) return;
     if (tt.vsAI && tt.turn === 'O') return;
     tt.board[i] = tt.turn;
+    SFX.click();
     var w = ttWinner(tt.board);
     if (w) { ttEnd(w); return; }
     if (tt.board.every(function(c) { return c; })) { ttEnd(null); return; }
@@ -4259,9 +4360,11 @@ function ttEnd(w) {
     tt.over = true;
     if (w) {
         tt.scores[w.player]++;
+        if (tt.vsAI) { if (w.player === 'X') SFX.win(); else SFX.lose(); } else SFX.win();
         document.getElementById('ttStatus').textContent = L(w.player + ' 승리! 🎉', w.player + ' wins! 🎉');
     } else {
         tt.scores.D++;
+        SFX.blip(300);
         document.getElementById('ttStatus').textContent = L('무승부입니다', "It's a draw");
     }
     localStorage.setItem('ttScores', JSON.stringify(tt.scores));
@@ -4273,6 +4376,7 @@ function ttAIMove() {
     var best = ttBestMove(tt.board.slice());
     if (best === -1) return;
     tt.board[best] = 'O';
+    SFX.click();
     var w = ttWinner(tt.board);
     if (w) { ttEnd(w); return; }
     if (tt.board.every(function(c) { return c; })) { ttEnd(null); return; }
@@ -4340,6 +4444,7 @@ function rpsPlay(choice) {
     else if (RPS_BEATS[choice] === cpu) { result = 'win'; rpsState.wins++; rpsState.streak++; }
     else { result = 'lose'; rpsState.losses++; rpsState.streak = 0; }
     var msgs = { win: L('승리했습니다! 🎉', 'You win! 🎉'), lose: L('패배했습니다', 'You lose'), draw: L('비겼습니다', "It's a draw") };
+    if (result === 'win') SFX.win(); else if (result === 'lose') SFX.lose(); else SFX.blip(300);
     document.getElementById('rpsResult').textContent = msgs[result];
     localStorage.setItem('rpsState', JSON.stringify(rpsState));
     rpsRenderScores();
@@ -4394,6 +4499,7 @@ function whackSpawn() {
 function whackHit(i) {
     if (!whack.running || i !== whack.activeIdx) return;
     whack.score++;
+    SFX.pop();
     document.getElementById('whackScore').textContent = whack.score;
     whack.activeIdx = -1;
     whackRender();
@@ -4403,6 +4509,7 @@ function whackEnd() {
     clearInterval(whack.timerHandle);
     clearTimeout(whack.moleTimeout);
     whack.activeIdx = -1;
+    SFX.win();
     whackRender();
     var best = parseInt(localStorage.getItem('whackBest') || '0', 10);
     if (whack.score > best) { best = whack.score; localStorage.setItem('whackBest', best); }
@@ -4445,10 +4552,12 @@ function simonPlaySequence() {
     }
     setTimeout(step, 500);
 }
+var SIMON_TONES = [329.63, 261.63, 220.0, 164.81];
 function simonLight(idx) {
     var cell = document.querySelector('.simon-cell[data-idx="' + idx + '"]');
     if (!cell) return;
     cell.classList.add('lit');
+    SFX.tone(SIMON_TONES[idx], 0.3);
     setTimeout(function() { cell.classList.remove('lit'); }, 350);
 }
 function simonUserPress(idx) {
@@ -4458,12 +4567,14 @@ function simonUserPress(idx) {
     simon.userIdx++;
     if (simon.userIdx === simon.seq.length) {
         simon.accepting = false;
+        SFX.pop();
         setTimeout(simonNextRound, 700);
     }
 }
 function simonEnd() {
     simon.playing = false;
     simon.accepting = false;
+    SFX.lose();
     var roundsCleared = simon.round - 1;
     if (roundsCleared > simon.best) { simon.best = roundsCleared; localStorage.setItem('simonBest', simon.best); document.getElementById('simonBest').textContent = simon.best; }
     document.getElementById('simonStatus').textContent = L('틀렸습니다! 라운드 ' + roundsCleared + '에서 종료 — 시작을 눌러 재도전', 'Wrong! Game over at round ' + roundsCleared + ' — press start to retry');
@@ -4530,6 +4641,7 @@ function typingFinish(typed) {
     document.getElementById('typingAcc').textContent = acc + '%';
     document.getElementById('typingStatus').textContent = L('완료! 새 문장 버튼을 눌러 다시 시도하세요', 'Done! Press New Sentence to try again');
     document.getElementById('typingInput').disabled = true;
+    if (acc >= 90) SFX.win(); else SFX.blip(300);
 }
 
 /* ── Number Guessing Game ── */
@@ -4557,14 +4669,17 @@ function guessSubmit() {
     document.getElementById('guessAttempts').textContent = guessState.attempts;
     if (val === guessState.target) {
         guessState.over = true;
+        SFX.win();
         var best = parseInt(localStorage.getItem('guessBest') || '0', 10);
         if (!best || guessState.attempts < best) { localStorage.setItem('guessBest', guessState.attempts); document.getElementById('guessBest').textContent = guessState.attempts; }
         document.getElementById('guessStatus').textContent = L('정답입니다! 🎉 ' + guessState.attempts + '번 만에 맞췄습니다', 'Correct! 🎉 You got it in ' + guessState.attempts + ' tries');
         guessState.history.unshift(val + ' ✅');
     } else if (val < guessState.target) {
+        SFX.blip(360);
         document.getElementById('guessStatus').textContent = L('더 큰 숫자입니다 ↑', 'Higher ↑');
         guessState.history.unshift(val + ' ↑');
     } else {
+        SFX.blip(240);
         document.getElementById('guessStatus').textContent = L('더 작은 숫자입니다 ↓', 'Lower ↓');
         guessState.history.unshift(val + ' ↓');
     }
@@ -4579,6 +4694,7 @@ function c4Init() {
     c4.board = [];
     for (var r = 0; r < c4.rows; r++) c4.board.push(new Array(c4.cols).fill(0));
     c4.turn = 1; c4.over = false;
+    c4.lastRow = -1; c4.lastCol = -1;
     document.getElementById('c4Status').textContent = L('플레이어 1 (노랑) 차례입니다', "Player 1 (yellow)'s turn");
     c4Render();
 }
@@ -4588,14 +4704,18 @@ function c4Drop(col) {
     for (var r = c4.rows - 1; r >= 0; r--) if (c4.board[r][col] === 0) { row = r; break; }
     if (row === -1) return;
     c4.board[row][col] = c4.turn;
+    c4.lastRow = row; c4.lastCol = col;
+    SFX.hit();
     if (c4CheckWin(row, col)) {
         c4.over = true;
+        SFX.win();
         document.getElementById('c4Status').textContent = L('플레이어 ' + c4.turn + ' 승리! 🎉', 'Player ' + c4.turn + ' wins! 🎉');
         c4Render();
         return;
     }
     if (c4.board.every(function(rw) { return rw.every(function(c) { return c !== 0; }); })) {
         c4.over = true;
+        SFX.blip(300);
         document.getElementById('c4Status').textContent = L('무승부입니다', "It's a draw");
         c4Render();
         return;
@@ -4622,14 +4742,15 @@ function c4Render() {
     for (var r = 0; r < c4.rows; r++) for (var c = 0; c < c4.cols; c++) {
         var div = document.createElement('div');
         var v = c4.board[r][c];
-        div.className = 'c4-cell' + (v === 1 ? ' p1' : v === 2 ? ' p2' : '');
+        var isNew = (r === c4.lastRow && c === c4.lastCol);
+        div.className = 'c4-cell' + (v === 1 ? ' p1' : v === 2 ? ' p2' : '') + (isNew ? ' new' : '');
         div.onclick = (function(col) { return function() { c4Drop(col); }; })(c);
         board.appendChild(div);
     }
 }
 
 /* ── 15 Puzzle ── */
-var p15 = { tiles: [], moves: 0, seconds: 0, timerHandle: null, started: false, over: false };
+var p15 = { tiles: [], moves: 0, seconds: 0, timerHandle: null, started: false, over: false, tileEls: {} };
 function p15Init() {
     clearInterval(p15.timerHandle);
     p15.tiles = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
@@ -4638,7 +4759,7 @@ function p15Init() {
     document.getElementById('p15Moves').textContent = 0;
     document.getElementById('p15Time').textContent = 0;
     document.getElementById('p15Status').textContent = '';
-    p15Render();
+    p15BuildTiles();
 }
 function p15Shuffle() {
     for (var i = p15.tiles.length - 1; i > 0; i--) {
@@ -4660,33 +4781,48 @@ function p15IsSolved() {
     return true;
 }
 function p15Tick() { p15.seconds++; document.getElementById('p15Time').textContent = p15.seconds; }
-function p15Click(i) {
+function p15ClickValue(v) {
     if (p15.over) return;
+    var idx = p15.tiles.indexOf(v);
     var blank = p15.tiles.indexOf(0);
-    var r1 = Math.floor(i / 4), c1 = i % 4, r2 = Math.floor(blank / 4), c2 = blank % 4;
+    var r1 = Math.floor(idx / 4), c1 = idx % 4, r2 = Math.floor(blank / 4), c2 = blank % 4;
     if (Math.abs(r1 - r2) + Math.abs(c1 - c2) !== 1) return;
     if (!p15.started) { p15.started = true; p15.timerHandle = setInterval(p15Tick, 1000); }
-    p15.tiles[blank] = p15.tiles[i];
-    p15.tiles[i] = 0;
+    p15.tiles[blank] = v;
+    p15.tiles[idx] = 0;
     p15.moves++;
+    SFX.move();
     document.getElementById('p15Moves').textContent = p15.moves;
+    p15PositionTiles();
     if (p15IsSolved()) {
         p15.over = true;
         clearInterval(p15.timerHandle);
+        SFX.win();
         document.getElementById('p15Status').textContent = L('완성했습니다! 🎉 이동 ' + p15.moves + '회 · ' + p15.seconds + '초', 'Solved! 🎉 ' + p15.moves + ' moves · ' + p15.seconds + 's');
     }
-    p15Render();
 }
-function p15Render() {
+function p15BuildTiles() {
     var grid = document.getElementById('p15Grid');
     grid.innerHTML = '';
-    p15.tiles.forEach(function(v, i) {
+    p15.tileEls = {};
+    for (var v = 1; v <= 15; v++) {
         var div = document.createElement('div');
-        div.className = 'p15-tile' + (v === 0 ? ' empty' : '');
-        div.textContent = v || '';
-        div.onclick = function() { p15Click(i); };
+        div.className = 'p15-tile';
+        div.textContent = v;
+        div.onclick = (function(val) { return function() { p15ClickValue(val); }; })(v);
         grid.appendChild(div);
-    });
+        p15.tileEls[v] = div;
+    }
+    p15PositionTiles();
+}
+function p15PositionTiles() {
+    for (var v = 1; v <= 15; v++) {
+        var idx = p15.tiles.indexOf(v);
+        var row = Math.floor(idx / 4), col = idx % 4;
+        var el = p15.tileEls[v];
+        el.style.left = (col * 25 + 1) + '%';
+        el.style.top = (row * 25 + 1) + '%';
+    }
 }
 
 /* ── Word Scramble ── */
@@ -4734,10 +4870,12 @@ function scrambleSubmit() {
     if (!val) return;
     if (val === scramble.current.word) {
         scramble.score++;
+        SFX.win();
         document.getElementById('scrambleScore').textContent = scramble.score;
         document.getElementById('scrambleStatus').textContent = L('정답입니다! 🎉', 'Correct! 🎉');
         setTimeout(scrambleNext, 900);
     } else {
+        SFX.error();
         document.getElementById('scrambleStatus').textContent = L('틀렸습니다, 다시 시도하세요', 'Not quite, try again');
     }
 }
@@ -4785,22 +4923,26 @@ function pongLoop() {
     pong.cY = Math.max(0, Math.min(pong.h - pong.pH, pong.cY));
     pong.ballX += pong.ballVX;
     pong.ballY += pong.ballVY;
-    if (pong.ballY <= 4 || pong.ballY >= pong.h - 4) pong.ballVY *= -1;
+    if (pong.ballY <= 4 || pong.ballY >= pong.h - 4) { pong.ballVY *= -1; SFX.blip(300); }
     if (pong.ballX <= pong.pW + 4 && pong.ballY >= pong.pY && pong.ballY <= pong.pY + pong.pH && pong.ballVX < 0) {
         pong.ballVX *= -1.05;
         pong.ballVY += (pong.ballY - (pong.pY + pong.pH / 2)) * 0.1;
+        SFX.blip(440);
     }
     if (pong.ballX >= pong.w - pong.pW - 4 && pong.ballY >= pong.cY && pong.ballY <= pong.cY + pong.pH && pong.ballVX > 0) {
         pong.ballVX *= -1.05;
         pong.ballVY += (pong.ballY - (pong.cY + pong.pH / 2)) * 0.1;
+        SFX.blip(440);
     }
     if (pong.ballX < 0) {
         pong.scoreC++;
+        SFX.error();
         document.getElementById('pongScoreC').textContent = pong.scoreC;
         if (!pongCheckEnd()) pongResetBall(1);
     }
     if (pong.ballX > pong.w) {
         pong.scoreP++;
+        SFX.coin();
         document.getElementById('pongScoreP').textContent = pong.scoreP;
         if (!pongCheckEnd()) pongResetBall(-1);
     }
@@ -4809,6 +4951,7 @@ function pongLoop() {
 function pongCheckEnd() {
     if (pong.scoreP >= 5 || pong.scoreC >= 5) {
         pong.running = false;
+        if (pong.scoreP >= 5) SFX.win(); else SFX.lose();
         document.getElementById('pongStatus').textContent = pong.scoreP >= 5 ? L('승리했습니다! 🎉', 'You win! 🎉') : L('패배했습니다', 'You lose');
         return true;
     }
@@ -5121,6 +5264,7 @@ function shooterStartWave(n) {
     shooter.spawnTimer = 10;
     shooter.waveBannerText = L('웨이브 ' + n, 'WAVE ' + n);
     shooter.waveBanner = 90;
+    if (n > 1) SFX.win();
 }
 function shooterRenderLives() {
     document.getElementById('shooterLives').textContent = '❤️'.repeat(Math.max(0, shooter.lives));
@@ -5142,6 +5286,7 @@ function shooterUseSkill() {
     shooter.gauge = 0;
     shooter.shake = 16;
     shooter.novaT = 30;
+    SFX.boom();
     for (var i = shooter.enemies.length - 1; i >= 0; i--) {
         var e = shooter.enemies[i];
         if (e.isBoss) {
@@ -5195,6 +5340,7 @@ function shooterKillEnemy(idx) {
     shooter.score += Math.round(e.points * mult);
     shooterGainGauge(Math.round(e.points / 3));
     shooterSpawnParticles(e.x, e.y, e.color, e.isBoss ? 30 : 14);
+    if (e.isBoss) SFX.boom(); else SFX.pop();
     if (Math.random() < (e.isBoss ? 1 : 0.12)) shooterSpawnPowerup(e.x, e.y);
     shooter.enemies.splice(idx, 1);
     document.getElementById('shooterScore').textContent = shooter.score;
@@ -5212,6 +5358,7 @@ function shooterPointerMove(e) {
 function shooterGameOver() {
     shooter.running = false;
     shooter.over = true;
+    SFX.lose();
     if (shooter.score > shooter.best) {
         shooter.best = shooter.score;
         localStorage.setItem('shooterBest', shooter.best);
@@ -5243,6 +5390,7 @@ function shooterLoop() {
         } else {
             shooter.bullets.push({ x: shooter.player.x, y: shooter.player.y - 14, vx: 0, vy: -7 });
         }
+        SFX.blip(880);
     }
     shooter.bullets.forEach(function(b) { b.x += b.vx; b.y += b.vy; });
     shooter.bullets = shooter.bullets.filter(function(b) { return b.y > -10 && b.x > -10 && b.x < shooter.w + 10; });
@@ -5273,7 +5421,7 @@ function shooterLoop() {
                 e.hp--; e.flash = 1;
                 shooterGainGauge(1);
                 shooterSpawnParticles(b.x, b.y, e.color, 4);
-                if (e.hp <= 0) shooterKillEnemy(ei);
+                if (e.hp <= 0) shooterKillEnemy(ei); else SFX.hit();
                 break;
             }
         }
@@ -5288,10 +5436,12 @@ function shooterLoop() {
                     shooter.shieldT = 0;
                     shooterSpawnParticles(pe.x, pe.y, '#00f5ff', 16);
                     shooter.enemies.splice(pi, 1);
+                    SFX.blip(600);
                 } else {
                     shooter.lives--;
                     shooter.invuln = 90;
                     shooter.shake = 10;
+                    SFX.hit();
                     shooterSpawnParticles(shooter.player.x, shooter.player.y, '#ff006e', 20);
                     shooter.enemies.splice(pi, 1);
                     shooterRenderLives();
@@ -5310,6 +5460,7 @@ function shooterLoop() {
             if (pw.type === 'rapid') shooter.rapidT = 480;
             else if (pw.type === 'spread') shooter.spreadT = 480;
             else shooter.shieldT = 1;
+            SFX.powerup();
             shooterSpawnParticles(pw.x, pw.y, '#00ff88', 10);
             shooter.powerups.splice(wi, 1);
         } else if (pw.y > shooter.h + 20) {
