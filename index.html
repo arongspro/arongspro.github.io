@@ -658,6 +658,32 @@
         .shooter-skill-btn{background:rgba(255,0,110,.08);border:1px solid rgba(255,0,110,.3);color:rgba(255,255,255,.3);font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;padding:7px 12px;border-radius:6px;cursor:not-allowed;white-space:nowrap;transition:all .2s;}
         .shooter-skill-btn.ready{color:#000;background:var(--neon-yellow);border-color:var(--neon-yellow);cursor:pointer;box-shadow:0 0 16px rgba(255,230,0,.7);animation:pulse 1s ease-in-out infinite;}
         #shooterCanvas{display:block;margin:0 auto;background:#000;border:1px solid rgba(255,0,110,.25);border-radius:4px;max-width:100%;height:auto;touch-action:none;}
+
+        /* ODD COLOR OUT */
+        .cm-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+        .cm-hud{display:flex;justify-content:space-between;align-items:center;max-width:360px;margin:0 auto 10px;gap:10px;}
+        .cm-lives{color:var(--neon-purple);letter-spacing:2px;font-size:13px;white-space:nowrap;}
+        .cm-timer-wrap{flex:1;height:10px;background:rgba(255,255,255,.07);border:1px solid rgba(185,111,255,.3);border-radius:5px;overflow:hidden;}
+        .cm-timer-fill{height:100%;width:100%;background:linear-gradient(90deg,#b96fff,#ff006e);transition:width .1s linear;}
+        .cm-grid{display:grid;gap:6px;max-width:360px;margin:0 auto;}
+        .cm-tile{aspect-ratio:1;border-radius:6px;cursor:pointer;transition:transform .1s;}
+        .cm-tile:hover{transform:scale(1.04);}
+        .cm-tile:active{transform:scale(.94);}
+        .cm-tile.wrong-shake{animation:cmShake .3s ease;}
+        @keyframes cmShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+        /* FLAG QUIZ */
+        .fq-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+        .fq-flag{text-align:center;margin:10px 0 18px;}
+        .fq-flag img{width:140px;height:auto;max-height:100px;object-fit:contain;border-radius:4px;box-shadow:0 6px 20px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.1);}
+        .fq-flag .fq-emoji-fallback{font-size:5rem;line-height:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));}
+        .fq-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+        .fq-opt{background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.25);color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;padding:14px 10px;border-radius:6px;cursor:pointer;transition:background .15s,transform .1s;text-align:center;}
+        .fq-opt:hover{background:rgba(0,255,136,.16);}
+        .fq-opt:active{transform:scale(.97);}
+        .fq-opt.correct{background:rgba(0,255,136,.35);border-color:var(--neon-green);animation:pulse .4s ease;}
+        .fq-opt.wrong{background:rgba(255,0,110,.3);border-color:var(--neon-pink);animation:cmShake .3s ease;}
+        .fq-opt.disabled{pointer-events:none;opacity:.6;}
     </style>
 </head>
 <body>
@@ -876,6 +902,24 @@
                 <div class="card-title">PONG</div>
                 <div class="card-title-kr" data-ko="퐁 게임" data-en="Pong">퐁 게임</div>
                 <p class="card-desc" data-ko="컴퓨터를 상대로 즐기는 클래식 탁구 게임입니다. 방향키나 마우스로 패들을 움직여 5점을 먼저 내세요." data-en="A classic table-tennis game against the computer. Move your paddle with arrow keys or the mouse and score 5 points first.">컴퓨터를 상대로 즐기는 클래식 탁구 게임입니다. 방향키나 마우스로 패들을 움직여 5점을 먼저 내세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="purple" onclick="openTool('colormatch')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="반응속도 / 관찰력" data-en="Reflexes / Perception">반응속도 / 관찰력</div>
+                <span class="card-icon">🌈</span>
+                <div class="card-title">ODD COLOR OUT</div>
+                <div class="card-title-kr" data-ko="다른 색 찾기" data-en="Odd Color Out">다른 색 찾기</div>
+                <p class="card-desc" data-ko="격자 안에서 미묘하게 다른 색의 타일을 제한시간 안에 찾아내세요. 레벨이 오를수록 격자가 커지고 색 차이는 점점 미묘해집니다." data-en="Spot the tile with a subtly different color before time runs out. Grids grow and color differences shrink as you level up.">격자 안에서 미묘하게 다른 색의 타일을 제한시간 안에 찾아내세요. 레벨이 오를수록 격자가 커지고 색 차이는 점점 미묘해집니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="green" onclick="openTool('flagquiz')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="퀴즈 / 지리" data-en="Quiz / Geography">퀴즈 / 지리</div>
+                <span class="card-icon">🌍</span>
+                <div class="card-title">FLAG QUIZ</div>
+                <div class="card-title-kr" data-ko="국기 퀴즈 (전 197개국)" data-en="Flag Quiz (All 197 Countries)">국기 퀴즈 (전 197개국)</div>
+                <p class="card-desc" data-ko="유엔 회원국 193개국에 바티칸·팔레스타인·대만·코소보를 더한 전 세계 197개국의 국기를 4지선다로 맞춰보세요." data-en="Guess the flags of all 197 countries — the 193 UN members plus Vatican City, Palestine, Taiwan, and Kosovo — in a 4-choice quiz.">유엔 회원국 193개국에 바티칸·팔레스타인·대만·코소보를 더한 전 세계 197개국의 국기를 4지선다로 맞춰보세요.</p>
                 <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
         </div>
@@ -1885,6 +1929,49 @@
   </div>
 </div>
 
+<!-- ODD COLOR OUT MODAL -->
+<div class="modal-overlay" id="modalColormatch" onclick="closeModalOutside(event,'colormatch')">
+  <div class="modal purple" style="max-width:440px;">
+    <button class="modal-close" onclick="closeTool('colormatch')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);" data-ko="🌈 다른 색 찾기" data-en="🌈 Odd Color Out">🌈 다른 색 찾기</div>
+    <div class="modal-subtitle" data-ko="미묘하게 다른 색의 타일을 제한시간 안에 찾으세요" data-en="Find the tile with a subtly different color before time runs out">미묘하게 다른 색의 타일을 제한시간 안에 찾으세요</div>
+    <div class="cm-bar">
+      <button class="tool-btn purple" onclick="cmInit()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="레벨" data-en="Level">레벨</div><div class="g2048-score-val" id="cmLevel" style="color:var(--neon-purple);">1</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="점수" data-en="Score">점수</div><div class="g2048-score-val" id="cmScore" style="color:var(--neon-purple);">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="최고" data-en="Best">최고</div><div class="g2048-score-val" id="cmBest" style="color:var(--neon-purple);">0</div></div>
+      </div>
+    </div>
+    <div class="cm-hud">
+      <div class="cm-lives" id="cmLives"></div>
+      <div class="cm-timer-wrap"><div class="cm-timer-fill" id="cmTimerFill"></div></div>
+    </div>
+    <div class="cm-grid" id="cmGrid"></div>
+    <div class="mine-status" id="cmStatus"></div>
+  </div>
+</div>
+
+<!-- FLAG QUIZ MODAL -->
+<div class="modal-overlay" id="modalFlagquiz" onclick="closeModalOutside(event,'flagquiz')">
+  <div class="modal green" style="max-width:460px;">
+    <button class="modal-close" onclick="closeTool('flagquiz')">✕</button>
+    <div class="modal-title" style="color:var(--neon-green);" data-ko="🌍 국기 퀴즈" data-en="🌍 Flag Quiz">🌍 국기 퀴즈</div>
+    <div class="modal-subtitle" data-ko="전 세계 197개국의 국기를 맞춰보세요" data-en="Guess the flags of all 197 countries">전 세계 197개국의 국기를 맞춰보세요</div>
+    <div class="fq-bar">
+      <button class="tool-btn green" onclick="fqInit()" data-ko="🔄 새 퀴즈" data-en="🔄 New Quiz">🔄 새 퀴즈</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="진행" data-en="Progress">진행</div><div class="g2048-score-val" id="fqProgress" style="color:var(--neon-green);">0/197</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="정답" data-en="Correct">정답</div><div class="g2048-score-val" id="fqCorrect" style="color:var(--neon-green);">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="최고" data-en="Best">최고</div><div class="g2048-score-val" id="fqBest" style="color:var(--neon-green);">—</div></div>
+      </div>
+    </div>
+    <div class="fq-flag" id="fqFlagWrap"><img id="fqFlagImg" src="" alt="flag" width="120" height="80"></div>
+    <div class="fq-options" id="fqOptions"></div>
+    <div class="mem-status" id="fqStatus"></div>
+  </div>
+</div>
+
 <!-- TODO MODAL -->
 <div class="modal-overlay" id="modalTodo" onclick="closeModalOutside(event,'todo')">
   <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:480px;">
@@ -2393,6 +2480,8 @@ function openTool(n) {
     if (n === 'difftool') diffInit();
     if (n === 'roman') romanInit();
     if (n === 'shooter') shooterInit();
+    if (n === 'colormatch') cmInit();
+    if (n === 'flagquiz') fqInit();
     trackRecent(n);
     if (history.replaceState) history.replaceState(null, '', '#' + n);
 }
@@ -2410,6 +2499,7 @@ function closeTool(n) {
     if (n === 'puzzle15') clearInterval(p15.timerHandle);
     if (n === 'pong') { pong.running = false; cancelAnimationFrame(pong.raf); }
     if (n === 'shooter') { shooter.running = false; cancelAnimationFrame(shooter.raf); }
+    if (n === 'colormatch') { cm.running = false; clearInterval(cm.timerHandle); }
     if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
 }
 
@@ -2431,6 +2521,7 @@ document.addEventListener('keydown', function(e) {
         clearInterval(p15.timerHandle);
         pong.running = false; cancelAnimationFrame(pong.raf);
         shooter.running = false; cancelAnimationFrame(shooter.raf);
+        cm.running = false; clearInterval(cm.timerHandle);
     }
     if (document.getElementById('modalPong').classList.contains('open')) {
         if (e.key === 'ArrowUp') { e.preventDefault(); pong.moveDir = -1; }
@@ -4233,7 +4324,9 @@ var TOOL_META = {
     lorem: { icon: '📄', ko: '더미텍스트', en: 'Lorem Ipsum' },
     difftool: { icon: '🔍', ko: '텍스트비교', en: 'Text Diff' },
     roman: { icon: '🏛️', ko: '로마숫자', en: 'Roman Numerals' },
-    shooter: { icon: '🚀', ko: '네온스트라이크', en: 'Neon Strike' }
+    shooter: { icon: '🚀', ko: '네온스트라이크', en: 'Neon Strike' },
+    colormatch: { icon: '🌈', ko: '다른색찾기', en: 'Odd Color Out' },
+    flagquiz: { icon: '🌍', ko: '국기퀴즈', en: 'Flag Quiz' }
 };
 function getFavs() { try { return JSON.parse(localStorage.getItem('favTools') || '[]'); } catch (e) { return []; } }
 function getRecents() { try { return JSON.parse(localStorage.getItem('recentTools') || '[]'); } catch (e) { return []; } }
@@ -5585,6 +5678,216 @@ function shooterDraw() {
         ctx.globalAlpha = 1;
     }
     ctx.restore();
+}
+
+/* ── Odd Color Out ── */
+var cm = { level: 1, score: 0, best: 0, lives: 3, gridSize: 3, oddIndex: 0, timeLeft: 0, timeMax: 0, timerHandle: null, running: false };
+function cmInit() {
+    clearInterval(cm.timerHandle);
+    cm.level = 1; cm.score = 0; cm.lives = 3; cm.running = true;
+    cm.best = parseInt(localStorage.getItem('cmBest') || '0', 10);
+    document.getElementById('cmScore').textContent = 0;
+    document.getElementById('cmBest').textContent = cm.best;
+    document.getElementById('cmStatus').textContent = '';
+    cmRenderLives();
+    cmStartLevel();
+}
+function cmRenderLives() {
+    document.getElementById('cmLives').textContent = '❤️'.repeat(Math.max(0, cm.lives));
+}
+function cmStartLevel() {
+    clearInterval(cm.timerHandle);
+    document.getElementById('cmLevel').textContent = cm.level;
+    cm.gridSize = Math.min(3 + Math.floor((cm.level - 1) / 2), 7);
+    var diff = Math.max(7, 42 - cm.level * 3);
+    var hue = Math.floor(Math.random() * 360);
+    var sat = 55 + Math.floor(Math.random() * 25);
+    var light = 40 + Math.floor(Math.random() * 15);
+    var total = cm.gridSize * cm.gridSize;
+    cm.oddIndex = Math.floor(Math.random() * total);
+    var oddLight = light + (Math.random() < 0.5 ? diff : -diff);
+    oddLight = Math.max(10, Math.min(90, oddLight));
+    var grid = document.getElementById('cmGrid');
+    grid.style.gridTemplateColumns = 'repeat(' + cm.gridSize + ', 1fr)';
+    grid.innerHTML = '';
+    for (var i = 0; i < total; i++) {
+        var div = document.createElement('div');
+        div.className = 'cm-tile';
+        div.style.background = 'hsl(' + hue + ',' + sat + '%,' + (i === cm.oddIndex ? oddLight : light) + '%)';
+        div.onclick = (function(idx, el) { return function() { cmClick(idx, el); }; })(i, div);
+        grid.appendChild(div);
+    }
+    cm.timeMax = Math.max(2500, 7000 - cm.level * 200);
+    cm.timeLeft = cm.timeMax;
+    document.getElementById('cmTimerFill').style.width = '100%';
+    cm.timerHandle = setInterval(cmTick, 50);
+}
+function cmTick() {
+    cm.timeLeft -= 50;
+    document.getElementById('cmTimerFill').style.width = Math.max(0, (cm.timeLeft / cm.timeMax) * 100) + '%';
+    if (cm.timeLeft <= 0) {
+        clearInterval(cm.timerHandle);
+        cmLoseLife(L('시간 초과!', 'Time\'s up!'));
+    }
+}
+function cmClick(idx, el) {
+    if (!cm.running) return;
+    if (idx === cm.oddIndex) {
+        clearInterval(cm.timerHandle);
+        cm.score += cm.level * 10;
+        SFX.pop();
+        document.getElementById('cmScore').textContent = cm.score;
+        cm.level++;
+        setTimeout(cmStartLevel, 400);
+    } else {
+        el.classList.add('wrong-shake');
+        SFX.error();
+        cmLoseLife(L('틀렸습니다!', 'Wrong tile!'));
+    }
+}
+function cmLoseLife(msg) {
+    cm.lives--;
+    cmRenderLives();
+    if (cm.lives <= 0) {
+        cm.running = false;
+        clearInterval(cm.timerHandle);
+        SFX.lose();
+        if (cm.score > cm.best) { cm.best = cm.score; localStorage.setItem('cmBest', cm.best); document.getElementById('cmBest').textContent = cm.best; }
+        document.getElementById('cmStatus').textContent = L('게임 오버! 점수 ' + cm.score + ' · 레벨 ' + cm.level + ' — 새 게임을 눌러 다시 시작하세요', 'Game over! Score ' + cm.score + ' · Level ' + cm.level + ' — press New Game to retry');
+    } else {
+        SFX.hit();
+        document.getElementById('cmStatus').textContent = msg;
+        setTimeout(cmStartLevel, 600);
+    }
+}
+
+/* ── Flag Quiz (197 countries) ── */
+function flagImgUrl(code) {
+    return 'https://flagcdn.com/w320/' + code.toLowerCase() + '.png';
+}
+function fqImgError(img) {
+    var span = document.createElement('span');
+    span.className = 'fq-emoji-fallback';
+    span.textContent = '🏳️';
+    img.replaceWith(span);
+}
+var FLAG_COUNTRIES = [
+    {c:'DZ',ko:'알제리',en:'Algeria'},{c:'AO',ko:'앙골라',en:'Angola'},{c:'BJ',ko:'베냉',en:'Benin'},{c:'BW',ko:'보츠와나',en:'Botswana'},
+    {c:'BF',ko:'부르키나파소',en:'Burkina Faso'},{c:'BI',ko:'부룬디',en:'Burundi'},{c:'CV',ko:'카보베르데',en:'Cabo Verde'},{c:'CM',ko:'카메룬',en:'Cameroon'},
+    {c:'CF',ko:'중앙아프리카공화국',en:'Central African Republic'},{c:'TD',ko:'차드',en:'Chad'},{c:'KM',ko:'코모로',en:'Comoros'},{c:'CG',ko:'콩고공화국',en:'Congo'},
+    {c:'CD',ko:'콩고민주공화국',en:'DR Congo'},{c:'CI',ko:'코트디부아르',en:'Ivory Coast'},{c:'DJ',ko:'지부티',en:'Djibouti'},{c:'EG',ko:'이집트',en:'Egypt'},
+    {c:'GQ',ko:'적도기니',en:'Equatorial Guinea'},{c:'ER',ko:'에리트레아',en:'Eritrea'},{c:'SZ',ko:'에스와티니',en:'Eswatini'},{c:'ET',ko:'에티오피아',en:'Ethiopia'},
+    {c:'GA',ko:'가봉',en:'Gabon'},{c:'GM',ko:'감비아',en:'Gambia'},{c:'GH',ko:'가나',en:'Ghana'},{c:'GN',ko:'기니',en:'Guinea'},
+    {c:'GW',ko:'기니비사우',en:'Guinea-Bissau'},{c:'KE',ko:'케냐',en:'Kenya'},{c:'LS',ko:'레소토',en:'Lesotho'},{c:'LR',ko:'라이베리아',en:'Liberia'},
+    {c:'LY',ko:'리비아',en:'Libya'},{c:'MG',ko:'마다가스카르',en:'Madagascar'},{c:'MW',ko:'말라위',en:'Malawi'},{c:'ML',ko:'말리',en:'Mali'},
+    {c:'MR',ko:'모리타니',en:'Mauritania'},{c:'MU',ko:'모리셔스',en:'Mauritius'},{c:'MA',ko:'모로코',en:'Morocco'},{c:'MZ',ko:'모잠비크',en:'Mozambique'},
+    {c:'NA',ko:'나미비아',en:'Namibia'},{c:'NE',ko:'니제르',en:'Niger'},{c:'NG',ko:'나이지리아',en:'Nigeria'},{c:'RW',ko:'르완다',en:'Rwanda'},
+    {c:'ST',ko:'상투메프린시페',en:'Sao Tome and Principe'},{c:'SN',ko:'세네갈',en:'Senegal'},{c:'SC',ko:'세이셸',en:'Seychelles'},{c:'SL',ko:'시에라리온',en:'Sierra Leone'},
+    {c:'SO',ko:'소말리아',en:'Somalia'},{c:'ZA',ko:'남아프리카공화국',en:'South Africa'},{c:'SS',ko:'남수단',en:'South Sudan'},{c:'SD',ko:'수단',en:'Sudan'},
+    {c:'TZ',ko:'탄자니아',en:'Tanzania'},{c:'TG',ko:'토고',en:'Togo'},{c:'TN',ko:'튀니지',en:'Tunisia'},{c:'UG',ko:'우간다',en:'Uganda'},
+    {c:'ZM',ko:'잠비아',en:'Zambia'},{c:'ZW',ko:'짐바브웨',en:'Zimbabwe'},
+    {c:'AF',ko:'아프가니스탄',en:'Afghanistan'},{c:'BH',ko:'바레인',en:'Bahrain'},{c:'BD',ko:'방글라데시',en:'Bangladesh'},{c:'BT',ko:'부탄',en:'Bhutan'},
+    {c:'BN',ko:'브루나이',en:'Brunei'},{c:'KH',ko:'캄보디아',en:'Cambodia'},{c:'CN',ko:'중국',en:'China'},{c:'CY',ko:'키프로스',en:'Cyprus'},
+    {c:'IN',ko:'인도',en:'India'},{c:'ID',ko:'인도네시아',en:'Indonesia'},{c:'IR',ko:'이란',en:'Iran'},{c:'IQ',ko:'이라크',en:'Iraq'},
+    {c:'IL',ko:'이스라엘',en:'Israel'},{c:'JP',ko:'일본',en:'Japan'},{c:'JO',ko:'요르단',en:'Jordan'},{c:'KZ',ko:'카자흐스탄',en:'Kazakhstan'},
+    {c:'KW',ko:'쿠웨이트',en:'Kuwait'},{c:'KG',ko:'키르기스스탄',en:'Kyrgyzstan'},{c:'LA',ko:'라오스',en:'Laos'},{c:'LB',ko:'레바논',en:'Lebanon'},
+    {c:'MY',ko:'말레이시아',en:'Malaysia'},{c:'MV',ko:'몰디브',en:'Maldives'},{c:'MN',ko:'몽골',en:'Mongolia'},{c:'MM',ko:'미얀마',en:'Myanmar'},
+    {c:'NP',ko:'네팔',en:'Nepal'},{c:'KP',ko:'북한',en:'North Korea'},{c:'OM',ko:'오만',en:'Oman'},{c:'PK',ko:'파키스탄',en:'Pakistan'},
+    {c:'PH',ko:'필리핀',en:'Philippines'},{c:'QA',ko:'카타르',en:'Qatar'},{c:'SA',ko:'사우디아라비아',en:'Saudi Arabia'},{c:'SG',ko:'싱가포르',en:'Singapore'},
+    {c:'KR',ko:'대한민국',en:'South Korea'},{c:'LK',ko:'스리랑카',en:'Sri Lanka'},{c:'SY',ko:'시리아',en:'Syria'},{c:'TJ',ko:'타지키스탄',en:'Tajikistan'},
+    {c:'TH',ko:'태국',en:'Thailand'},{c:'TL',ko:'동티모르',en:'Timor-Leste'},{c:'TR',ko:'튀르키예',en:'Turkey'},{c:'TM',ko:'투르크메니스탄',en:'Turkmenistan'},
+    {c:'AE',ko:'아랍에미리트',en:'United Arab Emirates'},{c:'UZ',ko:'우즈베키스탄',en:'Uzbekistan'},{c:'VN',ko:'베트남',en:'Vietnam'},{c:'YE',ko:'예멘',en:'Yemen'},
+    {c:'AL',ko:'알바니아',en:'Albania'},{c:'AD',ko:'안도라',en:'Andorra'},{c:'AM',ko:'아르메니아',en:'Armenia'},{c:'AT',ko:'오스트리아',en:'Austria'},
+    {c:'AZ',ko:'아제르바이잔',en:'Azerbaijan'},{c:'BY',ko:'벨라루스',en:'Belarus'},{c:'BE',ko:'벨기에',en:'Belgium'},{c:'BA',ko:'보스니아헤르체고비나',en:'Bosnia and Herzegovina'},
+    {c:'BG',ko:'불가리아',en:'Bulgaria'},{c:'HR',ko:'크로아티아',en:'Croatia'},{c:'CZ',ko:'체코',en:'Czechia'},{c:'DK',ko:'덴마크',en:'Denmark'},
+    {c:'EE',ko:'에스토니아',en:'Estonia'},{c:'FI',ko:'핀란드',en:'Finland'},{c:'FR',ko:'프랑스',en:'France'},{c:'GE',ko:'조지아',en:'Georgia'},
+    {c:'DE',ko:'독일',en:'Germany'},{c:'GR',ko:'그리스',en:'Greece'},{c:'HU',ko:'헝가리',en:'Hungary'},{c:'IS',ko:'아이슬란드',en:'Iceland'},
+    {c:'IE',ko:'아일랜드',en:'Ireland'},{c:'IT',ko:'이탈리아',en:'Italy'},{c:'LV',ko:'라트비아',en:'Latvia'},{c:'LI',ko:'리히텐슈타인',en:'Liechtenstein'},
+    {c:'LT',ko:'리투아니아',en:'Lithuania'},{c:'LU',ko:'룩셈부르크',en:'Luxembourg'},{c:'MT',ko:'몰타',en:'Malta'},{c:'MD',ko:'몰도바',en:'Moldova'},
+    {c:'MC',ko:'모나코',en:'Monaco'},{c:'ME',ko:'몬테네그로',en:'Montenegro'},{c:'NL',ko:'네덜란드',en:'Netherlands'},{c:'MK',ko:'북마케도니아',en:'North Macedonia'},
+    {c:'NO',ko:'노르웨이',en:'Norway'},{c:'PL',ko:'폴란드',en:'Poland'},{c:'PT',ko:'포르투갈',en:'Portugal'},{c:'RO',ko:'루마니아',en:'Romania'},
+    {c:'RU',ko:'러시아',en:'Russia'},{c:'SM',ko:'산마리노',en:'San Marino'},{c:'RS',ko:'세르비아',en:'Serbia'},{c:'SK',ko:'슬로바키아',en:'Slovakia'},
+    {c:'SI',ko:'슬로베니아',en:'Slovenia'},{c:'ES',ko:'스페인',en:'Spain'},{c:'SE',ko:'스웨덴',en:'Sweden'},{c:'CH',ko:'스위스',en:'Switzerland'},
+    {c:'UA',ko:'우크라이나',en:'Ukraine'},{c:'GB',ko:'영국',en:'United Kingdom'},
+    {c:'AG',ko:'앤티가바부다',en:'Antigua and Barbuda'},{c:'BS',ko:'바하마',en:'Bahamas'},{c:'BB',ko:'바베이도스',en:'Barbados'},{c:'BZ',ko:'벨리즈',en:'Belize'},
+    {c:'CA',ko:'캐나다',en:'Canada'},{c:'CR',ko:'코스타리카',en:'Costa Rica'},{c:'CU',ko:'쿠바',en:'Cuba'},{c:'DM',ko:'도미니카연방',en:'Dominica'},
+    {c:'DO',ko:'도미니카공화국',en:'Dominican Republic'},{c:'SV',ko:'엘살바도르',en:'El Salvador'},{c:'GD',ko:'그레나다',en:'Grenada'},{c:'GT',ko:'과테말라',en:'Guatemala'},
+    {c:'HT',ko:'아이티',en:'Haiti'},{c:'HN',ko:'온두라스',en:'Honduras'},{c:'JM',ko:'자메이카',en:'Jamaica'},{c:'MX',ko:'멕시코',en:'Mexico'},
+    {c:'NI',ko:'니카라과',en:'Nicaragua'},{c:'PA',ko:'파나마',en:'Panama'},{c:'KN',ko:'세인트키츠네비스',en:'Saint Kitts and Nevis'},{c:'LC',ko:'세인트루시아',en:'Saint Lucia'},
+    {c:'VC',ko:'세인트빈센트그레나딘',en:'Saint Vincent and the Grenadines'},{c:'TT',ko:'트리니다드토바고',en:'Trinidad and Tobago'},{c:'US',ko:'미국',en:'United States'},
+    {c:'AR',ko:'아르헨티나',en:'Argentina'},{c:'BO',ko:'볼리비아',en:'Bolivia'},{c:'BR',ko:'브라질',en:'Brazil'},{c:'CL',ko:'칠레',en:'Chile'},
+    {c:'CO',ko:'콜롬비아',en:'Colombia'},{c:'EC',ko:'에콰도르',en:'Ecuador'},{c:'GY',ko:'가이아나',en:'Guyana'},{c:'PY',ko:'파라과이',en:'Paraguay'},
+    {c:'PE',ko:'페루',en:'Peru'},{c:'SR',ko:'수리남',en:'Suriname'},{c:'UY',ko:'우루과이',en:'Uruguay'},{c:'VE',ko:'베네수엘라',en:'Venezuela'},
+    {c:'AU',ko:'호주',en:'Australia'},{c:'FJ',ko:'피지',en:'Fiji'},{c:'KI',ko:'키리바시',en:'Kiribati'},{c:'MH',ko:'마셜제도',en:'Marshall Islands'},
+    {c:'FM',ko:'미크로네시아연방',en:'Micronesia'},{c:'NR',ko:'나우루',en:'Nauru'},{c:'NZ',ko:'뉴질랜드',en:'New Zealand'},{c:'PW',ko:'팔라우',en:'Palau'},
+    {c:'PG',ko:'파푸아뉴기니',en:'Papua New Guinea'},{c:'WS',ko:'사모아',en:'Samoa'},{c:'SB',ko:'솔로몬제도',en:'Solomon Islands'},{c:'TO',ko:'통가',en:'Tonga'},
+    {c:'TV',ko:'투발루',en:'Tuvalu'},{c:'VU',ko:'바누아투',en:'Vanuatu'},
+    {c:'VA',ko:'바티칸시국',en:'Vatican City'},{c:'PS',ko:'팔레스타인',en:'Palestine'},{c:'TW',ko:'대만',en:'Taiwan'},{c:'XK',ko:'코소보',en:'Kosovo'}
+];
+var fq = { deck: [], idx: 0, correct: 0, answered: 0, locked: false };
+function fqShuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+}
+function fqInit() {
+    fq.deck = fqShuffle(FLAG_COUNTRIES);
+    fq.idx = 0; fq.correct = 0; fq.answered = 0; fq.locked = false;
+    document.getElementById('fqCorrect').textContent = 0;
+    document.getElementById('fqBest').textContent = localStorage.getItem('fqBest') || '—';
+    document.getElementById('fqStatus').textContent = '';
+    fqRenderQuestion();
+}
+function fqRenderQuestion() {
+    if (fq.idx >= fq.deck.length) { fqFinish(); return; }
+    document.getElementById('fqProgress').textContent = fq.idx + '/' + fq.deck.length;
+    var country = fq.deck[fq.idx];
+    var wrapEl = document.getElementById('fqFlagWrap');
+    wrapEl.innerHTML = '<img id="fqFlagImg" alt="flag" width="120" height="80" src="' + flagImgUrl(country.c) + '" onerror="fqImgError(this)">';
+    var distractors = fqShuffle(FLAG_COUNTRIES.filter(function(c) { return c.c !== country.c; })).slice(0, 3);
+    var options = fqShuffle([country].concat(distractors));
+    var wrap = document.getElementById('fqOptions');
+    wrap.innerHTML = '';
+    options.forEach(function(opt) {
+        var btn = document.createElement('button');
+        btn.className = 'fq-opt';
+        btn.textContent = L(opt.ko, opt.en);
+        btn.onclick = function() { fqAnswer(opt.c === country.c, btn, country); };
+        wrap.appendChild(btn);
+    });
+    fq.locked = false;
+}
+function fqAnswer(isCorrect, btn, country) {
+    if (fq.locked) return;
+    fq.locked = true;
+    fq.answered++;
+    document.querySelectorAll('.fq-opt').forEach(function(b) { b.classList.add('disabled'); });
+    if (isCorrect) {
+        fq.correct++;
+        SFX.win();
+        btn.classList.add('correct');
+        document.getElementById('fqCorrect').textContent = fq.correct;
+        document.getElementById('fqStatus').textContent = '';
+    } else {
+        SFX.error();
+        btn.classList.add('wrong');
+        document.querySelectorAll('.fq-opt').forEach(function(b) { if (b.textContent === L(country.ko, country.en)) b.classList.add('correct'); });
+        document.getElementById('fqStatus').textContent = L('정답: ' + country.ko, 'Correct answer: ' + country.en);
+    }
+    setTimeout(function() { fq.idx++; fqRenderQuestion(); }, 900);
+}
+function fqFinish() {
+    var best = parseInt(localStorage.getItem('fqBest') || '0', 10);
+    if (fq.correct > best) { localStorage.setItem('fqBest', fq.correct); document.getElementById('fqBest').textContent = fq.correct; }
+    else document.getElementById('fqBest').textContent = best;
+    SFX.win();
+    document.getElementById('fqFlagWrap').innerHTML = '<span class="fq-emoji-fallback">🎉</span>';
+    document.getElementById('fqOptions').innerHTML = '';
+    document.getElementById('fqProgress').textContent = fq.deck.length + '/' + fq.deck.length;
+    document.getElementById('fqStatus').textContent = L('완료! 197개국 중 ' + fq.correct + '개 정답 — 새 퀴즈를 눌러 다시 도전하세요', 'Done! ' + fq.correct + ' out of 197 correct — press New Quiz to try again');
 }
 
 /* ── Scroll to top ── */
