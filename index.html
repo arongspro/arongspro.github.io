@@ -646,6 +646,14 @@
         .shooter-hud{display:flex;justify-content:space-between;align-items:center;max-width:360px;margin:0 auto 6px;font-family:'Share Tech Mono',monospace;font-size:13px;}
         .shooter-lives{color:var(--neon-pink);letter-spacing:2px;}
         .shooter-combo{color:var(--neon-yellow);font-weight:700;min-height:16px;}
+        .shooter-skill-row{display:flex;align-items:center;gap:8px;max-width:360px;margin:0 auto 8px;}
+        .shooter-gauge-wrap{position:relative;flex:1;height:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,0,110,.3);border-radius:8px;overflow:hidden;}
+        .shooter-gauge-fill{height:100%;width:0%;background:linear-gradient(90deg,#ff006e,#ffe600);transition:width .15s linear;}
+        .shooter-gauge-fill.full{animation:gaugePulse .6s ease-in-out infinite;}
+        .shooter-gauge-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.8);}
+        @keyframes gaugePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.7)}}
+        .shooter-skill-btn{background:rgba(255,0,110,.08);border:1px solid rgba(255,0,110,.3);color:rgba(255,255,255,.3);font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;padding:7px 12px;border-radius:6px;cursor:not-allowed;white-space:nowrap;transition:all .2s;}
+        .shooter-skill-btn.ready{color:#000;background:var(--neon-yellow);border-color:var(--neon-yellow);cursor:pointer;box-shadow:0 0 16px rgba(255,230,0,.7);animation:pulse 1s ease-in-out infinite;}
         #shooterCanvas{display:block;margin:0 auto;background:#000;border:1px solid rgba(255,0,110,.25);border-radius:4px;max-width:100%;height:auto;touch-action:none;}
     </style>
 </head>
@@ -1861,9 +1869,13 @@
       <div class="shooter-lives" id="shooterLives"></div>
       <div class="shooter-combo" id="shooterCombo"></div>
     </div>
+    <div class="shooter-skill-row">
+      <div class="shooter-gauge-wrap"><div class="shooter-gauge-fill" id="shooterGaugeFill"></div><span class="shooter-gauge-label" id="shooterGaugeLabel">0%</span></div>
+      <button class="shooter-skill-btn" id="shooterSkillBtn" onclick="shooterUseSkill()" data-ko="💥 스킬" data-en="💥 Skill">💥 스킬</button>
+    </div>
     <canvas id="shooterCanvas" width="360" height="480"></canvas>
     <div class="brk-status" id="shooterStatus"></div>
-    <div class="brk-hint" data-ko="방향키/WASD 또는 마우스·터치로 조작 · 자동 발사" data-en="Move with arrow keys/WASD or mouse/touch · Auto-fire">방향키/WASD 또는 마우스·터치로 조작 · 자동 발사</div>
+    <div class="brk-hint" data-ko="방향키/WASD 또는 마우스·터치로 조작 · 자동 발사 · 스페이스바로 스킬 발동" data-en="Move with arrow keys/WASD or mouse/touch · Auto-fire · Space to use skill">방향키/WASD 또는 마우스·터치로 조작 · 자동 발사 · 스페이스바로 스킬 발동</div>
   </div>
 </div>
 
@@ -2347,6 +2359,7 @@ document.addEventListener('keydown', function(e) {
     }
     if (document.getElementById('modalShooter').classList.contains('open')) {
         if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' ','w','a','s','d'].indexOf(e.key) > -1) e.preventDefault();
+        if (e.key === ' ' && !e.repeat) shooterUseSkill();
         shooter.keys[e.key] = true;
     }
     if (document.getElementById('modalG2048').classList.contains('open')) {
@@ -5064,7 +5077,8 @@ var shooter = {
     wave: 1, toSpawn: 0, spawnTimer: 0, bossPending: false,
     fireTimer: 0, rapidT: 0, spreadT: 0, shieldT: 0,
     running: false, over: false, raf: null, keys: {}, shake: 0,
-    waveBanner: 0, waveBannerText: ''
+    waveBanner: 0, waveBannerText: '',
+    gauge: 0, gaugeMax: 100, novaT: 0
 };
 function shooterInit() {
     cancelAnimationFrame(shooter.raf);
@@ -5073,12 +5087,14 @@ function shooterInit() {
     shooter.bullets = []; shooter.enemies = []; shooter.particles = []; shooter.powerups = [];
     shooter.score = 0; shooter.combo = 0; shooter.comboTimer = 0;
     shooter.fireTimer = 0; shooter.rapidT = 0; shooter.spreadT = 0; shooter.shieldT = 0; shooter.shake = 0;
+    shooter.gauge = 0; shooter.novaT = 0;
     shooter.best = parseInt(localStorage.getItem('shooterBest') || '0', 10);
     shooter.over = false;
     document.getElementById('shooterScore').textContent = 0;
     document.getElementById('shooterBest').textContent = shooter.best;
     document.getElementById('shooterStatus').textContent = '';
     document.getElementById('shooterCombo').textContent = '';
+    shooterRenderGauge();
     shooterRenderLives();
     if (!shooter.canvas) {
         shooter.canvas = document.getElementById('shooterCanvas');
@@ -5108,6 +5124,37 @@ function shooterStartWave(n) {
 }
 function shooterRenderLives() {
     document.getElementById('shooterLives').textContent = '❤️'.repeat(Math.max(0, shooter.lives));
+}
+function shooterGainGauge(amount) {
+    shooter.gauge = Math.min(shooter.gaugeMax, shooter.gauge + amount);
+}
+function shooterRenderGauge() {
+    var pct = Math.round((shooter.gauge / shooter.gaugeMax) * 100);
+    var ready = shooter.gauge >= shooter.gaugeMax;
+    var fillEl = document.getElementById('shooterGaugeFill');
+    fillEl.style.width = pct + '%';
+    fillEl.classList.toggle('full', ready);
+    document.getElementById('shooterGaugeLabel').textContent = ready ? L('스킬 준비완료!', 'SKILL READY!') : pct + '%';
+    document.getElementById('shooterSkillBtn').classList.toggle('ready', ready);
+}
+function shooterUseSkill() {
+    if (!shooter.running || shooter.gauge < shooter.gaugeMax) return;
+    shooter.gauge = 0;
+    shooter.shake = 16;
+    shooter.novaT = 30;
+    for (var i = shooter.enemies.length - 1; i >= 0; i--) {
+        var e = shooter.enemies[i];
+        if (e.isBoss) {
+            e.hp -= 6;
+            e.flash = 1;
+            shooterSpawnParticles(e.x, e.y, e.color, 14);
+            if (e.hp <= 0) shooterKillEnemy(i);
+        } else {
+            shooterSpawnParticles(e.x, e.y, e.color, 14);
+            shooterKillEnemy(i);
+        }
+    }
+    shooterRenderGauge();
 }
 function shooterSpawnParticles(x, y, color, count) {
     var rgb = hexToRgb(color) || { r: 255, g: 255, b: 255 };
@@ -5146,6 +5193,7 @@ function shooterKillEnemy(idx) {
     shooter.comboTimer = 90;
     var mult = 1 + Math.floor(shooter.combo / 5) * 0.5;
     shooter.score += Math.round(e.points * mult);
+    shooterGainGauge(Math.round(e.points / 3));
     shooterSpawnParticles(e.x, e.y, e.color, e.isBoss ? 30 : 14);
     if (Math.random() < (e.isBoss ? 1 : 0.12)) shooterSpawnPowerup(e.x, e.y);
     shooter.enemies.splice(idx, 1);
@@ -5223,6 +5271,7 @@ function shooterLoop() {
             if (dx * dx + dy * dy < (e.r + 4) * (e.r + 4)) {
                 shooter.bullets.splice(bi, 1);
                 e.hp--; e.flash = 1;
+                shooterGainGauge(1);
                 shooterSpawnParticles(b.x, b.y, e.color, 4);
                 if (e.hp <= 0) shooterKillEnemy(ei);
                 break;
@@ -5277,10 +5326,12 @@ function shooterLoop() {
     if (shooter.invuln > 0) shooter.invuln--;
     if (shooter.shake > 0) shooter.shake *= 0.85;
     if (shooter.waveBanner > 0) shooter.waveBanner--;
+    if (shooter.novaT > 0) shooter.novaT--;
 
     document.getElementById('shooterCombo').textContent = shooter.combo > 1
         ? 'x' + (1 + Math.floor(shooter.combo / 5) * 0.5).toFixed(1) + ' COMBO (' + shooter.combo + ')'
         : '';
+    shooterRenderGauge();
 
     if (shooter.toSpawn <= 0 && shooter.enemies.length === 0 && shooter.waveBanner <= 0 && shooter.running) {
         shooterStartWave(shooter.wave + 1);
@@ -5355,6 +5406,21 @@ function shooterDraw() {
             ctx.beginPath(); ctx.arc(shooter.player.x, shooter.player.y, 20, 0, Math.PI * 2);
             ctx.strokeStyle = 'rgba(0,245,255,.6)'; ctx.lineWidth = 2; ctx.stroke();
         }
+    }
+
+    if (shooter.novaT > 0) {
+        var novaProgress = 1 - shooter.novaT / 30;
+        var novaR = novaProgress * 280;
+        ctx.beginPath();
+        ctx.arc(shooter.player.x, shooter.player.y, novaR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255,230,0,' + (1 - novaProgress).toFixed(2) + ')';
+        ctx.lineWidth = 7;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(shooter.player.x, shooter.player.y, novaR * 0.7, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255,0,110,' + (1 - novaProgress).toFixed(2) + ')';
+        ctx.lineWidth = 3;
+        ctx.stroke();
     }
 
     if (shooter.waveBanner > 0) {
