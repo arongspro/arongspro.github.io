@@ -390,7 +390,11 @@
         .g2048-score-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);}
         .g2048-score-val{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--neon-cyan);}
         .g2048-board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:#0a0a1a;border:1px solid rgba(0,245,255,.15);border-radius:6px;padding:8px;touch-action:none;user-select:none;}
-        .g2048-cell{aspect-ratio:1;background:rgba(255,255,255,.04);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(.9rem,4vw,1.4rem);color:#fff;transition:background .1s;}
+        .g2048-cell{aspect-ratio:1;background:rgba(255,255,255,.04);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(.9rem,4vw,1.4rem);color:#fff;transition:background .15s;}
+        .g2048-cell.new{animation:g2048Pop .18s ease;}
+        .g2048-cell.merged{animation:g2048Merge .22s ease;}
+        @keyframes g2048Pop{0%{transform:scale(0)}80%{transform:scale(1.12)}100%{transform:scale(1)}}
+        @keyframes g2048Merge{0%{transform:scale(1)}45%{transform:scale(1.2)}100%{transform:scale(1)}}
         .g2048-cell.v2{background:rgba(0,245,255,.12);color:rgba(255,255,255,.8);}
         .g2048-cell.v4{background:rgba(0,245,255,.22);}
         .g2048-cell.v8{background:rgba(0,255,136,.3);}
@@ -421,11 +425,20 @@
         .mine-flagmode{background:transparent;border:1px solid rgba(255,0,110,.25);color:rgba(255,0,110,.6);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:8px 12px;border-radius:4px;cursor:pointer;text-transform:uppercase;}
         .mine-flagmode.active{background:rgba(255,0,110,.2);color:var(--neon-pink);border-color:rgba(255,0,110,.5);}
         .mine-board{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;background:#0a0a1a;border:1px solid rgba(255,0,110,.15);border-radius:6px;padding:6px;max-width:340px;margin:0 auto;user-select:none;touch-action:none;}
-        .mine-cell{aspect-ratio:1;background:rgba(255,255,255,.06);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-weight:700;font-size:13px;cursor:pointer;transition:background .1s;}
-        .mine-cell:hover{background:rgba(255,255,255,.12);}
+        .mine-cell{aspect-ratio:1;background:rgba(255,255,255,.06);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-weight:700;font-size:13px;cursor:pointer;transition:background .12s,transform .12s;}
+        .mine-cell:not(.revealed):hover{background:rgba(255,255,255,.14);transform:scale(1.06);}
+        .mine-cell:not(.revealed):active{transform:scale(.92);}
         .mine-cell.revealed{background:rgba(255,255,255,.02);cursor:default;}
+        .mine-cell.just-revealed{animation:mineReveal .18s ease;}
         .mine-cell.mine{background:rgba(255,0,110,.35);}
+        .mine-cell.boom{background:rgba(255,0,110,.75);box-shadow:0 0 14px rgba(255,0,110,.85);animation:mineBoom .3s ease;}
         .mine-cell.wrong-flag{background:rgba(255,230,0,.2);}
+        .mine-cell.flagged{animation:flagPop .18s ease;}
+        @keyframes mineReveal{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+        @keyframes mineBoom{0%{transform:scale(1.4)}100%{transform:scale(1)}}
+        @keyframes flagPop{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+        .mine-face{transition:transform .1s;}
+        .mine-face:active{transform:scale(.9);}
         .mine-cell.n1{color:#00f5ff;} .mine-cell.n2{color:#00ff88;} .mine-cell.n3{color:#ff006e;}
         .mine-cell.n4{color:#b96fff;} .mine-cell.n5{color:#ffe600;} .mine-cell.n6{color:#00e0e0;}
         .mine-cell.n7{color:#fff;} .mine-cell.n8{color:rgba(255,255,255,.5);}
@@ -438,11 +451,19 @@
         .brk-hint{text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;}
 
         /* REACTION TEST */
-        .rx-box{height:220px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;transition:background .15s;text-align:center;padding:20px;}
+        .rx-box{height:220px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;transition:background .2s,box-shadow .2s,transform .1s;text-align:center;padding:20px;}
+        .rx-box:active{transform:scale(.98);}
         .rx-box.wait{background:rgba(255,0,110,.12);border:1px solid rgba(255,0,110,.3);}
-        .rx-box.ready{background:rgba(0,255,136,.18);border:1px solid rgba(0,255,136,.5);}
+        .rx-box.ready{background:rgba(0,255,136,.18);border:1px solid rgba(0,255,136,.5);animation:rxPulse .7s ease-in-out infinite alternate;}
         .rx-box.idle{background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.25);}
-        .rx-main{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:700;color:#fff;}
+        .rx-box.result{background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.25);}
+        @keyframes rxPulse{from{box-shadow:0 0 16px rgba(0,255,136,.25) inset}to{box-shadow:0 0 36px rgba(0,255,136,.55) inset}}
+        .rx-main{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:700;color:#fff;transition:color .15s;}
+        .rx-main.rx-fast{color:var(--neon-green);}
+        .rx-main.rx-mid{color:var(--neon-yellow);}
+        .rx-main.rx-slow{color:var(--neon-pink);}
+        .rx-box.result .rx-main{animation:rxResultPop .3s ease;}
+        @keyframes rxResultPop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
         .rx-sub{font-size:12px;color:rgba(255,255,255,.5);}
         .rx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
         .rx-stat-box{background:#000;border:1px solid rgba(255,230,0,.15);border-radius:4px;padding:10px;text-align:center;}
@@ -454,10 +475,16 @@
         /* MEMORY MATCH */
         .mem-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
         .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:0 auto;}
-        .mem-card{aspect-ratio:1;background:rgba(185,111,255,.1);border:1px solid rgba(185,111,255,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.2rem,5vw,1.8rem);cursor:pointer;transition:background .15s,transform .15s;user-select:none;}
-        .mem-card:hover{background:rgba(185,111,255,.18);}
-        .mem-card.flipped{background:rgba(185,111,255,.28);border-color:rgba(185,111,255,.5);}
-        .mem-card.matched{background:rgba(0,255,136,.15);border-color:rgba(0,255,136,.4);cursor:default;}
+        .mem-card{aspect-ratio:1;perspective:600px;cursor:pointer;user-select:none;}
+        .mem-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.2,.8,.2,1);}
+        .mem-card.flipped .mem-card-inner{transform:rotateY(180deg);}
+        .mem-card-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(1.2rem,5vw,1.8rem);border-radius:6px;backface-visibility:hidden;transition:background .15s;}
+        .mem-card-back{background:rgba(185,111,255,.1);border:1px solid rgba(185,111,255,.25);color:rgba(185,111,255,.35);font-family:'Orbitron',sans-serif;font-weight:700;}
+        .mem-card-back::after{content:'?';}
+        .mem-card-front{background:rgba(185,111,255,.28);border:1px solid rgba(185,111,255,.5);transform:rotateY(180deg);}
+        .mem-card:not(.flipped):not(.matched):hover .mem-card-back{background:rgba(185,111,255,.2);}
+        .mem-card.matched .mem-card-front{background:rgba(0,255,136,.15);border-color:rgba(0,255,136,.4);animation:memMatchPop .35s ease;}
+        @keyframes memMatchPop{0%{transform:rotateY(180deg) scale(1)}50%{transform:rotateY(180deg) scale(1.12)}100%{transform:rotateY(180deg) scale(1)}}
         .mem-status{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--neon-purple);min-height:18px;margin-top:12px;}
 
         /* COLOR PICKER */
@@ -525,6 +552,93 @@
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes spin{to{transform:rotate(360deg)}}
         .spinning{animation:spin .8s linear infinite;display:inline-block;}
+
+        /* TIC-TAC-TOE */
+        .tt-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;}
+        .tt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:300px;margin:0 auto;}
+        .tt-cell{aspect-ratio:1;background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:2rem;cursor:pointer;transition:background .15s,transform .1s;}
+        .tt-cell:not(.filled):hover{background:rgba(0,245,255,.15);}
+        .tt-cell:not(.filled):active{transform:scale(.94);}
+        .tt-cell.x{color:var(--neon-cyan);}
+        .tt-cell.o{color:var(--neon-pink);}
+        .tt-cell.win{background:rgba(0,255,136,.25);border-color:rgba(0,255,136,.5);}
+        .tt-status{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--neon-cyan);min-height:18px;margin-top:12px;}
+
+        /* RPS */
+        .rps-arena{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:14px;}
+        .rps-side{text-align:center;}
+        .rps-emoji{font-size:3rem;line-height:1;}
+        .rps-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:6px;text-transform:uppercase;}
+        .rps-vs{font-family:'Orbitron',sans-serif;font-size:12px;color:rgba(255,230,0,.4);}
+        .rps-result{text-align:center;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1px;color:#fff;min-height:18px;margin-bottom:14px;}
+        .rps-buttons{display:flex;justify-content:center;gap:14px;}
+        .rps-btn{background:rgba(255,230,0,.08);border:1px solid rgba(255,230,0,.3);border-radius:50%;width:64px;height:64px;font-size:1.8rem;cursor:pointer;transition:background .15s,transform .1s;}
+        .rps-btn:hover{background:rgba(255,230,0,.2);transform:scale(1.08);}
+        .rps-btn:active{transform:scale(.94);}
+
+        /* WHACK-A-MOLE */
+        .whack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:0 auto;}
+        .whack-hole{aspect-ratio:1;background:radial-gradient(circle at 50% 40%,rgba(255,0,110,.05),rgba(0,0,0,.4));border:1px solid rgba(255,0,110,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;cursor:pointer;overflow:hidden;}
+        .whack-hole.up{background:radial-gradient(circle at 50% 40%,rgba(255,0,110,.25),rgba(0,0,0,.4));animation:whackPop .15s ease;}
+        @keyframes whackPop{0%{transform:scale(.6)}100%{transform:scale(1)}}
+
+        /* SIMON */
+        .simon-pad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;width:220px;height:220px;margin:14px auto;}
+        .simon-cell{border-radius:10px;border:none;cursor:pointer;opacity:.55;transition:opacity .1s,transform .1s;}
+        .simon-cell:active{transform:scale(.95);}
+        .simon-cell.lit{opacity:1;box-shadow:0 0 24px currentColor;}
+        .simon-green{background:#00ff88;color:#00ff88;border-top-left-radius:100px;}
+        .simon-red{background:#ff006e;color:#ff006e;border-top-right-radius:100px;}
+        .simon-yellow{background:#ffe600;color:#ffe600;border-bottom-left-radius:100px;}
+        .simon-blue{background:#00f5ff;color:#00f5ff;border-bottom-right-radius:100px;}
+
+        /* TYPING TEST */
+        .typing-text{background:#0a0a1a;border:1px solid rgba(0,255,136,.2);border-radius:6px;padding:14px;font-family:'Share Tech Mono',monospace;font-size:14px;line-height:1.8;margin-bottom:10px;letter-spacing:.5px;}
+        .typing-text .correct{color:var(--neon-green);}
+        .typing-text .wrong{color:var(--neon-pink);text-decoration:underline;}
+        .typing-text .pending{color:rgba(255,255,255,.35);}
+        .typing-text .current{background:rgba(0,255,136,.3);border-radius:2px;}
+        .typing-input{width:100%;background:#0a0a28;border:1px solid rgba(0,255,136,.25);color:#fff;font-family:'Share Tech Mono',monospace;font-size:13px;padding:10px 12px;border-radius:4px;outline:none;resize:vertical;margin-bottom:12px;}
+        .typing-input:focus{border-color:rgba(0,255,136,.6);}
+
+        /* CONNECT FOUR */
+        .c4-board{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#0a0a1a;border:1px solid rgba(255,230,0,.15);border-radius:6px;padding:6px;max-width:380px;margin:12px auto 0;}
+        .c4-cell{aspect-ratio:1;background:rgba(255,255,255,.06);border-radius:50%;cursor:pointer;transition:background .15s;}
+        .c4-cell:hover{background:rgba(255,255,255,.14);}
+        .c4-cell.p1{background:var(--neon-yellow);}
+        .c4-cell.p2{background:var(--neon-pink);}
+
+        /* 15 PUZZLE */
+        .p15-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:320px;margin:0 auto;}
+        .p15-tile{aspect-ratio:1;background:rgba(255,0,110,.15);border:1px solid rgba(255,0,110,.35);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;cursor:pointer;transition:background .1s,transform .1s;}
+        .p15-tile:hover{background:rgba(255,0,110,.28);}
+        .p15-tile:active{transform:scale(.94);}
+        .p15-tile.empty{background:transparent;border-color:transparent;cursor:default;}
+
+        /* WORD SCRAMBLE */
+        .scramble-word{text-align:center;font-family:'Orbitron',sans-serif;font-size:2rem;letter-spacing:6px;color:var(--neon-purple);margin-bottom:8px;}
+        .scramble-hint{text-align:center;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px;}
+
+        /* PERCENTAGE CALCULATOR */
+        .pct-block{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.15);border-radius:6px;padding:14px;margin-bottom:12px;}
+        .pct-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.5);margin-bottom:10px;}
+        .pct-row{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.6);}
+        .pct-row .unit-input{width:90px;}
+        .pct-result{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--neon-green);margin-top:10px;text-align:center;}
+
+        /* TEXT CASE / GENERIC BTN ROWS */
+        .tc-btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+        .tc-actions{display:flex;gap:8px;}
+
+        /* TEXT DIFF */
+        .diff-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+        .diff-result{margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:12px;max-height:260px;overflow-y:auto;background:#0a0a1a;border:1px solid rgba(255,230,0,.15);border-radius:6px;}
+        .diff-line{padding:4px 10px;white-space:pre-wrap;word-break:break-all;border-left:3px solid transparent;}
+        .diff-line.added{background:rgba(0,255,136,.1);border-color:var(--neon-green);}
+        .diff-line.removed{background:rgba(255,0,110,.1);border-color:var(--neon-pink);}
+        .diff-line.changed{background:rgba(255,230,0,.1);border-color:var(--neon-yellow);}
+        .diff-line.same{color:rgba(255,255,255,.4);}
+        @media (max-width:520px){.diff-cols{grid-template-columns:1fr;}}
     </style>
 </head>
 <body>
@@ -642,6 +756,96 @@
                 <p class="card-desc" data-ko="카드를 뒤집어 같은 그림 두 장을 짝지어 찾는 클래식 기억력 게임입니다. 최소 이동 횟수와 시간으로 실력을 겨뤄보세요." data-en="A classic memory game — flip cards to find matching pairs. Race against the clock and try to beat your best move count.">카드를 뒤집어 같은 그림 두 장을 짝지어 찾는 클래식 기억력 게임입니다. 최소 이동 횟수와 시간으로 실력을 겨뤄보세요.</p>
                 <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
             </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('tictactoe')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="전략 / 보드" data-en="Strategy / Board">전략 / 보드</div>
+                <span class="card-icon">⭕</span>
+                <div class="card-title">TIC-TAC-TOE</div>
+                <div class="card-title-kr" data-ko="틱택토" data-en="Tic-Tac-Toe">틱택토</div>
+                <p class="card-desc" data-ko="컴퓨터 또는 친구와 함께 즐기는 클래식 3x3 틱택토입니다. 먼저 한 줄을 완성하면 승리합니다." data-en="Classic 3x3 tic-tac-toe against the computer or a friend. Complete a line first to win.">컴퓨터 또는 친구와 함께 즐기는 클래식 3x3 틱택토입니다. 먼저 한 줄을 완성하면 승리합니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('rps')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="아케이드 / 대전" data-en="Arcade / Versus">아케이드 / 대전</div>
+                <span class="card-icon">✂️</span>
+                <div class="card-title">ROCK PAPER SCISSORS</div>
+                <div class="card-title-kr" data-ko="가위바위보" data-en="Rock Paper Scissors">가위바위보</div>
+                <p class="card-desc" data-ko="컴퓨터를 상대로 가위바위보 대결을 펼쳐보세요. 연승 기록과 전적이 저장됩니다." data-en="Battle the computer in rock-paper-scissors. Your win streak and record are saved.">컴퓨터를 상대로 가위바위보 대결을 펼쳐보세요. 연승 기록과 전적이 저장됩니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('whack')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="아케이드 / 반응속도" data-en="Arcade / Reflexes">아케이드 / 반응속도</div>
+                <span class="card-icon">🔨</span>
+                <div class="card-title">WHACK-A-MOLE</div>
+                <div class="card-title-kr" data-ko="두더지 잡기" data-en="Whack-a-Mole">두더지 잡기</div>
+                <p class="card-desc" data-ko="30초 안에 튀어나오는 두더지를 최대한 많이 클릭하세요. 최고 점수가 저장됩니다." data-en="Click as many moles as you can before the 30-second timer runs out. Your best score is saved.">30초 안에 튀어나오는 두더지를 최대한 많이 클릭하세요. 최고 점수가 저장됩니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="purple" onclick="openTool('simon')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="퍼즐 / 기억력" data-en="Puzzle / Memory">퍼즐 / 기억력</div>
+                <span class="card-icon">🎹</span>
+                <div class="card-title">SIMON SAYS</div>
+                <div class="card-title-kr" data-ko="사이먼 게임" data-en="Simon Says">사이먼 게임</div>
+                <p class="card-desc" data-ko="점점 길어지는 색상 순서를 기억하고 똑같이 따라 눌러보세요. 최고 라운드가 저장됩니다." data-en="Memorize the growing color sequence and repeat it back. Your best round is saved.">점점 길어지는 색상 순서를 기억하고 똑같이 따라 눌러보세요. 최고 라운드가 저장됩니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="green" onclick="openTool('typing')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="테스트 / 타자속도" data-en="Test / Typing Speed">테스트 / 타자속도</div>
+                <span class="card-icon">⌨️</span>
+                <div class="card-title">TYPING TEST</div>
+                <div class="card-title-kr" data-ko="타자 속도 테스트" data-en="Typing Speed Test">타자 속도 테스트</div>
+                <p class="card-desc" data-ko="주어진 문장을 최대한 빠르고 정확하게 입력해 분당 타수(WPM)와 정확도를 측정하세요." data-en="Type the given sentence as fast and accurately as you can to measure your WPM and accuracy.">주어진 문장을 최대한 빠르고 정확하게 입력해 분당 타수(WPM)와 정확도를 측정하세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('guess')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic">퍼즐 / 로직</div>
+                <span class="card-icon">🔢</span>
+                <div class="card-title">NUMBER GUESS</div>
+                <div class="card-title-kr" data-ko="숫자 맞추기" data-en="Number Guessing Game">숫자 맞추기</div>
+                <p class="card-desc" data-ko="1부터 100 사이의 숨겨진 숫자를 최소한의 시도로 맞춰보세요. 더 크다/작다 힌트를 활용하세요." data-en="Guess the hidden number between 1 and 100 in as few tries as possible, using higher/lower hints.">1부터 100 사이의 숨겨진 숫자를 최소한의 시도로 맞춰보세요. 더 크다/작다 힌트를 활용하세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('connect4')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="전략 / 보드" data-en="Strategy / Board">전략 / 보드</div>
+                <span class="card-icon">🔴</span>
+                <div class="card-title">CONNECT FOUR</div>
+                <div class="card-title-kr" data-ko="사목 게임" data-en="Connect Four">사목 게임</div>
+                <p class="card-desc" data-ko="두 명이 번갈아 원판을 떨어뜨려 가로·세로·대각선으로 4개를 먼저 연결하면 승리하는 보드 게임입니다." data-en="Take turns dropping discs — the first to connect four in a row, column, or diagonal wins.">두 명이 번갈아 원판을 떨어뜨려 가로·세로·대각선으로 4개를 먼저 연결하면 승리하는 보드 게임입니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('puzzle15')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="퍼즐 / 로직" data-en="Puzzle / Logic">퍼즐 / 로직</div>
+                <span class="card-icon">🧩</span>
+                <div class="card-title">15 PUZZLE</div>
+                <div class="card-title-kr" data-ko="슬라이딩 퍼즐" data-en="15 Puzzle">슬라이딩 퍼즐</div>
+                <p class="card-desc" data-ko="빈 칸을 이용해 타일을 밀어 1부터 15까지 순서대로 정렬하는 클래식 슬라이딩 퍼즐입니다." data-en="Slide the numbered tiles using the empty space to arrange them from 1 to 15 in order.">빈 칸을 이용해 타일을 밀어 1부터 15까지 순서대로 정렬하는 클래식 슬라이딩 퍼즐입니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="purple" onclick="openTool('scramble')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="퍼즐 / 단어" data-en="Puzzle / Word">퍼즐 / 단어</div>
+                <span class="card-icon">🔤</span>
+                <div class="card-title">WORD SCRAMBLE</div>
+                <div class="card-title-kr" data-ko="단어 맞추기" data-en="Word Scramble">단어 맞추기</div>
+                <p class="card-desc" data-ko="글자 순서가 뒤섞인 단어를 힌트를 보며 원래 단어로 맞춰보세요. 라운드마다 새 단어가 등장합니다." data-en="Unscramble the shuffled letters to guess the original word, with a hint for each round.">글자 순서가 뒤섞인 단어를 힌트를 보며 원래 단어로 맞춰보세요. 라운드마다 새 단어가 등장합니다.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('pong')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="아케이드 / 액션" data-en="Arcade / Action">아케이드 / 액션</div>
+                <span class="card-icon">🏓</span>
+                <div class="card-title">PONG</div>
+                <div class="card-title-kr" data-ko="퐁 게임" data-en="Pong">퐁 게임</div>
+                <p class="card-desc" data-ko="컴퓨터를 상대로 즐기는 클래식 탁구 게임입니다. 방향키나 마우스로 패들을 움직여 5점을 먼저 내세요." data-en="A classic table-tennis game against the computer. Move your paddle with arrow keys or the mouse and score 5 points first.">컴퓨터를 상대로 즐기는 클래식 탁구 게임입니다. 방향키나 마우스로 패들을 움직여 5점을 먼저 내세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
         </div>
     </div>
 
@@ -754,6 +958,96 @@
                 <div class="card-title">COLOR PICKER</div>
                 <div class="card-title-kr" data-ko="색상 피커 / 변환기" data-en="Color Picker / Converter">색상 피커 / 변환기</div>
                 <p class="card-desc" data-ko="HEX, RGB, HSL 색상 코드를 서로 변환하고 실시간으로 미리 봅니다. 어울리는 색상 팔레트도 함께 확인하세요." data-en="Convert between HEX, RGB, and HSL color codes with a live preview. Also shows a matching color palette to go with your pick.">HEX, RGB, HSL 색상 코드를 서로 변환하고 실시간으로 미리 봅니다. 어울리는 색상 팔레트도 함께 확인하세요.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="green" onclick="openTool('percent')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="수학 / 계산" data-en="Math / Compute">수학 / 계산</div>
+                <span class="card-icon">💯</span>
+                <div class="card-title">PERCENTAGE</div>
+                <div class="card-title-kr" data-ko="퍼센트 계산기" data-en="Percentage Calculator">퍼센트 계산기</div>
+                <p class="card-desc" data-ko="X는 Y의 몇 %인지, Y의 X%는 얼마인지, 증가·감소율까지 세 가지 방식으로 퍼센트를 계산합니다." data-en="Calculate what % X is of Y, what X% of Y is, and percentage increase/decrease — three modes in one tool.">X는 Y의 몇 %인지, Y의 X%는 얼마인지, 증가·감소율까지 세 가지 방식으로 퍼센트를 계산합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('textcase')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="텍스트 / 변환" data-en="Text / Convert">텍스트 / 변환</div>
+                <span class="card-icon">🔠</span>
+                <div class="card-title">TEXT CASE</div>
+                <div class="card-title-kr" data-ko="대소문자 변환기" data-en="Text Case Converter">대소문자 변환기</div>
+                <p class="card-desc" data-ko="입력한 텍스트를 대문자, 소문자, Title Case, 문장 형식, camelCase, snake_case, kebab-case로 즉시 변환합니다." data-en="Instantly convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case.">입력한 텍스트를 대문자, 소문자, Title Case, 문장 형식, camelCase, snake_case, kebab-case로 즉시 변환합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('json')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="개발 / 데이터" data-en="Dev / Data">개발 / 데이터</div>
+                <span class="card-icon">🧾</span>
+                <div class="card-title">JSON FORMATTER</div>
+                <div class="card-title-kr" data-ko="JSON 포맷터" data-en="JSON Formatter">JSON 포맷터</div>
+                <p class="card-desc" data-ko="JSON 텍스트를 보기 좋게 정렬하거나 한 줄로 압축하고, 문법 오류가 있으면 바로 알려드립니다." data-en="Pretty-print or minify JSON text, with instant validation and error messages when the syntax is invalid.">JSON 텍스트를 보기 좋게 정렬하거나 한 줄로 압축하고, 문법 오류가 있으면 바로 알려드립니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('base64')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="개발 / 인코딩" data-en="Dev / Encoding">개발 / 인코딩</div>
+                <span class="card-icon">🔐</span>
+                <div class="card-title">BASE64</div>
+                <div class="card-title-kr" data-ko="Base64 인코더/디코더" data-en="Base64 Encoder/Decoder">Base64 인코더/디코더</div>
+                <p class="card-desc" data-ko="텍스트를 Base64로 인코딩하거나 Base64 문자열을 원래 텍스트로 디코딩합니다. 한글 등 유니코드도 지원합니다." data-en="Encode text to Base64 or decode a Base64 string back to text — supports Unicode, including Korean.">텍스트를 Base64로 인코딩하거나 Base64 문자열을 원래 텍스트로 디코딩합니다. 한글 등 유니코드도 지원합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="purple" onclick="openTool('basenum')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="수학 / 진법" data-en="Math / Number Base">수학 / 진법</div>
+                <span class="card-icon">🔟</span>
+                <div class="card-title">BASE CONVERTER</div>
+                <div class="card-title-kr" data-ko="진법 변환기" data-en="Number Base Converter">진법 변환기</div>
+                <p class="card-desc" data-ko="2진수, 8진수, 10진수, 16진수 사이를 자유롭게 변환합니다. 프로그래밍이나 학습에 유용합니다." data-en="Convert freely between binary, octal, decimal, and hexadecimal — handy for programming and learning.">2진수, 8진수, 10진수, 16진수 사이를 자유롭게 변환합니다. 프로그래밍이나 학습에 유용합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="green" onclick="openTool('tip')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="생활 / 계산" data-en="Life / Compute">생활 / 계산</div>
+                <span class="card-icon">🧾</span>
+                <div class="card-title">TIP CALCULATOR</div>
+                <div class="card-title-kr" data-ko="팁 · 정산 계산기" data-en="Tip Calculator">팁 · 정산 계산기</div>
+                <p class="card-desc" data-ko="식사 금액과 팁 비율을 입력하면 총액과 인당 부담액을 자동으로 계산합니다. 더치페이에 유용합니다." data-en="Enter the bill and tip percentage to get the total and per-person amount instantly. Great for splitting the check.">식사 금액과 팁 비율을 입력하면 총액과 인당 부담액을 자동으로 계산합니다. 더치페이에 유용합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('loan')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="금융 / 계산" data-en="Finance / Compute">금융 / 계산</div>
+                <span class="card-icon">🏦</span>
+                <div class="card-title">LOAN CALCULATOR</div>
+                <div class="card-title-kr" data-ko="대출 상환 계산기" data-en="Loan Calculator">대출 상환 계산기</div>
+                <p class="card-desc" data-ko="대출 원금, 연이율, 상환 기간을 입력하면 월 상환액과 총 이자를 계산합니다. 참고용 지표입니다." data-en="Enter the loan amount, annual rate, and term to estimate the monthly payment and total interest. For reference only.">대출 원금, 연이율, 상환 기간을 입력하면 월 상환액과 총 이자를 계산합니다. 참고용 지표입니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('lorem')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="텍스트 / 생성" data-en="Text / Generate">텍스트 / 생성</div>
+                <span class="card-icon">📄</span>
+                <div class="card-title">LOREM IPSUM</div>
+                <div class="card-title-kr" data-ko="더미 텍스트 생성기" data-en="Lorem Ipsum Generator">더미 텍스트 생성기</div>
+                <p class="card-desc" data-ko="원하는 문단·문장·단어 수만큼 더미 텍스트를 생성합니다. 디자인 시안이나 레이아웃 테스트에 유용합니다." data-en="Generate placeholder text by paragraph, sentence, or word count — useful for mockups and layout testing.">원하는 문단·문장·단어 수만큼 더미 텍스트를 생성합니다. 디자인 시안이나 레이아웃 테스트에 유용합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="yellow" onclick="openTool('difftool')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="텍스트 / 비교" data-en="Text / Compare">텍스트 / 비교</div>
+                <span class="card-icon">🔍</span>
+                <div class="card-title">TEXT DIFF</div>
+                <div class="card-title-kr" data-ko="텍스트 비교기" data-en="Text Diff Checker">텍스트 비교기</div>
+                <p class="card-desc" data-ko="두 텍스트를 줄 단위로 비교해 추가되거나 삭제되거나 달라진 줄을 색으로 표시합니다." data-en="Compare two blocks of text line by line and highlight added, removed, and changed lines in color.">두 텍스트를 줄 단위로 비교해 추가되거나 삭제되거나 달라진 줄을 색으로 표시합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="purple" onclick="openTool('roman')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="수학 / 변환" data-en="Math / Convert">수학 / 변환</div>
+                <span class="card-icon">🏛️</span>
+                <div class="card-title">ROMAN NUMERALS</div>
+                <div class="card-title-kr" data-ko="로마 숫자 변환기" data-en="Roman Numeral Converter">로마 숫자 변환기</div>
+                <p class="card-desc" data-ko="아라비아 숫자를 로마 숫자로, 로마 숫자를 아라비아 숫자로 양방향 변환합니다." data-en="Convert Arabic numerals to Roman numerals and back, in both directions.">아라비아 숫자를 로마 숫자로, 로마 숫자를 아라비아 숫자로 양방향 변환합니다.</p>
                 <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
         </div>
@@ -1340,6 +1634,196 @@
   </div>
 </div>
 
+<!-- TIC-TAC-TOE MODAL -->
+<div class="modal-overlay" id="modalTictactoe" onclick="closeModalOutside(event,'tictactoe')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:400px;">
+    <button class="modal-close" onclick="closeTool('tictactoe')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="⭕ 틱택토" data-en="⭕ Tic-Tac-Toe">⭕ 틱택토</div>
+    <div class="modal-subtitle" data-ko="먼저 한 줄을 완성하면 승리합니다" data-en="Complete a line first to win">먼저 한 줄을 완성하면 승리합니다</div>
+    <div class="tt-bar">
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="ttInit()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+      <button class="mine-flagmode" id="ttModeBtn" onclick="ttToggleMode()" style="border-color:rgba(0,245,255,.25);color:var(--neon-cyan);"></button>
+    </div>
+    <div class="tt-grid" id="ttGrid"></div>
+    <div class="tt-status" id="ttStatus"></div>
+    <div class="g2048-scores" style="justify-content:center;margin-top:10px;">
+      <div class="g2048-score-box"><div class="g2048-score-label">X</div><div class="g2048-score-val" id="ttScoreX" style="color:var(--neon-cyan);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="무승부" data-en="Draws">무승부</div><div class="g2048-score-val" id="ttScoreD" style="color:var(--neon-cyan);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label">O</div><div class="g2048-score-val" id="ttScoreO" style="color:var(--neon-cyan);">0</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROCK PAPER SCISSORS MODAL -->
+<div class="modal-overlay" id="modalRps" onclick="closeModalOutside(event,'rps')">
+  <div class="modal yellow" style="max-width:420px;">
+    <button class="modal-close" onclick="closeTool('rps')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);" data-ko="✂️ 가위바위보" data-en="✂️ Rock Paper Scissors">✂️ 가위바위보</div>
+    <div class="modal-subtitle" data-ko="컴퓨터를 상대로 승부를 겨뤄보세요" data-en="Battle the computer">컴퓨터를 상대로 승부를 겨뤄보세요</div>
+    <div class="rps-arena">
+      <div class="rps-side"><div class="rps-emoji" id="rpsUserChoice">❔</div><div class="rps-label" data-ko="나" data-en="You">나</div></div>
+      <div class="rps-vs">VS</div>
+      <div class="rps-side"><div class="rps-emoji" id="rpsCpuChoice">❔</div><div class="rps-label" data-ko="컴퓨터" data-en="CPU">컴퓨터</div></div>
+    </div>
+    <div class="rps-result" id="rpsResult" data-ko="아래 버튼을 눌러 시작하세요" data-en="Press a button below to start">아래 버튼을 눌러 시작하세요</div>
+    <div class="rps-buttons">
+      <button class="rps-btn" onclick="rpsPlay('rock')">✊</button>
+      <button class="rps-btn" onclick="rpsPlay('paper')">✋</button>
+      <button class="rps-btn" onclick="rpsPlay('scissors')">✌️</button>
+    </div>
+    <div class="g2048-scores" style="justify-content:center;margin-top:14px;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="승" data-en="Wins">승</div><div class="g2048-score-val" id="rpsWins" style="color:var(--neon-yellow);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="패" data-en="Losses">패</div><div class="g2048-score-val" id="rpsLosses" style="color:var(--neon-yellow);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="무" data-en="Draws">무</div><div class="g2048-score-val" id="rpsDraws" style="color:var(--neon-yellow);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="연승" data-en="Streak">연승</div><div class="g2048-score-val" id="rpsStreak" style="color:var(--neon-yellow);">0</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHACK-A-MOLE MODAL -->
+<div class="modal-overlay" id="modalWhack" onclick="closeModalOutside(event,'whack')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:400px;">
+    <button class="modal-close" onclick="closeTool('whack')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);" data-ko="🔨 두더지 잡기" data-en="🔨 Whack-a-Mole">🔨 두더지 잡기</div>
+    <div class="modal-subtitle" data-ko="30초 안에 최대한 많은 두더지를 클릭하세요" data-en="Click as many moles as you can in 30 seconds">30초 안에 최대한 많은 두더지를 클릭하세요</div>
+    <div class="mine-bar">
+      <div class="mine-counter" id="whackScore" style="border-color:rgba(255,0,110,.25);color:var(--neon-pink);">0</div>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" id="whackStartBtn" onclick="whackStart()" data-ko="▶ 시작" data-en="▶ Start">▶ 시작</button>
+      <div class="mine-counter" id="whackTime" style="border-color:rgba(255,0,110,.25);color:var(--neon-pink);">30</div>
+    </div>
+    <div class="whack-grid" id="whackGrid"></div>
+    <div class="mine-status" id="whackStatus"></div>
+  </div>
+</div>
+
+<!-- SIMON SAYS MODAL -->
+<div class="modal-overlay" id="modalSimon" onclick="closeModalOutside(event,'simon')">
+  <div class="modal purple" style="max-width:380px;">
+    <button class="modal-close" onclick="closeTool('simon')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);" data-ko="🎹 사이먼 게임" data-en="🎹 Simon Says">🎹 사이먼 게임</div>
+    <div class="modal-subtitle" data-ko="색상 순서를 기억하고 따라 눌러보세요" data-en="Memorize the color sequence and repeat it">색상 순서를 기억하고 따라 눌러보세요</div>
+    <div class="g2048-scores" style="justify-content:center;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="라운드" data-en="Round">라운드</div><div class="g2048-score-val" id="simonRound" style="color:var(--neon-purple);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="최고" data-en="Best">최고</div><div class="g2048-score-val" id="simonBest" style="color:var(--neon-purple);">0</div></div>
+    </div>
+    <div class="simon-pad" id="simonPad">
+      <button class="simon-cell simon-green" data-idx="0" onclick="simonUserPress(0)"></button>
+      <button class="simon-cell simon-red" data-idx="1" onclick="simonUserPress(1)"></button>
+      <button class="simon-cell simon-yellow" data-idx="2" onclick="simonUserPress(2)"></button>
+      <button class="simon-cell simon-blue" data-idx="3" onclick="simonUserPress(3)"></button>
+    </div>
+    <div class="mine-status" id="simonStatus"></div>
+    <button class="tool-btn purple" style="display:block;margin:10px auto 0;" id="simonStartBtn" onclick="simonStart()" data-ko="▶ 시작" data-en="▶ Start">▶ 시작</button>
+  </div>
+</div>
+
+<!-- TYPING TEST MODAL -->
+<div class="modal-overlay" id="modalTyping" onclick="closeModalOutside(event,'typing')">
+  <div class="modal green" style="max-width:520px;">
+    <button class="modal-close" onclick="closeTool('typing')">✕</button>
+    <div class="modal-title" style="color:var(--neon-green);" data-ko="⌨️ 타자 속도 테스트" data-en="⌨️ Typing Speed Test">⌨️ 타자 속도 테스트</div>
+    <div class="modal-subtitle" data-ko="문장을 최대한 빠르고 정확하게 입력하세요" data-en="Type the sentence as fast and accurately as you can">문장을 최대한 빠르고 정확하게 입력하세요</div>
+    <div class="typing-text" id="typingText"></div>
+    <textarea class="typing-input" id="typingInput" rows="3" oninput="typingOnInput()" data-ko-placeholder="여기에 입력을 시작하세요..." data-en-placeholder="Start typing here..." placeholder="여기에 입력을 시작하세요..."></textarea>
+    <div class="g2048-scores" style="justify-content:center;">
+      <div class="g2048-score-box"><div class="g2048-score-label">WPM</div><div class="g2048-score-val" id="typingWpm" style="color:var(--neon-green);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="정확도" data-en="Accuracy">정확도</div><div class="g2048-score-val" id="typingAcc" style="color:var(--neon-green);">100%</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="시간" data-en="Time">시간</div><div class="g2048-score-val" id="typingTime" style="color:var(--neon-green);">0.0s</div></div>
+    </div>
+    <div class="snake-status" id="typingStatus"></div>
+    <button class="tool-btn green" style="display:block;margin:6px auto 0;" onclick="typingInit()" data-ko="🔄 새 문장" data-en="🔄 New Sentence">🔄 새 문장</button>
+  </div>
+</div>
+
+<!-- NUMBER GUESS MODAL -->
+<div class="modal-overlay" id="modalGuess" onclick="closeModalOutside(event,'guess')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:420px;">
+    <button class="modal-close" onclick="closeTool('guess')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="🔢 숫자 맞추기" data-en="🔢 Number Guessing Game">🔢 숫자 맞추기</div>
+    <div class="modal-subtitle" data-ko="1부터 100 사이의 숫자를 맞춰보세요" data-en="Guess the number between 1 and 100">1부터 100 사이의 숫자를 맞춰보세요</div>
+    <div class="unit-convert-row">
+      <input class="unit-input" type="number" id="guessInput" min="1" max="100" data-ko-placeholder="1 ~ 100" data-en-placeholder="1 - 100" placeholder="1 ~ 100" onkeydown="if(event.key==='Enter')guessSubmit()">
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="guessSubmit()" data-ko="추측" data-en="Guess">추측</button>
+    </div>
+    <div class="mine-status" id="guessStatus" style="color:var(--neon-cyan);"></div>
+    <div class="rx-history" id="guessHistory"></div>
+    <div class="g2048-scores" style="justify-content:center;margin-top:10px;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="시도" data-en="Attempts">시도</div><div class="g2048-score-val" id="guessAttempts" style="color:var(--neon-cyan);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="최고" data-en="Best">최고</div><div class="g2048-score-val" id="guessBest" style="color:var(--neon-cyan);">—</div></div>
+    </div>
+    <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);display:block;margin:10px auto 0;" onclick="guessInit()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+  </div>
+</div>
+
+<!-- CONNECT FOUR MODAL -->
+<div class="modal-overlay" id="modalConnect4" onclick="closeModalOutside(event,'connect4')">
+  <div class="modal yellow" style="max-width:420px;">
+    <button class="modal-close" onclick="closeTool('connect4')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);" data-ko="🔴 사목 게임" data-en="🔴 Connect Four">🔴 사목 게임</div>
+    <div class="modal-subtitle" data-ko="가로·세로·대각선으로 4개를 먼저 연결하세요" data-en="Connect four in a row, column, or diagonal first">가로·세로·대각선으로 4개를 먼저 연결하세요</div>
+    <button class="tool-btn yellow" onclick="c4Init()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+    <div class="c4-board" id="c4Board"></div>
+    <div class="mine-status" id="c4Status"></div>
+  </div>
+</div>
+
+<!-- 15 PUZZLE MODAL -->
+<div class="modal-overlay" id="modalPuzzle15" onclick="closeModalOutside(event,'puzzle15')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:400px;">
+    <button class="modal-close" onclick="closeTool('puzzle15')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);" data-ko="🧩 슬라이딩 퍼즐" data-en="🧩 15 Puzzle">🧩 슬라이딩 퍼즐</div>
+    <div class="modal-subtitle" data-ko="타일을 밀어 1부터 15까지 순서대로 정렬하세요" data-en="Slide tiles to arrange them from 1 to 15">타일을 밀어 1부터 15까지 순서대로 정렬하세요</div>
+    <div class="g2048-bar">
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="p15Init()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="이동" data-en="Moves">이동</div><div class="g2048-score-val" id="p15Moves" style="color:var(--neon-pink);">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="시간" data-en="Time">시간</div><div class="g2048-score-val" id="p15Time" style="color:var(--neon-pink);">0</div></div>
+      </div>
+    </div>
+    <div class="p15-grid" id="p15Grid"></div>
+    <div class="mine-status" id="p15Status"></div>
+  </div>
+</div>
+
+<!-- WORD SCRAMBLE MODAL -->
+<div class="modal-overlay" id="modalScramble" onclick="closeModalOutside(event,'scramble')">
+  <div class="modal purple" style="max-width:420px;">
+    <button class="modal-close" onclick="closeTool('scramble')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);" data-ko="🔤 단어 맞추기" data-en="🔤 Word Scramble">🔤 단어 맞추기</div>
+    <div class="modal-subtitle" data-ko="뒤섞인 글자를 보고 원래 단어를 맞춰보세요" data-en="Unscramble the letters to guess the word">뒤섞인 글자를 보고 원래 단어를 맞춰보세요</div>
+    <div class="scramble-word" id="scrambleWord"></div>
+    <div class="scramble-hint" id="scrambleHint"></div>
+    <div class="unit-convert-row">
+      <input class="unit-input" id="scrambleInput" data-ko-placeholder="정답을 입력하세요" data-en-placeholder="Type your answer" placeholder="정답을 입력하세요" onkeydown="if(event.key==='Enter')scrambleSubmit()">
+      <button class="tool-btn purple" onclick="scrambleSubmit()" data-ko="확인" data-en="Check">확인</button>
+    </div>
+    <div class="mem-status" id="scrambleStatus"></div>
+    <div class="g2048-scores" style="justify-content:center;margin-top:6px;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="점수" data-en="Score">점수</div><div class="g2048-score-val" id="scrambleScore" style="color:var(--neon-purple);">0</div></div>
+    </div>
+    <button class="tool-btn purple" style="display:block;margin:6px auto 0;" onclick="scrambleNext()" data-ko="⏭ 다음 단어" data-en="⏭ Next Word">⏭ 다음 단어</button>
+  </div>
+</div>
+
+<!-- PONG MODAL -->
+<div class="modal-overlay" id="modalPong" onclick="closeModalOutside(event,'pong')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:420px;">
+    <button class="modal-close" onclick="closeTool('pong')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="🏓 퐁 게임" data-en="🏓 Pong">🏓 퐁 게임</div>
+    <div class="modal-subtitle" data-ko="5점을 먼저 내면 승리합니다" data-en="First to 5 points wins">5점을 먼저 내면 승리합니다</div>
+    <div class="brk-bar">
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="pongInit()" data-ko="🔄 새 게임" data-en="🔄 New Game">🔄 새 게임</button>
+      <div class="g2048-scores">
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="나" data-en="You">나</div><div class="g2048-score-val" id="pongScoreP" style="color:var(--neon-cyan);">0</div></div>
+        <div class="g2048-score-box"><div class="g2048-score-label" data-ko="CPU" data-en="CPU">CPU</div><div class="g2048-score-val" id="pongScoreC" style="color:var(--neon-cyan);">0</div></div>
+      </div>
+    </div>
+    <canvas id="pongCanvas" width="360" height="240"></canvas>
+    <div class="brk-status" id="pongStatus"></div>
+    <div class="brk-hint" data-ko="방향키 ↑↓ 또는 마우스로 패들 조작" data-en="Move the paddle with ↑↓ or the mouse">방향키 ↑↓ 또는 마우스로 패들 조작</div>
+  </div>
+</div>
+
 <!-- TODO MODAL -->
 <div class="modal-overlay" id="modalTodo" onclick="closeModalOutside(event,'todo')">
   <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:480px;">
@@ -1464,6 +1948,218 @@
   </div>
 </div>
 
+<!-- PERCENTAGE MODAL -->
+<div class="modal-overlay" id="modalPercent" onclick="closeModalOutside(event,'percent')">
+  <div class="modal green" style="max-width:460px;">
+    <button class="modal-close" onclick="closeTool('percent')">✕</button>
+    <div class="modal-title" style="color:var(--neon-green);" data-ko="💯 퍼센트 계산기" data-en="💯 Percentage Calculator">💯 퍼센트 계산기</div>
+    <div class="modal-subtitle" data-ko="세 가지 방식으로 퍼센트를 계산합니다" data-en="Three ways to calculate percentages">세 가지 방식으로 퍼센트를 계산합니다</div>
+    <div class="pct-block">
+      <div class="pct-label" data-ko="X는 Y의 몇 %인가요?" data-en="X is what % of Y?">X는 Y의 몇 %인가요?</div>
+      <div class="pct-row">
+        <input class="unit-input" type="number" id="percentX1" placeholder="X" oninput="percentCalc1()">
+        <span data-ko="는" data-en="is">는</span>
+        <input class="unit-input" type="number" id="percentY1" placeholder="Y" oninput="percentCalc1()">
+        <span data-ko="의" data-en="of">의</span>
+      </div>
+      <div class="pct-result" id="percentResult1">—</div>
+    </div>
+    <div class="pct-block">
+      <div class="pct-label" data-ko="Y의 X%는 얼마인가요?" data-en="What is X% of Y?">Y의 X%는 얼마인가요?</div>
+      <div class="pct-row">
+        <input class="unit-input" type="number" id="percentX2" placeholder="X%" oninput="percentCalc2()">
+        <span>%</span>
+        <span data-ko="of" data-en="of">of</span>
+        <input class="unit-input" type="number" id="percentY2" placeholder="Y" oninput="percentCalc2()">
+      </div>
+      <div class="pct-result" id="percentResult2">—</div>
+    </div>
+    <div class="pct-block">
+      <div class="pct-label" data-ko="X에서 Y로 변화율은?" data-en="Percent change from X to Y">X에서 Y로 변화율은?</div>
+      <div class="pct-row">
+        <input class="unit-input" type="number" id="percentX3" placeholder="X" oninput="percentCalc3()">
+        <span>→</span>
+        <input class="unit-input" type="number" id="percentY3" placeholder="Y" oninput="percentCalc3()">
+      </div>
+      <div class="pct-result" id="percentResult3">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- TEXT CASE MODAL -->
+<div class="modal-overlay" id="modalTextcase" onclick="closeModalOutside(event,'textcase')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:520px;">
+    <button class="modal-close" onclick="closeTool('textcase')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);" data-ko="🔠 대소문자 변환기" data-en="🔠 Text Case Converter">🔠 대소문자 변환기</div>
+    <div class="modal-subtitle" data-ko="텍스트를 입력하고 원하는 형식을 선택하세요" data-en="Enter text and pick the case you want">텍스트를 입력하고 원하는 형식을 선택하세요</div>
+    <textarea class="typing-input" id="tcInput" rows="3" oninput="tcRenderCount()" data-ko-placeholder="여기에 텍스트를 입력하세요..." data-en-placeholder="Type or paste your text here..." placeholder="여기에 텍스트를 입력하세요..."></textarea>
+    <div class="tc-btn-row">
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('upper')" data-ko="대문자" data-en="UPPERCASE">대문자</button>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('lower')" data-ko="소문자" data-en="lowercase">소문자</button>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('title')" data-ko="Title Case" data-en="Title Case">Title Case</button>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('sentence')" data-ko="문장 형식" data-en="Sentence case">문장 형식</button>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('camel')">camelCase</button>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('snake')">snake_case</button>
+      <button class="tool-btn" style="border-color:rgba(255,0,110,.3);color:var(--neon-pink);" onclick="tcConvert('kebab')">kebab-case</button>
+    </div>
+    <textarea class="typing-input" id="tcOutput" rows="3" readonly data-ko-placeholder="결과가 여기에 표시됩니다" data-en-placeholder="Result appears here" placeholder="결과가 여기에 표시됩니다"></textarea>
+    <div class="tc-actions">
+      <button class="color-copy-btn" onclick="tcCopy()" data-ko="결과 복사" data-en="Copy Result">결과 복사</button>
+      <button class="color-copy-btn" onclick="tcClear()" data-ko="초기화" data-en="Clear">초기화</button>
+    </div>
+  </div>
+</div>
+
+<!-- JSON FORMATTER MODAL -->
+<div class="modal-overlay" id="modalJson" onclick="closeModalOutside(event,'json')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:560px;">
+    <button class="modal-close" onclick="closeTool('json')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="🧾 JSON 포맷터" data-en="🧾 JSON Formatter">🧾 JSON 포맷터</div>
+    <div class="modal-subtitle" data-ko="JSON을 정렬하거나 압축하고 문법을 검사합니다" data-en="Pretty-print, minify, and validate JSON">JSON을 정렬하거나 압축하고 문법을 검사합니다</div>
+    <textarea class="typing-input" id="jsonInput" rows="6" data-ko-placeholder='{"hello":"world"}' data-en-placeholder='{"hello":"world"}' placeholder='{"hello":"world"}'></textarea>
+    <div class="tc-btn-row">
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="jsonFormat()" data-ko="✨ 정렬" data-en="✨ Format">✨ 정렬</button>
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="jsonMinify()" data-ko="📦 압축" data-en="📦 Minify">📦 압축</button>
+      <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="jsonClear()" data-ko="초기화" data-en="Clear">초기화</button>
+    </div>
+    <div class="mine-status" id="jsonStatus"></div>
+    <textarea class="typing-input" id="jsonOutput" rows="6" readonly></textarea>
+    <button class="color-copy-btn" onclick="jsonCopy()" data-ko="결과 복사" data-en="Copy Result">결과 복사</button>
+  </div>
+</div>
+
+<!-- BASE64 MODAL -->
+<div class="modal-overlay" id="modalBase64" onclick="closeModalOutside(event,'base64')">
+  <div class="modal yellow" style="max-width:520px;">
+    <button class="modal-close" onclick="closeTool('base64')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);" data-ko="🔐 Base64 인코더/디코더" data-en="🔐 Base64 Encoder/Decoder">🔐 Base64 인코더/디코더</div>
+    <div class="modal-subtitle" data-ko="텍스트를 Base64로 인코딩하거나 디코딩합니다" data-en="Encode text to Base64 or decode it back">텍스트를 Base64로 인코딩하거나 디코딩합니다</div>
+    <textarea class="typing-input" id="b64Input" rows="4" data-ko-placeholder="텍스트 또는 Base64 문자열을 입력하세요" data-en-placeholder="Enter text or a Base64 string" placeholder="텍스트 또는 Base64 문자열을 입력하세요"></textarea>
+    <div class="tc-btn-row">
+      <button class="tool-btn" style="border-color:rgba(255,230,0,.3);color:var(--neon-yellow);" onclick="b64Encode()" data-ko="인코딩 →" data-en="Encode →">인코딩 →</button>
+      <button class="tool-btn" style="border-color:rgba(255,230,0,.3);color:var(--neon-yellow);" onclick="b64Decode()" data-ko="디코딩 →" data-en="Decode →">디코딩 →</button>
+      <button class="tool-btn" style="border-color:rgba(255,230,0,.3);color:var(--neon-yellow);" onclick="b64Clear()" data-ko="초기화" data-en="Clear">초기화</button>
+    </div>
+    <div class="mine-status" id="b64Status" style="color:var(--neon-yellow);"></div>
+    <textarea class="typing-input" id="b64Output" rows="4" readonly></textarea>
+    <button class="color-copy-btn" onclick="b64Copy()" data-ko="결과 복사" data-en="Copy Result">결과 복사</button>
+  </div>
+</div>
+
+<!-- NUMBER BASE CONVERTER MODAL -->
+<div class="modal-overlay" id="modalBasenum" onclick="closeModalOutside(event,'basenum')">
+  <div class="modal purple" style="max-width:460px;">
+    <button class="modal-close" onclick="closeTool('basenum')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);" data-ko="🔟 진법 변환기" data-en="🔟 Number Base Converter">🔟 진법 변환기</div>
+    <div class="modal-subtitle" data-ko="2진수, 8진수, 10진수, 16진수를 서로 변환합니다" data-en="Convert between binary, octal, decimal, and hex">2진수, 8진수, 10진수, 16진수를 서로 변환합니다</div>
+    <div class="bmi-field" style="margin-bottom:12px;"><label data-ko="2진수 (Binary)" data-en="Binary">2진수 (Binary)</label><input id="bnBin" oninput="bnFrom('bin')" placeholder="1010"></div>
+    <div class="bmi-field" style="margin-bottom:12px;"><label data-ko="8진수 (Octal)" data-en="Octal">8진수 (Octal)</label><input id="bnOct" oninput="bnFrom('oct')" placeholder="12"></div>
+    <div class="bmi-field" style="margin-bottom:12px;"><label data-ko="10진수 (Decimal)" data-en="Decimal">10진수 (Decimal)</label><input id="bnDec" oninput="bnFrom('dec')" placeholder="10"></div>
+    <div class="bmi-field"><label data-ko="16진수 (Hex)" data-en="Hexadecimal">16진수 (Hex)</label><input id="bnHex" oninput="bnFrom('hex')" placeholder="A"></div>
+    <div class="mine-status" id="bnStatus"></div>
+  </div>
+</div>
+
+<!-- TIP CALCULATOR MODAL -->
+<div class="modal-overlay" id="modalTip" onclick="closeModalOutside(event,'tip')">
+  <div class="modal green" style="max-width:440px;">
+    <button class="modal-close" onclick="closeTool('tip')">✕</button>
+    <div class="modal-title" style="color:var(--neon-green);" data-ko="🧾 팁 · 정산 계산기" data-en="🧾 Tip Calculator">🧾 팁 · 정산 계산기</div>
+    <div class="modal-subtitle" data-ko="식사 금액과 팁 비율로 정산 금액을 계산합니다" data-en="Calculate the total and split from a bill and tip %">식사 금액과 팁 비율로 정산 금액을 계산합니다</div>
+    <div class="bmi-row">
+      <div class="bmi-field"><label data-ko="식사 금액" data-en="Bill Amount">식사 금액</label><input type="number" id="tipBill" value="50000" oninput="tipCalc()"></div>
+      <div class="bmi-field"><label data-ko="팁 비율 (%)" data-en="Tip %">팁 비율 (%)</label><input type="number" id="tipPercent" value="10" oninput="tipCalc()"></div>
+    </div>
+    <div class="bmi-field" style="margin-bottom:14px;"><label data-ko="인원 수" data-en="Number of People">인원 수</label><input type="number" id="tipPeople" value="1" min="1" oninput="tipCalc()"></div>
+    <div class="bmi-result">
+      <div class="bmi-value" id="tipTotal" style="font-size:1.6rem;">—</div>
+      <div class="bmi-category" data-ko="총 결제 금액" data-en="Total Amount">총 결제 금액</div>
+    </div>
+    <div class="g2048-scores" style="justify-content:center;margin-top:10px;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="팁 금액" data-en="Tip Amount">팁 금액</div><div class="g2048-score-val" id="tipAmount" style="color:var(--neon-green);">—</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="인당 금액" data-en="Per Person">인당 금액</div><div class="g2048-score-val" id="tipPerPerson" style="color:var(--neon-green);">—</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOAN CALCULATOR MODAL -->
+<div class="modal-overlay" id="modalLoan" onclick="closeModalOutside(event,'loan')">
+  <div class="modal" style="border:1px solid rgba(255,0,110,.25);box-shadow:0 0 60px rgba(255,0,110,.06);max-width:460px;">
+    <button class="modal-close" onclick="closeTool('loan')">✕</button>
+    <div class="modal-title" style="color:var(--neon-pink);" data-ko="🏦 대출 상환 계산기" data-en="🏦 Loan Calculator">🏦 대출 상환 계산기</div>
+    <div class="modal-subtitle" data-ko="원금, 연이율, 기간으로 월 상환액을 계산합니다" data-en="Estimate monthly payments from amount, rate, and term">원금, 연이율, 기간으로 월 상환액을 계산합니다</div>
+    <div class="bmi-row">
+      <div class="bmi-field"><label data-ko="대출 원금" data-en="Loan Amount">대출 원금</label><input type="number" id="loanAmount" value="10000000" oninput="loanCalc()"></div>
+      <div class="bmi-field"><label data-ko="연이율 (%)" data-en="Annual Rate (%)">연이율 (%)</label><input type="number" id="loanRate" value="5" step="0.1" oninput="loanCalc()"></div>
+    </div>
+    <div class="bmi-field" style="margin-bottom:14px;"><label data-ko="상환 기간 (년)" data-en="Term (Years)">상환 기간 (년)</label><input type="number" id="loanYears" value="5" oninput="loanCalc()"></div>
+    <div class="bmi-result">
+      <div class="bmi-value" id="loanMonthly" style="font-size:1.6rem;">—</div>
+      <div class="bmi-category" data-ko="월 상환액" data-en="Monthly Payment">월 상환액</div>
+    </div>
+    <div class="g2048-scores" style="justify-content:center;margin-top:10px;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="총 이자" data-en="Total Interest">총 이자</div><div class="g2048-score-val" id="loanTotalInterest" style="color:var(--neon-pink);">—</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="총 상환액" data-en="Total Paid">총 상환액</div><div class="g2048-score-val" id="loanTotalPay" style="color:var(--neon-pink);">—</div></div>
+    </div>
+    <p class="tool-tip" data-ko-html="&lt;b&gt;참고&lt;/b&gt; — 원리금균등상환 방식 기준의 추정치이며 실제 대출 상품과 다를 수 있습니다." data-en-html="&lt;b&gt;Note&lt;/b&gt; — Estimated using equal monthly installments; actual loan terms may differ."><b>참고</b> — 원리금균등상환 방식 기준의 추정치이며 실제 대출 상품과 다를 수 있습니다.</p>
+  </div>
+</div>
+
+<!-- LOREM IPSUM MODAL -->
+<div class="modal-overlay" id="modalLorem" onclick="closeModalOutside(event,'lorem')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:520px;">
+    <button class="modal-close" onclick="closeTool('lorem')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="📄 더미 텍스트 생성기" data-en="📄 Lorem Ipsum Generator">📄 더미 텍스트 생성기</div>
+    <div class="modal-subtitle" data-ko="원하는 단위와 개수로 더미 텍스트를 생성합니다" data-en="Generate placeholder text by unit and count">원하는 단위와 개수로 더미 텍스트를 생성합니다</div>
+    <div class="bmi-row">
+      <div class="bmi-field">
+        <label data-ko="단위" data-en="Unit">단위</label>
+        <select class="unit-select" id="loremType" style="width:100%;">
+          <option value="paragraphs" data-ko="문단" data-en="Paragraphs">문단</option>
+          <option value="sentences" data-ko="문장" data-en="Sentences">문장</option>
+          <option value="words" data-ko="단어" data-en="Words">단어</option>
+        </select>
+      </div>
+      <div class="bmi-field"><label data-ko="개수" data-en="Count">개수</label><input type="number" id="loremCount" value="3" min="1" max="50"></div>
+    </div>
+    <button class="tool-btn" style="border-color:rgba(0,245,255,.3);color:var(--neon-cyan);" onclick="loremGenerate()" data-ko="✨ 생성하기" data-en="✨ Generate">✨ 생성하기</button>
+    <textarea class="typing-input" id="loremOutput" rows="7" readonly style="margin-top:12px;"></textarea>
+    <button class="color-copy-btn" onclick="loremCopy()" data-ko="결과 복사" data-en="Copy Result">결과 복사</button>
+  </div>
+</div>
+
+<!-- TEXT DIFF MODAL -->
+<div class="modal-overlay" id="modalDifftool" onclick="closeModalOutside(event,'difftool')">
+  <div class="modal yellow" style="max-width:600px;">
+    <button class="modal-close" onclick="closeTool('difftool')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);" data-ko="🔍 텍스트 비교기" data-en="🔍 Text Diff Checker">🔍 텍스트 비교기</div>
+    <div class="modal-subtitle" data-ko="두 텍스트를 줄 단위로 비교합니다" data-en="Compare two texts line by line">두 텍스트를 줄 단위로 비교합니다</div>
+    <div class="diff-cols">
+      <textarea class="typing-input" id="diffA" rows="6" data-ko-placeholder="원본 텍스트" data-en-placeholder="Original text" placeholder="원본 텍스트"></textarea>
+      <textarea class="typing-input" id="diffB" rows="6" data-ko-placeholder="비교할 텍스트" data-en-placeholder="Text to compare" placeholder="비교할 텍스트"></textarea>
+    </div>
+    <button class="tool-btn" style="border-color:rgba(255,230,0,.3);color:var(--neon-yellow);" onclick="diffCompare()" data-ko="🔍 비교하기" data-en="🔍 Compare">🔍 비교하기</button>
+    <div class="diff-result" id="diffResult"></div>
+  </div>
+</div>
+
+<!-- ROMAN NUMERALS MODAL -->
+<div class="modal-overlay" id="modalRoman" onclick="closeModalOutside(event,'roman')">
+  <div class="modal purple" style="max-width:440px;">
+    <button class="modal-close" onclick="closeTool('roman')">✕</button>
+    <div class="modal-title" style="color:var(--neon-purple);" data-ko="🏛️ 로마 숫자 변환기" data-en="🏛️ Roman Numeral Converter">🏛️ 로마 숫자 변환기</div>
+    <div class="modal-subtitle" data-ko="아라비아 숫자와 로마 숫자를 양방향 변환합니다" data-en="Convert between Arabic and Roman numerals">아라비아 숫자와 로마 숫자를 양방향 변환합니다</div>
+    <div class="bmi-field" style="margin-bottom:14px;"><label data-ko="아라비아 숫자 (1-3999)" data-en="Arabic Number (1-3999)">아라비아 숫자 (1-3999)</label><input type="number" id="romanNum" min="1" max="3999" placeholder="2026" oninput="romanToNumeral()"></div>
+    <div class="bmi-result" style="margin-bottom:18px;">
+      <div class="bmi-value" id="romanResult" style="font-size:1.6rem;">—</div>
+    </div>
+    <div class="bmi-field" style="margin-bottom:14px;"><label data-ko="로마 숫자" data-en="Roman Numeral">로마 숫자</label><input id="romanStr" placeholder="MMXXVI" oninput="romanToArabic()"></div>
+    <div class="bmi-result">
+      <div class="bmi-value" id="romanArabicResult" style="font-size:1.6rem;">—</div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ── Stars ── */
 (function() {
@@ -1542,6 +2238,26 @@ function openTool(n) {
     if (n === 'reaction') rxInit();
     if (n === 'memmatch') memInit();
     if (n === 'color') colorInit();
+    if (n === 'tictactoe') ttInit();
+    if (n === 'rps') rpsInit();
+    if (n === 'whack') whackInit();
+    if (n === 'simon') simonInit();
+    if (n === 'typing') typingInit();
+    if (n === 'guess') guessInit();
+    if (n === 'connect4') c4Init();
+    if (n === 'puzzle15') p15Init();
+    if (n === 'scramble') scrambleInit();
+    if (n === 'pong') pongInit();
+    if (n === 'percent') percentInit();
+    if (n === 'textcase') tcInit();
+    if (n === 'json') jsonInit();
+    if (n === 'base64') b64Init();
+    if (n === 'basenum') bnInit();
+    if (n === 'tip') tipCalc();
+    if (n === 'loan') loanCalc();
+    if (n === 'lorem') loremInit();
+    if (n === 'difftool') diffInit();
+    if (n === 'roman') romanInit();
     trackRecent(n);
     if (history.replaceState) history.replaceState(null, '', '#' + n);
 }
@@ -1554,6 +2270,10 @@ function closeTool(n) {
     if (n === 'mine') clearInterval(mine.timerHandle);
     if (n === 'reaction') clearTimeout(rx.timeoutHandle);
     if (n === 'memmatch') clearInterval(memGame.timerHandle);
+    if (n === 'whack') { whack.running = false; clearInterval(whack.timerHandle); clearTimeout(whack.moleTimeout); }
+    if (n === 'typing') clearInterval(typing.timerHandle);
+    if (n === 'puzzle15') clearInterval(p15.timerHandle);
+    if (n === 'pong') { pong.running = false; cancelAnimationFrame(pong.raf); }
     if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
 }
 
@@ -1570,6 +2290,14 @@ document.addEventListener('keydown', function(e) {
         clearInterval(mine.timerHandle);
         clearTimeout(rx.timeoutHandle);
         clearInterval(memGame.timerHandle);
+        whack.running = false; clearInterval(whack.timerHandle); clearTimeout(whack.moleTimeout);
+        clearInterval(typing.timerHandle);
+        clearInterval(p15.timerHandle);
+        pong.running = false; cancelAnimationFrame(pong.raf);
+    }
+    if (document.getElementById('modalPong').classList.contains('open')) {
+        if (e.key === 'ArrowUp') { e.preventDefault(); pong.moveDir = -1; }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); pong.moveDir = 1; }
     }
     if (document.getElementById('modalG2048').classList.contains('open')) {
         var dirMap = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down'};
@@ -1589,6 +2317,10 @@ document.addEventListener('keyup', function(e) {
     if (document.getElementById('modalBreakout').classList.contains('open')) {
         if (e.key === 'ArrowLeft' && brk.moveDir === -1) brk.moveDir = 0;
         if (e.key === 'ArrowRight' && brk.moveDir === 1) brk.moveDir = 0;
+    }
+    if (document.getElementById('modalPong').classList.contains('open')) {
+        if (e.key === 'ArrowUp' && pong.moveDir === -1) pong.moveDir = 0;
+        if (e.key === 'ArrowDown' && pong.moveDir === 1) pong.moveDir = 0;
     }
 });
 
@@ -2229,41 +2961,49 @@ function t2048Init() {
 function t2048AddTile() {
     var empties = [];
     for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) if (t2048.board[r][c] === 0) empties.push([r, c]);
-    if (!empties.length) return;
+    if (!empties.length) return null;
     var cell = empties[Math.floor(Math.random() * empties.length)];
     t2048.board[cell[0]][cell[1]] = Math.random() < 0.9 ? 2 : 4;
+    return cell[0] + ',' + cell[1];
 }
 function t2048SlideRow(row) {
     var arr = row.filter(function(v) { return v !== 0; });
+    var merged = [];
     for (var i = 0; i < arr.length - 1; i++) {
         if (arr[i] === arr[i + 1]) {
             arr[i] *= 2;
             t2048.score += arr[i];
             arr.splice(i + 1, 1);
+            merged.push(i);
         }
     }
-    while (arr.length < 4) arr.push(0);
-    return arr;
+    var mergedFlags = arr.map(function(v, idx) { return merged.indexOf(idx) !== -1; });
+    while (arr.length < 4) { arr.push(0); mergedFlags.push(false); }
+    return { arr: arr, merged: mergedFlags };
 }
 function t2048Move(dir) {
     if (t2048.over) return;
     var b = t2048.board;
     var newBoard = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    var mergedGrid = [[false,false,false,false],[false,false,false,false],[false,false,false,false],[false,false,false,false]];
     var r, c, col, res;
     if (dir === 'left') {
-        for (r = 0; r < 4; r++) newBoard[r] = t2048SlideRow(b[r]);
+        for (r = 0; r < 4; r++) { res = t2048SlideRow(b[r]); newBoard[r] = res.arr; mergedGrid[r] = res.merged; }
     } else if (dir === 'right') {
-        for (r = 0; r < 4; r++) { res = t2048SlideRow(b[r].slice().reverse()); newBoard[r] = res.reverse(); }
+        for (r = 0; r < 4; r++) { res = t2048SlideRow(b[r].slice().reverse()); newBoard[r] = res.arr.slice().reverse(); mergedGrid[r] = res.merged.slice().reverse(); }
     } else if (dir === 'up') {
-        for (c = 0; c < 4; c++) { col = [b[0][c], b[1][c], b[2][c], b[3][c]]; res = t2048SlideRow(col); for (r = 0; r < 4; r++) newBoard[r][c] = res[r]; }
+        for (c = 0; c < 4; c++) { col = [b[0][c], b[1][c], b[2][c], b[3][c]]; res = t2048SlideRow(col); for (r = 0; r < 4; r++) { newBoard[r][c] = res.arr[r]; mergedGrid[r][c] = res.merged[r]; } }
     } else if (dir === 'down') {
-        for (c = 0; c < 4; c++) { col = [b[3][c], b[2][c], b[1][c], b[0][c]]; res = t2048SlideRow(col); for (r = 0; r < 4; r++) newBoard[3 - r][c] = res[r]; }
+        for (c = 0; c < 4; c++) { col = [b[3][c], b[2][c], b[1][c], b[0][c]]; res = t2048SlideRow(col); for (r = 0; r < 4; r++) { newBoard[3 - r][c] = res.arr[r]; mergedGrid[3 - r][c] = res.merged[r]; } }
     }
     var moved = false;
     for (r = 0; r < 4; r++) for (c = 0; c < 4; c++) if (newBoard[r][c] !== b[r][c]) moved = true;
+    t2048.mergedCells = [];
+    t2048.newCell = null;
     if (moved) {
         t2048.board = newBoard;
-        t2048AddTile();
+        for (r = 0; r < 4; r++) for (c = 0; c < 4; c++) if (mergedGrid[r][c]) t2048.mergedCells.push(r + ',' + c);
+        t2048.newCell = t2048AddTile();
         if (t2048.score > t2048.best) { t2048.best = t2048.score; localStorage.setItem('t2048Best', t2048.best); }
         t2048CheckOver();
     }
@@ -2283,8 +3023,12 @@ function t2048Render() {
     grid.innerHTML = '';
     for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) {
         var v = t2048.board[r][c];
+        var key = r + ',' + c;
         var cell = document.createElement('div');
-        cell.className = 'g2048-cell' + (v ? ' v' + v : '');
+        var cls = 'g2048-cell' + (v ? ' v' + v : '');
+        if (key === t2048.newCell) cls += ' new';
+        else if (t2048.mergedCells && t2048.mergedCells.indexOf(key) !== -1) cls += ' merged';
+        cell.className = cls;
         cell.textContent = v || '';
         grid.appendChild(cell);
     }
@@ -2446,6 +3190,7 @@ function mineInit() {
         mine.grid.push(row);
     }
     mine.revealed = 0; mine.flags = 0; mine.over = false; mine.started = false; mine.seconds = 0;
+    mine.prevRevealed = {}; mine.hitR = -1; mine.hitC = -1;
     document.getElementById('mineFace').textContent = '🙂';
     document.getElementById('mineCounter').textContent = mine.mines;
     document.getElementById('mineTimer').textContent = 0;
@@ -2480,7 +3225,7 @@ function mineCellClick(r, c) {
     var cell = mine.grid[r][c];
     if (cell.revealed || cell.flagged) return;
     if (!mine.started) { minePlaceMines(r, c); mine.started = true; mine.timerHandle = setInterval(mineTick, 1000); }
-    if (cell.mine) { mineLose(); return; }
+    if (cell.mine) { mineLose(r, c); return; }
     mineReveal(r, c);
     mineCheckWin();
     mineRender();
@@ -2515,8 +3260,9 @@ function mineTick() {
     mine.seconds++;
     document.getElementById('mineTimer').textContent = mine.seconds;
 }
-function mineLose() {
+function mineLose(r, c) {
     mine.over = true;
+    mine.hitR = r; mine.hitC = c;
     clearInterval(mine.timerHandle);
     for (var r = 0; r < mine.rows; r++) for (var c = 0; c < mine.cols; c++) if (mine.grid[r][c].mine) mine.grid[r][c].revealed = true;
     document.getElementById('mineFace').textContent = '😵';
@@ -2535,26 +3281,43 @@ function mineCheckWin() {
 function mineRender() {
     var board = document.getElementById('mineBoard');
     board.innerHTML = '';
+    if (!mine.prevRevealed) mine.prevRevealed = {};
+    if (!mine.prevFlagged) mine.prevFlagged = {};
+    var currentRevealed = {};
+    var currentFlagged = {};
     for (var r = 0; r < mine.rows; r++) for (var c = 0; c < mine.cols; c++) {
         var cell = mine.grid[r][c];
+        var key = r + ',' + c;
         var div = document.createElement('div');
         div.className = 'mine-cell' + (cell.revealed ? ' revealed' : '');
+        if (cell.revealed) {
+            currentRevealed[key] = true;
+            if (!mine.prevRevealed[key]) div.classList.add('just-revealed');
+        }
         if (cell.revealed && cell.mine) div.classList.add('mine');
+        if (r === mine.hitR && c === mine.hitC) div.classList.add('boom');
         if (mine.over && !cell.mine && cell.flagged) div.classList.add('wrong-flag');
         if (cell.revealed && !cell.mine && cell.adj > 0) { div.classList.add('n' + cell.adj); div.textContent = cell.adj; }
         else if (cell.revealed && cell.mine) { div.textContent = '💣'; }
-        else if (cell.flagged) { div.textContent = '🚩'; }
+        else if (cell.flagged) {
+            currentFlagged[key] = true;
+            if (!mine.prevFlagged[key]) div.classList.add('flagged');
+            div.textContent = '🚩';
+        }
         div.onclick = (function(rr, cc) { return function() { mineCellClick(rr, cc); }; })(r, c);
         div.oncontextmenu = (function(rr, cc) { return function(e) { mineCellRightClick(e, rr, cc); }; })(r, c);
         board.appendChild(div);
     }
+    mine.prevRevealed = currentRevealed;
+    mine.prevFlagged = currentFlagged;
 }
 
 /* ── Breakout ── */
-var brk = { canvas: null, ctx: null, w: 320, h: 380, paddleW: 60, paddleH: 10, paddleX: 130, ballX: 160, ballY: 340, ballVX: 0, ballVY: 0, ballR: 6, bricks: [], rows: 5, cols: 6, score: 0, lives: 3, running: false, launched: false, raf: null, moveDir: 0 };
+var brk = { canvas: null, ctx: null, w: 320, h: 380, paddleW: 60, paddleH: 10, paddleX: 130, ballX: 160, ballY: 340, ballVX: 0, ballVY: 0, ballR: 6, bricks: [], rows: 5, cols: 6, score: 0, lives: 3, running: false, launched: false, raf: null, moveDir: 0, particles: [], trail: [], shake: 0, flash: 0 };
 function brkInit() {
     cancelAnimationFrame(brk.raf);
     brk.score = 0; brk.lives = 3; brk.moveDir = 0;
+    brk.particles = []; brk.trail = []; brk.shake = 0; brk.flash = 0;
     brk.paddleX = (brk.w - brk.paddleW) / 2;
     brkResetBall();
     brkBuildBricks();
@@ -2606,6 +3369,18 @@ function brkPointerMove(e) {
     if (!brk.launched) brk.ballX = brk.paddleX + brk.paddleW / 2;
     if (e.touches) e.preventDefault();
 }
+function brkSpawnParticles(x, y, color) {
+    var rgb = hexToRgb(color) || { r: 255, g: 255, b: 255 };
+    for (var i = 0; i < 10; i++) {
+        var ang = Math.random() * Math.PI * 2;
+        var spd = 1 + Math.random() * 2.5;
+        brk.particles.push({
+            x: x, y: y,
+            vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd,
+            life: 1, r: 2 + Math.random() * 2, rgb: rgb
+        });
+    }
+}
 function brkLoop() {
     if (!brk.running) return;
     brk.raf = requestAnimationFrame(brkLoop);
@@ -2614,6 +3389,8 @@ function brkLoop() {
         if (!brk.launched) brk.ballX = brk.paddleX + brk.paddleW / 2;
     }
     if (brk.launched) {
+        brk.trail.unshift({ x: brk.ballX, y: brk.ballY });
+        if (brk.trail.length > 6) brk.trail.pop();
         brk.ballX += brk.ballVX;
         brk.ballY += brk.ballVY;
         if (brk.ballX <= brk.ballR || brk.ballX >= brk.w - brk.ballR) brk.ballVX *= -1;
@@ -2632,18 +3409,22 @@ function brkLoop() {
                 b.alive = false;
                 brk.ballVY *= -1;
                 brk.score += 10;
+                brkSpawnParticles(b.x + b.w / 2, b.y + b.h / 2, b.color);
                 document.getElementById('brkScore').textContent = brk.score;
                 break;
             }
         }
         if (brk.ballY - brk.ballR > brk.h) {
             brk.lives--;
+            brk.flash = 1;
+            brk.shake = 8;
             document.getElementById('brkLives').textContent = brk.lives;
             if (brk.lives <= 0) {
                 brk.running = false;
                 document.getElementById('brkStatus').textContent = L('게임 오버! 새 게임을 눌러 다시 시작하세요.', 'Game over! Press New Game to try again.');
             } else {
                 brkResetBall();
+                brk.trail = [];
                 document.getElementById('brkStatus').textContent = L('클릭하거나 스페이스바로 공을 발사하세요', 'Click or press Space to launch the ball');
             }
         }
@@ -2652,24 +3433,85 @@ function brkLoop() {
             document.getElementById('brkStatus').textContent = L('클리어! 모든 벽돌을 깼습니다 🎉', 'Cleared! You broke every brick 🎉');
         }
     }
+    brk.particles.forEach(function(p) {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.life -= 0.035;
+    });
+    brk.particles = brk.particles.filter(function(p) { return p.life > 0; });
+    if (brk.shake > 0) brk.shake *= 0.8;
+    if (brk.flash > 0) brk.flash -= 0.05;
     brkDraw();
 }
 function brkDraw() {
     var ctx = brk.ctx;
     if (!ctx) return;
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, brk.w, brk.h);
+    ctx.save();
+    if (brk.shake > 0.3) {
+        ctx.translate((Math.random() - 0.5) * brk.shake, (Math.random() - 0.5) * brk.shake);
+    }
+    var bg = ctx.createLinearGradient(0, 0, 0, brk.h);
+    bg.addColorStop(0, '#0a0a16'); bg.addColorStop(1, '#000');
+    ctx.fillStyle = bg;
+    ctx.fillRect(-10, -10, brk.w + 20, brk.h + 20);
+
     brk.bricks.forEach(function(b) {
         if (!b.alive) return;
-        ctx.fillStyle = b.color;
-        ctx.fillRect(b.x, b.y, b.w, b.h);
+        var grad = ctx.createLinearGradient(b.x, b.y, b.x, b.y + b.h);
+        grad.addColorStop(0, b.color);
+        grad.addColorStop(1, 'rgba(0,0,0,.35)');
+        ctx.fillStyle = grad;
+        brkRoundRect(ctx, b.x, b.y, b.w, b.h, 3);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.25)';
+        brkRoundRect(ctx, b.x + 1.5, b.y + 1.5, b.w - 3, b.h * 0.35, 2);
+        ctx.fill();
     });
-    ctx.fillStyle = '#00f5ff';
-    ctx.fillRect(brk.paddleX, brk.h - 20, brk.paddleW, brk.paddleH);
+
+    brk.particles.forEach(function(p) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.rgb.r + ',' + p.rgb.g + ',' + p.rgb.b + ',' + p.life.toFixed(2) + ')';
+        ctx.fill();
+    });
+
+    brk.trail.forEach(function(t, i) {
+        var a = (1 - i / brk.trail.length) * 0.25;
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, brk.ballR * (1 - i / brk.trail.length * 0.5), 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,245,255,' + a.toFixed(2) + ')';
+        ctx.fill();
+    });
+
+    var pGrad = ctx.createLinearGradient(brk.paddleX, 0, brk.paddleX + brk.paddleW, 0);
+    pGrad.addColorStop(0, '#00b8d4'); pGrad.addColorStop(0.5, '#00f5ff'); pGrad.addColorStop(1, '#00b8d4');
+    ctx.fillStyle = pGrad;
+    ctx.shadowColor = 'rgba(0,245,255,.7)'; ctx.shadowBlur = 10;
+    brkRoundRect(ctx, brk.paddleX, brk.h - 20, brk.paddleW, brk.paddleH, 5);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    var bGrad = ctx.createRadialGradient(brk.ballX - brk.ballR * 0.3, brk.ballY - brk.ballR * 0.3, 0, brk.ballX, brk.ballY, brk.ballR);
+    bGrad.addColorStop(0, '#fff'); bGrad.addColorStop(1, '#b8f5ff');
     ctx.beginPath();
     ctx.arc(brk.ballX, brk.ballY, brk.ballR, 0, Math.PI * 2);
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = bGrad;
+    ctx.shadowColor = 'rgba(255,255,255,.8)'; ctx.shadowBlur = 8;
     ctx.fill();
+    ctx.shadowBlur = 0;
+
+    if (brk.flash > 0) {
+        ctx.fillStyle = 'rgba(255,0,110,' + (brk.flash * 0.35).toFixed(2) + ')';
+        ctx.fillRect(-10, -10, brk.w + 20, brk.h + 20);
+    }
+    ctx.restore();
+}
+function brkRoundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
 }
 
 /* ── Reaction Test ── */
@@ -2714,6 +3556,7 @@ function rxRenderBox() {
     var main = document.getElementById('rxMain');
     var sub = document.getElementById('rxSub');
     box.className = 'rx-box';
+    main.className = 'rx-main';
     if (rx.state === 'idle') {
         box.classList.add('idle');
         main.textContent = L('클릭해서 시작', 'Click to Start');
@@ -2731,9 +3574,10 @@ function rxRenderBox() {
         main.textContent = L('너무 빨랐어요!', 'Too soon!');
         sub.textContent = L('클릭해서 다시 시도하세요', 'Click to try again');
     } else if (rx.state === 'result') {
-        box.classList.add('idle');
+        box.classList.add('result');
+        main.classList.add(rx.lastResult < 220 ? 'rx-fast' : rx.lastResult < 350 ? 'rx-mid' : 'rx-slow');
         main.textContent = rx.lastResult + ' ms';
-        sub.textContent = L('클릭해서 다시 시도하세요', 'Click to try again');
+        sub.textContent = rx.lastResult < 220 ? L('번개같은 반응속도! ⚡', 'Lightning fast! ⚡') : L('클릭해서 다시 시도하세요', 'Click to try again');
     }
 }
 function rxRenderStats() {
@@ -2816,7 +3660,7 @@ function memRender() {
     memGame.cards.forEach(function(card, i) {
         var div = document.createElement('div');
         div.className = 'mem-card' + (card.flipped || card.matched ? ' flipped' : '') + (card.matched ? ' matched' : '');
-        div.textContent = (card.flipped || card.matched) ? card.emoji : '';
+        div.innerHTML = '<div class="mem-card-inner"><div class="mem-card-face mem-card-back"></div><div class="mem-card-face mem-card-front">' + card.emoji + '</div></div>';
         div.onclick = function() { memFlip(i); };
         grid.appendChild(div);
     });
@@ -3204,7 +4048,27 @@ var TOOL_META = {
     mine: { icon: '💣', ko: '지뢰찾기', en: 'Minesweeper' },
     breakout: { icon: '🧱', ko: '벽돌깨기', en: 'Breakout' },
     reaction: { icon: '⚡', ko: '순발력', en: 'Reaction' },
-    memmatch: { icon: '🃏', ko: '카드짝맞추기', en: 'Memory Match' }
+    memmatch: { icon: '🃏', ko: '카드짝맞추기', en: 'Memory Match' },
+    tictactoe: { icon: '⭕', ko: '틱택토', en: 'Tic-Tac-Toe' },
+    rps: { icon: '✂️', ko: '가위바위보', en: 'Rock Paper Scissors' },
+    whack: { icon: '🔨', ko: '두더지잡기', en: 'Whack-a-Mole' },
+    simon: { icon: '🎹', ko: '사이먼게임', en: 'Simon Says' },
+    typing: { icon: '⌨️', ko: '타자테스트', en: 'Typing Test' },
+    guess: { icon: '🔢', ko: '숫자맞추기', en: 'Number Guess' },
+    connect4: { icon: '🔴', ko: '사목게임', en: 'Connect Four' },
+    puzzle15: { icon: '🧩', ko: '슬라이딩퍼즐', en: '15 Puzzle' },
+    scramble: { icon: '🔤', ko: '단어맞추기', en: 'Word Scramble' },
+    pong: { icon: '🏓', ko: '퐁게임', en: 'Pong' },
+    percent: { icon: '💯', ko: '퍼센트계산기', en: 'Percentage' },
+    textcase: { icon: '🔠', ko: '대소문자변환', en: 'Text Case' },
+    json: { icon: '🧾', ko: 'JSON포맷터', en: 'JSON Formatter' },
+    base64: { icon: '🔐', ko: 'Base64', en: 'Base64' },
+    basenum: { icon: '🔟', ko: '진법변환기', en: 'Base Converter' },
+    tip: { icon: '🧾', ko: '팁계산기', en: 'Tip Calculator' },
+    loan: { icon: '🏦', ko: '대출계산기', en: 'Loan Calculator' },
+    lorem: { icon: '📄', ko: '더미텍스트', en: 'Lorem Ipsum' },
+    difftool: { icon: '🔍', ko: '텍스트비교', en: 'Text Diff' },
+    roman: { icon: '🏛️', ko: '로마숫자', en: 'Roman Numerals' }
 };
 function getFavs() { try { return JSON.parse(localStorage.getItem('favTools') || '[]'); } catch (e) { return []; } }
 function getRecents() { try { return JSON.parse(localStorage.getItem('recentTools') || '[]'); } catch (e) { return []; } }
@@ -3279,6 +4143,863 @@ function initA11y() {
             box.setAttribute('aria-modal', 'true');
         }
     });
+}
+
+/* ── Tic-Tac-Toe ── */
+var tt = { board: Array(9).fill(''), turn: 'X', over: false, vsAI: true, scores: {X:0,O:0,D:0} };
+function ttInit() {
+    tt.board = Array(9).fill('');
+    tt.turn = 'X';
+    tt.over = false;
+    try { tt.scores = JSON.parse(localStorage.getItem('ttScores') || '{"X":0,"O":0,"D":0}'); } catch (e) { tt.scores = {X:0,O:0,D:0}; }
+    tt.vsAI = localStorage.getItem('ttVsAI') !== 'false';
+    ttUpdateModeBtn();
+    ttRender();
+    ttUpdateScores();
+}
+function ttUpdateModeBtn() {
+    document.getElementById('ttModeBtn').textContent = tt.vsAI ? L('🤖 vs 컴퓨터', '🤖 vs Computer') : L('🧑‍🤝‍🧑 2인용', '🧑‍🤝‍🧑 2 Player');
+}
+function ttToggleMode() {
+    tt.vsAI = !tt.vsAI;
+    localStorage.setItem('ttVsAI', tt.vsAI);
+    ttUpdateModeBtn();
+    ttInit();
+}
+function ttUpdateScores() {
+    document.getElementById('ttScoreX').textContent = tt.scores.X;
+    document.getElementById('ttScoreO').textContent = tt.scores.O;
+    document.getElementById('ttScoreD').textContent = tt.scores.D;
+}
+var TT_LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function ttWinner(board) {
+    for (var i = 0; i < TT_LINES.length; i++) {
+        var l = TT_LINES[i];
+        if (board[l[0]] && board[l[0]] === board[l[1]] && board[l[1]] === board[l[2]]) return { player: board[l[0]], line: l };
+    }
+    return null;
+}
+function ttClick(i) {
+    if (tt.over || tt.board[i]) return;
+    if (tt.vsAI && tt.turn === 'O') return;
+    tt.board[i] = tt.turn;
+    var w = ttWinner(tt.board);
+    if (w) { ttEnd(w); return; }
+    if (tt.board.every(function(c) { return c; })) { ttEnd(null); return; }
+    tt.turn = tt.turn === 'X' ? 'O' : 'X';
+    ttRender();
+    if (tt.vsAI && tt.turn === 'O' && !tt.over) setTimeout(ttAIMove, 350);
+}
+function ttEnd(w) {
+    tt.over = true;
+    if (w) {
+        tt.scores[w.player]++;
+        document.getElementById('ttStatus').textContent = L(w.player + ' 승리! 🎉', w.player + ' wins! 🎉');
+    } else {
+        tt.scores.D++;
+        document.getElementById('ttStatus').textContent = L('무승부입니다', "It's a draw");
+    }
+    localStorage.setItem('ttScores', JSON.stringify(tt.scores));
+    ttUpdateScores();
+    ttRender(w ? w.line : null);
+}
+function ttAIMove() {
+    if (tt.over) return;
+    var best = ttBestMove(tt.board.slice());
+    if (best === -1) return;
+    tt.board[best] = 'O';
+    var w = ttWinner(tt.board);
+    if (w) { ttEnd(w); return; }
+    if (tt.board.every(function(c) { return c; })) { ttEnd(null); return; }
+    tt.turn = 'X';
+    ttRender();
+}
+function ttBestMove(board) {
+    var empties = board.map(function(c, i) { return c ? -1 : i; }).filter(function(i) { return i !== -1; });
+    if (empties.length === 9) return 4;
+    var bestScore = -Infinity, bestIdx = empties[0];
+    empties.forEach(function(i) {
+        board[i] = 'O';
+        var score = ttMinimax(board, 0, false);
+        board[i] = '';
+        if (score > bestScore) { bestScore = score; bestIdx = i; }
+    });
+    return bestIdx;
+}
+function ttMinimax(board, depth, isMax) {
+    var w = ttWinner(board);
+    if (w) return w.player === 'O' ? 10 - depth : depth - 10;
+    if (board.every(function(c) { return c; })) return 0;
+    var empties = board.map(function(c, i) { return c ? -1 : i; }).filter(function(i) { return i !== -1; });
+    if (isMax) {
+        var best = -Infinity;
+        empties.forEach(function(i) { board[i] = 'O'; best = Math.max(best, ttMinimax(board, depth + 1, false)); board[i] = ''; });
+        return best;
+    } else {
+        var best2 = Infinity;
+        empties.forEach(function(i) { board[i] = 'X'; best2 = Math.min(best2, ttMinimax(board, depth + 1, true)); board[i] = ''; });
+        return best2;
+    }
+}
+function ttRender(winLine) {
+    var grid = document.getElementById('ttGrid');
+    grid.innerHTML = '';
+    tt.board.forEach(function(c, i) {
+        var div = document.createElement('div');
+        div.className = 'tt-cell' + (c ? ' filled ' + c.toLowerCase() : '') + (winLine && winLine.indexOf(i) > -1 ? ' win' : '');
+        div.textContent = c;
+        div.onclick = function() { ttClick(i); };
+        grid.appendChild(div);
+    });
+    if (!tt.over) document.getElementById('ttStatus').textContent = L(tt.turn + '의 차례입니다', "It's " + tt.turn + "'s turn");
+}
+
+/* ── Rock Paper Scissors ── */
+var rpsState = { wins: 0, losses: 0, draws: 0, streak: 0 };
+function rpsInit() {
+    try { rpsState = JSON.parse(localStorage.getItem('rpsState') || '{"wins":0,"losses":0,"draws":0,"streak":0}'); } catch (e) { rpsState = { wins:0, losses:0, draws:0, streak:0 }; }
+    document.getElementById('rpsUserChoice').textContent = '❔';
+    document.getElementById('rpsCpuChoice').textContent = '❔';
+    document.getElementById('rpsResult').textContent = L('아래 버튼을 눌러 시작하세요', 'Press a button below to start');
+    rpsRenderScores();
+}
+var RPS_EMOJI = { rock: '✊', paper: '✋', scissors: '✌️' };
+var RPS_BEATS = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
+function rpsPlay(choice) {
+    var options = ['rock', 'paper', 'scissors'];
+    var cpu = options[Math.floor(Math.random() * 3)];
+    document.getElementById('rpsUserChoice').textContent = RPS_EMOJI[choice];
+    document.getElementById('rpsCpuChoice').textContent = RPS_EMOJI[cpu];
+    var result;
+    if (choice === cpu) { result = 'draw'; rpsState.draws++; rpsState.streak = 0; }
+    else if (RPS_BEATS[choice] === cpu) { result = 'win'; rpsState.wins++; rpsState.streak++; }
+    else { result = 'lose'; rpsState.losses++; rpsState.streak = 0; }
+    var msgs = { win: L('승리했습니다! 🎉', 'You win! 🎉'), lose: L('패배했습니다', 'You lose'), draw: L('비겼습니다', "It's a draw") };
+    document.getElementById('rpsResult').textContent = msgs[result];
+    localStorage.setItem('rpsState', JSON.stringify(rpsState));
+    rpsRenderScores();
+}
+function rpsRenderScores() {
+    document.getElementById('rpsWins').textContent = rpsState.wins;
+    document.getElementById('rpsLosses').textContent = rpsState.losses;
+    document.getElementById('rpsDraws').textContent = rpsState.draws;
+    document.getElementById('rpsStreak').textContent = rpsState.streak;
+}
+
+/* ── Whack-a-Mole ── */
+var whack = { score: 0, time: 30, running: false, timerHandle: null, moleTimeout: null, activeIdx: -1 };
+function whackInit() {
+    clearInterval(whack.timerHandle);
+    clearTimeout(whack.moleTimeout);
+    whack.score = 0; whack.time = 30; whack.running = false; whack.activeIdx = -1;
+    document.getElementById('whackScore').textContent = 0;
+    document.getElementById('whackTime').textContent = 30;
+    document.getElementById('whackStatus').textContent = L('시작 버튼을 눌러주세요', 'Press start to begin');
+    whackRender();
+}
+function whackRender() {
+    var grid = document.getElementById('whackGrid');
+    grid.innerHTML = '';
+    for (var i = 0; i < 9; i++) {
+        var div = document.createElement('div');
+        div.className = 'whack-hole' + (i === whack.activeIdx ? ' up' : '');
+        div.textContent = i === whack.activeIdx ? '🐹' : '';
+        div.onclick = (function(idx) { return function() { whackHit(idx); }; })(i);
+        grid.appendChild(div);
+    }
+}
+function whackStart() {
+    if (whack.running) return;
+    whack.running = true; whack.score = 0; whack.time = 30;
+    document.getElementById('whackScore').textContent = 0;
+    document.getElementById('whackStatus').textContent = '';
+    whackSpawn();
+    whack.timerHandle = setInterval(function() {
+        whack.time--;
+        document.getElementById('whackTime').textContent = whack.time;
+        if (whack.time <= 0) whackEnd();
+    }, 1000);
+}
+function whackSpawn() {
+    if (!whack.running) return;
+    whack.activeIdx = Math.floor(Math.random() * 9);
+    whackRender();
+    whack.moleTimeout = setTimeout(whackSpawn, 500 + Math.random() * 500);
+}
+function whackHit(i) {
+    if (!whack.running || i !== whack.activeIdx) return;
+    whack.score++;
+    document.getElementById('whackScore').textContent = whack.score;
+    whack.activeIdx = -1;
+    whackRender();
+}
+function whackEnd() {
+    whack.running = false;
+    clearInterval(whack.timerHandle);
+    clearTimeout(whack.moleTimeout);
+    whack.activeIdx = -1;
+    whackRender();
+    var best = parseInt(localStorage.getItem('whackBest') || '0', 10);
+    if (whack.score > best) { best = whack.score; localStorage.setItem('whackBest', best); }
+    document.getElementById('whackStatus').textContent = L('게임 종료! 점수: ' + whack.score + ' (최고 ' + best + ')', 'Time up! Score: ' + whack.score + ' (best ' + best + ')');
+}
+
+/* ── Simon Says ── */
+var simon = { seq: [], userIdx: 0, round: 0, best: 0, playing: false, accepting: false };
+function simonInit() {
+    simon.seq = []; simon.userIdx = 0; simon.round = 0; simon.playing = false; simon.accepting = false;
+    simon.best = parseInt(localStorage.getItem('simonBest') || '0', 10);
+    document.getElementById('simonRound').textContent = 0;
+    document.getElementById('simonBest').textContent = simon.best;
+    document.getElementById('simonStatus').textContent = L('시작 버튼을 눌러주세요', 'Press start to begin');
+}
+function simonStart() {
+    simon.seq = []; simon.round = 0; simon.playing = true;
+    simonNextRound();
+}
+function simonNextRound() {
+    simon.seq.push(Math.floor(Math.random() * 4));
+    simon.round++;
+    simon.userIdx = 0;
+    simon.accepting = false;
+    document.getElementById('simonRound').textContent = simon.round;
+    document.getElementById('simonStatus').textContent = L('순서를 잘 보세요...', 'Watch the sequence...');
+    simonPlaySequence();
+}
+function simonPlaySequence() {
+    var i = 0;
+    function step() {
+        if (i >= simon.seq.length) {
+            simon.accepting = true;
+            document.getElementById('simonStatus').textContent = L('따라 눌러보세요', 'Now repeat it');
+            return;
+        }
+        simonLight(simon.seq[i]);
+        i++;
+        setTimeout(step, 600);
+    }
+    setTimeout(step, 500);
+}
+function simonLight(idx) {
+    var cell = document.querySelector('.simon-cell[data-idx="' + idx + '"]');
+    if (!cell) return;
+    cell.classList.add('lit');
+    setTimeout(function() { cell.classList.remove('lit'); }, 350);
+}
+function simonUserPress(idx) {
+    if (!simon.accepting || !simon.playing) return;
+    simonLight(idx);
+    if (idx !== simon.seq[simon.userIdx]) { simonEnd(); return; }
+    simon.userIdx++;
+    if (simon.userIdx === simon.seq.length) {
+        simon.accepting = false;
+        setTimeout(simonNextRound, 700);
+    }
+}
+function simonEnd() {
+    simon.playing = false;
+    simon.accepting = false;
+    var roundsCleared = simon.round - 1;
+    if (roundsCleared > simon.best) { simon.best = roundsCleared; localStorage.setItem('simonBest', simon.best); document.getElementById('simonBest').textContent = simon.best; }
+    document.getElementById('simonStatus').textContent = L('틀렸습니다! 라운드 ' + roundsCleared + '에서 종료 — 시작을 눌러 재도전', 'Wrong! Game over at round ' + roundsCleared + ' — press start to retry');
+}
+
+/* ── Typing Test ── */
+var TYPING_SENTENCES = [
+    'The quick brown fox jumps over the lazy dog.',
+    'Practice makes perfect when learning something new.',
+    'Success is the sum of small efforts repeated daily.',
+    'A journey of a thousand miles begins with a single step.',
+    'Simplicity is the ultimate form of sophistication.',
+    'The only way to do great work is to love what you do.',
+    'Coding is thinking, typing is just the output.',
+    'Every expert was once a beginner who never gave up.'
+];
+var typing = { sentence: '', startTime: 0, started: false, timerHandle: null };
+function typingInit() {
+    clearInterval(typing.timerHandle);
+    typing.sentence = TYPING_SENTENCES[Math.floor(Math.random() * TYPING_SENTENCES.length)];
+    typing.started = false;
+    var input = document.getElementById('typingInput');
+    input.value = '';
+    input.disabled = false;
+    document.getElementById('typingWpm').textContent = 0;
+    document.getElementById('typingAcc').textContent = '100%';
+    document.getElementById('typingTime').textContent = '0.0s';
+    document.getElementById('typingStatus').textContent = '';
+    typingRenderText('');
+}
+function typingRenderText(typed) {
+    var html = '';
+    for (var i = 0; i < typing.sentence.length; i++) {
+        var ch = typing.sentence[i];
+        var cls = 'pending';
+        if (i < typed.length) cls = typed[i] === ch ? 'correct' : 'wrong';
+        else if (i === typed.length) cls = 'current';
+        html += '<span class="' + cls + '">' + ch.replace(/</g, '&lt;') + '</span>';
+    }
+    document.getElementById('typingText').innerHTML = html;
+}
+function typingOnInput() {
+    var typed = document.getElementById('typingInput').value;
+    if (!typing.started) {
+        typing.started = true;
+        typing.startTime = Date.now();
+        typing.timerHandle = setInterval(typingTick, 100);
+    }
+    typingRenderText(typed);
+    if (typed.length >= typing.sentence.length) typingFinish(typed);
+}
+function typingTick() {
+    document.getElementById('typingTime').textContent = ((Date.now() - typing.startTime) / 1000).toFixed(1) + 's';
+}
+function typingFinish(typed) {
+    clearInterval(typing.timerHandle);
+    var elapsedMin = Math.max((Date.now() - typing.startTime) / 60000, 0.01);
+    var words = typing.sentence.split(' ').length;
+    var wpm = Math.round(words / elapsedMin);
+    var correctChars = 0;
+    for (var i = 0; i < typing.sentence.length; i++) if (typed[i] === typing.sentence[i]) correctChars++;
+    var acc = Math.round((correctChars / typing.sentence.length) * 100);
+    document.getElementById('typingWpm').textContent = wpm;
+    document.getElementById('typingAcc').textContent = acc + '%';
+    document.getElementById('typingStatus').textContent = L('완료! 새 문장 버튼을 눌러 다시 시도하세요', 'Done! Press New Sentence to try again');
+    document.getElementById('typingInput').disabled = true;
+}
+
+/* ── Number Guessing Game ── */
+var guessState = { target: 0, attempts: 0, history: [], over: false };
+function guessInit() {
+    guessState.target = Math.floor(Math.random() * 100) + 1;
+    guessState.attempts = 0;
+    guessState.history = [];
+    guessState.over = false;
+    document.getElementById('guessInput').value = '';
+    document.getElementById('guessAttempts').textContent = 0;
+    document.getElementById('guessBest').textContent = localStorage.getItem('guessBest') || '—';
+    document.getElementById('guessStatus').textContent = L('숫자를 입력하고 추측 버튼을 누르세요', 'Enter a number and press Guess');
+    document.getElementById('guessHistory').innerHTML = '';
+}
+function guessSubmit() {
+    if (guessState.over) return;
+    var input = document.getElementById('guessInput');
+    var val = parseInt(input.value, 10);
+    if (isNaN(val) || val < 1 || val > 100) {
+        document.getElementById('guessStatus').textContent = L('1부터 100 사이의 숫자를 입력하세요', 'Enter a number between 1 and 100');
+        return;
+    }
+    guessState.attempts++;
+    document.getElementById('guessAttempts').textContent = guessState.attempts;
+    if (val === guessState.target) {
+        guessState.over = true;
+        var best = parseInt(localStorage.getItem('guessBest') || '0', 10);
+        if (!best || guessState.attempts < best) { localStorage.setItem('guessBest', guessState.attempts); document.getElementById('guessBest').textContent = guessState.attempts; }
+        document.getElementById('guessStatus').textContent = L('정답입니다! 🎉 ' + guessState.attempts + '번 만에 맞췄습니다', 'Correct! 🎉 You got it in ' + guessState.attempts + ' tries');
+        guessState.history.unshift(val + ' ✅');
+    } else if (val < guessState.target) {
+        document.getElementById('guessStatus').textContent = L('더 큰 숫자입니다 ↑', 'Higher ↑');
+        guessState.history.unshift(val + ' ↑');
+    } else {
+        document.getElementById('guessStatus').textContent = L('더 작은 숫자입니다 ↓', 'Lower ↓');
+        guessState.history.unshift(val + ' ↓');
+    }
+    document.getElementById('guessHistory').innerHTML = guessState.history.map(function(h) { return '<span>' + h + '</span>'; }).join('');
+    input.value = '';
+    input.focus();
+}
+
+/* ── Connect Four ── */
+var c4 = { board: [], turn: 1, over: false, rows: 6, cols: 7 };
+function c4Init() {
+    c4.board = [];
+    for (var r = 0; r < c4.rows; r++) c4.board.push(new Array(c4.cols).fill(0));
+    c4.turn = 1; c4.over = false;
+    document.getElementById('c4Status').textContent = L('플레이어 1 (노랑) 차례입니다', "Player 1 (yellow)'s turn");
+    c4Render();
+}
+function c4Drop(col) {
+    if (c4.over) return;
+    var row = -1;
+    for (var r = c4.rows - 1; r >= 0; r--) if (c4.board[r][col] === 0) { row = r; break; }
+    if (row === -1) return;
+    c4.board[row][col] = c4.turn;
+    if (c4CheckWin(row, col)) {
+        c4.over = true;
+        document.getElementById('c4Status').textContent = L('플레이어 ' + c4.turn + ' 승리! 🎉', 'Player ' + c4.turn + ' wins! 🎉');
+        c4Render();
+        return;
+    }
+    if (c4.board.every(function(rw) { return rw.every(function(c) { return c !== 0; }); })) {
+        c4.over = true;
+        document.getElementById('c4Status').textContent = L('무승부입니다', "It's a draw");
+        c4Render();
+        return;
+    }
+    c4.turn = c4.turn === 1 ? 2 : 1;
+    document.getElementById('c4Status').textContent = L('플레이어 ' + c4.turn + '의 차례입니다', "Player " + c4.turn + "'s turn");
+    c4Render();
+}
+function c4CheckWin(row, col) {
+    var player = c4.board[row][col];
+    var dirs = [[0,1],[1,0],[1,1],[1,-1]];
+    for (var d = 0; d < dirs.length; d++) {
+        var dr = dirs[d][0], dc = dirs[d][1];
+        var count = 1;
+        for (var s = 1; s < 4; s++) { var rr = row + dr * s, cc = col + dc * s; if (rr >= 0 && rr < c4.rows && cc >= 0 && cc < c4.cols && c4.board[rr][cc] === player) count++; else break; }
+        for (var s2 = 1; s2 < 4; s2++) { var rr2 = row - dr * s2, cc2 = col - dc * s2; if (rr2 >= 0 && rr2 < c4.rows && cc2 >= 0 && cc2 < c4.cols && c4.board[rr2][cc2] === player) count++; else break; }
+        if (count >= 4) return true;
+    }
+    return false;
+}
+function c4Render() {
+    var board = document.getElementById('c4Board');
+    board.innerHTML = '';
+    for (var r = 0; r < c4.rows; r++) for (var c = 0; c < c4.cols; c++) {
+        var div = document.createElement('div');
+        var v = c4.board[r][c];
+        div.className = 'c4-cell' + (v === 1 ? ' p1' : v === 2 ? ' p2' : '');
+        div.onclick = (function(col) { return function() { c4Drop(col); }; })(c);
+        board.appendChild(div);
+    }
+}
+
+/* ── 15 Puzzle ── */
+var p15 = { tiles: [], moves: 0, seconds: 0, timerHandle: null, started: false, over: false };
+function p15Init() {
+    clearInterval(p15.timerHandle);
+    p15.tiles = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+    do { p15Shuffle(); } while (!p15Solvable() || p15IsSolved());
+    p15.moves = 0; p15.seconds = 0; p15.started = false; p15.over = false;
+    document.getElementById('p15Moves').textContent = 0;
+    document.getElementById('p15Time').textContent = 0;
+    document.getElementById('p15Status').textContent = '';
+    p15Render();
+}
+function p15Shuffle() {
+    for (var i = p15.tiles.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = p15.tiles[i]; p15.tiles[i] = p15.tiles[j]; p15.tiles[j] = t;
+    }
+}
+function p15Solvable() {
+    var arr = p15.tiles.filter(function(n) { return n !== 0; });
+    var inv = 0;
+    for (var i = 0; i < arr.length; i++) for (var j = i + 1; j < arr.length; j++) if (arr[i] > arr[j]) inv++;
+    var blankRow = Math.floor(p15.tiles.indexOf(0) / 4);
+    var blankRowFromBottom = 4 - blankRow;
+    if (blankRowFromBottom % 2 === 0) return inv % 2 === 1;
+    return inv % 2 === 0;
+}
+function p15IsSolved() {
+    for (var i = 0; i < 15; i++) if (p15.tiles[i] !== i + 1) return false;
+    return true;
+}
+function p15Tick() { p15.seconds++; document.getElementById('p15Time').textContent = p15.seconds; }
+function p15Click(i) {
+    if (p15.over) return;
+    var blank = p15.tiles.indexOf(0);
+    var r1 = Math.floor(i / 4), c1 = i % 4, r2 = Math.floor(blank / 4), c2 = blank % 4;
+    if (Math.abs(r1 - r2) + Math.abs(c1 - c2) !== 1) return;
+    if (!p15.started) { p15.started = true; p15.timerHandle = setInterval(p15Tick, 1000); }
+    p15.tiles[blank] = p15.tiles[i];
+    p15.tiles[i] = 0;
+    p15.moves++;
+    document.getElementById('p15Moves').textContent = p15.moves;
+    if (p15IsSolved()) {
+        p15.over = true;
+        clearInterval(p15.timerHandle);
+        document.getElementById('p15Status').textContent = L('완성했습니다! 🎉 이동 ' + p15.moves + '회 · ' + p15.seconds + '초', 'Solved! 🎉 ' + p15.moves + ' moves · ' + p15.seconds + 's');
+    }
+    p15Render();
+}
+function p15Render() {
+    var grid = document.getElementById('p15Grid');
+    grid.innerHTML = '';
+    p15.tiles.forEach(function(v, i) {
+        var div = document.createElement('div');
+        div.className = 'p15-tile' + (v === 0 ? ' empty' : '');
+        div.textContent = v || '';
+        div.onclick = function() { p15Click(i); };
+        grid.appendChild(div);
+    });
+}
+
+/* ── Word Scramble ── */
+var SCRAMBLE_WORDS = [
+    { word: 'JAVASCRIPT', ko: '프로그래밍 언어입니다', en: 'A web programming language' },
+    { word: 'ELEPHANT', ko: '커다란 회색 동물입니다', en: 'A large gray animal' },
+    { word: 'RAINBOW', ko: '비 온 뒤 하늘에 뜨는 것입니다', en: 'Appears in the sky after rain' },
+    { word: 'GUITAR', ko: '줄을 튕겨 연주하는 악기입니다', en: 'A stringed musical instrument' },
+    { word: 'PYRAMID', ko: '이집트의 고대 건축물입니다', en: 'An ancient Egyptian structure' },
+    { word: 'DOLPHIN', ko: '똑똑한 바다 동물입니다', en: 'A smart marine mammal' },
+    { word: 'VOLCANO', ko: '용암을 분출하는 산입니다', en: 'A mountain that erupts lava' },
+    { word: 'LIBRARY', ko: '책을 빌리는 곳입니다', en: 'A place to borrow books' },
+    { word: 'ASTRONAUT', ko: '우주로 가는 사람입니다', en: 'A person who travels to space' },
+    { word: 'BUTTERFLY', ko: '알록달록한 날개를 가진 곤충입니다', en: 'An insect with colorful wings' },
+    { word: 'KEYBOARD', ko: '타이핑할 때 사용하는 장치입니다', en: 'A device used for typing' },
+    { word: 'MOUNTAIN', ko: '아주 높이 솟은 지형입니다', en: 'A very tall landform' }
+];
+var scramble = { current: null, scrambled: '', score: 0 };
+function scrambleInit() {
+    scramble.score = 0;
+    document.getElementById('scrambleScore').textContent = 0;
+    scrambleNext();
+}
+function scrambleShuffle(word) {
+    var arr;
+    do {
+        arr = word.split('');
+        for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+        }
+    } while (arr.join('') === word && word.length > 1);
+    return arr.join('');
+}
+function scrambleNext() {
+    scramble.current = SCRAMBLE_WORDS[Math.floor(Math.random() * SCRAMBLE_WORDS.length)];
+    scramble.scrambled = scrambleShuffle(scramble.current.word);
+    document.getElementById('scrambleWord').textContent = scramble.scrambled;
+    document.getElementById('scrambleHint').textContent = L(scramble.current.ko, scramble.current.en);
+    document.getElementById('scrambleInput').value = '';
+    document.getElementById('scrambleStatus').textContent = '';
+}
+function scrambleSubmit() {
+    var val = document.getElementById('scrambleInput').value.trim().toUpperCase();
+    if (!val) return;
+    if (val === scramble.current.word) {
+        scramble.score++;
+        document.getElementById('scrambleScore').textContent = scramble.score;
+        document.getElementById('scrambleStatus').textContent = L('정답입니다! 🎉', 'Correct! 🎉');
+        setTimeout(scrambleNext, 900);
+    } else {
+        document.getElementById('scrambleStatus').textContent = L('틀렸습니다, 다시 시도하세요', 'Not quite, try again');
+    }
+}
+
+/* ── Pong ── */
+var pong = { canvas: null, ctx: null, w: 360, h: 240, pY: 95, cY: 95, pH: 50, pW: 8, ballX: 180, ballY: 120, ballVX: 3, ballVY: 2, scoreP: 0, scoreC: 0, running: false, raf: null, moveDir: 0 };
+function pongInit() {
+    cancelAnimationFrame(pong.raf);
+    pong.pY = pong.h / 2 - pong.pH / 2; pong.cY = pong.h / 2 - pong.pH / 2;
+    pong.scoreP = 0; pong.scoreC = 0; pong.moveDir = 0;
+    document.getElementById('pongScoreP').textContent = 0;
+    document.getElementById('pongScoreC').textContent = 0;
+    document.getElementById('pongStatus').textContent = '';
+    pongResetBall();
+    if (!pong.canvas) {
+        pong.canvas = document.getElementById('pongCanvas');
+        pong.ctx = pong.canvas.getContext('2d');
+        pong.canvas.addEventListener('mousemove', pongPointerMove);
+        pong.canvas.addEventListener('touchmove', pongPointerMove, { passive: false });
+    }
+    pong.running = true;
+    pongLoop();
+}
+function pongResetBall(dir) {
+    pong.ballX = pong.w / 2; pong.ballY = pong.h / 2;
+    pong.ballVX = (dir || (Math.random() < 0.5 ? -1 : 1)) * 3;
+    pong.ballVY = (Math.random() * 2 - 1) * 3;
+}
+function pongPointerMove(e) {
+    if (!pong.running) return;
+    var rect = pong.canvas.getBoundingClientRect();
+    var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    var scaleY = pong.h / rect.height;
+    var y = (clientY - rect.top) * scaleY;
+    pong.pY = Math.max(0, Math.min(pong.h - pong.pH, y - pong.pH / 2));
+    if (e.touches) e.preventDefault();
+}
+function pongLoop() {
+    if (!pong.running) return;
+    pong.raf = requestAnimationFrame(pongLoop);
+    if (pong.moveDir !== 0) pong.pY = Math.max(0, Math.min(pong.h - pong.pH, pong.pY + pong.moveDir * 5));
+    var cCenter = pong.cY + pong.pH / 2;
+    if (cCenter < pong.ballY - 8) pong.cY += 3.2;
+    else if (cCenter > pong.ballY + 8) pong.cY -= 3.2;
+    pong.cY = Math.max(0, Math.min(pong.h - pong.pH, pong.cY));
+    pong.ballX += pong.ballVX;
+    pong.ballY += pong.ballVY;
+    if (pong.ballY <= 4 || pong.ballY >= pong.h - 4) pong.ballVY *= -1;
+    if (pong.ballX <= pong.pW + 4 && pong.ballY >= pong.pY && pong.ballY <= pong.pY + pong.pH && pong.ballVX < 0) {
+        pong.ballVX *= -1.05;
+        pong.ballVY += (pong.ballY - (pong.pY + pong.pH / 2)) * 0.1;
+    }
+    if (pong.ballX >= pong.w - pong.pW - 4 && pong.ballY >= pong.cY && pong.ballY <= pong.cY + pong.pH && pong.ballVX > 0) {
+        pong.ballVX *= -1.05;
+        pong.ballVY += (pong.ballY - (pong.cY + pong.pH / 2)) * 0.1;
+    }
+    if (pong.ballX < 0) {
+        pong.scoreC++;
+        document.getElementById('pongScoreC').textContent = pong.scoreC;
+        if (!pongCheckEnd()) pongResetBall(1);
+    }
+    if (pong.ballX > pong.w) {
+        pong.scoreP++;
+        document.getElementById('pongScoreP').textContent = pong.scoreP;
+        if (!pongCheckEnd()) pongResetBall(-1);
+    }
+    pongDraw();
+}
+function pongCheckEnd() {
+    if (pong.scoreP >= 5 || pong.scoreC >= 5) {
+        pong.running = false;
+        document.getElementById('pongStatus').textContent = pong.scoreP >= 5 ? L('승리했습니다! 🎉', 'You win! 🎉') : L('패배했습니다', 'You lose');
+        return true;
+    }
+    return false;
+}
+function pongDraw() {
+    var ctx = pong.ctx;
+    if (!ctx) return;
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, pong.w, pong.h);
+    ctx.strokeStyle = 'rgba(255,255,255,.15)';
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath(); ctx.moveTo(pong.w / 2, 0); ctx.lineTo(pong.w / 2, pong.h); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#00f5ff';
+    ctx.fillRect(4, pong.pY, pong.pW, pong.pH);
+    ctx.fillRect(pong.w - pong.pW - 4, pong.cY, pong.pW, pong.pH);
+    ctx.beginPath();
+    ctx.arc(pong.ballX, pong.ballY, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+}
+
+/* ── Percentage Calculator ── */
+function percentCalc1() {
+    var x = parseFloat(document.getElementById('percentX1').value);
+    var y = parseFloat(document.getElementById('percentY1').value);
+    var el = document.getElementById('percentResult1');
+    if (isNaN(x) || isNaN(y) || y === 0) { el.textContent = '—'; return; }
+    el.textContent = ((x / y) * 100).toFixed(2) + '%';
+}
+function percentCalc2() {
+    var x = parseFloat(document.getElementById('percentX2').value);
+    var y = parseFloat(document.getElementById('percentY2').value);
+    var el = document.getElementById('percentResult2');
+    if (isNaN(x) || isNaN(y)) { el.textContent = '—'; return; }
+    el.textContent = ((x / 100) * y).toLocaleString();
+}
+function percentCalc3() {
+    var x = parseFloat(document.getElementById('percentX3').value);
+    var y = parseFloat(document.getElementById('percentY3').value);
+    var el = document.getElementById('percentResult3');
+    if (isNaN(x) || isNaN(y) || x === 0) { el.textContent = '—'; return; }
+    var change = ((y - x) / Math.abs(x)) * 100;
+    el.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+}
+function percentInit() { percentCalc1(); percentCalc2(); percentCalc3(); }
+
+/* ── Text Case Converter ── */
+function tcConvert(mode) {
+    var input = document.getElementById('tcInput').value;
+    var out = '';
+    if (mode === 'upper') out = input.toUpperCase();
+    else if (mode === 'lower') out = input.toLowerCase();
+    else if (mode === 'title') out = input.replace(/\w\S*/g, function(t) { return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase(); });
+    else if (mode === 'sentence') out = input.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) { return c.toUpperCase(); });
+    else if (mode === 'camel') out = input.trim().split(/[\s_-]+/).map(function(w, i) { w = w.toLowerCase(); return i === 0 ? w : w.charAt(0).toUpperCase() + w.slice(1); }).join('');
+    else if (mode === 'snake') out = input.trim().split(/[\s_-]+/).map(function(w) { return w.toLowerCase(); }).join('_');
+    else if (mode === 'kebab') out = input.trim().split(/[\s_-]+/).map(function(w) { return w.toLowerCase(); }).join('-');
+    document.getElementById('tcOutput').value = out;
+}
+function tcCopy() { var t = document.getElementById('tcOutput').value; if (t) navigator.clipboard.writeText(t); }
+function tcClear() { document.getElementById('tcInput').value = ''; document.getElementById('tcOutput').value = ''; }
+function tcRenderCount() {}
+function tcInit() { tcClear(); }
+
+/* ── JSON Formatter ── */
+function jsonFormat() {
+    var status = document.getElementById('jsonStatus');
+    try {
+        var obj = JSON.parse(document.getElementById('jsonInput').value);
+        document.getElementById('jsonOutput').value = JSON.stringify(obj, null, 2);
+        status.textContent = L('✅ 유효한 JSON입니다', '✅ Valid JSON');
+        status.style.color = 'var(--neon-green)';
+    } catch (e) {
+        status.textContent = L('❌ 오류: ', '❌ Error: ') + e.message;
+        status.style.color = 'var(--neon-pink)';
+        document.getElementById('jsonOutput').value = '';
+    }
+}
+function jsonMinify() {
+    var status = document.getElementById('jsonStatus');
+    try {
+        var obj = JSON.parse(document.getElementById('jsonInput').value);
+        document.getElementById('jsonOutput').value = JSON.stringify(obj);
+        status.textContent = L('✅ 유효한 JSON입니다', '✅ Valid JSON');
+        status.style.color = 'var(--neon-green)';
+    } catch (e) {
+        status.textContent = L('❌ 오류: ', '❌ Error: ') + e.message;
+        status.style.color = 'var(--neon-pink)';
+        document.getElementById('jsonOutput').value = '';
+    }
+}
+function jsonClear() { document.getElementById('jsonInput').value = ''; document.getElementById('jsonOutput').value = ''; document.getElementById('jsonStatus').textContent = ''; }
+function jsonCopy() { var t = document.getElementById('jsonOutput').value; if (t) navigator.clipboard.writeText(t); }
+function jsonInit() { jsonClear(); }
+
+/* ── Base64 ── */
+function b64Encode() {
+    var status = document.getElementById('b64Status');
+    try {
+        document.getElementById('b64Output').value = btoa(unescape(encodeURIComponent(document.getElementById('b64Input').value)));
+        status.textContent = '';
+    } catch (e) { status.textContent = L('인코딩할 수 없습니다', 'Could not encode'); }
+}
+function b64Decode() {
+    var status = document.getElementById('b64Status');
+    try {
+        document.getElementById('b64Output').value = decodeURIComponent(escape(atob(document.getElementById('b64Input').value)));
+        status.textContent = '';
+    } catch (e) {
+        status.textContent = L('❌ 올바른 Base64 문자열이 아닙니다', '❌ Not a valid Base64 string');
+        document.getElementById('b64Output').value = '';
+    }
+}
+function b64Clear() { document.getElementById('b64Input').value = ''; document.getElementById('b64Output').value = ''; document.getElementById('b64Status').textContent = ''; }
+function b64Copy() { var t = document.getElementById('b64Output').value; if (t) navigator.clipboard.writeText(t); }
+function b64Init() { b64Clear(); }
+
+/* ── Number Base Converter ── */
+function bnFrom(source) {
+    var status = document.getElementById('bnStatus');
+    try {
+        var val;
+        if (source === 'bin') val = parseInt(document.getElementById('bnBin').value || '0', 2);
+        else if (source === 'oct') val = parseInt(document.getElementById('bnOct').value || '0', 8);
+        else if (source === 'dec') val = parseInt(document.getElementById('bnDec').value || '0', 10);
+        else val = parseInt(document.getElementById('bnHex').value || '0', 16);
+        if (isNaN(val) || val < 0) throw new Error('invalid');
+        if (source !== 'bin') document.getElementById('bnBin').value = val.toString(2);
+        if (source !== 'oct') document.getElementById('bnOct').value = val.toString(8);
+        if (source !== 'dec') document.getElementById('bnDec').value = val.toString(10);
+        if (source !== 'hex') document.getElementById('bnHex').value = val.toString(16).toUpperCase();
+        status.textContent = '';
+    } catch (e) { status.textContent = L('올바르지 않은 입력입니다', 'Invalid input'); }
+}
+function bnInit() {
+    document.getElementById('bnBin').value = '1010';
+    document.getElementById('bnOct').value = '12';
+    document.getElementById('bnDec').value = '10';
+    document.getElementById('bnHex').value = 'A';
+    document.getElementById('bnStatus').textContent = '';
+}
+
+/* ── Tip Calculator ── */
+function tipCalc() {
+    var bill = parseFloat(document.getElementById('tipBill').value) || 0;
+    var pct = parseFloat(document.getElementById('tipPercent').value) || 0;
+    var people = Math.max(1, parseInt(document.getElementById('tipPeople').value, 10) || 1);
+    var tipAmt = bill * (pct / 100);
+    var total = bill + tipAmt;
+    document.getElementById('tipAmount').textContent = Math.round(tipAmt).toLocaleString();
+    document.getElementById('tipTotal').textContent = Math.round(total).toLocaleString();
+    document.getElementById('tipPerPerson').textContent = Math.round(total / people).toLocaleString();
+}
+
+/* ── Loan Calculator ── */
+function loanCalc() {
+    var amount = parseFloat(document.getElementById('loanAmount').value) || 0;
+    var rate = parseFloat(document.getElementById('loanRate').value) || 0;
+    var years = parseFloat(document.getElementById('loanYears').value) || 0;
+    var months = years * 12;
+    var monthlyRate = rate / 100 / 12;
+    var monthly;
+    if (monthlyRate === 0 || months === 0) monthly = months > 0 ? amount / months : 0;
+    else monthly = amount * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months));
+    var total = monthly * months;
+    var interest = total - amount;
+    document.getElementById('loanMonthly').textContent = Math.round(monthly).toLocaleString();
+    document.getElementById('loanTotalInterest').textContent = Math.round(Math.max(interest, 0)).toLocaleString();
+    document.getElementById('loanTotalPay').textContent = Math.round(total).toLocaleString();
+}
+
+/* ── Lorem Ipsum ── */
+var LOREM_WORDS = ['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','aliquip','ex','ea','commodo','consequat','duis','aute','irure','in','reprehenderit','voluptate','velit','esse','cillum','eu','fugiat','nulla','pariatur'];
+function loremSentence() {
+    var len = 6 + Math.floor(Math.random() * 10);
+    var words = [];
+    for (var i = 0; i < len; i++) words.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
+    var s = words.join(' ');
+    return s.charAt(0).toUpperCase() + s.slice(1) + '.';
+}
+function loremParagraph() {
+    var count = 3 + Math.floor(Math.random() * 3);
+    var sentences = [];
+    for (var i = 0; i < count; i++) sentences.push(loremSentence());
+    return sentences.join(' ');
+}
+function loremGenerate() {
+    var type = document.getElementById('loremType').value;
+    var count = Math.max(1, parseInt(document.getElementById('loremCount').value, 10) || 1);
+    var out = '';
+    if (type === 'paragraphs') {
+        var paras = [];
+        for (var i = 0; i < count; i++) paras.push(loremParagraph());
+        out = paras.join('\n\n');
+    } else if (type === 'sentences') {
+        var sents = [];
+        for (var j = 0; j < count; j++) sents.push(loremSentence());
+        out = sents.join(' ');
+    } else {
+        var words = [];
+        for (var k = 0; k < count; k++) words.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
+        out = words.join(' ');
+    }
+    document.getElementById('loremOutput').value = out;
+}
+function loremCopy() { var t = document.getElementById('loremOutput').value; if (t) navigator.clipboard.writeText(t); }
+function loremInit() { document.getElementById('loremOutput').value = ''; }
+
+/* ── Text Diff Checker ── */
+function escHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function diffCompare() {
+    var a = document.getElementById('diffA').value.split('\n');
+    var b = document.getElementById('diffB').value.split('\n');
+    var max = Math.max(a.length, b.length);
+    var html = '';
+    for (var i = 0; i < max; i++) {
+        var la = a[i], lb = b[i];
+        if (la === undefined) html += '<div class="diff-line added">+ ' + escHtml(lb) + '</div>';
+        else if (lb === undefined) html += '<div class="diff-line removed">- ' + escHtml(la) + '</div>';
+        else if (la === lb) html += '<div class="diff-line same">&nbsp;&nbsp;' + escHtml(la) + '</div>';
+        else html += '<div class="diff-line changed">~ ' + escHtml(la) + ' → ' + escHtml(lb) + '</div>';
+    }
+    document.getElementById('diffResult').innerHTML = html || L('비교할 텍스트를 입력하세요', 'Enter text to compare');
+}
+function diffInit() { document.getElementById('diffResult').innerHTML = ''; }
+
+/* ── Roman Numerals ── */
+var ROMAN_MAP = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+function romanToNumeral() {
+    var num = parseInt(document.getElementById('romanNum').value, 10);
+    var el = document.getElementById('romanResult');
+    if (isNaN(num) || num < 1 || num > 3999) { el.textContent = '—'; return; }
+    var result = '';
+    ROMAN_MAP.forEach(function(pair) { while (num >= pair[0]) { result += pair[1]; num -= pair[0]; } });
+    el.textContent = result;
+}
+function romanToArabic() {
+    var str = document.getElementById('romanStr').value.trim().toUpperCase();
+    var el = document.getElementById('romanArabicResult');
+    if (!str) { el.textContent = '—'; return; }
+    if (!/^[MDCLXVI]+$/.test(str)) { el.textContent = L('올바른 로마 숫자가 아닙니다', 'Not a valid Roman numeral'); return; }
+    var VALUES = { M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1 };
+    var total = 0;
+    for (var i = 0; i < str.length; i++) {
+        var cur = VALUES[str[i]], next = VALUES[str[i + 1]];
+        if (next && cur < next) total -= cur; else total += cur;
+    }
+    el.textContent = total;
+}
+function romanInit() {
+    document.getElementById('romanNum').value = '';
+    document.getElementById('romanStr').value = '';
+    document.getElementById('romanResult').textContent = '—';
+    document.getElementById('romanArabicResult').textContent = '—';
 }
 
 /* ── Scroll to top ── */
