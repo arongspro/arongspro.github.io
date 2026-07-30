@@ -684,6 +684,16 @@
         .fq-opt.correct{background:rgba(0,255,136,.35);border-color:var(--neon-green);animation:pulse .4s ease;}
         .fq-opt.wrong{background:rgba(255,0,110,.3);border-color:var(--neon-pink);animation:cmShake .3s ease;}
         .fq-opt.disabled{pointer-events:none;opacity:.6;}
+
+        /* AI TOOLS DIRECTORY */
+        .ait-category{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--neon-cyan);text-transform:uppercase;margin:18px 0 10px;display:flex;align-items:center;gap:8px;}
+        .ait-category:first-child{margin-top:0;}
+        .ait-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+        .ait-card{background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.15);border-radius:6px;padding:12px;text-decoration:none;display:block;transition:background .15s,transform .1s,border-color .15s;}
+        .ait-card:hover{background:rgba(0,245,255,.12);border-color:rgba(0,245,255,.4);transform:translateY(-2px);}
+        .ait-icon{font-size:1.4rem;margin-bottom:6px;display:block;}
+        .ait-name{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;color:#fff;margin-bottom:4px;}
+        .ait-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.4;}
     </style>
 </head>
 <body>
@@ -1124,6 +1134,15 @@
                 <div class="card-title">ROMAN NUMERALS</div>
                 <div class="card-title-kr" data-ko="로마 숫자 변환기" data-en="Roman Numeral Converter">로마 숫자 변환기</div>
                 <p class="card-desc" data-ko="아라비아 숫자를 로마 숫자로, 로마 숫자를 아라비아 숫자로 양방향 변환합니다." data-en="Convert Arabic numerals to Roman numerals and back, in both directions.">아라비아 숫자를 로마 숫자로, 로마 숫자를 아라비아 숫자로 양방향 변환합니다.</p>
+                <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="cyan" onclick="openTool('aitools')">
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="모음 / 링크" data-en="Directory / Links">모음 / 링크</div>
+                <span class="card-icon">🤖</span>
+                <div class="card-title">AI TOOLS</div>
+                <div class="card-title-kr" data-ko="AI 툴 사이트 모음" data-en="AI Tools Directory">AI 툴 사이트 모음</div>
+                <p class="card-desc" data-ko="대화형 AI, 이미지·영상 생성, 코딩, 음성, 생산성 등 카테고리별로 정리한 인기 AI 툴 모음입니다. 클릭하면 바로 이동합니다." data-en="A curated directory of popular AI tools by category — chat, image/video generation, coding, audio, and productivity. Click to open directly.">대화형 AI, 이미지·영상 생성, 코딩, 음성, 생산성 등 카테고리별로 정리한 인기 AI 툴 모음입니다. 클릭하면 바로 이동합니다.</p>
                 <span class="card-cta"><span data-ko="툴 열기" data-en="Open Tool">툴 열기</span><span class="cta-arrow">→</span></span>
             </div>
         </div>
@@ -2308,6 +2327,19 @@
   </div>
 </div>
 
+<!-- AI TOOLS DIRECTORY MODAL -->
+<div class="modal-overlay" id="modalAitools" onclick="closeModalOutside(event,'aitools')">
+  <div class="modal" style="border:1px solid rgba(0,245,255,.25);box-shadow:0 0 60px rgba(0,245,255,.07);max-width:640px;">
+    <button class="modal-close" onclick="closeTool('aitools')" style="border-color:rgba(0,245,255,.2);">✕</button>
+    <div class="modal-title" style="color:var(--neon-cyan);" data-ko="🤖 AI 툴 사이트 모음" data-en="🤖 AI Tools Directory">🤖 AI 툴 사이트 모음</div>
+    <div class="modal-subtitle" data-ko="카테고리별로 정리한 인기 AI 툴 모음입니다. 클릭하면 새 탭에서 열립니다." data-en="A curated collection of popular AI tools by category. Click to open in a new tab.">카테고리별로 정리한 인기 AI 툴 모음입니다. 클릭하면 새 탭에서 열립니다.</div>
+    <input class="todo-input" id="aiToolsSearch" style="margin-bottom:16px;" oninput="aiToolsFilter(this.value)" data-ko-placeholder="🔍 AI 툴 검색... (예: 이미지, ChatGPT)" data-en-placeholder="🔍 Search AI tools... (e.g. image, ChatGPT)" placeholder="🔍 AI 툴 검색... (예: 이미지, ChatGPT)">
+    <div id="aiToolsList"></div>
+    <div class="search-empty" id="aiToolsEmpty" style="display:none;" data-ko="검색 결과가 없습니다" data-en="No results found">검색 결과가 없습니다</div>
+    <p class="tool-tip" data-ko-html="&lt;b&gt;참고&lt;/b&gt; — 외부 사이트로 연결되며, 각 서비스의 이용 약관과 요금 정책은 해당 사이트에서 확인하세요." data-en-html="&lt;b&gt;Note&lt;/b&gt; — Links open external sites; check each service's own terms and pricing there."><b>참고</b> — 외부 사이트로 연결되며, 각 서비스의 이용 약관과 요금 정책은 해당 사이트에서 확인하세요.</p>
+  </div>
+</div>
+
 <script>
 /* ── Stars ── */
 (function() {
@@ -2482,6 +2514,7 @@ function openTool(n) {
     if (n === 'shooter') shooterInit();
     if (n === 'colormatch') cmInit();
     if (n === 'flagquiz') fqInit();
+    if (n === 'aitools') aiToolsInit();
     trackRecent(n);
     if (history.replaceState) history.replaceState(null, '', '#' + n);
 }
@@ -4326,7 +4359,8 @@ var TOOL_META = {
     roman: { icon: '🏛️', ko: '로마숫자', en: 'Roman Numerals' },
     shooter: { icon: '🚀', ko: '네온스트라이크', en: 'Neon Strike' },
     colormatch: { icon: '🌈', ko: '다른색찾기', en: 'Odd Color Out' },
-    flagquiz: { icon: '🌍', ko: '국기퀴즈', en: 'Flag Quiz' }
+    flagquiz: { icon: '🌍', ko: '국기퀴즈', en: 'Flag Quiz' },
+    aitools: { icon: '🤖', ko: 'AI툴모음', en: 'AI Tools' }
 };
 function getFavs() { try { return JSON.parse(localStorage.getItem('favTools') || '[]'); } catch (e) { return []; } }
 function getRecents() { try { return JSON.parse(localStorage.getItem('recentTools') || '[]'); } catch (e) { return []; } }
@@ -5888,6 +5922,91 @@ function fqFinish() {
     document.getElementById('fqOptions').innerHTML = '';
     document.getElementById('fqProgress').textContent = fq.deck.length + '/' + fq.deck.length;
     document.getElementById('fqStatus').textContent = L('완료! 197개국 중 ' + fq.correct + '개 정답 — 새 퀴즈를 눌러 다시 도전하세요', 'Done! ' + fq.correct + ' out of 197 correct — press New Quiz to try again');
+}
+
+/* ── AI Tools Directory ── */
+var AI_CATEGORIES = [
+    { key: 'chat', icon: '💬', ko: '대화형 AI', en: 'Chat & Assistants' },
+    { key: 'image', icon: '🎨', ko: '이미지 생성', en: 'Image Generation' },
+    { key: 'video', icon: '🎬', ko: '영상 생성', en: 'Video Generation' },
+    { key: 'code', icon: '👨‍💻', ko: '코딩', en: 'Coding' },
+    { key: 'audio', icon: '🎵', ko: '음성 · 음악', en: 'Audio & Music' },
+    { key: 'productivity', icon: '📊', ko: '생산성', en: 'Productivity' },
+    { key: 'design', icon: '✏️', ko: '디자인', en: 'Design' }
+];
+var AI_TOOLS = [
+    { cat: 'chat', icon: '💬', name: 'ChatGPT', ko: '가장 널리 쓰이는 OpenAI의 대화형 AI', en: "OpenAI's widely-used conversational AI", url: 'https://chatgpt.com' },
+    { cat: 'chat', icon: '🟠', name: 'Claude', ko: 'Anthropic의 안전하고 신뢰도 높은 AI 어시스턴트', en: "Anthropic's safety-focused AI assistant", url: 'https://claude.ai' },
+    { cat: 'chat', icon: '✨', name: 'Gemini', ko: '구글의 멀티모달 AI 어시스턴트', en: "Google's multimodal AI assistant", url: 'https://gemini.google.com' },
+    { cat: 'chat', icon: '🔍', name: 'Perplexity', ko: '출처를 함께 보여주는 AI 검색 엔진', en: 'AI search engine with cited sources', url: 'https://www.perplexity.ai' },
+    { cat: 'chat', icon: '🪟', name: 'Microsoft Copilot', ko: '윈도우·오피스에 통합된 AI 어시스턴트', en: 'AI assistant built into Windows and Office', url: 'https://copilot.microsoft.com' },
+    { cat: 'image', icon: '🖼️', name: 'Midjourney', ko: '독보적인 화풍의 이미지 생성 AI', en: 'Image generation AI known for its distinct style', url: 'https://www.midjourney.com' },
+    { cat: 'image', icon: '🎆', name: 'DALL·E 3', ko: 'OpenAI의 텍스트 기반 이미지 생성 AI', en: "OpenAI's text-to-image generator", url: 'https://openai.com/dall-e-3' },
+    { cat: 'image', icon: '🌊', name: 'Stable Diffusion', ko: 'Stability AI의 오픈소스 이미지 생성 모델', en: "Stability AI's open-source image generator", url: 'https://stability.ai' },
+    { cat: 'image', icon: '🦁', name: 'Leonardo AI', ko: '게임·디자인 에셋에 특화된 이미지 생성 툴', en: 'Image generation tool tuned for game and design assets', url: 'https://leonardo.ai' },
+    { cat: 'image', icon: '🔥', name: 'Adobe Firefly', ko: '어도비 제품군에 통합된 생성형 이미지 AI', en: "Adobe's generative image AI integrated into its apps", url: 'https://firefly.adobe.com' },
+    { cat: 'image', icon: '🔤', name: 'Ideogram', ko: '텍스트 렌더링에 강한 이미지 생성 AI', en: 'Image generator especially good at rendering text', url: 'https://ideogram.ai' },
+    { cat: 'video', icon: '🎞️', name: 'Runway', ko: '텍스트·이미지로 영상을 만드는 생성형 AI', en: 'Generative AI for text/image-to-video', url: 'https://runwayml.com' },
+    { cat: 'video', icon: '🌀', name: 'Pika', ko: '짧은 영상 클립 생성에 특화된 AI', en: 'AI focused on generating short video clips', url: 'https://pika.art' },
+    { cat: 'video', icon: '🌟', name: 'Sora', ko: 'OpenAI의 텍스트 기반 영상 생성 AI', en: "OpenAI's text-to-video generator", url: 'https://openai.com/sora' },
+    { cat: 'video', icon: '🗣️', name: 'Synthesia', ko: 'AI 아바타로 영상을 만드는 툴', en: 'Create videos with AI avatars', url: 'https://www.synthesia.io' },
+    { cat: 'video', icon: '🎥', name: 'Kling AI', ko: '고품질 영상 생성에 강한 AI', en: 'AI known for high-quality video generation', url: 'https://klingai.com' },
+    { cat: 'code', icon: '🐙', name: 'GitHub Copilot', ko: 'GitHub의 AI 코딩 어시스턴트', en: "GitHub's AI coding assistant", url: 'https://github.com/features/copilot' },
+    { cat: 'code', icon: '🟣', name: 'Claude Code', ko: 'Anthropic의 터미널 기반 AI 코딩 에이전트', en: "Anthropic's terminal-based AI coding agent", url: 'https://claude.com/claude-code' },
+    { cat: 'code', icon: '⌨️', name: 'Cursor', ko: 'AI 기반 코드 에디터', en: 'AI-first code editor', url: 'https://cursor.com' },
+    { cat: 'code', icon: '🌐', name: 'Replit', ko: 'AI로 앱을 만들고 배포하는 온라인 IDE', en: 'Online IDE for building and deploying apps with AI', url: 'https://replit.com' },
+    { cat: 'code', icon: '▲', name: 'v0', ko: 'Vercel의 AI 기반 UI 생성 툴', en: "Vercel's AI-powered UI generation tool", url: 'https://v0.dev' },
+    { cat: 'audio', icon: '🎙️', name: 'ElevenLabs', ko: '실감나는 AI 음성 합성·더빙 툴', en: 'Realistic AI voice synthesis and dubbing', url: 'https://elevenlabs.io' },
+    { cat: 'audio', icon: '🎼', name: 'Suno', ko: '텍스트로 노래를 만드는 AI', en: 'AI that generates full songs from text prompts', url: 'https://suno.com' },
+    { cat: 'audio', icon: '🎹', name: 'Udio', ko: '고품질 AI 음악 생성 툴', en: 'High-quality AI music generation tool', url: 'https://www.udio.com' },
+    { cat: 'audio', icon: '🎤', name: 'Murf AI', ko: '내레이션·더빙용 AI 음성 생성기', en: 'AI voice generator for narration and dubbing', url: 'https://murf.ai' },
+    { cat: 'productivity', icon: '📝', name: 'Notion AI', ko: 'Notion에 내장된 글쓰기·요약 AI', en: 'Writing and summarizing AI built into Notion', url: 'https://www.notion.so/product/ai' },
+    { cat: 'productivity', icon: '📓', name: 'NotebookLM', ko: '자료를 기반으로 답하는 구글의 AI 노트 툴', en: "Google's AI notebook that answers from your sources", url: 'https://notebooklm.google.com' },
+    { cat: 'productivity', icon: '📽️', name: 'Gamma', ko: '프롬프트로 프레젠테이션을 만드는 AI', en: 'AI that builds presentations from a prompt', url: 'https://gamma.app' },
+    { cat: 'productivity', icon: '🎧', name: 'Otter.ai', ko: '회의를 실시간으로 받아쓰고 요약하는 AI', en: 'AI that transcribes and summarizes meetings live', url: 'https://otter.ai' },
+    { cat: 'design', icon: '🖌️', name: 'Canva AI', ko: 'Canva에 내장된 디자인 생성 AI', en: 'Design generation AI built into Canva', url: 'https://www.canva.com' },
+    { cat: 'design', icon: '🎯', name: 'Figma AI', ko: 'Figma에 내장된 디자인 도우미 AI', en: 'AI design assistant built into Figma', url: 'https://www.figma.com' }
+];
+function aiToolsInit() {
+    document.getElementById('aiToolsSearch').value = '';
+    aiToolsRender(AI_TOOLS);
+}
+function aiToolsRender(tools) {
+    var wrap = document.getElementById('aiToolsList');
+    wrap.innerHTML = '';
+    var emptyEl = document.getElementById('aiToolsEmpty');
+    if (!tools.length) { emptyEl.style.display = 'block'; return; }
+    emptyEl.style.display = 'none';
+    AI_CATEGORIES.forEach(function(cat) {
+        var items = tools.filter(function(t) { return t.cat === cat.key; });
+        if (!items.length) return;
+        var heading = document.createElement('div');
+        heading.className = 'ait-category';
+        heading.textContent = cat.icon + ' ' + L(cat.ko, cat.en);
+        wrap.appendChild(heading);
+        var grid = document.createElement('div');
+        grid.className = 'ait-grid';
+        items.forEach(function(tool) {
+            var a = document.createElement('a');
+            a.className = 'ait-card';
+            a.href = tool.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.innerHTML = '<span class="ait-icon">' + tool.icon + '</span><div class="ait-name">' + tool.name + '</div><div class="ait-desc">' + L(tool.ko, tool.en) + '</div>';
+            grid.appendChild(a);
+        });
+        wrap.appendChild(grid);
+    });
+}
+function aiToolsFilter(query) {
+    query = query.trim().toLowerCase();
+    if (!query) { aiToolsRender(AI_TOOLS); return; }
+    var filtered = AI_TOOLS.filter(function(t) {
+        var cat = AI_CATEGORIES.find(function(c) { return c.key === t.cat; });
+        var haystack = [t.name, t.ko, t.en, cat.ko, cat.en].join(' ').toLowerCase();
+        return haystack.indexOf(query) > -1;
+    });
+    aiToolsRender(filtered);
 }
 
 /* ── Scroll to top ── */
