@@ -668,6 +668,69 @@
         .cm-timer-wrap{flex:1;height:10px;background:rgba(255,255,255,.07);border:1px solid rgba(185,111,255,.3);border-radius:5px;overflow:hidden;}
         .cm-timer-fill{height:100%;width:100%;background:linear-gradient(90deg,#b96fff,#ff006e);transition:width .1s linear;}
         .cm-grid{display:grid;gap:6px;max-width:360px;margin:0 auto;}
+
+        .grow-toast-zone{display:flex;flex-direction:column;align-items:center;pointer-events:none;min-height:0;}
+        .grow-toast{background:#0a0a1e;border:1px solid var(--neon-yellow);color:var(--neon-yellow);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;padding:8px 16px;border-radius:20px;box-shadow:0 0 20px rgba(255,230,0,.35);margin-top:4px;animation:growToastIn .35s ease, growToastOut .4s ease 2.4s forwards;white-space:nowrap;}
+        @keyframes growToastIn{0%{opacity:0;transform:translateY(-14px);}100%{opacity:1;transform:translateY(0);}}
+        @keyframes growToastOut{0%{opacity:1;}100%{opacity:0;transform:translateY(-10px);}}
+        .grow-island-wrap{position:relative;margin:6px 0 8px;padding:26px 14px 10px;border-radius:20px;
+            background:linear-gradient(180deg, #3fa9f5 0%, #62bff8 55%, #7fd0ff 100%);
+            overflow:hidden;min-height:270px;}
+        .grow-cloud{position:absolute;font-size:22px;opacity:.9;filter:drop-shadow(0 2px 2px rgba(0,0,0,.1));}
+        .grow-cloud.c1{top:10px;left:12px;}
+        .grow-cloud.c2{top:34px;right:16px;font-size:16px;opacity:.75;}
+        .grow-board{position:relative;width:240px;height:240px;margin:10px auto 0;border-radius:26px;padding:10px;
+            background:linear-gradient(160deg,#e0c288,#c9a866);
+            box-shadow:0 12px 22px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.15);
+            transition:width .4s ease,height .4s ease;}
+        .grow-island-surface{position:absolute;inset:10px;border-radius:18px;
+            background:radial-gradient(circle at 35% 30%, #7ed957, #4caf3f 55%, #3b8f30 100%);
+            box-shadow:inset 0 0 0 2px rgba(255,255,255,.15), inset 0 6px 16px rgba(0,0,0,.1);}
+        .grow-deco-tree{position:absolute;top:4%;left:60%;font-size:34px;pointer-events:none;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25));z-index:2;}
+        .grow-deco-flower{position:absolute;font-size:13px;pointer-events:none;opacity:.9;z-index:2;}
+        .grow-itemlayer{position:absolute;inset:20px;z-index:1;}
+        .grow-item{position:absolute;transform:translate(-50%,-50%);font-size:26px;line-height:1;cursor:pointer;
+            transition:left 1.4s ease,top 1.4s ease,transform .15s;user-select:none;
+            filter:drop-shadow(0 2px 2px rgba(0,0,0,.45));z-index:1;}
+        .grow-item:hover{transform:translate(-50%,-50%) scale(1.12);}
+        .grow-item.selected{transform:translate(-50%,-50%) scale(1.3);filter:drop-shadow(0 0 10px #ffe600);z-index:3;}
+        .grow-item.plant{transition:transform .15s;}
+        .grow-item.plant.selected{filter:drop-shadow(0 0 10px #00ff88);}
+        .grow-item.color-white svg{filter:drop-shadow(0 0 3px rgba(255,255,255,.5));}
+        .grow-item svg{display:block;}
+        .grow-item.sick{animation:growSickWobble 1.6s ease-in-out infinite;}
+        .grow-item.hungry{animation:growHungryPulse 1.2s ease-in-out infinite;}
+        @keyframes growHungryPulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+        .grow-item.hatching{animation:growHatchPulse 1.8s ease-in-out infinite;}
+        @keyframes growHatchPulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.1);}}
+        @keyframes growSickWobble{0%,100%{transform:translate(-50%,-50%) rotate(0deg);}25%{transform:translate(-50%,-50%) rotate(-6deg);}75%{transform:translate(-50%,-50%) rotate(6deg);}}
+        .grow-item .sick-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:12px;}
+        .grow-item.pop{animation:growCellPop .3s ease;}
+        @keyframes growCellPop{0%{transform:translate(-50%,-50%) scale(1);}45%{transform:translate(-50%,-50%) scale(1.35);filter:drop-shadow(0 0 14px #ffe600);}100%{transform:translate(-50%,-50%) scale(1);}}
+        .grow-item .lvl-badge{position:absolute;bottom:-4px;right:-10px;font-size:8px;background:rgba(0,0,0,.6);border-radius:3px;padding:0 3px;color:var(--neon-yellow);font-family:'Share Tech Mono',monospace;line-height:1.4;white-space:nowrap;}
+        .grow-item.plant .lvl-badge{color:var(--neon-green);}
+        .grow-float{position:absolute;left:50%;top:-10px;transform:translateX(-50%);font-family:'Orbitron',sans-serif;font-size:11px;color:var(--neon-yellow);pointer-events:none;animation:growFloatUp .7s ease-out forwards;text-shadow:0 0 8px rgba(255,230,0,.7);z-index:6;white-space:nowrap;}
+        .grow-float.golden{font-size:13px;color:#ffd700;text-shadow:0 0 12px rgba(255,215,0,.9);}
+        @keyframes growFloatUp{0%{opacity:1;transform:translate(-50%,0) scale(1);}100%{opacity:0;transform:translate(-50%,-38px) scale(1.15);}}
+        .grow-golden-egg{position:absolute;top:2px;right:26px;width:40px;height:40px;font-size:22px;line-height:40px;text-align:center;border-radius:50%;border:1px solid #ffd700;background:radial-gradient(circle,rgba(255,215,0,.35),transparent 70%);cursor:pointer;z-index:5;opacity:0;pointer-events:none;transform:scale(.4);transition:opacity .25s,transform .25s;box-shadow:0 0 18px rgba(255,215,0,.6);}
+        .grow-golden-egg.show{opacity:1;pointer-events:auto;transform:scale(1);animation:growGoldenPulse 1s ease-in-out infinite;}
+        @keyframes growGoldenPulse{0%,100%{box-shadow:0 0 12px rgba(255,215,0,.5);}50%{box-shadow:0 0 28px rgba(255,215,0,.95);}}
+        .grow-capacity-row{display:flex;align-items:center;justify-content:space-between;margin:8px 0;font-size:11px;color:rgba(255,255,255,.6);font-family:'Share Tech Mono',monospace;}
+        .grow-hint{text-align:center;font-size:10px;color:rgba(255,255,255,.35);margin:8px 0 12px;}
+        .grow-shop-row{display:flex;gap:8px;margin-bottom:10px;}
+        .grow-egg-btn{flex:1;padding:12px 6px;font-size:12px;}
+        .grow-prestige-btn{display:block;width:100%;background:transparent;border:1px solid rgba(185,111,255,.4);color:var(--neon-purple);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1px;padding:10px;border-radius:4px;cursor:pointer;transition:all .2s;text-align:center;}
+        .grow-prestige-btn:hover:not(:disabled){background:var(--neon-purple);color:#000;box-shadow:0 0 20px rgba(185,111,255,.4);}
+        .grow-prestige-btn:disabled{opacity:.35;cursor:not-allowed;}
+        .grow-prestige-hint{text-align:center;font-size:10px;color:rgba(255,255,255,.3);margin-top:6px;}
+        .grow-stats-row{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:14px 0 4px;font-size:10px;color:rgba(255,255,255,.45);font-family:'Share Tech Mono',monospace;text-align:center;}
+        .grow-stats-row b{color:var(--neon-yellow);font-family:'Orbitron',sans-serif;font-size:12px;display:block;margin-top:2px;}
+        .grow-ach-title{margin-top:14px;margin-bottom:6px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.5);}
+        .grow-ach-grid{display:flex;flex-wrap:wrap;gap:6px;}
+        .grow-ach-badge{position:relative;width:34px;height:34px;line-height:32px;text-align:center;font-size:17px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#000;opacity:.25;filter:grayscale(1);transition:all .2s;cursor:default;}
+        .grow-ach-badge.unlocked{opacity:1;filter:none;border-color:var(--neon-yellow);box-shadow:0 0 10px rgba(255,230,0,.35);}
+        .grow-ach-badge:hover .grow-ach-tip{display:block;}
+        .grow-ach-tip{display:none;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:#0a0a1e;border:1px solid rgba(255,230,0,.3);color:#fff;font-size:9px;padding:4px 8px;border-radius:4px;white-space:nowrap;z-index:10;font-family:'Share Tech Mono',monospace;}
         .cm-tile{aspect-ratio:1;border-radius:6px;cursor:pointer;transition:transform .1s;}
         .cm-tile:hover{transform:scale(1.04);}
         .cm-tile:active{transform:scale(.94);}
@@ -742,8 +805,17 @@
     <!-- GAMES -->
     <div class="tab-panel active" id="panel-games">
         <div class="cards-grid">
-            <div class="card tool-card" data-color="pink" onclick="openTool('shooter')" style="position:relative;">
+            <div class="card tool-card" data-color="yellow" onclick="openTool('grow')" style="position:relative;">
                 <span class="card-new-badge" data-ko="신규" data-en="NEW">신규</span>
+                <div class="corner tl"></div><div class="corner br"></div>
+                <div class="card-tag" data-ko="합체 / 방치형" data-en="Merge / Idle" data-ja="マージ / 放置系" data-zh="合并 / 放置" data-es="Fusión / Idle" data-fr="Fusion / Idle">합체 / 방치형</div>
+                <span class="card-icon">🐣</span>
+                <div class="card-title">MERGE ISLAND</div>
+                <div class="card-title-kr" data-ko="병아리 아일랜드" data-en="Chick Island" data-ja="ひよこアイランド" data-zh="小鸡岛" data-es="Isla de Pollitos" data-fr="Île des Poussins">병아리 아일랜드</div>
+                <p class="card-desc" data-ko="알과 씨앗을 얻어 섬에 놓고, 같은 동물·식물끼리 합체시켜 전설의 존재까지 진화시키는 머지 키우기 게임입니다. 나무를 키워 생산량을 늘리고, 섬을 넓히고, 새 섬으로 이주해보세요." data-en="Hatch eggs and plant seeds on your island, then merge matching animals and plants to evolve them into legendary beings. Grow trees to boost your income, expand your island, and migrate to a new one for permanent bonuses.">알과 씨앗을 얻어 섬에 놓고, 같은 동물·식물끼리 합체시켜 전설의 존재까지 진화시키는 머지 키우기 게임입니다. 나무를 키워 생산량을 늘리고, 섬을 넓히고, 새 섬으로 이주해보세요.</p>
+                <span class="card-cta"><span data-ko="지금 플레이" data-en="Play Now" data-ja="今すぐプレイ" data-zh="立即游玩" data-es="Jugar Ahora" data-fr="Jouer Maintenant">지금 플레이</span><span class="cta-arrow">→</span></span>
+            </div>
+            <div class="card tool-card" data-color="pink" onclick="openTool('shooter')" style="position:relative;">
                 <div class="corner tl"></div><div class="corner br"></div>
                 <div class="card-tag" data-ko="아케이드 / 슈팅" data-en="Arcade / Shooter" data-ja="アーケード / シューティング" data-zh="街机 / 射击" data-es="Arcade / Disparos" data-fr="Arcade / Tir">아케이드 / 슈팅</div>
                 <span class="card-icon">🚀</span>
@@ -1957,6 +2029,73 @@
   </div>
 </div>
 
+<!-- MERGE ISLAND MODAL -->
+<div class="modal-overlay" id="modalGrow" onclick="closeModalOutside(event,'grow')">
+  <div class="modal yellow grow-modal" style="max-width:480px;">
+    <button class="modal-close" onclick="closeTool('grow')">✕</button>
+    <div class="modal-title" style="color:var(--neon-yellow);" data-ko="🐣 병아리 아일랜드" data-en="🐣 Chick Island">🐣 병아리 아일랜드</div>
+    <div class="modal-subtitle" data-ko="동물과 식물을 합체시켜 전설의 존재까지 키워보세요" data-en="Merge animals and plants to evolve them into legendary beings">동물과 식물을 합체시켜 전설의 존재까지 키워보세요</div>
+
+    <div class="grow-toast-zone" id="growToastZone"></div>
+
+    <div class="g2048-scores" style="justify-content:center;margin-bottom:10px;flex-wrap:wrap;">
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="코인" data-en="Coins">코인</div><div class="g2048-score-val" id="growCoins" style="color:var(--neon-yellow);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="초당 생산" data-en="Per Sec">초당 생산</div><div class="g2048-score-val" id="growCps" style="color:var(--neon-yellow);">0</div></div>
+      <div class="g2048-score-box"><div class="g2048-score-label" data-ko="별가루" data-en="Stardust">별가루</div><div class="g2048-score-val" id="growStardust" style="color:var(--neon-yellow);">0</div></div>
+    </div>
+
+    <div class="grow-island-wrap" id="growIslandWrap">
+      <span class="grow-cloud c1">☁️</span>
+      <span class="grow-cloud c2">☁️</span>
+      <button class="grow-golden-egg" id="growGolden" onclick="growClaimGolden(event)" aria-label="golden egg">🥇</button>
+      <div class="grow-board" id="growBoard">
+        <div class="grow-island-surface" id="growGrass">
+          <span class="grow-deco-tree">🌴</span>
+          <span class="grow-deco-flower" style="top:8%;left:8%;">🌼</span>
+          <span class="grow-deco-flower" style="top:18%;right:10%;">🌼</span>
+          <span class="grow-deco-flower" style="bottom:8%;left:14%;">🌸</span>
+          <span class="grow-deco-flower" style="bottom:12%;right:14%;">🌼</span>
+        </div>
+        <div class="grow-itemlayer" id="growItemLayer"></div>
+      </div>
+    </div>
+    <div class="grow-capacity-row">
+      <span>🏝️ <span id="growCapacityText">0 / 9 (3×3)</span></span>
+      <button class="tool-btn yellow" id="growExpandBtn" onclick="growExpandCapacity()" style="padding:6px 12px;font-size:10px;">
+        ＋ <span data-ko="섬 확장" data-en="Expand">섬 확장</span> (<span id="growExpandCost">25</span>)
+      </button>
+    </div>
+    <div class="grow-hint" data-ko="식물은 클릭해서 코인으로 업그레이드 · 같은 동물끼리 합체(성공 확률은 먹이를 줄수록 상승) · 동물 선택 후 식물 클릭 시 먹이주기 · 아픈 동물은 눌러서 치료" data-en="Tap a plant to upgrade it with coins · merge matching animals (feeding raises success odds) · select an animal then tap a plant to feed it · tap sick animals to cure">식물은 클릭해서 코인으로 업그레이드 · 같은 동물끼리 합체(성공 확률은 먹이를 줄수록 상승) · 동물 선택 후 식물 클릭 시 먹이주기 · 아픈 동물은 눌러서 치료</div>
+
+    <div class="grow-shop-row">
+      <button class="tool-btn yellow grow-egg-btn" id="growEggBtn" onclick="growGetEgg()">
+        🥚 <span data-ko="알 뽑기" data-en="Get Egg">알 뽑기</span> (<span id="growEggCost">12</span>)
+      </button>
+      <button class="tool-btn green grow-egg-btn" id="growSeedBtn" onclick="growGetSeed()">
+        🌱 <span data-ko="씨앗 심기" data-en="Plant Seed">씨앗 심기</span> (<span id="growSeedCost">15</span>)
+      </button>
+    </div>
+
+    <button class="grow-prestige-btn" id="growPrestigeBtn" onclick="growPrestige()">
+      <span data-ko="🚢 새 섬으로 이주 (+" data-en="🚢 Migrate Island (+">🚢 새 섬으로 이주 (+</span><span id="growPrestigeGain">0</span><span data-ko=" 별가루)" data-en=" stardust)"> 별가루)</span>
+    </button>
+    <div class="grow-prestige-hint" id="growPrestigeHint" data-ko="성체(레벨 4) 닭을 만들면 이주할 수 있습니다. 이주하면 섬이 초기화되지만 별가루로 영구 보너스를 얻습니다." data-en="Raise an Adult (level 4) chicken to migrate. Migrating resets your island but stardust gives a permanent bonus.">성체(레벨 4) 닭을 만들면 이주할 수 있습니다. 이주하면 섬이 초기화되지만 별가루로 영구 보너스를 얻습니다.</div>
+
+    <div class="grow-stats-row">
+      <div><span data-ko="합체 횟수" data-en="Merges">합체 횟수</span> <b id="growMergeCount">0</b></div>
+      <div><span data-ko="최고 단계" data-en="Best">최고 단계</span> <b id="growBestLevel">🥚</b></div>
+      <div><span data-ko="최고 식물" data-en="Best Plant">최고 식물</span> <b id="growBestPlant">—</b></div>
+      <div><span data-ko="이주 횟수" data-en="Migrations">이주 횟수</span> <b id="growPrestigeCount">0</b></div>
+      <div><span data-ko="플레이 시간" data-en="Play Time">플레이 시간</span> <b id="growPlayTime">0:00</b></div>
+    </div>
+
+    <div class="grow-ach-title" data-ko="🏅 업적" data-en="🏅 Achievements">🏅 업적</div>
+    <div class="grow-ach-grid" id="growAchGrid"></div>
+
+    <div class="mine-status" id="growStatus"></div>
+  </div>
+</div>
+
 <!-- ODD COLOR OUT MODAL -->
 <div class="modal-overlay" id="modalColormatch" onclick="closeModalOutside(event,'colormatch')">
   <div class="modal purple" style="max-width:440px;">
@@ -2524,6 +2663,7 @@ function openTool(n) {
     if (n === 'colormatch') cmInit();
     if (n === 'flagquiz') fqInit();
     if (n === 'aitools') aiToolsInit();
+    if (n === 'grow') growInit();
     trackRecent(n);
     if (history.replaceState) history.replaceState(null, '', '#' + n);
 }
@@ -2542,6 +2682,11 @@ function closeTool(n) {
     if (n === 'pong') { pong.running = false; cancelAnimationFrame(pong.raf); }
     if (n === 'shooter') { shooter.running = false; cancelAnimationFrame(shooter.raf); }
     if (n === 'colormatch') { cm.running = false; clearInterval(cm.timerHandle); }
+    if (n === 'grow') {
+        clearInterval(grow.timerHandle); clearInterval(grow.wanderHandle);
+        clearInterval(grow.breedHandle); clearInterval(grow.sickHandle); clearInterval(grow.hungerHandle);
+        clearTimeout(grow.goldenTimeout); growSave();
+    }
     if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
 }
 
@@ -4375,6 +4520,7 @@ function setLang(lang) {
     if (document.getElementById('modalDate').classList.contains('open')) { dateDiffCalc(); dateDdayCalc(); }
     if (document.getElementById('modalMemo').classList.contains('open')) memoUpdateSaved();
     if (document.getElementById('modalG2048').classList.contains('open')) t2048Render();
+    if (document.getElementById('modalGrow').classList.contains('open')) { growRenderAchievements(); growRender(); }
     if (document.getElementById('modalSnake').classList.contains('open') && !snake.running) snakeDraw();
     if (document.getElementById('modalMine').classList.contains('open')) {
         document.getElementById('mineFlagModeBtn').classList.toggle('active', mine.flagMode);
@@ -4456,7 +4602,8 @@ var TOOL_META = {
     shooter: { icon: '🚀', ko: '네온스트라이크', en: 'Neon Strike' },
     colormatch: { icon: '🌈', ko: '다른색찾기', en: 'Odd Color Out' },
     flagquiz: { icon: '🌍', ko: '국기퀴즈', en: 'Flag Quiz' },
-    aitools: { icon: '🤖', ko: 'AI툴모음', en: 'AI Tools' }
+    aitools: { icon: '🤖', ko: 'AI툴모음', en: 'AI Tools' },
+    grow: { icon: '🐣', ko: '병아리아일랜드', en: 'Chick Island' }
 };
 function getFavs() { try { return JSON.parse(localStorage.getItem('favTools') || '[]'); } catch (e) { return []; } }
 function getRecents() { try { return JSON.parse(localStorage.getItem('recentTools') || '[]'); } catch (e) { return []; } }
@@ -5808,6 +5955,745 @@ function shooterDraw() {
         ctx.globalAlpha = 1;
     }
     ctx.restore();
+}
+
+/* ── Merge Island (Chick Island) ── */
+var GROW_START_GRID = 3;
+var GROW_MAX_GRID = 6;
+var GROW_BREED_MIN_LEVEL = 6;
+var GROW_LEVELS = [
+    null,
+    { lvl: 1, tier: 'egg',   emoji: '🥚', ko: '알',       en: 'Egg' },
+    { lvl: 2, tier: 'chick', emoji: '🐣', ko: '병아리',   en: 'Chick' },
+    { lvl: 3, tier: 'teen',  emoji: '🐥', ko: '청소년',   en: 'Adolescent' },
+    { lvl: 4, tier: 'adult', emoji: '🐔', ko: '성체',     en: 'Adult' },
+    { lvl: 5, tier: 'gold',  emoji: '🌟', ko: '황금 닭',  en: 'Golden Hen' },
+    { lvl: 6, tier: 'phoenix', emoji: '🔥', ko: '전설의 불사조', en: 'Legendary Phoenix' }
+];
+var GROW_MAX_LEVEL = GROW_LEVELS.length - 1;
+var GROW_PLANT_LEVELS = [
+    null,
+    { lvl: 1, emoji: '🌱', ko: '새싹',       en: 'Sprout' },
+    { lvl: 2, emoji: '🌿', ko: '풀',         en: 'Herb' },
+    { lvl: 3, emoji: '🍀', ko: '클로버',     en: 'Clover' },
+    { lvl: 4, emoji: '🌳', ko: '나무',       en: 'Tree' },
+    { lvl: 5, emoji: '🌲', ko: '소나무',     en: 'Pine Tree' },
+    { lvl: 6, emoji: '🌴', ko: '야자수',     en: 'Palm Tree' },
+    { lvl: 7, emoji: '🌸', ko: '벚꽃나무',   en: 'Cherry Tree' },
+    { lvl: 8, emoji: '🌈', ko: '무지개 나무', en: 'Rainbow Tree' }
+];
+var GROW_PLANT_MAX_LEVEL = GROW_PLANT_LEVELS.length - 1;
+var GROW_PRESTIGE_LEVEL = 4;
+var GROW_ACHIEVEMENTS = [
+    { id: 'firstEgg',    icon: '🥚', ko: '첫 알',        en: 'First Egg',        cond: function(g) { return g.eggsBought >= 1; } },
+    { id: 'firstSeed',   icon: '🌱', ko: '첫 씨앗',      en: 'First Seed',       cond: function(g) { return g.seedsBought >= 1; } },
+    { id: 'firstFeed',   icon: '🍽️', ko: '첫 먹이주기',  en: 'First Feeding',    cond: function(g) { return g.fedCount >= 1; } },
+    { id: 'firstBreed',  icon: '💕', ko: '첫 짝짓기',    en: 'First Breeding',   cond: function(g) { return g.bredCount >= 1; } },
+    { id: 'firstPet',    icon: '🤗', ko: '첫 쓰다듬기',  en: 'First Pet',        cond: function(g) { return g.petCount >= 1; } },
+    { id: 'firstCure',   icon: '💊', ko: '첫 치료',      en: 'First Cure',       cond: function(g) { return g.curedCount >= 1; } },
+    { id: 'blackAndWhite',icon:'⚫', ko: '흑백 콤비',    en: 'Black & White',    cond: function(g) { return g.hasBlack && g.hasWhite; } },
+    { id: 'firstMerge',  icon: '🔗', ko: '첫 합체',      en: 'First Merge',      cond: function(g) { return g.mergeCount >= 1; } },
+    { id: 'firstUnlock', icon: '🏝️', ko: '섬 확장',      en: 'Island Expanded',  cond: function(g) { return g.gridSize > GROW_START_GRID; } },
+    { id: 'fullIsland',  icon: '🏖️', ko: '섬 완전 확장', en: 'Full Island',      cond: function(g) { return g.gridSize >= GROW_MAX_GRID; } },
+    { id: 'level4',      icon: '🐔', ko: '성체 진화',    en: 'Reached Adult',    cond: function(g) { return g.bestLevelEver >= 4; } },
+    { id: 'level5',      icon: '🌟', ko: '황금 닭 진화',  en: 'Reached Golden Hen', cond: function(g) { return g.bestLevelEver >= 5; } },
+    { id: 'level6',      icon: '🔥', ko: '전설 진화',    en: 'Reached Legend',   cond: function(g) { return g.bestLevelEver >= 6; } },
+    { id: 'gardener',    icon: '🌲', ko: '정원사',       en: 'Gardener',         cond: function(g) { return g.bestPlantLevelEver >= 5; } },
+    { id: 'treeMax',     icon: '🌈', ko: '무지개 나무 재배', en: 'Rainbow Tree', cond: function(g) { return g.bestPlantLevelEver >= 8; } },
+    { id: 'coins1000',   icon: '🪙', ko: '1,000 코인',   en: '1,000 Coins',      cond: function(g) { return g.allTimeCoins >= 1000; } },
+    { id: 'coins10000',  icon: '💰', ko: '10,000 코인',  en: '10,000 Coins',     cond: function(g) { return g.allTimeCoins >= 10000; } },
+    { id: 'coins100000', icon: '💎', ko: '100,000 코인', en: '100,000 Coins',    cond: function(g) { return g.allTimeCoins >= 100000; } },
+    { id: 'merge50',     icon: '🔥', ko: '합체 50회',    en: '50 Merges',        cond: function(g) { return g.mergeCount >= 50; } },
+    { id: 'goldenEgg',   icon: '🥇', ko: '황금알 획득',  en: 'Golden Egg',       cond: function(g) { return g.goldenClaimed >= 1; } },
+    { id: 'firstPrestige',icon:'🚢', ko: '첫 이주',      en: 'First Migration',  cond: function(g) { return g.prestigeCount >= 1; } },
+    { id: 'stardust10',  icon: '🌟', ko: '별가루 10',    en: '10 Stardust',      cond: function(g) { return g.stardust >= 10; } }
+];
+var grow = {
+    items: [], pos: {}, nextId: 1, gridSize: GROW_START_GRID,
+    coins: 0, allTimeCoins: 0, runCoins: 0,
+    eggsBought: 0, seedsBought: 0, mergeCount: 0, prestigeCount: 0, goldenClaimed: 0,
+    fedCount: 0, bredCount: 0, petCount: 0, curedCount: 0, hasBlack: false, hasWhite: false,
+    bestLevelEver: 1, bestPlantLevelEver: 0, playSeconds: 0, stardust: 0, achievements: [],
+    selectedId: -1, timerHandle: null, wanderHandle: null, breedHandle: null, sickHandle: null, hungerHandle: null, goldenTimeout: null
+};
+
+function growFmt(n) {
+    n = Math.floor(n);
+    if (n < 1000) return String(n);
+    var units = ['K', 'M', 'B', 'T'];
+    var u = -1;
+    while (n >= 1000 && u < units.length - 1) { n /= 1000; u++; }
+    return n.toFixed(n < 10 ? 2 : n < 100 ? 1 : 0) + units[u];
+}
+function growFmtTime(s) {
+    s = Math.floor(s);
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    if (h > 0) return h + ':' + (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+function growGlobalMult() { return 1 + grow.stardust * 0.08; }
+var GROW_HATCH_MIN = 7000, GROW_HATCH_MAX = 12000;
+function growNewCreature(id, color) {
+    return { id: id, type: 'creature', lvl: 1, color: color, feedBonus: 0,
+        hatchLeft: GROW_HATCH_MIN + Math.random() * (GROW_HATCH_MAX - GROW_HATCH_MIN) };
+}
+function growCoinRate(it) { if (it.sick || it.hungry || it.lvl < 2) return 0; return Math.pow(it.lvl, 1.7) * 1.3 * (1 + (it.feedBonus || 0)); }
+function growMergeBonus(newLvl) { return Math.round(newLvl * newLvl * 12); }
+function growEggCost() { return Math.floor(12 * Math.pow(1.09, grow.eggsBought)); }
+function growSeedCost() { return Math.floor(15 * Math.pow(1.1, grow.seedsBought)); }
+function growCapacityCost() { return Math.floor(80 * Math.pow(2.4, grow.gridSize - GROW_START_GRID)); }
+function growTileCount() { return grow.gridSize * grow.gridSize; }
+function growTotalCps() {
+    var sum = 0;
+    grow.items.forEach(function(it) { if (it.type === 'creature') sum += growCoinRate(it); });
+    return sum * growGlobalMult();
+}
+function growPrestigeGain() { return Math.floor(Math.sqrt(grow.runCoins / 1200)); }
+function growCurrentMaxCreatureLevel() {
+    var max = 0;
+    grow.items.forEach(function(it) { if (it.type === 'creature' && it.lvl > max) max = it.lvl; });
+    return max;
+}
+function growFindItem(id) {
+    for (var i = 0; i < grow.items.length; i++) if (grow.items[i].id === id) return grow.items[i];
+    return null;
+}
+function growTilePos(row, col) { return { x: (col + 0.5) / grow.gridSize * 100, y: (row + 0.5) / grow.gridSize * 100 }; }
+function growFindEmptyTile() {
+    var occupied = {};
+    grow.items.forEach(function(it) { if (it.row != null) occupied[it.row + ',' + it.col] = true; });
+    var empties = [];
+    for (var r = 0; r < grow.gridSize; r++) {
+        for (var c = 0; c < grow.gridSize; c++) {
+            if (!occupied[r + ',' + c]) empties.push({ row: r, col: c });
+        }
+    }
+    if (!empties.length) return null;
+    return empties[Math.floor(Math.random() * empties.length)];
+}
+function growAssignPos(id) {
+    var item = growFindItem(id);
+    if (!item) return;
+    var tile = growFindEmptyTile();
+    if (tile) { item.row = tile.row; item.col = tile.col; }
+    else if (item.row == null) { item.row = 0; item.col = 0; }
+    grow.pos[id] = growTilePos(item.row, item.col);
+}
+function growLevelInfo(item) { return item.type === 'plant' ? GROW_PLANT_LEVELS[item.lvl] : GROW_LEVELS[item.lvl]; }
+
+function growCreatureArt(lvl, color) {
+    var tier = GROW_LEVELS[lvl].tier;
+    var isBlack = color === 'black';
+    var body = isBlack ? '#4a4a4a' : '#ffffff';
+    var bodyEdge = isBlack ? '#262626' : '#d9d9d9';
+    var beak = '#ffb703', leg = '#ffb703', eye = '#1a1a1a', comb = '#ff4d4d', wattle = '#ff6b6b';
+
+    if (tier === 'egg') {
+        var shell = isBlack ? '#d8c39a' : '#fff6df';
+        var speck = isBlack ? '#a98d5c' : '#e9d6ad';
+        return '<svg viewBox="0 0 60 60" width="30" height="30">' +
+            '<ellipse cx="30" cy="34" rx="16" ry="21" fill="' + shell + '" stroke="#b89b6a" stroke-width="1.5"/>' +
+            '<ellipse cx="24" cy="24" rx="5" ry="7" fill="#ffffff" opacity=".45"/>' +
+            '<circle cx="22" cy="30" r="1.6" fill="' + speck + '"/><circle cx="36" cy="38" r="1.3" fill="' + speck + '"/><circle cx="34" cy="24" r="1.1" fill="' + speck + '"/>' +
+            '</svg>';
+    }
+
+    var tailPart = '';
+    var combPart = '';
+    var wattlePart = '';
+    var extraFilter = '';
+    var headR = 11, bodyRx = 16, bodyRy = 15, legLen = 6, headCx = 30, headCy = 22, bodyCy = 38;
+
+    if (tier === 'teen') {
+        headR = 10; bodyRx = 18; bodyRy = 16; legLen = 9; bodyCy = 37;
+        combPart = '<circle cx="30" cy="12" r="2.2" fill="' + comb + '"/>';
+    } else if (tier === 'adult' || tier === 'gold' || tier === 'phoenix') {
+        headR = 10; bodyRx = 20; bodyRy = 17; legLen = 11; bodyCy = 37;
+        combPart = '<path d="M25,11 Q26,4 29,10 Q30,3 32,10 Q35,4 36,11 Z" fill="' + comb + '"/>';
+        wattlePart = '<ellipse cx="30" cy="30" rx="2.4" ry="3.4" fill="' + wattle + '"/>';
+        if (tier === 'gold') {
+            body = 'url(#growGoldGrad)'; bodyEdge = '#c98a00';
+        } else if (tier === 'phoenix') {
+            body = 'url(#growFireGrad)'; bodyEdge = '#b3350a';
+            extraFilter = 'filter:drop-shadow(0 0 4px #ff7b1a);';
+        }
+        tailPart = tier === 'phoenix'
+            ? '<path d="M14,34 Q0,26 6,18 Q12,28 20,30 Z" fill="' + (isBlack ? '#e0521f' : '#ff8a3d') + '"/>' +
+              '<path d="M14,40 Q-2,38 4,30 Q12,36 20,36 Z" fill="' + (isBlack ? '#ffb648' : '#ffd23f') + '"/>'
+            : '<path d="M14,32 Q4,26 8,20 Q14,26 20,28 Z" fill="' + bodyEdge + '"/>' +
+              '<path d="M14,38 Q2,36 6,30 Q13,34 20,34 Z" fill="' + bodyEdge + '"/>';
+    } else {
+        combPart = '<path d="M28,13 Q29,9 30,13 Q31,9 32,13 Z" fill="' + comb + '" opacity=".85"/>';
+    }
+
+    var defs = tier === 'gold'
+        ? '<defs><linearGradient id="growGoldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff3b0"/><stop offset="100%" stop-color="#ffb300"/></linearGradient></defs>'
+        : tier === 'phoenix'
+        ? '<defs><linearGradient id="growFireGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd23f"/><stop offset="100%" stop-color="#ff5722"/></linearGradient></defs>'
+        : '';
+
+    return '<svg viewBox="0 0 60 60" width="34" height="34" style="' + extraFilter + '">' + defs +
+        tailPart +
+        '<line x1="24" y1="' + (bodyCy + bodyRy - 3) + '" x2="24" y2="' + (bodyCy + bodyRy - 3 + legLen) + '" stroke="' + leg + '" stroke-width="2" stroke-linecap="round"/>' +
+        '<line x1="34" y1="' + (bodyCy + bodyRy - 3) + '" x2="34" y2="' + (bodyCy + bodyRy - 3 + legLen) + '" stroke="' + leg + '" stroke-width="2" stroke-linecap="round"/>' +
+        '<ellipse cx="' + (30 - bodyRx * 0.55) + '" cy="' + bodyCy + '" rx="' + (bodyRx * 0.55) + '" ry="' + (bodyRy * 0.4) + '" fill="' + body + '" stroke="' + bodyEdge + '" stroke-width="1"/>' +
+        '<ellipse cx="30" cy="' + bodyCy + '" rx="' + bodyRx + '" ry="' + bodyRy + '" fill="' + body + '" stroke="' + bodyEdge + '" stroke-width="1.3"/>' +
+        '<circle cx="' + headCx + '" cy="' + headCy + '" r="' + headR + '" fill="' + body + '" stroke="' + bodyEdge + '" stroke-width="1.3"/>' +
+        combPart + wattlePart +
+        '<path d="M' + (headCx + headR - 2) + ',' + headCy + ' L' + (headCx + headR + 7) + ',' + (headCy + 1) + ' L' + (headCx + headR - 2) + ',' + (headCy + 4) + ' Z" fill="' + beak + '"/>' +
+        '<circle cx="' + (headCx + 3) + '" cy="' + (headCy - 1) + '" r="1.6" fill="' + eye + '"/>' +
+        '</svg>';
+}
+function growUpdateColorFlags() {
+    grow.hasBlack = grow.items.some(function(it) { return it.type === 'creature' && it.color === 'black'; });
+    grow.hasWhite = grow.items.some(function(it) { return it.type === 'creature' && it.color === 'white'; });
+}
+
+function growSave() {
+    localStorage.setItem('growSave', JSON.stringify({
+        items: grow.items.map(function(it) { return { id: it.id, type: it.type, lvl: it.lvl, color: it.color, feedBonus: it.feedBonus, sick: it.sick, hungry: it.hungry, hatchLeft: it.hatchLeft, row: it.row, col: it.col }; }),
+        nextId: grow.nextId, gridSize: grow.gridSize,
+        coins: grow.coins, allTimeCoins: grow.allTimeCoins, runCoins: grow.runCoins,
+        eggsBought: grow.eggsBought, seedsBought: grow.seedsBought, mergeCount: grow.mergeCount, prestigeCount: grow.prestigeCount,
+        goldenClaimed: grow.goldenClaimed, fedCount: grow.fedCount, bredCount: grow.bredCount,
+        petCount: grow.petCount, curedCount: grow.curedCount,
+        bestLevelEver: grow.bestLevelEver, bestPlantLevelEver: grow.bestPlantLevelEver,
+        playSeconds: grow.playSeconds, stardust: grow.stardust, achievements: grow.achievements, lastTime: Date.now()
+    }));
+}
+
+function growToast(text) {
+    var zone = document.getElementById('growToastZone');
+    if (!zone) return;
+    var t = document.createElement('div');
+    t.className = 'grow-toast';
+    t.textContent = text;
+    zone.appendChild(t);
+    setTimeout(function() { t.remove(); }, 2800);
+}
+
+function growCheckAchievements() {
+    growUpdateColorFlags();
+    var unlockedNew = false;
+    GROW_ACHIEVEMENTS.forEach(function(a) {
+        if (grow.achievements.indexOf(a.id) === -1 && a.cond(grow)) {
+            grow.achievements.push(a.id);
+            unlockedNew = true;
+            growToast('🏅 ' + L('업적 달성: ', 'Achievement: ') + (isKorean ? a.ko : a.en));
+            if (window.SFX) SFX.win();
+            var badge = document.getElementById('growAchBadge_' + a.id);
+            if (badge) badge.classList.add('unlocked');
+        }
+    });
+    if (unlockedNew) growSave();
+}
+function growRenderAchievements() {
+    var el = document.getElementById('growAchGrid');
+    el.innerHTML = GROW_ACHIEVEMENTS.map(function(a) {
+        var unlocked = grow.achievements.indexOf(a.id) > -1;
+        return '<div class="grow-ach-badge' + (unlocked ? ' unlocked' : '') + '" id="growAchBadge_' + a.id + '">' +
+            a.icon + '<span class="grow-ach-tip">' + (isKorean ? a.ko : a.en) + '</span></div>';
+    }).join('');
+}
+
+function growInit() {
+    clearInterval(grow.timerHandle);
+    clearInterval(grow.wanderHandle);
+    clearInterval(grow.breedHandle);
+    clearInterval(grow.sickHandle);
+    clearInterval(grow.hungerHandle);
+    clearTimeout(grow.goldenTimeout);
+    document.getElementById('growGolden').classList.remove('show');
+    var raw = localStorage.getItem('growSave');
+    var offlineEarn = 0;
+    grow.pos = {};
+    if (raw) {
+        try {
+            var d = JSON.parse(raw);
+            if (d.items) {
+                grow.items = d.items.map(function(it) {
+                    var type = it.type || 'creature';
+                    var hatchLeft = it.hatchLeft;
+                    if (type === 'creature' && it.lvl === 1 && hatchLeft == null) hatchLeft = GROW_HATCH_MIN + Math.random() * (GROW_HATCH_MAX - GROW_HATCH_MIN);
+                    return { id: it.id, type: type, lvl: it.lvl,
+                        color: type === 'plant' ? undefined : (it.color || (Math.random() < 0.5 ? 'black' : 'white')),
+                        feedBonus: it.feedBonus || 0, sick: !!it.sick, hungry: !!it.hungry, hatchLeft: type === 'creature' && it.lvl === 1 ? hatchLeft : undefined,
+                        row: it.row, col: it.col };
+                });
+                grow.nextId = d.nextId || (grow.items.length + 1);
+                grow.gridSize = Math.min(GROW_MAX_GRID, Math.max(GROW_START_GRID, d.gridSize || GROW_START_GRID));
+            } else if (d.board) {
+                grow.items = [];
+                var nid = 1;
+                d.board.forEach(function(c) { if (c) grow.items.push({ id: nid++, type: c.type || 'creature', lvl: c.lvl, color: Math.random() < 0.5 ? 'black' : 'white', feedBonus: 0,
+                    hatchLeft: (!c.type || c.type === 'creature') && c.lvl === 1 ? GROW_HATCH_MIN + Math.random() * (GROW_HATCH_MAX - GROW_HATCH_MIN) : undefined }); });
+                grow.nextId = nid;
+                grow.gridSize = GROW_START_GRID;
+                while (grow.items.length > grow.gridSize * grow.gridSize && grow.gridSize < GROW_MAX_GRID) grow.gridSize++;
+            } else {
+                grow.items = []; grow.nextId = 1; grow.gridSize = GROW_START_GRID;
+            }
+            grow.coins = d.coins || 0; grow.allTimeCoins = d.allTimeCoins || 0; grow.runCoins = d.runCoins || 0;
+            grow.eggsBought = d.eggsBought || 0; grow.seedsBought = d.seedsBought || 0;
+            grow.mergeCount = d.mergeCount || 0; grow.prestigeCount = d.prestigeCount || 0;
+            grow.goldenClaimed = d.goldenClaimed || 0; grow.fedCount = d.fedCount || 0; grow.bredCount = d.bredCount || 0;
+            grow.petCount = d.petCount || 0; grow.curedCount = d.curedCount || 0;
+            grow.bestLevelEver = d.bestLevelEver || 1;
+            grow.bestPlantLevelEver = d.bestPlantLevelEver || 0;
+            grow.playSeconds = d.playSeconds || 0; grow.stardust = d.stardust || 0;
+            grow.achievements = d.achievements || [];
+            var elapsedSec = Math.max(0, (Date.now() - (d.lastTime || Date.now())) / 1000);
+            elapsedSec = Math.min(elapsedSec, 7200);
+            grow.items.forEach(function(it) {
+                if (it.type === 'creature' && it.lvl === 1 && it.hatchLeft != null) {
+                    it.hatchLeft -= elapsedSec * 1000;
+                    if (it.hatchLeft <= 0) { it.lvl = 2; delete it.hatchLeft; }
+                }
+            });
+            offlineEarn = growTotalCps() * elapsedSec;
+            if (offlineEarn > 0) { grow.coins += offlineEarn; grow.allTimeCoins += offlineEarn; grow.runCoins += offlineEarn; }
+        } catch (e) {}
+    } else {
+        grow.items = []; grow.nextId = 1; grow.gridSize = GROW_START_GRID;
+        grow.coins = 0; grow.allTimeCoins = 0; grow.runCoins = 0;
+        grow.eggsBought = 0; grow.seedsBought = 0; grow.mergeCount = 0; grow.prestigeCount = 0; grow.goldenClaimed = 0;
+        grow.fedCount = 0; grow.bredCount = 0; grow.petCount = 0; grow.curedCount = 0;
+        grow.bestLevelEver = 1; grow.bestPlantLevelEver = 0; grow.playSeconds = 0; grow.stardust = 0; grow.achievements = [];
+    }
+    grow.items.forEach(function(it) {
+        if (it.row == null || it.row >= grow.gridSize || it.col >= grow.gridSize) growAssignPos(it.id);
+        else grow.pos[it.id] = growTilePos(it.row, it.col);
+    });
+    grow.selectedId = -1;
+    growUpdateColorFlags();
+    document.getElementById('growStatus').textContent = offlineEarn >= 1
+        ? L('오프라인 수익: +' + growFmt(offlineEarn) + ' 코인', 'Offline earnings: +' + growFmt(offlineEarn) + ' coins')
+        : '';
+    growRenderAchievements();
+    growRenderTiles();
+    growRenderItems();
+    growRender();
+    growCheckAchievements();
+    grow.timerHandle = setInterval(growTick, 1000);
+    grow.wanderHandle = setInterval(growWanderTick, 1600);
+    grow.breedHandle = setInterval(growBreedTick, 8000);
+    grow.sickHandle = setInterval(growSicknessTick, 15000);
+    grow.hungerHandle = setInterval(growHungerTick, 13000);
+}
+
+function growHatchTick() {
+    var hatched = [];
+    grow.items.forEach(function(it) {
+        if (it.type === 'creature' && it.lvl === 1 && it.hatchLeft != null) {
+            it.hatchLeft -= 1000;
+            if (it.hatchLeft <= 0) { it.lvl = 2; delete it.hatchLeft; hatched.push(it); }
+        }
+    });
+    if (hatched.length) {
+        hatched.forEach(function(it) {
+            var el = document.getElementById('growItem_' + it.id);
+            if (el) {
+                el.classList.remove('pop', 'hatching'); void el.offsetWidth; el.classList.add('pop');
+                el.innerHTML = growCreatureArt(it.lvl, it.color) + '<span class="lvl-badge">Lv' + it.lvl + (it.feedBonus ? ' 🌿' : '') + '</span>';
+            }
+            growFloatAtId(it.id, '🐣');
+        });
+        growToast('🐣 ' + L('알이 부화했어요!', 'An egg hatched!'));
+        if (window.SFX) SFX.powerup();
+    }
+}
+
+function growTick() {
+    grow.playSeconds++;
+    growHatchTick();
+    var gain = growTotalCps();
+    if (gain > 0) { grow.coins += gain; grow.allTimeCoins += gain; grow.runCoins += gain; }
+    var statusDrain = 0;
+    grow.items.forEach(function(it) {
+        if (it.type === 'creature' && (it.sick || it.hungry)) statusDrain += Math.round(Math.pow(it.lvl, 1.4)) + 1;
+    });
+    if (statusDrain > 0) grow.coins = Math.max(0, grow.coins - statusDrain);
+    if (!document.getElementById('growGolden').classList.contains('show') && Math.random() < 0.06) {
+        growSpawnGolden();
+    }
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growSicknessTick() {
+    var healthy = grow.items.filter(function(it) { return it.type === 'creature' && it.lvl >= 2 && !it.sick; });
+    if (!healthy.length || Math.random() >= 0.15) return;
+    var victim = healthy[Math.floor(Math.random() * healthy.length)];
+    victim.sick = true;
+    var el = document.getElementById('growItem_' + victim.id);
+    if (el) el.classList.add('sick');
+    var info = growLevelInfo(victim);
+    growToast('🤒 ' + info.emoji + ' ' + L('아파해요! 눌러서 치료해주세요', 'is sick! Tap to cure it'));
+    growSave();
+}
+
+function growHungerTick() {
+    var fine = grow.items.filter(function(it) { return it.type === 'creature' && it.lvl >= 2 && !it.hungry; });
+    if (!fine.length || Math.random() >= 0.15) return;
+    var victim = fine[Math.floor(Math.random() * fine.length)];
+    victim.hungry = true;
+    var el = document.getElementById('growItem_' + victim.id);
+    if (el) el.classList.add('hungry');
+    var info = growLevelInfo(victim);
+    growToast('🍖 ' + info.emoji + ' ' + L('배고파해요! 다 자란 나무를 먹여주세요', 'is hungry! Feed it a fully grown tree'));
+    growRenderItems();
+    growSave();
+}
+
+function growWanderTick() {
+    var movers = grow.items.filter(function(it) { return it.type === 'creature' && it.lvl >= 2 && Math.random() < 0.5; });
+    movers.forEach(function(it) {
+        var occupied = {};
+        grow.items.forEach(function(o) { if (o.id !== it.id && o.row != null) occupied[o.row + ',' + o.col] = true; });
+        var neighbors = [];
+        [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[-1,1],[1,-1],[1,1]].forEach(function(d) {
+            var r = it.row + d[0], c = it.col + d[1];
+            if (r >= 0 && r < grow.gridSize && c >= 0 && c < grow.gridSize && !occupied[r + ',' + c]) neighbors.push({ row: r, col: c });
+        });
+        if (!neighbors.length) return;
+        var tile = neighbors[Math.floor(Math.random() * neighbors.length)];
+        it.row = tile.row; it.col = tile.col;
+        var p = growTilePos(it.row, it.col);
+        grow.pos[it.id] = p;
+        var el = document.getElementById('growItem_' + it.id);
+        if (el) { el.style.left = p.x + '%'; el.style.top = p.y + '%'; }
+    });
+}
+
+function growBreedTick() {
+    if (grow.items.length >= growTileCount()) return;
+    var mature = grow.items.filter(function(it) { return it.type === 'creature' && it.lvl >= GROW_BREED_MIN_LEVEL; });
+    var byColor = {};
+    mature.forEach(function(it) { (byColor[it.color] = byColor[it.color] || []).push(it); });
+    var candidates = Object.keys(byColor).filter(function(c) { return byColor[c].length >= 2; });
+    if (!candidates.length) return;
+    if (Math.random() >= 0.2) return;
+    var color = candidates[Math.floor(Math.random() * candidates.length)];
+    var id = grow.nextId++;
+    grow.items.push(growNewCreature(id, color));
+    growAssignPos(id);
+    grow.bredCount++;
+    growRenderItems();
+    growFloatAtId(id, '🐣');
+    growToast('💕 ' + L('짝짓기로 새 아기가 태어났어요!', 'A new baby was born!'));
+    if (window.SFX) SFX.powerup();
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growSpawnGolden() {
+    var btn = document.getElementById('growGolden');
+    btn.classList.add('show');
+    clearTimeout(grow.goldenTimeout);
+    grow.goldenTimeout = setTimeout(function() { btn.classList.remove('show'); }, 6000);
+}
+function growClaimGolden(e) {
+    e.stopPropagation();
+    var btn = document.getElementById('growGolden');
+    btn.classList.remove('show');
+    clearTimeout(grow.goldenTimeout);
+    var bonus = Math.max(50, Math.floor(growTotalCps() * 45 + 100));
+    grow.coins += bonus; grow.allTimeCoins += bonus; grow.runCoins += bonus; grow.goldenClaimed++;
+    if (window.SFX) SFX.powerup();
+    growToast('🥇 ' + L('황금알 보너스! +', 'Golden Egg bonus! +') + growFmt(bonus));
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growFloatAtId(id, text, cls) {
+    var el = document.getElementById('growItem_' + id);
+    if (!el) return;
+    var f = document.createElement('span');
+    f.className = 'grow-float' + (cls ? ' ' + cls : '');
+    f.textContent = text;
+    el.appendChild(f);
+    setTimeout(function() { f.remove(); }, 700);
+}
+
+function growRenderTiles() {
+    var board = document.getElementById('growBoard');
+    var scale = 1 + (grow.gridSize - GROW_START_GRID) * 0.16;
+    var size = Math.round(240 * scale);
+    board.style.width = size + 'px';
+    board.style.height = size + 'px';
+}
+
+function growRenderItems() {
+    var el = document.getElementById('growItemLayer');
+    el.innerHTML = '';
+    grow.items.forEach(function(it) {
+        var p = grow.pos[it.id];
+        if (!p) { growAssignPos(it.id); p = grow.pos[it.id]; }
+        var info = growLevelInfo(it);
+        var div = document.createElement('div');
+        div.className = 'grow-item' + (it.type === 'plant' ? ' plant' : ' color-' + it.color) +
+            (it.id === grow.selectedId ? ' selected' : '') + (it.sick ? ' sick' : '') + (it.hungry ? ' hungry' : '') +
+            (it.type === 'creature' && it.lvl === 1 ? ' hatching' : '');
+        div.id = 'growItem_' + it.id;
+        div.style.left = p.x + '%';
+        div.style.top = p.y + '%';
+        var art = it.type === 'creature' ? growCreatureArt(it.lvl, it.color) : info.emoji;
+        div.innerHTML = art + (it.sick ? '<span class="sick-badge">🤒</span>' : '') + (it.hungry ? '<span class="sick-badge">🍖</span>' : '') +
+            '<span class="lvl-badge">Lv' + it.lvl + (it.feedBonus ? ' 🌿' : '') + '</span>';
+        div.onclick = (function(id) { return function() { growItemClick(id); }; })(it.id);
+        el.appendChild(div);
+    });
+}
+
+function growFeed(creature, plant) {
+    creature.feedBonus = (creature.feedBonus || 0) + plant.lvl * 0.03;
+    var bonus = plant.lvl * 8;
+    grow.coins += bonus; grow.allTimeCoins += bonus; grow.runCoins += bonus;
+    grow.items = grow.items.filter(function(it) { return it.id !== plant.id; });
+    delete grow.pos[plant.id];
+    grow.fedCount++;
+    var curedHunger = false;
+    if (creature.hungry && plant.lvl === GROW_PLANT_MAX_LEVEL) {
+        creature.hungry = false;
+        grow.curedCount++;
+        curedHunger = true;
+    }
+    grow.selectedId = -1;
+    if (window.SFX) SFX.pop();
+    growRenderItems();
+    growFloatAtId(creature.id, '🌿 +' + Math.round(plant.lvl * 3) + '%');
+    if (curedHunger) {
+        growToast('🍽️ ' + L('배고픔 해결! 생산량도 영구 증가', 'Hunger fixed! Also boosted production for good'));
+    } else if (creature.hungry) {
+        growToast('🍽️ ' + L('생산량은 늘었지만 완전히 자란 나무여야 배고픔이 풀려요', 'Production boosted, but only a fully grown tree cures hunger'));
+    } else {
+        growToast('🍽️ ' + L('먹이 주기 성공! 생산량 영구 증가', 'Fed! Permanent production boost'));
+    }
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growPetItem(it) {
+    var now = Date.now();
+    if (now - (it.lastPet || 0) < 3000) return;
+    it.lastPet = now;
+    var reward = Math.max(1, Math.round(growCoinRate(it) * 0.5) + 1);
+    grow.coins += reward; grow.allTimeCoins += reward; grow.runCoins += reward;
+    grow.petCount++;
+    growFloatAtId(it.id, '🤗 +' + growFmt(reward));
+    if (window.SFX) SFX.blip();
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growPlantUpgradeCost(lvl) { return Math.floor(20 * Math.pow(1.6, lvl - 1)); }
+function growUpgradePlant(plant) {
+    if (plant.lvl >= GROW_PLANT_MAX_LEVEL) { growToast(L('이미 다 자랐어요!', 'Already fully grown!')); return; }
+    var cost = growPlantUpgradeCost(plant.lvl);
+    if (grow.coins < cost) { growToast(L('코인이 부족해요', 'Not enough coins')); return; }
+    grow.coins -= cost;
+    plant.lvl++;
+    if (plant.lvl > grow.bestPlantLevelEver) grow.bestPlantLevelEver = plant.lvl;
+    if (window.SFX) SFX.coin();
+    var el = document.getElementById('growItem_' + plant.id);
+    if (el) { el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+    growRenderItems();
+    growFloatAtId(plant.id, 'Lv' + plant.lvl);
+    if (plant.lvl === GROW_PLANT_MAX_LEVEL) growToast('🌈 ' + L('무지개 나무 완성!', 'Rainbow Tree grown!'));
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growMergeChance(lvl, feedAvg) {
+    var base = Math.max(0.25, 1 - (lvl - 1) * 0.15);
+    return Math.min(1, base + feedAvg);
+}
+
+function growItemClick(id) {
+    var clicked = growFindItem(id);
+    if (!clicked) return;
+    if (clicked.sick) {
+        clicked.sick = false;
+        grow.curedCount++;
+        var el0 = document.getElementById('growItem_' + id);
+        if (el0) el0.classList.remove('sick');
+        growToast('💊 ' + L('치료 완료!', 'Cured!'));
+        if (window.SFX) SFX.powerup();
+        growRenderItems();
+        growRender();
+        growCheckAchievements();
+        growSave();
+        return;
+    }
+
+    if (clicked.type === 'plant') {
+        if (grow.selectedId !== -1) {
+            var creature0 = growFindItem(grow.selectedId);
+            grow.selectedId = -1;
+            if (creature0 && creature0.type === 'creature') growFeed(creature0, clicked);
+            else growRenderItems();
+            return;
+        }
+        growUpgradePlant(clicked);
+        return;
+    }
+
+    if (grow.selectedId === -1) {
+        growPetItem(clicked);
+        grow.selectedId = id; growRenderItems(); return;
+    }
+    if (grow.selectedId === id) { grow.selectedId = -1; growRenderItems(); return; }
+    var src = growFindItem(grow.selectedId);
+    var dst = clicked;
+    if (!src) { grow.selectedId = -1; growRenderItems(); return; }
+    if (src.type === 'plant') { grow.selectedId = id; growRenderItems(); return; }
+
+    if (dst.lvl === src.lvl && src.color === dst.color && src.lvl < GROW_MAX_LEVEL) {
+        var feedAvg = ((src.feedBonus || 0) + (dst.feedBonus || 0)) / 2;
+        var chance = growMergeChance(src.lvl, feedAvg);
+        var success = Math.random() < chance;
+        grow.selectedId = -1;
+        if (!success) {
+            growToast('💔 ' + L('합체 실패! 식물을 먹여 성공률을 올려보세요 (' + Math.round(chance * 100) + '%)', 'Merge failed! Feed plants to raise your odds (' + Math.round(chance * 100) + '%)'));
+            growRenderItems();
+            if (window.SFX) SFX.error();
+            growSave();
+            return;
+        }
+        var newLvl = src.lvl + 1;
+        dst.lvl = newLvl;
+        dst.feedBonus = Math.max(dst.feedBonus || 0, src.feedBonus || 0);
+        grow.items = grow.items.filter(function(it) { return it.id !== src.id; });
+        delete grow.pos[src.id];
+        grow.mergeCount++;
+        if (newLvl > grow.bestLevelEver) grow.bestLevelEver = newLvl;
+        var bonus = growMergeBonus(newLvl);
+        grow.coins += bonus; grow.allTimeCoins += bonus; grow.runCoins += bonus;
+        growRenderItems();
+        var cellEl = document.getElementById('growItem_' + dst.id);
+        if (cellEl) { cellEl.classList.remove('pop'); void cellEl.offsetWidth; cellEl.classList.add('pop'); }
+        if (window.SFX) SFX.pop();
+        growFloatAtId(dst.id, '+' + growFmt(bonus));
+        if (newLvl === GROW_MAX_LEVEL) {
+            growToast('🔥 ' + L('전설의 불사조 탄생!', 'A legendary phoenix is born!'));
+            if (window.SFX) SFX.win();
+        }
+        growRender();
+        growCheckAchievements();
+        growSave();
+        return;
+    }
+    grow.selectedId = id;
+    growRenderItems();
+}
+
+function growGetEgg() {
+    var cost = growEggCost();
+    if (grow.coins < cost) { growToast(L('코인이 부족해요', 'Not enough coins')); return; }
+    if (grow.items.length >= growTileCount()) { growToast(L('섬이 가득 찼어요! 합체하거나 섬을 확장하세요', 'Island is full! Merge or expand your island')); return; }
+    grow.coins -= cost;
+    var id = grow.nextId++;
+    grow.items.push(growNewCreature(id, Math.random() < 0.5 ? 'black' : 'white'));
+    growAssignPos(id);
+    grow.eggsBought++;
+    if (window.SFX) SFX.coin();
+    growRenderItems();
+    growFloatAtId(id, '🥚');
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growGetSeed() {
+    var cost = growSeedCost();
+    if (grow.coins < cost) { growToast(L('코인이 부족해요', 'Not enough coins')); return; }
+    if (grow.items.length >= growTileCount()) { growToast(L('섬이 가득 찼어요! 합체하거나 섬을 확장하세요', 'Island is full! Merge or expand your island')); return; }
+    grow.coins -= cost;
+    var id = grow.nextId++;
+    grow.items.push({ id: id, type: 'plant', lvl: 1 });
+    growAssignPos(id);
+    grow.seedsBought++;
+    if (window.SFX) SFX.coin();
+    growRenderItems();
+    growFloatAtId(id, '🌱');
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growExpandCapacity() {
+    if (grow.gridSize >= GROW_MAX_GRID) return;
+    var cost = growCapacityCost();
+    if (grow.coins < cost) { growToast(L('코인이 부족해요', 'Not enough coins')); return; }
+    grow.coins -= cost;
+    grow.gridSize++;
+    grow.items.forEach(function(it) { grow.pos[it.id] = growTilePos(it.row, it.col); });
+    if (window.SFX) SFX.coin();
+    growRenderTiles();
+    growRenderItems();
+    growToast('🏝️ ' + L('섬이 넓어졌어요! (' + grow.gridSize + '×' + grow.gridSize + ')', 'Island expanded! (' + grow.gridSize + '×' + grow.gridSize + ')'));
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growPrestige() {
+    if (growCurrentMaxCreatureLevel() < GROW_PRESTIGE_LEVEL) return;
+    var gain = growPrestigeGain();
+    if (gain < 1) return;
+    grow.stardust += gain; grow.prestigeCount++;
+    grow.items = []; grow.pos = {};
+    grow.gridSize = GROW_START_GRID;
+    grow.coins = 0; grow.runCoins = 0; grow.eggsBought = 0; grow.seedsBought = 0;
+    grow.selectedId = -1;
+    if (window.SFX) SFX.win();
+    growToast('🚢 ' + L('이주 완료! 별가루 +', 'Migrated! +') + gain);
+    document.getElementById('growStatus').textContent = L('새 섬으로 이주했습니다! 별가루 +' + gain, 'Migrated to a new island! +' + gain + ' stardust');
+    growRenderTiles();
+    growRenderItems();
+    growRender();
+    growCheckAchievements();
+    growSave();
+}
+
+function growRender() {
+    document.getElementById('growCoins').textContent = growFmt(grow.coins);
+    document.getElementById('growCps').textContent = growFmt(growTotalCps());
+    document.getElementById('growStardust').textContent = growFmt(grow.stardust);
+    document.getElementById('growEggCost').textContent = growFmt(growEggCost());
+    document.getElementById('growSeedCost').textContent = growFmt(growSeedCost());
+    document.getElementById('growCapacityText').textContent = grow.items.length + ' / ' + growTileCount() + ' (' + grow.gridSize + '×' + grow.gridSize + ')';
+    var nextGrid = grow.gridSize + 1;
+    document.getElementById('growExpandCost').textContent = grow.gridSize >= GROW_MAX_GRID ? L('최대', 'MAX') : (growFmt(growCapacityCost()) + ' → ' + nextGrid + '×' + nextGrid);
+    document.getElementById('growMergeCount').textContent = growFmt(grow.mergeCount);
+    document.getElementById('growBestLevel').textContent = GROW_LEVELS[grow.bestLevelEver].emoji;
+    document.getElementById('growBestPlant').textContent = grow.bestPlantLevelEver > 0 ? GROW_PLANT_LEVELS[grow.bestPlantLevelEver].emoji : '—';
+    document.getElementById('growPrestigeCount').textContent = grow.prestigeCount;
+    document.getElementById('growPlayTime').textContent = growFmtTime(grow.playSeconds);
+
+    var eggBtn = document.getElementById('growEggBtn');
+    eggBtn.disabled = grow.coins < growEggCost() || grow.items.length >= growTileCount();
+    eggBtn.style.opacity = eggBtn.disabled ? '.5' : '1';
+    var seedBtn = document.getElementById('growSeedBtn');
+    seedBtn.disabled = grow.coins < growSeedCost() || grow.items.length >= growTileCount();
+    seedBtn.style.opacity = seedBtn.disabled ? '.5' : '1';
+    var expandBtn = document.getElementById('growExpandBtn');
+    expandBtn.disabled = grow.gridSize >= GROW_MAX_GRID || grow.coins < growCapacityCost();
+    expandBtn.style.opacity = expandBtn.disabled ? '.5' : '1';
+
+    var maxLvl = growCurrentMaxCreatureLevel();
+    var gain = growPrestigeGain();
+    var canPrestige = maxLvl >= GROW_PRESTIGE_LEVEL && gain >= 1;
+    document.getElementById('growPrestigeGain').textContent = gain;
+    var pBtn = document.getElementById('growPrestigeBtn');
+    pBtn.disabled = !canPrestige;
+    document.getElementById('growPrestigeHint').style.display = maxLvl >= GROW_PRESTIGE_LEVEL ? 'none' : 'block';
 }
 
 /* ── Odd Color Out ── */
