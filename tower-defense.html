@@ -285,6 +285,21 @@ function pointAtDist(d){
   var last=pathPx[pathPx.length-1];
   return {x:last.x,y:last.y,angle:0};
 }
+function nearestPathPoint(px,py){
+  var best=null, bestD=Infinity, acc=0;
+  for(var i=0;i<pathPx.length-1;i++){
+    var a=pathPx[i], b=pathPx[i+1];
+    var vx=b.x-a.x, vy=b.y-a.y;
+    var wx=px-a.x, wy=py-a.y;
+    var len2=vx*vx+vy*vy;
+    var t=len2>0?clamp((wx*vx+wy*vy)/len2,0,1):0;
+    var cx=a.x+vx*t, cy=a.y+vy*t;
+    var d=dist(px,py,cx,cy);
+    if(d<bestD){ bestD=d; best={x:cx,y:cy,dist:acc+t*segLens[i]}; }
+    acc+=segLens[i];
+  }
+  return best;
+}
 function distToSeg(px,py,ax,ay,bx,by){
   var vx=bx-ax, vy=by-ay;
   var wx=px-ax, wy=py-ay;
@@ -558,7 +573,7 @@ function spawnMinion(tw){
   var st=towerStats(tw);
   state.minions.push({
     id:Math.random().toString(36).slice(2), ownerKind:'tank',
-    x:tw.x, y:tw.y, angle:-Math.PI/2, r:16,
+    x:tw.x, y:tw.y, angle:-Math.PI/2, r:16, onPath:false, pathDist:0,
     hp:st.unitHp, maxHp:st.unitHp, dmg:st.unitDmg,
     range:st.range, rate:st.unitRate, cooldown:0, speed:st.unitSpeed, contactDps:st.contactDps,
     target:null, dying:false, deathTimer:0, color:TOWER_BY_KEY['tank'].color
@@ -641,7 +656,7 @@ function tryReviveAsUndead(e){
   if(Math.random()>=st.reviveChance) return;
   state.minions.push({
     id:Math.random().toString(36).slice(2), ownerKind:'undead',
-    x:e.x, y:e.y, angle:0, r:e.r*0.85,
+    x:e.x, y:e.y, angle:0, r:e.r*0.85, onPath:true, pathDist:e.distTraveled,
     hp:e.maxHp*st.reviveRatio, maxHp:e.maxHp*st.reviveRatio,
     range:0, rate:0, cooldown:0, speed:st.unitSpeed, contactDps:st.contactDps,
     target:null, dying:false, deathTimer:0, color:TOWER_BY_KEY['necro'].color
@@ -1006,11 +1021,25 @@ function update(dtReal){
         m.angle=Math.atan2(m.target.y-m.y,m.target.x-m.x);
         m.cooldown-=dt;
         if(m.cooldown<=0){ fireMinion(m); m.cooldown=1/m.rate; }
+      } else if(!m.onPath){
+        var proj=nearestPathPoint(m.x,m.y);
+        var toAng=Math.atan2(proj.y-m.y,proj.x-m.x);
+        m.angle=toAng;
+        if(dist(m.x,m.y,proj.x,proj.y)<=m.speed*dt){
+          m.onPath=true; m.pathDist=proj.dist; m.x=proj.x; m.y=proj.y;
+        } else {
+          m.x+=Math.cos(toAng)*m.speed*dt;
+          m.y+=Math.sin(toAng)*m.speed*dt;
+        }
       } else {
-        var mang=Math.atan2(m.target.y-m.y,m.target.x-m.x);
-        m.angle=mang;
-        m.x+=Math.cos(mang)*m.speed*dt;
-        m.y+=Math.sin(mang)*m.speed*dt;
+        var targetDist=m.target.distTraveled;
+        var diff=targetDist-m.pathDist;
+        var moveAmt=m.speed*dt;
+        if(Math.abs(diff)<=moveAmt) m.pathDist=targetDist; else m.pathDist+=Math.sign(diff)*moveAmt;
+        m.pathDist=clamp(m.pathDist,0,totalLen);
+        var pp=pointAtDist(m.pathDist);
+        m.x=pp.x; m.y=pp.y;
+        m.angle=Math.atan2(m.target.y-m.y,m.target.x-m.x);
       }
     }
     if(m.hp<=0 && !m.dying){ m.dying=true; m.deathTimer=0.3; spawnDeathBurst(m.x,m.y,m.color); }
