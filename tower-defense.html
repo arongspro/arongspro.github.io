@@ -581,11 +581,18 @@ function spawnMinion(tw){
   sfxPlace();
 }
 function findTargetForMinion(m){
-  var best=null, bestD=-Infinity;
+  var best=null, bestScore=Infinity;
   for(var i=0;i<state.enemies.length;i++){
     var e=state.enemies[i];
     if(e.dead||e.dying) continue;
-    if(e.distTraveled>bestD){ bestD=e.distTraveled; best=e; }
+    var score;
+    if(m.onPath){
+      if(e.distTraveled<m.pathDist-2) continue;
+      score=e.distTraveled-m.pathDist;
+    } else {
+      score=dist(m.x,m.y,e.x,e.y);
+    }
+    if(score<bestScore){ bestScore=score; best=e; }
   }
   return best;
 }
@@ -656,7 +663,7 @@ function tryReviveAsUndead(e){
   if(Math.random()>=st.reviveChance) return;
   state.minions.push({
     id:Math.random().toString(36).slice(2), ownerKind:'undead',
-    x:e.x, y:e.y, angle:0, r:e.r*0.85, onPath:true, pathDist:e.distTraveled,
+    x:e.x, y:e.y, angle:0, r:e.r*0.85, onPath:true, pathDist:e.distTraveled, bobPhase:rand(0,10),
     hp:e.maxHp*st.reviveRatio, maxHp:e.maxHp*st.reviveRatio,
     range:0, rate:0, cooldown:0, speed:st.unitSpeed, contactDps:st.contactDps,
     target:null, dying:false, deathTimer:0, color:TOWER_BY_KEY['necro'].color
@@ -1033,9 +1040,9 @@ function update(dtReal){
         }
       } else {
         var targetDist=m.target.distTraveled;
-        var diff=targetDist-m.pathDist;
+        var diff=Math.max(0,targetDist-m.pathDist);
         var moveAmt=m.speed*dt;
-        if(Math.abs(diff)<=moveAmt) m.pathDist=targetDist; else m.pathDist+=Math.sign(diff)*moveAmt;
+        m.pathDist=diff<=moveAmt? targetDist : m.pathDist+moveAmt;
         m.pathDist=clamp(m.pathDist,0,totalLen);
         var pp=pointAtDist(m.pathDist);
         m.x=pp.x; m.y=pp.y;
@@ -1195,7 +1202,7 @@ function drawTowerBase(c,color,recoil,level){
   c.fillStyle='#0a0e1c'; c.beginPath(); c.arc(0,0,11,0,Math.PI*2); c.fill();
   c.restore();
 }
-function drawTowerTurret(c,key,level,angle,recoil,coilPhase,t){
+function drawTowerTurret(c,key,level,angle,recoil,coilPhase,t,extra){
   c.save();
   c.rotate(angle);
   var color=TOWER_BY_KEY[key].color;
@@ -1305,21 +1312,64 @@ function drawTowerTurret(c,key,level,angle,recoil,coilPhase,t){
       c.beginPath(); c.arc(0,0,orbR+7,0,Math.PI*2); c.stroke(); c.restore();
     }
   } else if(key==='tank'){
-    c.fillStyle='#232a44'; c.strokeStyle=color; c.lineWidth=1.6;
-    c.fillRect(-3,-5,17+level*2+kick,10); c.strokeRect(-3,-5,17+level*2+kick,10);
-    c.beginPath(); c.arc(0,0,9+level,0,Math.PI*2); c.fillStyle='#181c2a'; c.fill(); c.stroke();
-    c.fillStyle=color; c.globalAlpha=.6+Math.sin(t*3)*0.25;
-    c.beginPath(); c.arc(0,0,3,0,Math.PI*2); c.fill(); c.globalAlpha=1;
+    var padR=12+level*1.3;
+    var frac=extra?clamp(extra.frac,0,1):1;
+    c.save(); c.rotate(-angle);
+    c.strokeStyle='rgba(255,255,255,.14)'; c.lineWidth=2.6;
+    c.beginPath(); c.arc(0,0,padR+5,0,Math.PI*2); c.stroke();
+    c.strokeStyle=color; c.lineWidth=2.6; c.lineCap='round'; c.globalAlpha=.85;
+    c.beginPath(); c.arc(0,0,padR+5,-Math.PI/2,-Math.PI/2+Math.PI*2*frac); c.stroke();
+    c.globalAlpha=1;
+    c.restore();
+    c.fillStyle='#181c2c'; c.strokeStyle=color; c.lineWidth=1.4;
+    c.beginPath();
+    for(var pi=0;pi<6;pi++){ var pa=Math.PI/6+pi*Math.PI/3; var pxp=Math.cos(pa)*padR, pyp=Math.sin(pa)*padR; if(pi===0)c.moveTo(pxp,pyp); else c.lineTo(pxp,pyp); }
+    c.closePath(); c.fill(); c.stroke();
+    c.save(); c.rotate(Math.PI/2);
+    c.fillStyle='#3a4266'; c.strokeStyle=color; c.lineWidth=1.3;
+    var hr=7+level*0.8;
+    c.beginPath();
+    c.moveTo(-hr*0.55,-hr); c.lineTo(hr*0.75,-hr*0.7); c.lineTo(hr,0); c.lineTo(hr*0.75,hr*0.7); c.lineTo(-hr*0.55,hr); c.lineTo(-hr*0.85,0);
+    c.closePath(); c.fill(); c.stroke();
+    c.beginPath(); c.arc(0,0,hr*0.42,0,Math.PI*2); c.fillStyle='#232a44'; c.fill(); c.stroke();
+    c.fillStyle=color; c.fillRect(0,-hr*0.13,hr*1.1+kick*0.4,hr*0.26);
+    c.restore();
+    if(level>=1){
+      c.fillStyle=color; c.globalAlpha=.7;
+      c.beginPath(); c.arc(Math.cos(t*2)*(padR-3),Math.sin(t*2)*(padR-3),1.5,0,Math.PI*2); c.fill();
+      c.globalAlpha=1;
+    }
+    if(level>=2){
+      c.save(); c.globalAlpha=.3; c.strokeStyle=color; c.lineWidth=1;
+      c.beginPath(); c.arc(0,0,padR-4,0,Math.PI*2); c.stroke(); c.restore();
+    }
   } else if(key==='necro'){
-    c.beginPath(); c.arc(0,0,9+level,0,Math.PI*2); c.fillStyle='#160a2a'; c.fill(); c.strokeStyle=color; c.lineWidth=1.6; c.stroke();
-    c.save(); c.rotate(t*0.7);
-    for(var nk=0;nk<3+level;nk++){
-      var na=nk*(Math.PI*2/(3+level));
-      c.fillStyle=color; c.globalAlpha=.55+Math.sin(t*4+nk)*0.25;
-      c.beginPath(); c.arc(Math.cos(na)*(13+level*2),Math.sin(na)*(13+level*2),1.8,0,Math.PI*2); c.fill();
+    var ringR=10+level*1.4;
+    c.beginPath(); c.arc(0,0,ringR,0,Math.PI*2);
+    var bg=c.createRadialGradient(0,0,0,0,0,ringR);
+    bg.addColorStop(0,'#241442'); bg.addColorStop(1,'#120822');
+    c.fillStyle=bg; c.fill(); c.strokeStyle=color; c.lineWidth=1.5; c.stroke();
+    c.save(); c.rotate(t*0.55);
+    var runeCount=4+level;
+    for(var nk=0;nk<runeCount;nk++){
+      var na=nk*(Math.PI*2/runeCount);
+      c.save(); c.rotate(na); c.translate(ringR-2.5,0);
+      c.strokeStyle=color; c.lineWidth=1.3; c.globalAlpha=.5+Math.sin(t*3+nk)*.3;
+      c.beginPath(); c.moveTo(-2,-2); c.lineTo(2,2); c.moveTo(2,-2); c.lineTo(-2,2); c.stroke();
+      c.restore();
     }
     c.globalAlpha=1; c.restore();
-    c.fillStyle=color; c.beginPath(); c.arc(0,0,3.5,0,Math.PI*2); c.fill();
+    if(level>=1){
+      c.save(); c.globalAlpha=.4; c.rotate(-t*0.4); c.strokeStyle=color; c.lineWidth=1;
+      c.beginPath(); c.arc(0,0,ringR+4,0,Math.PI*1.5); c.stroke(); c.restore();
+    }
+    var bob=Math.sin(t*2.2)*1.6;
+    var og=c.createRadialGradient(0,-bob,0,0,-bob,6+level*0.8);
+    og.addColorStop(0,'#f0e2ff'); og.addColorStop(0.5,color); og.addColorStop(1,'rgba(122,58,255,0)');
+    c.fillStyle=og;
+    c.beginPath(); c.arc(0,-bob,5+level*0.8,0,Math.PI*2); c.fill();
+    c.fillStyle='#fff'; c.globalAlpha=.8;
+    c.beginPath(); c.arc(0,-bob,1.6,0,Math.PI*2); c.fill(); c.globalAlpha=1;
   }
   c.restore();
 }
@@ -1330,15 +1380,42 @@ function drawMinion(m){
   ctx.scale(scale,scale);
   ctx.rotate(m.angle);
   ctx.fillStyle='rgba(0,0,0,.35)'; ctx.save(); ctx.rotate(-m.angle); ctx.beginPath(); ctx.ellipse(0,4,m.r*0.9,m.r*0.4,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+  var tnow=performance.now()/1000;
   if(m.ownerKind==='tank'){
-    ctx.fillStyle='#3a4266'; ctx.strokeStyle=m.color; ctx.lineWidth=2;
-    ctx.fillRect(-m.r*0.9,-m.r*0.6,m.r*1.8,m.r*1.2); ctx.strokeRect(-m.r*0.9,-m.r*0.6,m.r*1.8,m.r*1.2);
-    ctx.beginPath(); ctx.arc(0,0,m.r*0.55,0,Math.PI*2); ctx.fillStyle='#232a44'; ctx.fill(); ctx.stroke();
-    ctx.fillStyle=m.color; ctx.fillRect(0,-3,m.r*0.95,6);
+    var r=m.r;
+    var trOff=(tnow*m.speed*0.3)%(r*0.4);
+    for(var side=-1;side<=1;side+=2){
+      ctx.fillStyle='#191d30';
+      ctx.fillRect(-r*0.95,side*r*0.62-r*0.22,r*1.9,r*0.44);
+      ctx.fillStyle='#2a3050';
+      for(var tk=0;tk<6;tk++){
+        var tx=-r*0.95+((tk*r*0.32+trOff)%(r*1.9));
+        ctx.fillRect(tx,side*r*0.62-r*0.18,r*0.16,r*0.36);
+      }
+    }
+    ctx.fillStyle='#3a4266'; ctx.strokeStyle=m.color; ctx.lineWidth=2; ctx.lineJoin='round';
+    ctx.beginPath();
+    ctx.moveTo(-r*0.55,-r*0.55); ctx.lineTo(r*0.8,-r*0.4); ctx.lineTo(r*0.95,0); ctx.lineTo(r*0.8,r*0.4); ctx.lineTo(-r*0.55,r*0.55); ctx.lineTo(-r*0.8,0);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(-r*0.05,0,r*0.42,0,Math.PI*2); ctx.fillStyle='#232a44'; ctx.fill(); ctx.stroke();
+    ctx.fillStyle=m.color; ctx.fillRect(r*0.05,-r*0.12,r*0.85,r*0.24);
+    ctx.fillStyle=m.color; ctx.globalAlpha=.7+Math.sin(tnow*4)*.25; ctx.beginPath(); ctx.arc(-r*0.05,0,r*0.14,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
   } else {
-    ctx.fillStyle='#1c1030'; ctx.strokeStyle=m.color; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(0,-m.r); ctx.lineTo(m.r*0.85,m.r*0.7); ctx.lineTo(-m.r*0.85,m.r*0.7); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle=m.color; ctx.beginPath(); ctx.arc(0,-m.r*0.2,m.r*0.3,0,Math.PI*2); ctx.fill();
+    var r2=m.r, bob=Math.sin(tnow*3+(m.bobPhase||0))*1.4;
+    ctx.translate(0,bob*0.4);
+    ctx.fillStyle='#1a1030'; ctx.strokeStyle=m.color; ctx.lineWidth=1.8; ctx.lineJoin='round';
+    ctx.beginPath();
+    ctx.moveTo(0,-r2*1.15);
+    ctx.quadraticCurveTo(r2*0.95,-r2*0.15,r2*0.6,r2*0.85);
+    ctx.lineTo(r2*0.28,r2*0.5);
+    ctx.lineTo(0,r2*0.9);
+    ctx.lineTo(-r2*0.28,r2*0.5);
+    ctx.lineTo(-r2*0.6,r2*0.85);
+    ctx.quadraticCurveTo(-r2*0.95,-r2*0.15,0,-r2*1.15);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=m.color; ctx.globalAlpha=.55+Math.sin(tnow*4+(m.bobPhase||0))*.25;
+    ctx.beginPath(); ctx.arc(-r2*0.16,-r2*0.35,r2*0.12,0,Math.PI*2); ctx.arc(r2*0.16,-r2*0.35,r2*0.12,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=1;
   }
   ctx.restore();
   if(!m.dying){
@@ -1358,7 +1435,11 @@ function drawTowers(){
     ctx.save();
     ctx.translate(tw.x,tw.y);
     drawTowerBase(ctx,TOWER_BY_KEY[tw.type].color,tw.recoil,tw.level);
-    drawTowerTurret(ctx,tw.type,tw.level,tw.angle,tw.recoil,tw.coilPhase,now);
+    var extra=null;
+    if(TOWER_BY_KEY[tw.type].spawner){
+      extra={frac: clamp(1-(tw.spawnCooldown/towerStats(tw).spawnInterval),0,1)};
+    }
+    drawTowerTurret(ctx,tw.type,tw.level,tw.angle,tw.recoil,tw.coilPhase,now,extra);
     ctx.restore();
     if(state.selectedTower===tw){
       ctx.beginPath(); ctx.arc(tw.x,tw.y,towerRange(tw),0,Math.PI*2);
